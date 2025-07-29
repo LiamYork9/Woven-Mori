@@ -3,12 +3,15 @@ using System.Collections;
 using UnityEngine;
 using TMPro;
  using UnityEngine.UI;
+using UnityEditor.Rendering;
 
 public class BattleManager : MonoBehaviour
 {
     public List<GameObject> playerSlots;
 
     public List<GameObject> enemySlots;
+
+    public List<GameObject> defaultSlots;
     public static BattleManager Instance;
 
     public static BattleManager GetInstance()
@@ -35,7 +38,11 @@ public class BattleManager : MonoBehaviour
 
     public bool attacking;
 
-   
+    public TextMeshProUGUI dialogueText;
+
+    public GameObject attackButton;
+
+
 
 
     public void Awake()
@@ -60,7 +67,7 @@ public class BattleManager : MonoBehaviour
 
     public void Update()
     {
-        
+
         if (selecting == true)
         {
 
@@ -76,7 +83,7 @@ public class BattleManager : MonoBehaviour
                 {
                     targetIndex++;
                 }
-                
+
                 target = enemySlots[targetIndex];
                 targetArrow.transform.position = target.transform.position;
             }
@@ -90,28 +97,53 @@ public class BattleManager : MonoBehaviour
                 {
                     targetIndex--;
                 }
-                    target = enemySlots[targetIndex];
-                    targetArrow.transform.position = target.transform.position;
-                
+                target = enemySlots[targetIndex];
+                targetArrow.transform.position = target.transform.position;
+
             }
 
             if (Input.GetKeyDown(KeyCode.Space))
             {
                 if (attacking == true)
                 {
-                    target.GetComponent<Enemy>().currentHP -= 5;
-                    attacking = false;
+                    StartCoroutine(PlayerAttack());
                 }
                 selecting = false;
                 Debug.Log("Player has Attacked " + target);
             }
+
+            for (int i = 0; i < enemySlots.Count; i++)
+            {
+
+                if (enemySlots[i].GetComponent<Enemy>().currentHP <= 0)
+                {
+                    enemySlots.Remove(target);
+                }
+            }
+
         }
-        
-    
+
+        if (Input.GetKeyDown(KeyCode.R))
+        {
+            enemySlots.Clear();
+            for (int i = 0; i < defaultSlots.Count; i++)
+            {
+                enemySlots.Add(defaultSlots[i]);
+            }
+            BattleStart();
+        }
+
+
     }
 
     void BattleStart()
     {
+         enemySlots.Clear();
+            for (int i = 0; i < defaultSlots.Count; i++)
+            {
+                enemySlots.Add(defaultSlots[i]);
+            }
+        
         for (int i = 0; i < playerSlots.Count; i++)
         {
             playerSlots[i].GetComponent<Image>().sprite = PartyManager.Instance.party[i].chSprite;
@@ -119,7 +151,8 @@ public class BattleManager : MonoBehaviour
 
         for (int i = 0; i < enemySlots.Count; i++)
         {
-            //enemySlots[i].AddComponent<Enemy>().
+             
+            enemySlots[i].SetActive(true);
             Enemy temp = enemySlots[i].GetComponent<Enemy>();
             temp.CopyStats(RollEnemy());
             enemySlots[i].GetComponent<Image>().sprite = temp.chSprite;
@@ -135,45 +168,30 @@ public class BattleManager : MonoBehaviour
 
     public void Attack()
     {
+        targetIndex = 0;
         targetArrow.SetActive(true);
         attacking = true;
         selecting = true;
-        ChooseTarget();
-        
+        attackButton.SetActive(false);
+        dialogueText.text = "Select Target" ;
         
     }
 
-    public void ChooseTarget()
+    IEnumerator PlayerAttack()
     {
-        // int targetIndex = 0;
-        // target = enemySlots[targetIndex];
-        // targetArrow.transform.position = target.transform.position;
-        // while (selecting == true)
-        // {
 
-        //     target = enemySlots[targetIndex];
-        //     targetArrow.transform.position = target.transform.position;
-        //     if (Input.GetKeyDown(KeyCode.A))
-        //     {
-        //         targetIndex++;
-        //         target = enemySlots[targetIndex];
-        //         targetArrow.transform.position = target.transform.position;
-        //     }
-        //     if (Input.GetKeyDown(KeyCode.D))
-        //     {
-        //         targetIndex--;
-        //         target = enemySlots[targetIndex];
-        //         targetArrow.transform.position = target.transform.position;
-        //     }
+        targetArrow.SetActive(false);
+        target.GetComponent<Enemy>().currentHP -= 5;
+        attacking = false;
 
-        //     if (Input.GetKeyDown(KeyCode.Space))
-        //     {
-        //         selecting = false;
-        //         Debug.Log("Player has Attacked " + target);
-        //     }
-        // }
+        dialogueText.text = "Player has Attacked " + target;
 
+        yield return new WaitForSeconds(2f);
+        dialogueText.text = " ";
+        attackButton.SetActive(true);
     }
+
+
 
    
 
