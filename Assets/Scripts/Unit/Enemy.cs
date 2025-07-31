@@ -2,10 +2,12 @@ using UnityEngine;
 
 public class Enemy : Unit
 {
+
+    public BattleManager battleManager;
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
-
+        battleManager = FindAnyObjectByType<BattleManager>();
     }
 
     // Update is called once per frame
@@ -15,6 +17,7 @@ public class Enemy : Unit
         {
             gameObject.SetActive(false);
             ClearStats();
+            battleManager.winCount += 1;
 
         }
         else

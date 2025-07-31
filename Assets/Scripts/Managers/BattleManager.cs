@@ -40,7 +40,11 @@ public class BattleManager : MonoBehaviour
 
     public TextMeshProUGUI dialogueText;
 
-    public GameObject attackButton;
+    public List<GameObject> buttons;
+
+    public int enemyCount;
+
+    public int winCount;
 
 
 
@@ -119,6 +123,7 @@ public class BattleManager : MonoBehaviour
                 {
                     enemySlots.Remove(target);
                 }
+
             }
 
         }
@@ -138,12 +143,15 @@ public class BattleManager : MonoBehaviour
 
     void BattleStart()
     {
-         enemySlots.Clear();
-            for (int i = 0; i < defaultSlots.Count; i++)
-            {
-                enemySlots.Add(defaultSlots[i]);
-            }
-        
+        ButtonsOn();
+        dialogueText.text = " ";
+        winCount = 0;
+        enemySlots.Clear();
+        for (int i = 0; i < defaultSlots.Count; i++)
+        {
+            enemySlots.Add(defaultSlots[i]);
+        }
+
         for (int i = 0; i < playerSlots.Count; i++)
         {
             playerSlots[i].GetComponent<Image>().sprite = PartyManager.Instance.party[i].chSprite;
@@ -151,11 +159,12 @@ public class BattleManager : MonoBehaviour
 
         for (int i = 0; i < enemySlots.Count; i++)
         {
-             
+
             enemySlots[i].SetActive(true);
             Enemy temp = enemySlots[i].GetComponent<Enemy>();
             temp.CopyStats(RollEnemy());
             enemySlots[i].GetComponent<Image>().sprite = temp.chSprite;
+            enemyCount = enemySlots.Count;
         }
 
     }
@@ -172,9 +181,9 @@ public class BattleManager : MonoBehaviour
         targetArrow.SetActive(true);
         attacking = true;
         selecting = true;
-        attackButton.SetActive(false);
-        dialogueText.text = "Select Target" ;
-        
+        ButtonsOff();
+        dialogueText.text = "Select Target";
+
     }
 
     IEnumerator PlayerAttack()
@@ -184,18 +193,48 @@ public class BattleManager : MonoBehaviour
         target.GetComponent<Enemy>().currentHP -= 5;
         attacking = false;
 
-        dialogueText.text = "Player has Attacked " + target;
+        dialogueText.text = "Player has Attacked " + target.GetComponent<Enemy>().unitName;
 
         yield return new WaitForSeconds(2f);
-        dialogueText.text = " ";
-        attackButton.SetActive(true);
+        if (winCount == enemyCount)
+        {
+            WinCondtion();
+        }
+        else
+        {
+            dialogueText.text = " ";
+            ButtonsOn();
+        }
+
+    }
+
+    public void WinCondtion()
+    {
+
+
+        ButtonsOff();
+        dialogueText.text = "You Win!";
+
+
+    }
+
+    public void ButtonsOn()
+    {
+        foreach (var obj in buttons)
+            obj.SetActive(true);
+    }
+
+    public void ButtonsOff()
+    {
+      foreach (var obj in buttons)
+      obj.SetActive(false);
     }
 
 
 
-   
 
-    
 
-    
+
+
+
 }
