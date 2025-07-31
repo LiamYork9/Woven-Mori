@@ -42,12 +42,6 @@ public class BattleManager : MonoBehaviour
 
     public List<GameObject> buttons;
 
-    public int enemyCount;
-
-    public int winCount;
-
-
-
 
     public void Awake()
     {
@@ -145,7 +139,6 @@ public class BattleManager : MonoBehaviour
     {
         ButtonsOn();
         dialogueText.text = " ";
-        winCount = 0;
         enemySlots.Clear();
         for (int i = 0; i < defaultSlots.Count; i++)
         {
@@ -154,7 +147,10 @@ public class BattleManager : MonoBehaviour
 
         for (int i = 0; i < playerSlots.Count; i++)
         {
-            playerSlots[i].GetComponent<Image>().sprite = PartyManager.Instance.party[i].chSprite;
+            playerSlots[i].SetActive(true);
+            PlayerCharacter temp = playerSlots[i].GetComponent<PlayerCharacter>();
+            temp.CopyStats(PartyManager.Instance.party[i]);
+             playerSlots[i].GetComponent<Image>().sprite = temp.chSprite;
         }
 
         for (int i = 0; i < enemySlots.Count; i++)
@@ -164,8 +160,9 @@ public class BattleManager : MonoBehaviour
             Enemy temp = enemySlots[i].GetComponent<Enemy>();
             temp.CopyStats(RollEnemy());
             enemySlots[i].GetComponent<Image>().sprite = temp.chSprite;
-            enemyCount = enemySlots.Count;
+
         }
+        TurnOrderManager.Instance.GatherFighters();
 
     }
 
@@ -196,7 +193,7 @@ public class BattleManager : MonoBehaviour
         dialogueText.text = "Player has Attacked " + target.GetComponent<Enemy>().unitName;
 
         yield return new WaitForSeconds(2f);
-        if (winCount == enemyCount)
+        if (enemySlots.Count  == 0)
         {
             WinCondtion();
         }
@@ -221,7 +218,7 @@ public class BattleManager : MonoBehaviour
     public void ButtonsOn()
     {
         foreach (var obj in buttons)
-            obj.SetActive(true);
+        obj.SetActive(true);
     }
 
     public void ButtonsOff()

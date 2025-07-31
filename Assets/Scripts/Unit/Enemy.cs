@@ -17,7 +17,7 @@ public class Enemy : Unit
         {
             gameObject.SetActive(false);
             ClearStats();
-            battleManager.winCount += 1;
+           
 
         }
         else

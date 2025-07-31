@@ -214,6 +214,7 @@ MonoBehaviour:
   maxHP: 0
   currentHP: 0
   speed: 0
+  initiative: 0
   battleManager: {fileID: 0}
 --- !u!1 &130623153
 GameObject:
@@ -420,7 +421,8 @@ MonoBehaviour:
   attack: 1
   maxHP: 1
   currentHP: 1
-  speed: 1
+  speed: 3
+  initiative: 0
 --- !u!114 &353917637
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -439,7 +441,8 @@ MonoBehaviour:
   attack: 99
   maxHP: 99
   currentHP: 99
-  speed: 99
+  speed: 10
+  initiative: 0
 --- !u!114 &353917638
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -458,7 +461,8 @@ MonoBehaviour:
   attack: 2
   maxHP: 2
   currentHP: 2
-  speed: 2
+  speed: 5
+  initiative: 0
 --- !u!1 &415241304
 GameObject:
   m_ObjectHideFlags: 0
@@ -497,7 +501,8 @@ MonoBehaviour:
   attack: 0
   maxHP: 5
   currentHP: 5
-  speed: 0
+  speed: 4
+  initiative: 0
   battleManager: {fileID: 0}
 --- !u!114 &415241306
 MonoBehaviour:
@@ -517,7 +522,8 @@ MonoBehaviour:
   attack: 0
   maxHP: 5
   currentHP: 5
-  speed: 0
+  speed: 3
+  initiative: 0
   battleManager: {fileID: 0}
 --- !u!114 &415241307
 MonoBehaviour:
@@ -537,7 +543,8 @@ MonoBehaviour:
   attack: 0
   maxHP: 5
   currentHP: 5
-  speed: 0
+  speed: 7
+  initiative: 0
   battleManager: {fileID: 0}
 --- !u!114 &415241308
 MonoBehaviour:
@@ -710,6 +717,7 @@ MonoBehaviour:
   maxHP: 0
   currentHP: 0
   speed: 0
+  initiative: 0
   battleManager: {fileID: 0}
 --- !u!1 &616713907
 GameObject:
@@ -901,8 +909,6 @@ MonoBehaviour:
   - {fileID: 845932432}
   - {fileID: 951574610}
   - {fileID: 935130472}
-  enemyCount: 0
-  winCount: 0
 --- !u!4 &645222401
 Transform:
   m_ObjectHideFlags: 0
@@ -1251,6 +1257,7 @@ GameObject:
   - component: {fileID: 804541481}
   - component: {fileID: 804541483}
   - component: {fileID: 804541482}
+  - component: {fileID: 804541484}
   m_Layer: 5
   m_Name: Slot1
   m_TagString: Untagged
@@ -1315,6 +1322,26 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 804541480}
   m_CullTransparentMesh: 1
+--- !u!114 &804541484
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 804541480}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f0f3fbfbcd255794e9933f4b0c1cf923, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  unitName: 
+  partyMember: 0
+  chSprite: {fileID: 0}
+  attack: 0
+  maxHP: 0
+  currentHP: 0
+  speed: 0
+  initiative: 0
 --- !u!1 &820537214
 GameObject:
   m_ObjectHideFlags: 0
@@ -1410,6 +1437,7 @@ MonoBehaviour:
   maxHP: 0
   currentHP: 0
   speed: 0
+  initiative: 0
   battleManager: {fileID: 0}
 --- !u!1 &845932432
 GameObject:
@@ -2401,6 +2429,54 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1518473714}
   m_CullTransparentMesh: 1
+--- !u!1 &1613041416
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1613041418}
+  - component: {fileID: 1613041417}
+  m_Layer: 0
+  m_Name: TurnOrderManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1613041417
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1613041416}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 94e0e8257700d2741bc16eeae16e072e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  turnPlayer: {fileID: 0}
+  allFighters: []
+  turnOrder: []
+  emergencybutton: 0
+--- !u!4 &1613041418
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1613041416}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 876.9635, y: 624.3305, z: -6.1047106}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1655462168
 GameObject:
   m_ObjectHideFlags: 0
@@ -2548,6 +2624,7 @@ GameObject:
   - component: {fileID: 1659237243}
   - component: {fileID: 1659237245}
   - component: {fileID: 1659237244}
+  - component: {fileID: 1659237246}
   m_Layer: 5
   m_Name: Slot2
   m_TagString: Untagged
@@ -2612,6 +2689,26 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1659237242}
   m_CullTransparentMesh: 1
+--- !u!114 &1659237246
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1659237242}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f0f3fbfbcd255794e9933f4b0c1cf923, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  unitName: 
+  partyMember: 0
+  chSprite: {fileID: 0}
+  attack: 0
+  maxHP: 0
+  currentHP: 0
+  speed: 0
+  initiative: 0
 --- !u!1 &1913163905
 GameObject:
   m_ObjectHideFlags: 0
@@ -2623,6 +2720,7 @@ GameObject:
   - component: {fileID: 1913163906}
   - component: {fileID: 1913163908}
   - component: {fileID: 1913163907}
+  - component: {fileID: 1913163909}
   m_Layer: 5
   m_Name: Slot3
   m_TagString: Untagged
@@ -2687,6 +2785,26 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1913163905}
   m_CullTransparentMesh: 1
+--- !u!114 &1913163909
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1913163905}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f0f3fbfbcd255794e9933f4b0c1cf923, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  unitName: 
+  partyMember: 0
+  chSprite: {fileID: 0}
+  attack: 0
+  maxHP: 0
+  currentHP: 0
+  speed: 0
+  initiative: 0
 --- !u!1 &2051336225
 GameObject:
   m_ObjectHideFlags: 0
@@ -2835,3 +2953,4 @@ SceneRoots:
   - {fileID: 353917635}
   - {fileID: 472335046}
   - {fileID: 415241309}
+  - {fileID: 1613041418}
