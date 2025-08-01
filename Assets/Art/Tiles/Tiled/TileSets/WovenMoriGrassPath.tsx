@@ -9,6 +9,9 @@
    <frame tileid="50" duration="200"/>
   </animation>
  </tile>
+ <tile id="49" probability="0"/>
+ <tile id="50" probability="0"/>
+ <tile id="51" probability="0"/>
  <tile id="52">
   <animation>
    <frame tileid="52" duration="200"/>
@@ -16,6 +19,8 @@
    <frame tileid="53" duration="200"/>
   </animation>
  </tile>
+ <tile id="53" probability="0"/>
+ <tile id="54" probability="0"/>
  <wangsets>
   <wangset name="Pathway" type="mixed" tile="32">
    <wangcolor name="Path" color="#ff0000" tile="1" probability="1"/>
