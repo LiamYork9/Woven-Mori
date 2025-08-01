@@ -135,11 +135,14 @@ public class BattleManager : MonoBehaviour
 
     }
 
+    // The funcation that will be called at the start of every fight 
     void BattleStart()
     {
         ButtonsOn();
         dialogueText.text = " ";
         enemySlots.Clear();
+        TurnOrderManager.Instance.allFighters.Clear();
+        TurnOrderManager.Instance.recentTurns.Clear();
         for (int i = 0; i < defaultSlots.Count; i++)
         {
             enemySlots.Add(defaultSlots[i]);
@@ -166,12 +169,14 @@ public class BattleManager : MonoBehaviour
 
     }
 
+    //Where we roll our Enimies 
     public Enemy RollEnemy()
     {
         return EncounterManager.Instance.encounterPool[Random.Range(0, EncounterManager.Instance.encounterPool.Count)];
 
     }
 
+    //Player Attacking function
     public void Attack()
     {
         targetIndex = 0;
@@ -187,7 +192,7 @@ public class BattleManager : MonoBehaviour
     {
 
         targetArrow.SetActive(false);
-        target.GetComponent<Enemy>().currentHP -= 5;
+        target.GetComponent<Enemy>().currentHP -= TurnOrderManager.Instance.turnPlayer.attack;
         attacking = false;
 
         dialogueText.text = "Player has Attacked " + target.GetComponent<Enemy>().unitName;
@@ -199,20 +204,22 @@ public class BattleManager : MonoBehaviour
         }
         else
         {
+            TurnOrderManager.Instance.recentTurns.Insert(0,TurnOrderManager.Instance.turnPlayer);
+            TurnOrderManager.Instance.turnOrder.Remove(TurnOrderManager.Instance.turnPlayer);
+            yield return new WaitForSeconds(2f);
+            dialogueText.text = " It is now " + TurnOrderManager.Instance.turnPlayer.unitName + "Turn";
+            yield return new WaitForSeconds(2f);
             dialogueText.text = " ";
             ButtonsOn();
         }
 
     }
 
+    // What shows up when yo Win
     public void WinCondtion()
     {
-
-
         ButtonsOff();
         dialogueText.text = "You Win!";
-
-
     }
 
     public void ButtonsOn()
