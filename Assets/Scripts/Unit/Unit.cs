@@ -32,6 +32,7 @@ public class Unit : MonoBehaviour
     public void CopyStats(Unit target)
     {
         unitName = target.unitName;
+        partyMember = target.partyMember;
         chSprite = target.chSprite;
         attack = target.attack;
         maxHP = target.maxHP;

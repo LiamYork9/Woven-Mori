@@ -437,7 +437,7 @@ MonoBehaviour:
   unitName: Baller
   partyMember: 1
   chSprite: {fileID: 7482667652216324306, guid: 311925a002f4447b3a28927169b83ea6, type: 3}
-  attack: 5
+  attack: 1
   maxHP: 99
   currentHP: 99
   speed: 10
@@ -457,7 +457,7 @@ MonoBehaviour:
   unitName: fart
   partyMember: 1
   chSprite: {fileID: -2413806693520163455, guid: ebe73ca9363db456bacf42c025bb4847, type: 3}
-  attack: 2
+  attack: 1
   maxHP: 2
   currentHP: 2
   speed: 5
@@ -497,10 +497,10 @@ MonoBehaviour:
   unitName: tiny
   partyMember: 0
   chSprite: {fileID: 21300000, guid: 950832395ec754ba48ab1cffa214cec0, type: 3}
-  attack: 0
+  attack: 5
   maxHP: 5
   currentHP: 5
-  speed: 4
+  speed: 1
   initiative: 0
 --- !u!114 &415241306
 MonoBehaviour:
@@ -517,10 +517,10 @@ MonoBehaviour:
   unitName: barf
   partyMember: 0
   chSprite: {fileID: -5177388603050735206, guid: 71ebafeef3c03457483266a33ab2b270, type: 3}
-  attack: 0
+  attack: 5
   maxHP: 5
   currentHP: 5
-  speed: 3
+  speed: 4
   initiative: 0
 --- !u!114 &415241307
 MonoBehaviour:
@@ -537,10 +537,10 @@ MonoBehaviour:
   unitName: FartSmella
   partyMember: 0
   chSprite: {fileID: -2413806693520163455, guid: ebe73ca9363db456bacf42c025bb4847, type: 3}
-  attack: 0
+  attack: 5
   maxHP: 5
   currentHP: 5
-  speed: 7
+  speed: 2
   initiative: 0
 --- !u!114 &415241308
 MonoBehaviour:
@@ -895,6 +895,7 @@ MonoBehaviour:
   gTurnText: {fileID: 744602751}
   targetArrow: {fileID: 1421429142}
   target: {fileID: 0}
+  enemyTarget: {fileID: 0}
   selecting: 0
   targetIndex: 0
   attacking: 0
@@ -904,6 +905,9 @@ MonoBehaviour:
   - {fileID: 845932432}
   - {fileID: 951574610}
   - {fileID: 935130472}
+  enemyTurn: 0
+  playerTurn: 0
+  action: 0
 --- !u!4 &645222401
 Transform:
   m_ObjectHideFlags: 0

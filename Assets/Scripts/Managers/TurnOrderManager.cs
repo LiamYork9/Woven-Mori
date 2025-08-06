@@ -59,6 +59,7 @@ public class TurnOrderManager : MonoBehaviour
             allFighters.Add(BattleManager.Instance.enemySlots[i]);
         }
         TurnCalulation();
+        
 
 
     }
@@ -72,7 +73,6 @@ public class TurnOrderManager : MonoBehaviour
             for (int i = 0; i < allFighters.Count; i++)
             {
                 Unit temp = allFighters[i].GetComponent<Unit>();
-                Debug.Log(temp.initiative);
                 temp.initiative += temp.speed;
 
                 if (temp.initiative >= 100)
