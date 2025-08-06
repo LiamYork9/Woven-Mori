@@ -3,7 +3,7 @@ using System.Collections;
 using UnityEngine;
 using TMPro;
  using UnityEngine.UI;
-using UnityEditor.Rendering;
+
 
 public class BattleManager : MonoBehaviour
 {
@@ -32,6 +32,8 @@ public class BattleManager : MonoBehaviour
 
     public GameObject target;
 
+    public GameObject enemyTarget;
+
     public bool selecting;
 
     public int targetIndex = 0;
@@ -41,6 +43,12 @@ public class BattleManager : MonoBehaviour
     public TextMeshProUGUI dialogueText;
 
     public List<GameObject> buttons;
+
+    public bool enemyTurn;
+
+    public bool playerTurn;
+
+    public bool action;
 
 
     public void Awake()
@@ -61,6 +69,7 @@ public class BattleManager : MonoBehaviour
     void Start()
     {
         BattleStart();
+        ButtonsOff();
     }
 
     public void Update()
@@ -132,13 +141,19 @@ public class BattleManager : MonoBehaviour
             BattleStart();
         }
 
+        if (action == false)
+        {
+            TurnTransiton();
+        }
+
+        
 
     }
 
     // The funcation that will be called at the start of every fight 
     void BattleStart()
     {
-        ButtonsOn();
+    
         dialogueText.text = " ";
         enemySlots.Clear();
         TurnOrderManager.Instance.allFighters.Clear();
@@ -153,7 +168,7 @@ public class BattleManager : MonoBehaviour
             playerSlots[i].SetActive(true);
             PlayerCharacter temp = playerSlots[i].GetComponent<PlayerCharacter>();
             temp.CopyStats(PartyManager.Instance.party[i]);
-             playerSlots[i].GetComponent<Image>().sprite = temp.chSprite;
+            playerSlots[i].GetComponent<Image>().sprite = temp.chSprite;
         }
 
         for (int i = 0; i < enemySlots.Count; i++)
@@ -166,6 +181,7 @@ public class BattleManager : MonoBehaviour
 
         }
         TurnOrderManager.Instance.GatherFighters();
+        
 
     }
 
@@ -183,6 +199,7 @@ public class BattleManager : MonoBehaviour
         targetArrow.SetActive(true);
         attacking = true;
         selecting = true;
+        action = false;
         ButtonsOff();
         dialogueText.text = "Select Target";
 
@@ -193,29 +210,62 @@ public class BattleManager : MonoBehaviour
 
         targetArrow.SetActive(false);
         target.GetComponent<Enemy>().currentHP -= TurnOrderManager.Instance.turnPlayer.attack;
-        attacking = false;
+
 
         dialogueText.text = "Player has Attacked " + target.GetComponent<Enemy>().unitName;
 
         yield return new WaitForSeconds(2f);
-        if (enemySlots.Count  == 0)
+        if (enemySlots.Count == 0)
         {
             WinCondtion();
         }
         else
         {
-            TurnOrderManager.Instance.recentTurns.Insert(0,TurnOrderManager.Instance.turnPlayer);
+            yield return new WaitForSeconds(2f);
+            TurnOrderManager.Instance.recentTurns.Insert(0, TurnOrderManager.Instance.turnPlayer);
             TurnOrderManager.Instance.turnOrder.Remove(TurnOrderManager.Instance.turnPlayer);
-            yield return new WaitForSeconds(2f);
+            yield return new WaitForSeconds(1f);
             dialogueText.text = " It is now " + TurnOrderManager.Instance.turnPlayer.unitName + "Turn";
-            yield return new WaitForSeconds(2f);
+            yield return new WaitForSeconds(1f);
             dialogueText.text = " ";
-            ButtonsOn();
+            attacking = false;
+            playerTurn = false;
+            TurnTransiton();
+         
         }
 
     }
 
-    // What shows up when yo Win
+    IEnumerator EnemyAttack()
+    {
+        action = true;
+        enemyTarget = playerSlots[0];
+        yield return new WaitForSeconds(2f);
+        enemyTarget.GetComponent<PlayerCharacter>().currentHP -= TurnOrderManager.Instance.turnPlayer.attack;
+        TurnOrderManager.Instance.recentTurns.Insert(0, TurnOrderManager.Instance.turnPlayer);
+        TurnOrderManager.Instance.turnOrder.Remove(TurnOrderManager.Instance.turnPlayer);
+        dialogueText.text = "Enemy has Attacked " + enemyTarget.GetComponent<PlayerCharacter>().unitName;
+        yield return new WaitForSeconds(1f);
+        dialogueText.text = " It is now " + TurnOrderManager.Instance.turnPlayer.unitName + "Turn";
+        yield return new WaitForSeconds(1f);
+        dialogueText.text = " ";
+        enemyTurn = false;
+        action = false;
+        TurnTransiton();
+
+
+
+    }
+
+    public void EnemyTurn()
+    {
+        playerTurn = false;
+        ButtonsOff();
+    }
+
+
+
+    // What shows up when you Win
     public void WinCondtion()
     {
         ButtonsOff();
@@ -225,13 +275,39 @@ public class BattleManager : MonoBehaviour
     public void ButtonsOn()
     {
         foreach (var obj in buttons)
-        obj.SetActive(true);
+            obj.SetActive(true);
     }
 
     public void ButtonsOff()
     {
-      foreach (var obj in buttons)
-      obj.SetActive(false);
+        foreach (var obj in buttons)
+            obj.SetActive(false);
+    }
+
+    public void TurnTransiton()
+    {
+        if (TurnOrderManager.Instance.turnPlayer != null && TurnOrderManager.Instance.turnPlayer.partyMember == false)
+        {
+            enemyTurn = true;
+            EnemyTurn();
+        }
+
+        if (enemyTurn == true && action == false)
+        {
+            StartCoroutine(EnemyAttack());
+             ButtonsOff();
+        }
+
+        if (TurnOrderManager.Instance.turnPlayer != null && TurnOrderManager.Instance.turnPlayer.partyMember == true)
+        {
+            playerTurn = true;
+            Debug.Log("PlayerTurn");
+        }
+
+        if (playerTurn == true && attacking == false)
+        {
+            ButtonsOn();
+        }
     }
 
 
