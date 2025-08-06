@@ -215,7 +215,6 @@ MonoBehaviour:
   currentHP: 0
   speed: 0
   initiative: 0
-  battleManager: {fileID: 0}
 --- !u!1 &130623153
 GameObject:
   m_ObjectHideFlags: 0
@@ -438,7 +437,7 @@ MonoBehaviour:
   unitName: Baller
   partyMember: 1
   chSprite: {fileID: 7482667652216324306, guid: 311925a002f4447b3a28927169b83ea6, type: 3}
-  attack: 99
+  attack: 5
   maxHP: 99
   currentHP: 99
   speed: 10
@@ -503,7 +502,6 @@ MonoBehaviour:
   currentHP: 5
   speed: 4
   initiative: 0
-  battleManager: {fileID: 0}
 --- !u!114 &415241306
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -524,7 +522,6 @@ MonoBehaviour:
   currentHP: 5
   speed: 3
   initiative: 0
-  battleManager: {fileID: 0}
 --- !u!114 &415241307
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -545,7 +542,6 @@ MonoBehaviour:
   currentHP: 5
   speed: 7
   initiative: 0
-  battleManager: {fileID: 0}
 --- !u!114 &415241308
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -718,7 +714,6 @@ MonoBehaviour:
   currentHP: 0
   speed: 0
   initiative: 0
-  battleManager: {fileID: 0}
 --- !u!1 &616713907
 GameObject:
   m_ObjectHideFlags: 0
@@ -1438,7 +1433,6 @@ MonoBehaviour:
   currentHP: 0
   speed: 0
   initiative: 0
-  battleManager: {fileID: 0}
 --- !u!1 &845932432
 GameObject:
   m_ObjectHideFlags: 0
@@ -2461,6 +2455,7 @@ MonoBehaviour:
   turnPlayer: {fileID: 0}
   allFighters: []
   turnOrder: []
+  recentTurns: []
   emergencybutton: 0
 --- !u!4 &1613041418
 Transform:
