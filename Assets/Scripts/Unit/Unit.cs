@@ -8,6 +8,8 @@ public class Unit : MonoBehaviour
 
     public Sprite chSprite;
 
+    public Sprite deathSprite;
+
     public int attack;
 
     public int maxHP;
@@ -17,6 +19,8 @@ public class Unit : MonoBehaviour
     public int speed;
 
     public int initiative;
+
+    public int slotNumber;
    
     void Start()
     {
@@ -32,8 +36,10 @@ public class Unit : MonoBehaviour
     public void CopyStats(Unit target)
     {
         unitName = target.unitName;
+        slotNumber = target.slotNumber;
         partyMember = target.partyMember;
         chSprite = target.chSprite;
+        deathSprite = target.deathSprite;
         attack = target.attack;
         maxHP = target.maxHP;
         currentHP = target.currentHP;

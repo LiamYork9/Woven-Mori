@@ -12,10 +12,10 @@ public class PartyManager : MonoBehaviour
     {
         return Instance;
     }
-    
 
 
-     public void Awake()
+
+    public void Awake()
     {
         if (PartyManager.Instance == null)
         {
@@ -29,12 +29,14 @@ public class PartyManager : MonoBehaviour
     }
     void Start()
     {
-        
+
     }
 
     // Update is called once per frame
     void Update()
     {
-        
+
     }
+
+    
 }

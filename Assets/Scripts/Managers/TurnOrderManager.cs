@@ -7,7 +7,9 @@ public class TurnOrderManager : MonoBehaviour
     public Unit turnPlayer;
     public List<GameObject> allFighters;
 
-    public List<Unit> turnOrder = new List<Unit>{};
+    public List<Unit> downedPlayers = new List<Unit> { };
+
+    public List<Unit> turnOrder = new List<Unit> { };
 
     public List<Unit> recentTurns = new List<Unit>{};
 

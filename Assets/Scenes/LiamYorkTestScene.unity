@@ -210,11 +210,13 @@ MonoBehaviour:
   unitName: 
   partyMember: 0
   chSprite: {fileID: 0}
+  deathSprite: {fileID: 0}
   attack: 0
   maxHP: 0
   currentHP: 0
   speed: 0
   initiative: 0
+  slotNumber: 0
 --- !u!1 &130623153
 GameObject:
   m_ObjectHideFlags: 0
@@ -417,11 +419,13 @@ MonoBehaviour:
   unitName: Bill
   partyMember: 1
   chSprite: {fileID: 7482667652216324306, guid: 75f5f34dc1b5347e0b8351032682f224, type: 3}
+  deathSprite: {fileID: 21300000, guid: cbaeed03e5416aa4bae23110b63a0c7d, type: 3}
   attack: 1
   maxHP: 1
   currentHP: 1
   speed: 3
   initiative: 0
+  slotNumber: 0
 --- !u!114 &353917637
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -437,11 +441,13 @@ MonoBehaviour:
   unitName: Baller
   partyMember: 1
   chSprite: {fileID: 7482667652216324306, guid: 311925a002f4447b3a28927169b83ea6, type: 3}
+  deathSprite: {fileID: 21300000, guid: cbaeed03e5416aa4bae23110b63a0c7d, type: 3}
   attack: 1
   maxHP: 99
   currentHP: 99
   speed: 10
   initiative: 0
+  slotNumber: 0
 --- !u!114 &353917638
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -457,11 +463,13 @@ MonoBehaviour:
   unitName: fart
   partyMember: 1
   chSprite: {fileID: -2413806693520163455, guid: ebe73ca9363db456bacf42c025bb4847, type: 3}
+  deathSprite: {fileID: 21300000, guid: cbaeed03e5416aa4bae23110b63a0c7d, type: 3}
   attack: 1
   maxHP: 2
   currentHP: 2
   speed: 5
   initiative: 0
+  slotNumber: 0
 --- !u!1 &415241304
 GameObject:
   m_ObjectHideFlags: 0
@@ -497,11 +505,13 @@ MonoBehaviour:
   unitName: tiny
   partyMember: 0
   chSprite: {fileID: 21300000, guid: 950832395ec754ba48ab1cffa214cec0, type: 3}
+  deathSprite: {fileID: 0}
   attack: 5
   maxHP: 5
   currentHP: 5
-  speed: 1
+  speed: 10
   initiative: 0
+  slotNumber: 0
 --- !u!114 &415241306
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -517,11 +527,13 @@ MonoBehaviour:
   unitName: barf
   partyMember: 0
   chSprite: {fileID: -5177388603050735206, guid: 71ebafeef3c03457483266a33ab2b270, type: 3}
+  deathSprite: {fileID: 0}
   attack: 5
   maxHP: 5
   currentHP: 5
-  speed: 4
+  speed: 10
   initiative: 0
+  slotNumber: 0
 --- !u!114 &415241307
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -537,11 +549,13 @@ MonoBehaviour:
   unitName: FartSmella
   partyMember: 0
   chSprite: {fileID: -2413806693520163455, guid: ebe73ca9363db456bacf42c025bb4847, type: 3}
+  deathSprite: {fileID: 0}
   attack: 5
   maxHP: 5
   currentHP: 5
-  speed: 2
+  speed: 10
   initiative: 0
+  slotNumber: 0
 --- !u!114 &415241308
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -709,11 +723,13 @@ MonoBehaviour:
   unitName: 
   partyMember: 0
   chSprite: {fileID: 0}
+  deathSprite: {fileID: 0}
   attack: 0
   maxHP: 0
   currentHP: 0
   speed: 0
   initiative: 0
+  slotNumber: 0
 --- !u!1 &616713907
 GameObject:
   m_ObjectHideFlags: 0
@@ -888,6 +904,10 @@ MonoBehaviour:
   - {fileID: 480227349}
   - {fileID: 73733653}
   - {fileID: 820537214}
+  defaultPlayerSlots:
+  - {fileID: 804541480}
+  - {fileID: 1659237242}
+  - {fileID: 1913163905}
   globalTurn: 0
   pfCharacterBattle: {fileID: 2348353712630482822, guid: 2a1d1a5dc42531645a8a16e90a2a8d6d, type: 3}
   playerSprite: {fileID: 7482667652216324306, guid: 48e93eef0688c4a259cb0eddcd8661f7, type: 3}
@@ -1336,11 +1356,13 @@ MonoBehaviour:
   unitName: 
   partyMember: 0
   chSprite: {fileID: 0}
+  deathSprite: {fileID: 0}
   attack: 0
   maxHP: 0
   currentHP: 0
   speed: 0
   initiative: 0
+  slotNumber: 0
 --- !u!1 &820537214
 GameObject:
   m_ObjectHideFlags: 0
@@ -1432,11 +1454,13 @@ MonoBehaviour:
   unitName: 
   partyMember: 0
   chSprite: {fileID: 0}
+  deathSprite: {fileID: 0}
   attack: 0
   maxHP: 0
   currentHP: 0
   speed: 0
   initiative: 0
+  slotNumber: 0
 --- !u!1 &845932432
 GameObject:
   m_ObjectHideFlags: 0
@@ -2458,6 +2482,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   turnPlayer: {fileID: 0}
   allFighters: []
+  downedPlayers: []
   turnOrder: []
   recentTurns: []
   emergencybutton: 0
@@ -2703,11 +2728,13 @@ MonoBehaviour:
   unitName: 
   partyMember: 0
   chSprite: {fileID: 0}
+  deathSprite: {fileID: 0}
   attack: 0
   maxHP: 0
   currentHP: 0
   speed: 0
   initiative: 0
+  slotNumber: 0
 --- !u!1 &1913163905
 GameObject:
   m_ObjectHideFlags: 0
@@ -2799,11 +2826,13 @@ MonoBehaviour:
   unitName: 
   partyMember: 0
   chSprite: {fileID: 0}
+  deathSprite: {fileID: 0}
   attack: 0
   maxHP: 0
   currentHP: 0
   speed: 0
   initiative: 0
+  slotNumber: 0
 --- !u!1 &2051336225
 GameObject:
   m_ObjectHideFlags: 0
