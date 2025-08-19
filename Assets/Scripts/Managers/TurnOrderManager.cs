@@ -11,7 +11,7 @@ public class TurnOrderManager : MonoBehaviour
 
     public List<Unit> turnOrder = new List<Unit> { };
 
-    public List<Unit> recentTurns = new List<Unit>{};
+    public List<Unit> recentTurns = new List<Unit> { };
 
     public int emergencybutton = 0;
 
@@ -44,7 +44,12 @@ public class TurnOrderManager : MonoBehaviour
 
         if (turnOrder.Count <= 5)
         {
-              TurnCalulation();
+            TurnCalulation();
+        }
+
+        if (Input.GetKeyDown(KeyCode.P))
+        {
+            SpeedUp();
         }
     }
 
@@ -61,7 +66,7 @@ public class TurnOrderManager : MonoBehaviour
             allFighters.Add(BattleManager.Instance.enemySlots[i]);
         }
         TurnCalulation();
-        
+
 
 
     }
@@ -84,5 +89,14 @@ public class TurnOrderManager : MonoBehaviour
                 }
             }
         }
+    }
+
+
+    public void SpeedUp()
+    {
+        //turnPlayer.speed += 10;
+        emergencybutton = 0;
+        turnOrder.Clear();
+        TurnCalulation();
     }
 }

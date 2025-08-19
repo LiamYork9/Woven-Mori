@@ -162,11 +162,18 @@ public class BattleManager : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.R))
         {
             enemySlots.Clear();
+            playerSlots.Clear();
             for (int i = 0; i < defaultSlots.Count; i++)
             {
                 enemySlots.Add(defaultSlots[i]);
             }
+            for (int i = 0; i < defaultPlayerSlots.Count; i++)
+            {
+                playerSlots.Add(defaultPlayerSlots[i]);
+            }
             BattleStart();
+            TurnOrderManager.Instance.downedPlayers.Clear();
+
         }
 
         if (action == false)
@@ -177,6 +184,11 @@ public class BattleManager : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.E))
         {
             WinCondtion();
+        }
+
+        if (playerSlots.Count == 0)
+        {
+            LoseCondition();
         }
 
 
@@ -199,7 +211,7 @@ public class BattleManager : MonoBehaviour
 
         for (int i = 0; i < PartyManager.Instance.party.Count; i++)
         {
-         
+
             playerSlots[i].SetActive(true);
             PlayerCharacter temp = playerSlots[i].GetComponent<PlayerCharacter>();
             temp.CopyStats(PartyManager.Instance.party[i]);
@@ -307,10 +319,18 @@ public class BattleManager : MonoBehaviour
         for (int i = 0; i < PartyManager.Instance.party.Count; i++)
         {
             PlayerCharacter temp = PartyManager.Instance.party[i];
-            Debug.Log(temp.unitName + " " + playerSlots[i].GetComponent<PlayerCharacter>().unitName );
+            Debug.Log(temp.unitName + " " + playerSlots[i].GetComponent<PlayerCharacter>().unitName);
             temp.CopyStats(playerSlots[i].GetComponent<PlayerCharacter>());
         }
         dialogueText.text = "You Win!";
+    }
+
+    // What happens when you lose
+
+    public void LoseCondition()
+    {
+        ButtonsOff();
+        dialogueText.text = "You Lose";
     }
 
     public void ButtonsOn()
@@ -359,6 +379,7 @@ public class BattleManager : MonoBehaviour
             enemyTarget.GetComponent<PlayerCharacter>().Death();
         }
     }
+
 
 
 
