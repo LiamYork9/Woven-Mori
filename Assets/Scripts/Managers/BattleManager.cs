@@ -39,6 +39,8 @@ public class BattleManager : MonoBehaviour
 
     public bool selecting;
 
+    public bool playerSelecting;
+
     public int targetIndex = 0;
 
     public bool attacking;
@@ -77,6 +79,7 @@ public class BattleManager : MonoBehaviour
 
     public void Update()
     {
+         gTurnText.text = "Turn: " + globalTurn;
         for (int i = 0; i < enemySlots.Count; i++)
         {
             enemySlots[i].GetComponent<Unit>().slotNumber = i;
@@ -144,8 +147,42 @@ public class BattleManager : MonoBehaviour
             }
 
 
+           
 
+        }
 
+        if (playerSelecting == true)
+        {
+            target = playerSlots[targetIndex];
+            targetArrow.transform.position = target.transform.position;
+            if (Input.GetKeyDown(KeyCode.S))
+            {
+                if (targetIndex + 1 >= playerSlots.Count)
+                {
+                    targetIndex = 0;
+                }
+                else
+                {
+                    targetIndex++;
+                }
+
+                target = playerSlots[targetIndex];
+                targetArrow.transform.position = target.transform.position;
+            }
+            if (Input.GetKeyDown(KeyCode.W))
+            {
+                if (targetIndex - 1 < 0)
+                {
+                    targetIndex = playerSlots.Count - 1;
+                }
+                else
+                {
+                    targetIndex--;
+                }
+                target = playerSlots[targetIndex];
+                targetArrow.transform.position = target.transform.position;
+
+            }
         }
 
         for (int i = 0; i < playerSlots.Count; i++)
@@ -258,7 +295,7 @@ public class BattleManager : MonoBehaviour
         targetArrow.SetActive(false);
         target.GetComponent<Enemy>().currentHP -= TurnOrderManager.Instance.turnPlayer.attack;
 
-
+           globalTurn += 1;
         dialogueText.text = "Player has Attacked " + target.GetComponent<Enemy>().unitName;
 
         yield return new WaitForSeconds(2f);
@@ -287,6 +324,7 @@ public class BattleManager : MonoBehaviour
     {
         action = true;
         enemyTarget = playerSlots[0];
+        globalTurn += 1;
         yield return new WaitForSeconds(2f);
         DamagePlayer();
         TurnOrderManager.Instance.recentTurns.Insert(0, TurnOrderManager.Instance.turnPlayer);
@@ -319,8 +357,8 @@ public class BattleManager : MonoBehaviour
         for (int i = 0; i < PartyManager.Instance.party.Count; i++)
         {
             PlayerCharacter temp = PartyManager.Instance.party[i];
-            Debug.Log(temp.unitName + " " + playerSlots[i].GetComponent<PlayerCharacter>().unitName);
-            temp.CopyStats(playerSlots[i].GetComponent<PlayerCharacter>());
+            
+            temp.CopyStats(defaultPlayerSlots[i].GetComponent<PlayerCharacter>());
         }
         dialogueText.text = "You Win!";
     }

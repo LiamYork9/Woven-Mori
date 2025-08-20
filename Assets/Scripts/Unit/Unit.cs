@@ -1,3 +1,5 @@
+using System;
+using System.Collections.Generic;
 using UnityEngine;
 
 public class Unit : MonoBehaviour
@@ -5,6 +7,8 @@ public class Unit : MonoBehaviour
 
     public string unitName;
     public bool partyMember;
+
+    public List<String> skills;
 
     public Sprite chSprite;
 
