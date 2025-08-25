@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using MoriSkills;
 using UnityEngine;
 
 public class Unit : MonoBehaviour
@@ -8,7 +9,7 @@ public class Unit : MonoBehaviour
     public string unitName;
     public bool partyMember;
 
-    public List<String> skills;
+    public List<SkillId> skills;
 
     public Sprite chSprite;
 

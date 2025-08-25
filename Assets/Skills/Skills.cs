@@ -54,17 +54,9 @@ namespace MoriSkills
     [System.Serializable]
     public class Skills
     {
-
-
+        public String name;
         public SkillId skillId;
-        public string skillName;
-
-
-
         public Element element;
-
-
-
         public Target target;
 
 
@@ -90,7 +82,7 @@ namespace MoriSkills
         public Skills(SkillId SskillId, string SskillName, Element Selement, Target defualtTarget, Category Scategory, int Spower, int Saccuracy, int Scost, string StoolTip, int Schance, int SturnShift, List<SkillAttr> Sattr = null, List<Condtion> Scondtions = null)
         {
             skillId = SskillId;
-            skillName = SskillName;
+            name = SskillName;
             element = Selement;
             target = defualtTarget;
             category = Scategory;
