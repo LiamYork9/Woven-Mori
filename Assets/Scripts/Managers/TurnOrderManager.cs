@@ -42,7 +42,7 @@ public class TurnOrderManager : MonoBehaviour
     {
         turnPlayer = turnOrder[0];
 
-        if (turnOrder.Count <= 5)
+        if (turnOrder.Count <= 6)
         {
             TurnCalulation();
         }
