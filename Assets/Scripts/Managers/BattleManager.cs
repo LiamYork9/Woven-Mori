@@ -2,7 +2,7 @@ using System.Collections.Generic;
 using System.Collections;
 using UnityEngine;
 using TMPro;
- using UnityEngine.UI;
+using UnityEngine.UI;
 
 
 
@@ -54,6 +54,8 @@ public class BattleManager : MonoBehaviour
     public bool playerTurn;
 
     public bool action;
+
+    public SkillButtonScript skillButton;
 
 
     public void Awake()
@@ -406,6 +408,8 @@ public class BattleManager : MonoBehaviour
         {
             ButtonsOn();
         }
+
+        skillButton.SetSkillButtons();
     }
 
     public void DamagePlayer()

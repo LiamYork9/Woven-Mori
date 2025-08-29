@@ -41,6 +41,7 @@ public class Unit : MonoBehaviour
     public void CopyStats(Unit target)
     {
         unitName = target.unitName;
+        skills = target.skills;
         slotNumber = target.slotNumber;
         partyMember = target.partyMember;
         chSprite = target.chSprite;
