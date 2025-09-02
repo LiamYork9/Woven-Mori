@@ -2,8 +2,10 @@ using System.Collections.Generic;
 using System.Collections;
 using UnityEngine;
 using TMPro;
- using UnityEngine.UI;
-using UnityEditor.Rendering;
+using UnityEngine.UI;
+using MoriSkills;
+
+
 
 public class BattleManager : MonoBehaviour
 {
@@ -12,6 +14,8 @@ public class BattleManager : MonoBehaviour
     public List<GameObject> enemySlots;
 
     public List<GameObject> defaultSlots;
+
+    public List<GameObject> defaultPlayerSlots;
     public static BattleManager Instance;
 
     public static BattleManager GetInstance()
@@ -32,7 +36,11 @@ public class BattleManager : MonoBehaviour
 
     public GameObject target;
 
+    public GameObject enemyTarget;
+
     public bool selecting;
+
+    public bool playerSelecting;
 
     public int targetIndex = 0;
 
@@ -41,6 +49,22 @@ public class BattleManager : MonoBehaviour
     public TextMeshProUGUI dialogueText;
 
     public List<GameObject> buttons;
+
+    public bool enemyTurn;
+
+    public bool playerTurn;
+
+    public bool action;
+
+    public SkillButtonScript skillButton;
+
+    public GameObject skillMenu;
+
+    public GameObject actionMenu;
+
+    public bool usingSkill;
+
+
 
 
     public void Awake()
@@ -61,10 +85,21 @@ public class BattleManager : MonoBehaviour
     void Start()
     {
         BattleStart();
+        ButtonsOff();
     }
 
     public void Update()
     {
+        gTurnText.text = "Turn: " + globalTurn;
+        for (int i = 0; i < enemySlots.Count; i++)
+        {
+            enemySlots[i].GetComponent<Unit>().slotNumber = i;
+        }
+
+        for (int i = 0; i < playerSlots.Count; i++)
+        {
+            playerSlots[i].GetComponent<Unit>().slotNumber = i;
+        }
 
         if (selecting == true)
         {
@@ -120,17 +155,106 @@ public class BattleManager : MonoBehaviour
 
             }
 
+
+
+
         }
+
+        if (playerSelecting == true)
+        {
+            target = playerSlots[targetIndex];
+            targetArrow.transform.position = target.transform.position;
+            if (Input.GetKeyDown(KeyCode.S))
+            {
+                if (targetIndex + 1 >= playerSlots.Count)
+                {
+                    targetIndex = 0;
+                }
+                else
+                {
+                    targetIndex++;
+                }
+
+                target = playerSlots[targetIndex];
+                targetArrow.transform.position = target.transform.position;
+            }
+            if (Input.GetKeyDown(KeyCode.W))
+            {
+                if (targetIndex - 1 < 0)
+                {
+                    targetIndex = playerSlots.Count - 1;
+                }
+                else
+                {
+                    targetIndex--;
+                }
+                target = playerSlots[targetIndex];
+                targetArrow.transform.position = target.transform.position;
+
+            }
+        }
+
+        for (int i = 0; i < playerSlots.Count; i++)
+        {
+
+            if (playerSlots[i].GetComponent<PlayerCharacter>().currentHP <= 0)
+            {
+                Debug.Log("player died");
+                playerSlots.Remove(enemyTarget);
+            }
+        }
+
 
         if (Input.GetKeyDown(KeyCode.R))
         {
             enemySlots.Clear();
+            playerSlots.Clear();
             for (int i = 0; i < defaultSlots.Count; i++)
             {
                 enemySlots.Add(defaultSlots[i]);
             }
+            for (int i = 0; i < defaultPlayerSlots.Count; i++)
+            {
+                playerSlots.Add(defaultPlayerSlots[i]);
+            }
             BattleStart();
+            TurnOrderManager.Instance.downedPlayers.Clear();
+
         }
+
+        if (action == false)
+        {
+            TurnTransiton();
+        }
+
+        if (Input.GetKeyDown(KeyCode.E))
+        {
+            WinCondtion();
+        }
+
+        if (playerSlots.Count == 0)
+        {
+            LoseCondition();
+        }
+
+        if (Input.GetKeyDown(KeyCode.Escape))
+        {
+            if (usingSkill == true)
+            {
+                skillMenu.SetActive(false);
+                usingSkill = false;
+                actionMenu.SetActive(true);
+            }
+            if (selecting == true)
+            {
+                targetArrow.SetActive(false);
+                ButtonsOn();
+                selecting = false;
+                attacking = false;
+                dialogueText.text = "";
+            }
+        }
+
 
 
     }
@@ -138,9 +262,10 @@ public class BattleManager : MonoBehaviour
     // The funcation that will be called at the start of every fight 
     void BattleStart()
     {
-        ButtonsOn();
+
         dialogueText.text = " ";
         enemySlots.Clear();
+        //playerSlots.Clear();
         TurnOrderManager.Instance.allFighters.Clear();
         TurnOrderManager.Instance.recentTurns.Clear();
         for (int i = 0; i < defaultSlots.Count; i++)
@@ -148,12 +273,13 @@ public class BattleManager : MonoBehaviour
             enemySlots.Add(defaultSlots[i]);
         }
 
-        for (int i = 0; i < playerSlots.Count; i++)
+        for (int i = 0; i < PartyManager.Instance.party.Count; i++)
         {
+
             playerSlots[i].SetActive(true);
             PlayerCharacter temp = playerSlots[i].GetComponent<PlayerCharacter>();
             temp.CopyStats(PartyManager.Instance.party[i]);
-             playerSlots[i].GetComponent<Image>().sprite = temp.chSprite;
+            playerSlots[i].GetComponent<Image>().sprite = temp.chSprite;
         }
 
         for (int i = 0; i < enemySlots.Count; i++)
@@ -166,6 +292,7 @@ public class BattleManager : MonoBehaviour
 
         }
         TurnOrderManager.Instance.GatherFighters();
+
 
     }
 
@@ -183,56 +310,180 @@ public class BattleManager : MonoBehaviour
         targetArrow.SetActive(true);
         attacking = true;
         selecting = true;
+        action = false;
         ButtonsOff();
         dialogueText.text = "Select Target";
 
     }
+
+    public void SkillMenu()
+    {
+        usingSkill = true;
+        actionMenu.SetActive(false);
+        ButtonsOff();
+        skillMenu.SetActive(true);
+
+    }
+
+
 
     IEnumerator PlayerAttack()
     {
 
         targetArrow.SetActive(false);
         target.GetComponent<Enemy>().currentHP -= TurnOrderManager.Instance.turnPlayer.attack;
-        attacking = false;
-
         dialogueText.text = "Player has Attacked " + target.GetComponent<Enemy>().unitName;
 
         yield return new WaitForSeconds(2f);
-        if (enemySlots.Count  == 0)
+        if (enemySlots.Count == 0)
         {
             WinCondtion();
         }
         else
         {
-            TurnOrderManager.Instance.recentTurns.Insert(0,TurnOrderManager.Instance.turnPlayer);
-            TurnOrderManager.Instance.turnOrder.Remove(TurnOrderManager.Instance.turnPlayer);
             yield return new WaitForSeconds(2f);
+            TurnShift();
+            yield return new WaitForSeconds(1f);
             dialogueText.text = " It is now " + TurnOrderManager.Instance.turnPlayer.unitName + "Turn";
-            yield return new WaitForSeconds(2f);
+            yield return new WaitForSeconds(1f);
             dialogueText.text = " ";
-            ButtonsOn();
+            attacking = false;
+            playerTurn = false;
+            TurnTransiton();
+
         }
 
     }
 
-    // What shows up when yo Win
+    IEnumerator EnemyAttack()
+    {
+        action = true;
+        enemyTarget = playerSlots[0];
+        yield return new WaitForSeconds(2f);
+        DamagePlayer();
+        TurnShift();
+        dialogueText.text = "Enemy has Attacked " + enemyTarget.GetComponent<PlayerCharacter>().unitName;
+        yield return new WaitForSeconds(1f);
+        dialogueText.text = " It is now " + TurnOrderManager.Instance.turnPlayer.unitName + "Turn";
+        yield return new WaitForSeconds(1f);
+        dialogueText.text = " ";
+        enemyTurn = false;
+        action = false;
+        TurnTransiton();
+
+
+
+    }
+
+    public void EnemyTurn()
+    {
+        playerTurn = false;
+        ButtonsOff();
+    }
+
+
+
+    // What shows up when you Win
     public void WinCondtion()
     {
         ButtonsOff();
+        for (int i = 0; i < PartyManager.Instance.party.Count; i++)
+        {
+            PlayerCharacter temp = PartyManager.Instance.party[i];
+
+            temp.CopyStats(defaultPlayerSlots[i].GetComponent<PlayerCharacter>());
+        }
         dialogueText.text = "You Win!";
+    }
+
+    // What happens when you lose
+
+    public void LoseCondition()
+    {
+        ButtonsOff();
+        dialogueText.text = "You Lose";
     }
 
     public void ButtonsOn()
     {
         foreach (var obj in buttons)
-        obj.SetActive(true);
+            obj.SetActive(true);
     }
 
     public void ButtonsOff()
     {
-      foreach (var obj in buttons)
-      obj.SetActive(false);
+        foreach (var obj in buttons)
+            obj.SetActive(false);
     }
+
+    public void TurnTransiton()
+    {
+        if (TurnOrderManager.Instance.turnPlayer != null && TurnOrderManager.Instance.turnPlayer.partyMember == false)
+        {
+            enemyTurn = true;
+            EnemyTurn();
+        }
+
+        if (enemyTurn == true && action == false)
+        {
+            StartCoroutine(EnemyAttack());
+            ButtonsOff();
+        }
+
+        if (TurnOrderManager.Instance.turnPlayer != null && TurnOrderManager.Instance.turnPlayer.partyMember == true)
+        {
+            playerTurn = true;
+        }
+
+        if (playerTurn == true && attacking == false && usingSkill == false)
+        {
+            ButtonsOn();
+        }
+
+        skillButton.SetSkillButtons();
+    }
+
+    public void DamagePlayer()
+    {
+        enemyTarget.GetComponent<PlayerCharacter>().currentHP -= TurnOrderManager.Instance.turnPlayer.attack;
+
+        if (enemyTarget.GetComponent<PlayerCharacter>().currentHP <= 0)
+        {
+            enemyTarget.GetComponent<PlayerCharacter>().Death();
+        }
+    }
+
+    public void TurnShift(int shift = 1)
+    {
+        
+        if (shift >= 0)
+        {
+            for (int i = 0; i < shift; i++)
+            {
+                TurnOrderManager.Instance.recentTurns.Insert(0, TurnOrderManager.Instance.turnOrder[0]);
+                TurnOrderManager.Instance.turnOrder.Remove(TurnOrderManager.Instance.turnOrder[0]);
+                globalTurn += 1;
+            }
+        }
+        else
+        {
+            if (TurnOrderManager.Instance.recentTurns.Count + shift >= 0)
+            {
+                for (int i = 0; i + shift < 0; i++)
+                {
+
+                    TurnOrderManager.Instance.turnOrder.Insert(0, TurnOrderManager.Instance.recentTurns[0]);
+                    TurnOrderManager.Instance.recentTurns.Remove(TurnOrderManager.Instance.recentTurns[0]);
+                    globalTurn -= 1;
+                }
+            }
+            else
+            {
+                TurnShift();
+            }
+        }
+    }
+
 
 
 

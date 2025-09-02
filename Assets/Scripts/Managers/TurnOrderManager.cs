@@ -7,9 +7,11 @@ public class TurnOrderManager : MonoBehaviour
     public Unit turnPlayer;
     public List<GameObject> allFighters;
 
-    public List<Unit> turnOrder = new List<Unit>{};
+    public List<Unit> downedPlayers = new List<Unit> { };
 
-    public List<Unit> recentTurns = new List<Unit>{};
+    public List<Unit> turnOrder = new List<Unit> { };
+
+    public List<Unit> recentTurns = new List<Unit> { };
 
     public int emergencybutton = 0;
 
@@ -40,9 +42,14 @@ public class TurnOrderManager : MonoBehaviour
     {
         turnPlayer = turnOrder[0];
 
-        if (turnOrder.Count <= 5)
+        if (turnOrder.Count <= 6)
         {
-              TurnCalulation();
+            TurnCalulation();
+        }
+
+        if (Input.GetKeyDown(KeyCode.P))
+        {
+            SpeedUp();
         }
     }
 
@@ -51,14 +58,17 @@ public class TurnOrderManager : MonoBehaviour
     {
         for (int i = 0; i < BattleManager.Instance.playerSlots.Count; i++)
         {
+            BattleManager.Instance.playerSlots[i].name = BattleManager.Instance.playerSlots[i].GetComponent<Unit>().unitName;
             allFighters.Add(BattleManager.Instance.playerSlots[i]);
         }
 
         for (int i = 0; i < BattleManager.Instance.enemySlots.Count; i++)
         {
+            BattleManager.Instance.enemySlots[i].name = BattleManager.Instance.enemySlots[i].GetComponent<Unit>().unitName;
             allFighters.Add(BattleManager.Instance.enemySlots[i]);
         }
         TurnCalulation();
+
 
 
     }
@@ -72,7 +82,6 @@ public class TurnOrderManager : MonoBehaviour
             for (int i = 0; i < allFighters.Count; i++)
             {
                 Unit temp = allFighters[i].GetComponent<Unit>();
-                Debug.Log(temp.initiative);
                 temp.initiative += temp.speed;
 
                 if (temp.initiative >= 100)
@@ -82,5 +91,14 @@ public class TurnOrderManager : MonoBehaviour
                 }
             }
         }
+    }
+
+
+    public void SpeedUp()
+    {
+        //turnPlayer.speed += 10;
+        emergencybutton = 0;
+        turnOrder.Clear();
+        TurnCalulation();
     }
 }

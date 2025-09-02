@@ -1,3 +1,6 @@
+using System;
+using System.Collections.Generic;
+using MoriSkills;
 using UnityEngine;
 
 public class Unit : MonoBehaviour
@@ -6,7 +9,11 @@ public class Unit : MonoBehaviour
     public string unitName;
     public bool partyMember;
 
+    public List<SkillId> skills;
+
     public Sprite chSprite;
+
+    public Sprite deathSprite;
 
     public int attack;
 
@@ -17,6 +24,8 @@ public class Unit : MonoBehaviour
     public int speed;
 
     public int initiative;
+
+    public int slotNumber;
    
     void Start()
     {
@@ -32,7 +41,11 @@ public class Unit : MonoBehaviour
     public void CopyStats(Unit target)
     {
         unitName = target.unitName;
+        skills = target.skills;
+        slotNumber = target.slotNumber;
+        partyMember = target.partyMember;
         chSprite = target.chSprite;
+        deathSprite = target.deathSprite;
         attack = target.attack;
         maxHP = target.maxHP;
         currentHP = target.currentHP;
