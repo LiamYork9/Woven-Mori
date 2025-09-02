@@ -58,11 +58,13 @@ public class TurnOrderManager : MonoBehaviour
     {
         for (int i = 0; i < BattleManager.Instance.playerSlots.Count; i++)
         {
+            BattleManager.Instance.playerSlots[i].name = BattleManager.Instance.playerSlots[i].GetComponent<Unit>().unitName;
             allFighters.Add(BattleManager.Instance.playerSlots[i]);
         }
 
         for (int i = 0; i < BattleManager.Instance.enemySlots.Count; i++)
         {
+            BattleManager.Instance.enemySlots[i].name = BattleManager.Instance.enemySlots[i].GetComponent<Unit>().unitName;
             allFighters.Add(BattleManager.Instance.enemySlots[i]);
         }
         TurnCalulation();
