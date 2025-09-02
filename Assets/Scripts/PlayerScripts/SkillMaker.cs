@@ -41,7 +41,7 @@ public class SkillMaker : MonoBehaviour
 
     public void SkillCreation()
     {
-        Skills EndBringer = new Skills(SkillId.EndBringer, "End Bringer", Element.Fate, Target.single, Category.Magic, 100, 100, 5, "This shit kills people", 0, 2);
+        Skills EndBringer = new Skills(SkillId.EndBringer, "End Bringer", Element.Fate, Target.single, Category.Magic, 100, 100, 5, "This shit kills people", 0, -2);
         madeSkills.Add(EndBringer);
         Skills SmallPunch = new Skills(SkillId.SmallPunch, "Small Punch", Element.None, Target.single, Category.Physical, 10, 100, 1, "You punch them", 100, 1);
         madeSkills.Add(SmallPunch);

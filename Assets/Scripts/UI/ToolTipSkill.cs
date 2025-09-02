@@ -13,12 +13,12 @@ public class ToolTipSkill : MonoBehaviour, IPointerEnterHandler, IPointerExitHan
     public void OnPointerEnter(PointerEventData eventData)
     {
         hoverEvent.Invoke(this.gameObject);
-        Debug.Log("hover happen");
+     
     }
     public void OnPointerExit(PointerEventData eventData)
     {
         unHoverEvent.Invoke();
-         Debug.Log("unhover happen");
+         
     }
 
  

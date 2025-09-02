@@ -4,6 +4,8 @@ using UnityEngine.UI;
 using TMPro;
 using UnityEngine.Events;
 using UnityEngine.EventSystems;
+using System.Collections;
+using MoriSkills;
 
 public class SkillButtonScript : MonoBehaviour
 {
@@ -12,6 +14,8 @@ public class SkillButtonScript : MonoBehaviour
     public TMP_Text toolTip;
 
     public int page = 0;
+
+    public TextMeshProUGUI dialogueText;
 
     void Start()
     {
@@ -30,7 +34,7 @@ public class SkillButtonScript : MonoBehaviour
 
     void Update()
     {
-     
+
     }
 
     public void ToolTipAdder(GameObject button)
@@ -48,10 +52,57 @@ public class SkillButtonScript : MonoBehaviour
         {
             if (TurnOrderManager.Instance.turnPlayer != null && TurnOrderManager.Instance.turnPlayer.partyMember == true)
             {
-                skillButtons[i].GetComponentInChildren<TextMeshProUGUI>().text = TurnOrderManager.Instance.turnPlayer.skills[i + page].ToString();
-                skillButtons[i].GetComponent<ToolTipSkill>().skillId = TurnOrderManager.Instance.turnPlayer.skills[i + page];
+                if ( (i + page) < TurnOrderManager.Instance.turnPlayer.skills.Count && TurnOrderManager.Instance.turnPlayer.skills[i + page] != SkillId.None)
+                { 
+                    skillButtons[i].GetComponentInChildren<TextMeshProUGUI>().text = TurnOrderManager.Instance.turnPlayer.skills[i + page].ToString();
+                    skillButtons[i].GetComponent<ToolTipSkill>().skillId = TurnOrderManager.Instance.turnPlayer.skills[i + page];
+                    
+                }
+                else
+                {
+                    skillButtons[i].SetActive(false);
+                }
             }
         }
+    }
+
+    public void ActivateSkill(GameObject button)
+    {
+        ButtonsOff();
+        BattleManager.Instance.ButtonsOff();
+        StartCoroutine(PlayerSkill(button));
+        toolTip.text = "";
+       
+    }
+
+    IEnumerator PlayerSkill(GameObject button)
+    {
+        BattleManager.Instance.usingSkill = false;
+        dialogueText.text = " Player used " + SkillMaker.Instance.GetById(button.GetComponent<ToolTipSkill>().skillId).name;
+        yield return new WaitForSeconds(2f);
+        BattleManager.Instance.TurnShift(SkillMaker.Instance.GetById(button.GetComponent<ToolTipSkill>().skillId).turnShift);
+        yield return new WaitForSeconds(1f);
+        dialogueText.text = " It is now " + TurnOrderManager.Instance.turnPlayer.unitName + "Turn";
+        yield return new WaitForSeconds(1f);
+        dialogueText.text = "";
+        BattleManager.Instance.actionMenu.SetActive(true);
+        BattleManager.Instance.ButtonsOn();
+        ButtonsOn();
+        BattleManager.Instance.skillMenu.SetActive(false);
+        BattleManager.Instance.playerTurn = false;
+        BattleManager.Instance.TurnTransiton();
+    }
+    
+       public void ButtonsOn()
+    {
+        foreach (var obj in skillButtons)
+            obj.SetActive(true);
+    }
+
+    public void ButtonsOff()
+    {
+        foreach (var obj in skillButtons)
+            obj.SetActive(false);
     }
 }
 
