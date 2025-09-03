@@ -26,6 +26,10 @@ public class Unit : MonoBehaviour
     public int initiative;
 
     public int slotNumber;
+
+    public int selfTurnCount;
+
+    public int AP;
    
     void Start()
     {
