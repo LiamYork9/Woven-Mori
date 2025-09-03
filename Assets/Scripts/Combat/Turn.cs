@@ -1,16 +1,26 @@
 using UnityEngine;
+using System;
+using System.Collections.Generic;
 
-public class Turn : MonoBehaviour
+[System.Serializable]
+public class Turn
 {
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
-    void Start()
+    public Unit unit;
+    public int initiative;
+    public int cycle;
+
+    public void StartTurn()
     {
-        
+        Debug.Log("Start " + unit.name + "'s Turn!");
     }
 
-    // Update is called once per frame
-    void Update()
+    public void SelectAction()
     {
-        
+        Debug.Log("What will " + unit.name + " do?");
+    }
+
+    public void EndTurn()
+    {
+        Debug.Log("End " + unit.name + "'s Turn!");
     }
 }
