@@ -9,11 +9,13 @@ public class TurnOrderManager : MonoBehaviour
 
     public List<Unit> downedPlayers = new List<Unit> { };
 
-    public List<Unit> turnOrder = new List<Unit> { };
+    public List<Turn> turnOrder = new List<Turn> { };
 
-    public List<Unit> recentTurns = new List<Unit> { };
+    public List<Turn> recentTurns = new List<Turn> { };
 
     public int emergencybutton = 0;
+
+    public int cycle = 0;
 
 
 
@@ -40,7 +42,7 @@ public class TurnOrderManager : MonoBehaviour
 
     void Update()
     {
-        turnPlayer = turnOrder[0];
+        turnPlayer = turnOrder[0].unit;
 
         if (turnOrder.Count <= 6)
         {
@@ -81,15 +83,18 @@ public class TurnOrderManager : MonoBehaviour
             emergencybutton++;
             for (int i = 0; i < allFighters.Count; i++)
             {
-                Unit temp = allFighters[i].GetComponent<Unit>();
-                temp.initiative += temp.speed;
+                Turn tempTurn = new Turn();
+                Unit tempUnit = allFighters[i].GetComponent<Unit>();
+                tempUnit.initiative += tempUnit.speed;
 
-                if (temp.initiative >= 100)
+                if (tempUnit.initiative >= 100)
                 {
-                    temp.initiative -= 100;
-                    turnOrder.Add(temp);
+                    tempUnit.initiative -= 100;
+                    tempTurn.PopulateTurn(tempUnit);
+                    turnOrder.Add(tempTurn);
                 }
             }
+            cycle++;
         }
     }
 
@@ -100,5 +105,43 @@ public class TurnOrderManager : MonoBehaviour
         emergencybutton = 0;
         turnOrder.Clear();
         TurnCalulation();
+    }
+
+    public void TurnShift(int shift = 1)
+    {
+
+        if (shift >= 0)
+        {
+            for (int i = 0; i < shift; i++)
+            {
+                recentTurns.Insert(0, turnOrder[0]);
+                turnOrder.Remove(turnOrder[0]);
+                BattleManager.Instance.globalTurn += 1;
+            }
+            turnOrder[0].StartTurn();
+        }
+        else
+        {
+            if (recentTurns.Count + shift >= 0)
+            {
+                for (int i = 0; i + shift < 0; i++)
+                {
+
+                    turnOrder.Insert(0, recentTurns[0]);
+                    recentTurns.Remove(recentTurns[0]);
+                    BattleManager.Instance.globalTurn -= 1;
+                }
+                turnOrder[0].StartTurn();
+            }
+            else
+            {
+                TurnShift();
+            }
+        }
+    }
+
+    public void EndTurn()
+    {
+        turnOrder[0].EndTurn();
     }
 }

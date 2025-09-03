@@ -89,10 +89,9 @@ public class SkillButtonScript : MonoBehaviour
     IEnumerator PlayerSkill(GameObject button)
     {
         BattleManager.Instance.usingSkill = false;
-        TurnOrderManager.Instance.turnPlayer.selfTurnCount += 1;
         dialogueText.text = " Player used " + SkillMaker.Instance.GetById(button.GetComponent<ToolTipSkill>().skillId).name;
         yield return new WaitForSeconds(2f);
-        BattleManager.Instance.TurnShift(SkillMaker.Instance.GetById(button.GetComponent<ToolTipSkill>().skillId).turnShift);
+        TurnOrderManager.Instance.TurnShift(SkillMaker.Instance.GetById(button.GetComponent<ToolTipSkill>().skillId).turnShift);
         yield return new WaitForSeconds(1f);
         dialogueText.text = " It is now " + TurnOrderManager.Instance.turnPlayer.unitName + "Turn";
         yield return new WaitForSeconds(1f);
@@ -102,7 +101,7 @@ public class SkillButtonScript : MonoBehaviour
         ButtonsOn();
         BattleManager.Instance.skillMenu.SetActive(false);
         BattleManager.Instance.playerTurn = false;
-        BattleManager.Instance.TurnTransiton();
+        TurnOrderManager.Instance.turnOrder[0].EndTurn();
     }
     
        public void ButtonsOn()
