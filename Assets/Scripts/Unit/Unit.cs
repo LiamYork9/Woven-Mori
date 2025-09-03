@@ -29,17 +29,21 @@ public class Unit : MonoBehaviour
 
     public int selfTurnCount;
 
+    public int selfTurnCountCurrentVal;
+
     public int AP;
+
+    public int APCap;
    
     void Start()
     {
-
+        selfTurnCountCurrentVal = selfTurnCount;
     }
 
 
     void Update()
     {
-        
+    
     }
 
     public void CopyStats(Unit target)
@@ -54,5 +58,6 @@ public class Unit : MonoBehaviour
         maxHP = target.maxHP;
         currentHP = target.currentHP;
         speed = target.speed;
+  
     }
 }

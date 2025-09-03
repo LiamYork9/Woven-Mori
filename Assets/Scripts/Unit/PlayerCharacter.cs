@@ -6,12 +6,22 @@ public class PlayerCharacter : Unit
 
     void Start()
     {
-
+        AP = 1;
+        APCap = 10;
     }
 
     void Update()
     {
-        
+        if (AP > APCap)
+        {
+            AP = APCap;
+        }
+        if (selfTurnCountCurrentVal < selfTurnCount)
+        {
+            AP += 1;
+            selfTurnCountCurrentVal = selfTurnCount;
+            Debug.Log("check this");
+        }
     }
 
 

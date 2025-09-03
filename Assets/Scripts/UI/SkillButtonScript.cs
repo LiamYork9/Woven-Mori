@@ -68,16 +68,28 @@ public class SkillButtonScript : MonoBehaviour
 
     public void ActivateSkill(GameObject button)
     {
-        ButtonsOff();
+       
         BattleManager.Instance.ButtonsOff();
-        StartCoroutine(PlayerSkill(button));
-        toolTip.text = "";
+        if (TurnOrderManager.Instance.turnPlayer.AP >= SkillMaker.Instance.GetById(button.GetComponent<ToolTipSkill>().skillId).cost)
+        {
+            ButtonsOff();
+            StartCoroutine(PlayerSkill(button));
+            toolTip.text = "";
+            TurnOrderManager.Instance.turnPlayer.AP -= SkillMaker.Instance.GetById(button.GetComponent<ToolTipSkill>().skillId).cost;
+        }
+        else
+        {
+            toolTip.text = "Not Enough AP";
+        }
+       
+        
        
     }
 
     IEnumerator PlayerSkill(GameObject button)
     {
         BattleManager.Instance.usingSkill = false;
+        TurnOrderManager.Instance.turnPlayer.selfTurnCount += 1;
         dialogueText.text = " Player used " + SkillMaker.Instance.GetById(button.GetComponent<ToolTipSkill>().skillId).name;
         yield return new WaitForSeconds(2f);
         BattleManager.Instance.TurnShift(SkillMaker.Instance.GetById(button.GetComponent<ToolTipSkill>().skillId).turnShift);

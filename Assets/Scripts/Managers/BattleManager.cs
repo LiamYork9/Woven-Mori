@@ -332,8 +332,8 @@ public class BattleManager : MonoBehaviour
 
         targetArrow.SetActive(false);
         target.GetComponent<Enemy>().currentHP -= TurnOrderManager.Instance.turnPlayer.attack;
+        TurnOrderManager.Instance.turnPlayer.selfTurnCount += 1;
         dialogueText.text = "Player has Attacked " + target.GetComponent<Enemy>().unitName;
-
         yield return new WaitForSeconds(2f);
         if (enemySlots.Count == 0)
         {
@@ -358,6 +358,7 @@ public class BattleManager : MonoBehaviour
     IEnumerator EnemyAttack()
     {
         action = true;
+        TurnOrderManager.Instance.turnPlayer.selfTurnCount += 1;
         enemyTarget = playerSlots[0];
         yield return new WaitForSeconds(2f);
         DamagePlayer();
@@ -433,6 +434,7 @@ public class BattleManager : MonoBehaviour
         if (TurnOrderManager.Instance.turnPlayer != null && TurnOrderManager.Instance.turnPlayer.partyMember == true)
         {
             playerTurn = true;
+           
         }
 
         if (playerTurn == true && attacking == false && usingSkill == false)
