@@ -38,6 +38,8 @@ public class BattleManager : MonoBehaviour
 
     public GameObject enemyTarget;
 
+    public bool multiTarget;
+
     public bool selecting;
 
     public bool playerSelecting;
@@ -63,6 +65,7 @@ public class BattleManager : MonoBehaviour
     public GameObject actionMenu;
 
     public bool usingSkill;
+
 
 
 
@@ -143,6 +146,7 @@ public class BattleManager : MonoBehaviour
                 }
                 selecting = false;
                 Debug.Log("Player has Attacked " + target);
+            
             }
 
             for (int i = 0; i < enemySlots.Count; i++)

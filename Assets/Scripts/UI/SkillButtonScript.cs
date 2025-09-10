@@ -6,6 +6,7 @@ using UnityEngine.Events;
 using UnityEngine.EventSystems;
 using System.Collections;
 using MoriSkills;
+using UnityEngine.Assertions.Must;
 
 public class SkillButtonScript : MonoBehaviour
 {
@@ -16,6 +17,8 @@ public class SkillButtonScript : MonoBehaviour
     public int page = 0;
 
     public TextMeshProUGUI dialogueText;
+
+    public Skill selectedSkill;
 
     void Start()
     {
@@ -34,7 +37,18 @@ public class SkillButtonScript : MonoBehaviour
 
     void Update()
     {
+        if (Input.GetKeyDown(KeyCode.Space))
+        {
 
+
+            if (BattleManager.Instance.usingSkill == true)
+            {
+                BattleManager.Instance.targetArrow.SetActive(false);
+                ActivateSkill(selectedSkill);
+            }
+                
+                BattleManager.Instance.selecting = false;
+        }
     }
 
     public void ToolTipAdder(GameObject button)
@@ -52,47 +66,47 @@ public class SkillButtonScript : MonoBehaviour
         {
             if (TurnOrderManager.Instance.turnPlayer != null && TurnOrderManager.Instance.turnPlayer.partyMember == true)
             {
-                if ( (i + page) < TurnOrderManager.Instance.turnPlayer.skills.Count && TurnOrderManager.Instance.turnPlayer.skills[i + page] != SkillId.None)
-                { 
+                if ((i + page) < TurnOrderManager.Instance.turnPlayer.skills.Count && TurnOrderManager.Instance.turnPlayer.skills[i + page] != SkillId.None)
+                {
                     skillButtons[i].GetComponentInChildren<TextMeshProUGUI>().text = TurnOrderManager.Instance.turnPlayer.skills[i + page].ToString();
                     skillButtons[i].GetComponent<ToolTipSkill>().skillId = TurnOrderManager.Instance.turnPlayer.skills[i + page];
-                    
+
                 }
                 else
                 {
                     skillButtons[i].SetActive(false);
                 }
+
+
             }
         }
     }
 
-    public void ActivateSkill(GameObject button)
+    public void ActivateSkill(Skill skill)
     {
+         BattleManager.Instance.ButtonsOff();
        
-        BattleManager.Instance.ButtonsOff();
-        if (TurnOrderManager.Instance.turnPlayer.AP >= SkillMaker.Instance.GetById(button.GetComponent<ToolTipSkill>().skillId).cost)
-        {
             ButtonsOff();
-            StartCoroutine(PlayerSkill(button));
-            toolTip.text = "";
-            TurnOrderManager.Instance.turnPlayer.AP -= SkillMaker.Instance.GetById(button.GetComponent<ToolTipSkill>().skillId).cost;
-        }
-        else
-        {
-            toolTip.text = "Not Enough AP";
-        }
-       
+            if (BattleManager.Instance.selecting == false)
+            {
+                StartCoroutine(PlayerSkill(skill));
+                toolTip.text = "";
+                TurnOrderManager.Instance.turnPlayer.AP -= skill.cost;
+            }
+
         
-       
+
+
+
     }
 
-    IEnumerator PlayerSkill(GameObject button)
+    IEnumerator PlayerSkill(Skill skill)
     {
         BattleManager.Instance.usingSkill = false;
         TurnOrderManager.Instance.turnPlayer.selfTurnCount += 1;
-        dialogueText.text = " Player used " + SkillMaker.Instance.GetById(button.GetComponent<ToolTipSkill>().skillId).name;
+        dialogueText.text = " Player used " + skill.name + " On " + BattleManager.Instance.target.name;
         yield return new WaitForSeconds(2f);
-        BattleManager.Instance.TurnShift(SkillMaker.Instance.GetById(button.GetComponent<ToolTipSkill>().skillId).turnShift);
+        BattleManager.Instance.TurnShift(skill.turnShift);
         yield return new WaitForSeconds(1f);
         dialogueText.text = " It is now " + TurnOrderManager.Instance.turnPlayer.unitName + "Turn";
         yield return new WaitForSeconds(1f);
@@ -103,9 +117,10 @@ public class SkillButtonScript : MonoBehaviour
         BattleManager.Instance.skillMenu.SetActive(false);
         BattleManager.Instance.playerTurn = false;
         BattleManager.Instance.TurnTransiton();
+        selectedSkill = null;
     }
-    
-       public void ButtonsOn()
+
+    public void ButtonsOn()
     {
         foreach (var obj in skillButtons)
             obj.SetActive(true);
@@ -115,6 +130,27 @@ public class SkillButtonScript : MonoBehaviour
     {
         foreach (var obj in skillButtons)
             obj.SetActive(false);
+    }
+
+    public void SkillUse(GameObject button)
+    {
+        selectedSkill = SkillMaker.Instance.GetById(button.GetComponent<ToolTipSkill>().skillId);
+        if (TurnOrderManager.Instance.turnPlayer.AP >= selectedSkill.cost)
+        {
+
+
+            if (selectedSkill.target == Target.single)
+            {
+                toolTip.text = "";
+                ButtonsOff();
+                BattleManager.Instance.selecting = true;
+                BattleManager.Instance.targetArrow.SetActive(true);
+            }
+        }
+        else
+        {
+            toolTip.text = "Not Enough AP";
+        }
     }
 }
 
