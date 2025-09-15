@@ -38,6 +38,8 @@ public class BattleManager : MonoBehaviour
 
     public GameObject enemyTarget;
 
+    public bool multiTarget;
+
     public bool selecting;
 
     public bool playerSelecting;
@@ -67,6 +69,7 @@ public class BattleManager : MonoBehaviour
 
 
 
+
     public void Awake()
     {
         if (BattleManager.Instance != this && BattleManager.Instance != null)
@@ -90,7 +93,7 @@ public class BattleManager : MonoBehaviour
 
     public void Update()
     {
-        gTurnText.text = "Turn: " + globalTurn;
+        //Move later for optemization 
         for (int i = 0; i < enemySlots.Count; i++)
         {
             enemySlots[i].GetComponent<Unit>().slotNumber = i;
@@ -143,6 +146,7 @@ public class BattleManager : MonoBehaviour
                 }
                 selecting = false;
                 Debug.Log("Player has Attacked " + target);
+
             }
 
             for (int i = 0; i < enemySlots.Count; i++)
@@ -194,6 +198,7 @@ public class BattleManager : MonoBehaviour
             }
         }
 
+        //Put in Take Damage Function 
         for (int i = 0; i < playerSlots.Count; i++)
         {
 
@@ -204,7 +209,7 @@ public class BattleManager : MonoBehaviour
             }
         }
 
-
+        //For testing will be reomved later
         if (Input.GetKeyDown(KeyCode.R))
         {
             enemySlots.Clear();
@@ -222,16 +227,8 @@ public class BattleManager : MonoBehaviour
 
         }
 
-        if (action == false)
-        {
-            TurnTransiton();
-        }
 
-        if (Input.GetKeyDown(KeyCode.E))
-        {
-            WinCondtion();
-        }
-
+        // Will go into a death function later
         if (playerSlots.Count == 0)
         {
             LoseCondition();
@@ -262,13 +259,14 @@ public class BattleManager : MonoBehaviour
     // The funcation that will be called at the start of every fight 
     void BattleStart()
     {
+        globalTurn = 1;
 
         dialogueText.text = " ";
         enemySlots.Clear();
         //playerSlots.Clear();
         TurnOrderManager.Instance.allFighters.Clear();
         TurnOrderManager.Instance.recentTurns.Clear();
-        TurnOrderManager.Instance.cycle=0;
+        TurnOrderManager.Instance.cycle = 0;
         for (int i = 0; i < defaultSlots.Count; i++)
         {
             enemySlots.Add(defaultSlots[i]);
@@ -293,9 +291,12 @@ public class BattleManager : MonoBehaviour
 
         }
         TurnOrderManager.Instance.GatherFighters();
-
+        TurnOrderManager.Instance.turnPlayer = TurnOrderManager.Instance.turnOrder[0].unit;
+        TurnOrderManager.Instance.turnOrder[0].StartTurn();
 
     }
+
+
 
     //Where we roll our Enimies 
     public Enemy RollEnemy()
@@ -345,30 +346,19 @@ public class BattleManager : MonoBehaviour
         }
         else
         {
-            yield return new WaitForSeconds(2f);
-            TurnOrderManager.Instance.TurnShift();
-            yield return new WaitForSeconds(1f);
-            dialogueText.text = " It is now " + TurnOrderManager.Instance.turnPlayer.unitName + "Turn";
-            yield return new WaitForSeconds(1f);
-            dialogueText.text = " ";
-            attacking = false;
-            playerTurn = false;
             TurnOrderManager.Instance.EndTurn();
 
         }
 
     }
 
-    IEnumerator EnemyAttack()
+    IEnumerator EnemyAttackCo()
     {
         action = true;
         enemyTarget = playerSlots[0];
         yield return new WaitForSeconds(2f);
         DamagePlayer();
-        TurnOrderManager.Instance.TurnShift();
         dialogueText.text = "Enemy has Attacked " + enemyTarget.GetComponent<PlayerCharacter>().unitName;
-        yield return new WaitForSeconds(1f);
-        dialogueText.text = " It is now " + TurnOrderManager.Instance.turnPlayer.unitName + "Turn";
         yield return new WaitForSeconds(1f);
         dialogueText.text = " ";
         enemyTurn = false;
@@ -428,21 +418,16 @@ public class BattleManager : MonoBehaviour
             EnemyTurn();
         }
 
-        if (enemyTurn == true && action == false)
-        {
-            StartCoroutine(EnemyAttack());
-            ButtonsOff();
-        }
 
         if (TurnOrderManager.Instance.turnPlayer != null && TurnOrderManager.Instance.turnPlayer.partyMember == true)
         {
             playerTurn = true;
-           
+
         }
 
         if (playerTurn == true && attacking == false && usingSkill == false)
         {
-            ButtonsOn();
+            //ButtonsOn();
         }
 
         skillButton.SetSkillButtons();
@@ -456,6 +441,34 @@ public class BattleManager : MonoBehaviour
         {
             enemyTarget.GetComponent<PlayerCharacter>().Death();
         }
+    }
+
+    public void StartStartTurnCo(Turn turn)
+    {
+        StartCoroutine(turn.StartTurnCo());
+    }
+
+    public void StartSelectActionCo(Turn turn)
+    {
+        if (turn.unit.partyMember == true)
+        {
+            StartCoroutine(turn.SelectActionCo());
+        }
+        else
+        {
+            StartCoroutine(turn.EnemyActionCo());
+        }
+
+    }
+
+    public void StartEndTurnCo(Turn turn)
+    {
+        StartCoroutine(turn.EndTurnCo());
+    }
+
+    public void EnemyAttack()
+    {
+        StartCoroutine(EnemyAttackCo());
     }
 
 
