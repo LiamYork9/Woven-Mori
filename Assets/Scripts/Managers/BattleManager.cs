@@ -272,6 +272,7 @@ public class BattleManager : MonoBehaviour
         //playerSlots.Clear();
         TurnOrderManager.Instance.allFighters.Clear();
         TurnOrderManager.Instance.recentTurns.Clear();
+        TurnOrderManager.Instance.cycle=0;
         for (int i = 0; i < defaultSlots.Count; i++)
         {
             enemySlots.Add(defaultSlots[i]);
@@ -336,7 +337,10 @@ public class BattleManager : MonoBehaviour
 
         targetArrow.SetActive(false);
         target.GetComponent<Enemy>().currentHP -= TurnOrderManager.Instance.turnPlayer.attack;
-        TurnOrderManager.Instance.turnPlayer.selfTurnCount += 1;
+        if (target.GetComponent<Enemy>().currentHP <= 0)
+        {
+            target.GetComponent<Enemy>().Death();
+        }
         dialogueText.text = "Player has Attacked " + target.GetComponent<Enemy>().unitName;
         yield return new WaitForSeconds(2f);
         if (enemySlots.Count == 0)
@@ -346,14 +350,14 @@ public class BattleManager : MonoBehaviour
         else
         {
             yield return new WaitForSeconds(2f);
-            TurnShift();
+            TurnOrderManager.Instance.TurnShift();
             yield return new WaitForSeconds(1f);
             dialogueText.text = " It is now " + TurnOrderManager.Instance.turnPlayer.unitName + "Turn";
             yield return new WaitForSeconds(1f);
             dialogueText.text = " ";
             attacking = false;
             playerTurn = false;
-            TurnTransiton();
+            TurnOrderManager.Instance.EndTurn();
 
         }
 
@@ -362,11 +366,10 @@ public class BattleManager : MonoBehaviour
     IEnumerator EnemyAttack()
     {
         action = true;
-        TurnOrderManager.Instance.turnPlayer.selfTurnCount += 1;
         enemyTarget = playerSlots[0];
         yield return new WaitForSeconds(2f);
         DamagePlayer();
-        TurnShift();
+        TurnOrderManager.Instance.TurnShift();
         dialogueText.text = "Enemy has Attacked " + enemyTarget.GetComponent<PlayerCharacter>().unitName;
         yield return new WaitForSeconds(1f);
         dialogueText.text = " It is now " + TurnOrderManager.Instance.turnPlayer.unitName + "Turn";
@@ -374,7 +377,7 @@ public class BattleManager : MonoBehaviour
         dialogueText.text = " ";
         enemyTurn = false;
         action = false;
-        TurnTransiton();
+        TurnOrderManager.Instance.EndTurn();
 
 
 
@@ -458,43 +461,6 @@ public class BattleManager : MonoBehaviour
             enemyTarget.GetComponent<PlayerCharacter>().Death();
         }
     }
-
-    public void TurnShift(int shift = 1)
-    {
-        
-        if (shift >= 0)
-        {
-            for (int i = 0; i < shift; i++)
-            {
-                TurnOrderManager.Instance.recentTurns.Insert(0, TurnOrderManager.Instance.turnOrder[0]);
-                TurnOrderManager.Instance.turnOrder.Remove(TurnOrderManager.Instance.turnOrder[0]);
-                globalTurn += 1;
-            }
-        }
-        else
-        {
-            if (TurnOrderManager.Instance.recentTurns.Count + shift >= 0)
-            {
-                for (int i = 0; i + shift < 0; i++)
-                {
-
-                    TurnOrderManager.Instance.turnOrder.Insert(0, TurnOrderManager.Instance.recentTurns[0]);
-                    TurnOrderManager.Instance.recentTurns.Remove(TurnOrderManager.Instance.recentTurns[0]);
-                    globalTurn -= 1;
-                }
-            }
-            else
-            {
-                TurnShift();
-            }
-        }
-    }
-
-
-
-
-
-
 
 
 

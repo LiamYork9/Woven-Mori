@@ -17,12 +17,12 @@ public class TurnOrderDisplay : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        displayName.text = TurnOrderManager.Instance.turnOrder[turnPostion].GetComponent<Unit>().unitName;
-        gameObject.GetComponent<Image>().sprite = TurnOrderManager.Instance.turnOrder[turnPostion].GetComponent<Unit>().chSprite;
+        displayName.text = TurnOrderManager.Instance.turnOrder[turnPostion].unit.unitName;
+        gameObject.GetComponent<Image>().sprite = TurnOrderManager.Instance.turnOrder[turnPostion].unit.chSprite;
         
      
        
-        if (TurnOrderManager.Instance.turnOrder[turnPostion].GetComponent<Unit>().partyMember == true)
+        if (TurnOrderManager.Instance.turnOrder[turnPostion].unit.partyMember == true)
         {
             gameObject.GetComponent<Image>().color = new Color32(0, 0, 255, 255);
         }

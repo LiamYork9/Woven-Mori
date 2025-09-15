@@ -12,7 +12,6 @@ public class Enemy : Unit
     // Update is called once per frame
     void Update()
     {
-        Death();
     }
 
     // Clears the enemy stats on death 
@@ -25,7 +24,7 @@ public class Enemy : Unit
         speed = 0;
     }
 
-// Enemy Death Function (Reomves them from list)
+// Enemy Death Function (Removes them from list)
     public void Death()
     {
         if (currentHP <= 0)
@@ -34,19 +33,41 @@ public class Enemy : Unit
             ClearStats();
             for (int i = 0; i < TurnOrderManager.Instance.turnOrder.Count; i++)
             {
-                if (TurnOrderManager.Instance.turnOrder[i] == BattleManager.Instance.target.GetComponent<Enemy>())
+                emergencybutton = 0;
+                while (i < TurnOrderManager.Instance.turnOrder.Count && emergencybutton < 20)
                 {
-                    TurnOrderManager.Instance.turnOrder.Remove(BattleManager.Instance.target.GetComponent<Enemy>());
+                    if (TurnOrderManager.Instance.turnOrder[i].unit == this)
+                    {
+                        TurnOrderManager.Instance.turnOrder.RemoveAt(i);
+                    }
+                    else
+                    {
+                        break;
+                    }
+                    emergencybutton++;
                 }
             }
 
             for (int i = 0; i < TurnOrderManager.Instance.recentTurns.Count; i++)
             {
-                if (TurnOrderManager.Instance.recentTurns[i] == BattleManager.Instance.target.GetComponent<Enemy>())
+                emergencybutton = 0;
+                while (i < TurnOrderManager.Instance.recentTurns.Count && emergencybutton < 20)
                 {
-                    TurnOrderManager.Instance.recentTurns.Remove(BattleManager.Instance.target.GetComponent<Enemy>());
+                    if (TurnOrderManager.Instance.recentTurns[i].unit == this)
+                    {
+                        TurnOrderManager.Instance.recentTurns.RemoveAt(i);
+                    }
+                    else
+                    {
+                        break;
+                    }
+                    emergencybutton++;
                 }
             }
+
+
+            BattleManager.Instance.enemySlots.Remove(this.gameObject);
+            TurnOrderManager.Instance.allFighters.Remove(this.gameObject);
 
         }
         else

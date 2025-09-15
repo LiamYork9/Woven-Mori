@@ -27,17 +27,21 @@ public class Unit : MonoBehaviour
 
     public int slotNumber;
 
-    public int selfTurnCount;
+    public int localTurnCount;
 
-    public int selfTurnCountCurrentVal;
+    public int localTurnCountCurrentVal;
 
     public int AP;
 
     public int APCap;
+
+    public int APGain = 1;
+
+    public int emergencybutton;
    
     void Start()
     {
-        selfTurnCountCurrentVal = selfTurnCount;
+        
     }
 
 

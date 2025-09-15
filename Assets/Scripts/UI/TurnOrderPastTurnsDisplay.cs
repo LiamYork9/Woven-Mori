@@ -21,12 +21,12 @@ public class TurnOrderPastTurnsDisplay : MonoBehaviour
     {
         if (TurnOrderManager.Instance.recentTurns.Count > turnPostion)
         {
-            displayName.text = TurnOrderManager.Instance.recentTurns[turnPostion].GetComponent<Unit>().unitName;
-            gameObject.GetComponent<Image>().sprite = TurnOrderManager.Instance.recentTurns[turnPostion].GetComponent<Unit>().chSprite;
+            displayName.text = TurnOrderManager.Instance.recentTurns[turnPostion].unit.unitName;
+            gameObject.GetComponent<Image>().sprite = TurnOrderManager.Instance.recentTurns[turnPostion].unit.chSprite;
 
 
 
-            if (TurnOrderManager.Instance.recentTurns[turnPostion].GetComponent<Unit>().partyMember == true)
+            if (TurnOrderManager.Instance.recentTurns[turnPostion].unit.partyMember == true)
             {
                 gameObject.GetComponent<Image>().color = new Color32(0, 0, 200, 190);
             }
