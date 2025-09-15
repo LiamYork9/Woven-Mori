@@ -103,10 +103,10 @@ public class SkillButtonScript : MonoBehaviour
     IEnumerator PlayerSkill(Skill skill)
     {
         BattleManager.Instance.usingSkill = false;
-        TurnOrderManager.Instance.turnPlayer.selfTurnCount += 1;
+        TurnOrderManager.Instance.turnPlayer.localTurnCount += 1;
         dialogueText.text = " Player used " + skill.name + " On " + BattleManager.Instance.target.name;
         yield return new WaitForSeconds(2f);
-        BattleManager.Instance.TurnShift(skill.turnShift);
+        TurnOrderManager.Instance.TurnShift(skill.turnShift);
         yield return new WaitForSeconds(1f);
         dialogueText.text = " It is now " + TurnOrderManager.Instance.turnPlayer.unitName + "Turn";
         yield return new WaitForSeconds(1f);
