@@ -1,6 +1,8 @@
 using UnityEngine;
-using System;
 using System.Collections.Generic;
+using System.Collections;
+using TMPro;
+using UnityEngine.UI;
 
 [System.Serializable]
 public class Turn
@@ -10,24 +12,29 @@ public class Turn
     public int initiative;
     public int cycle;
 
+    public int turnShift = 1;
+
     public void StartTurn()
     {
-        Debug.Log("Start " + unit.name + "'s Turn!");
+        // Checking Buff and Debuff timers, start of turn effects 
+        if (unit.partyMember == true)
+        {
+            BattleManager.Instance.playerTurn = true;
+        }
+        BattleManager.Instance.StartStartTurnCo(this);
         unit.localTurnCount += 1;
         unit.AP += unit.APGain;
-        SelectAction();
+
     }
 
     public void SelectAction()
     {
-        Debug.Log("What will " + unit.name + " do?");
+        BattleManager.Instance.StartSelectActionCo(this);
     }
 
     public void EndTurn()
     {
-        Debug.Log("End " + unit.name + "'s Turn!");
-        
-        BattleManager.Instance.TurnTransiton();
+        BattleManager.Instance.StartEndTurnCo(this);
     }
 
     public void PopulateTurn(Unit tempUnit)
@@ -36,5 +43,53 @@ public class Turn
         name = unit.name;
         initiative = tempUnit.initiative;
         cycle = TurnOrderManager.Instance.cycle;
+    }
+
+    // Its just shootout dumbass 
+    public IEnumerator StartTurnCo()
+    {
+        BattleManager.Instance.ButtonsOff();
+        BattleManager.Instance.dialogueText.text = "Start " + unit.name + "'s Turn!";
+        yield return new WaitForSeconds(1f);
+
+        SelectAction();
+      
+    
+       
+    }
+
+    public IEnumerator SelectActionCo()
+    {
+        BattleManager.Instance.dialogueText.text = "What will " + unit.name + " do?";
+        yield return new WaitForSeconds(1f);
+        BattleManager.Instance.dialogueText.text = "";
+        if (BattleManager.Instance.playerTurn == true && BattleManager.Instance.attacking == false && BattleManager.Instance.usingSkill == false)
+        {
+            BattleManager.Instance.ButtonsOn();
+        }
+        else
+        {
+            BattleManager.Instance.ButtonsOff();
+        }
+    }
+
+    public IEnumerator EnemyActionCo()
+    {
+        //Enemy AI Here !!!!!
+        yield return new WaitForSeconds(0.5f);
+        BattleManager.Instance.EnemyAttack();
+    }
+
+    public IEnumerator EndTurnCo()
+    {
+        // Removing Timed out Buff and Debuffs, end of turn effects 
+        TurnOrderManager.Instance.TurnShift(turnShift);
+        BattleManager.Instance.dialogueText.text = " ";
+        BattleManager.Instance.attacking = false;
+        BattleManager.Instance.playerTurn = false;
+        yield return new WaitForSeconds(1f);
+        Debug.Log("start turn transiton");
+        BattleManager.Instance.TurnTransiton();
+        Debug.Log("end turn transiton");
     }
 }
