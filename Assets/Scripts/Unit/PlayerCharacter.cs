@@ -1,3 +1,4 @@
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -6,12 +7,16 @@ public class PlayerCharacter : Unit
 
     void Start()
     {
-
+        AP = 1;
+        APCap = 10;
     }
 
     void Update()
     {
-        
+        if (AP > APCap)
+        {
+            AP = APCap;
+        }
     }
 
 
@@ -24,25 +29,43 @@ public class PlayerCharacter : Unit
 
             for (int i = 0; i < TurnOrderManager.Instance.turnOrder.Count; i++)
             {
-                if (TurnOrderManager.Instance.turnOrder[i] == BattleManager.Instance.enemyTarget.GetComponent<PlayerCharacter>())
+                emergencybutton = 0;
+                while (i < TurnOrderManager.Instance.turnOrder.Count && emergencybutton < 20)
                 {
-                    TurnOrderManager.Instance.turnOrder.Remove(BattleManager.Instance.enemyTarget.GetComponent<PlayerCharacter>());
+                    if (TurnOrderManager.Instance.turnOrder[i].unit == this)
+                    {
+                        TurnOrderManager.Instance.turnOrder.RemoveAt(i);
+                    }
+                    else
+                    {
+                        break;
+                    } 
+                    emergencybutton++;
                 }
             }
 
             for (int i = 0; i < TurnOrderManager.Instance.recentTurns.Count; i++)
             {
-                if (TurnOrderManager.Instance.recentTurns[i] == BattleManager.Instance.enemyTarget.GetComponent<PlayerCharacter>())
+                emergencybutton = 0;
+                while (i < TurnOrderManager.Instance.recentTurns.Count && emergencybutton < 20)
                 {
-                    TurnOrderManager.Instance.recentTurns.Remove(BattleManager.Instance.enemyTarget.GetComponent<PlayerCharacter>());
+                    if (TurnOrderManager.Instance.recentTurns[i].unit == this)
+                    {
+                        TurnOrderManager.Instance.recentTurns.RemoveAt(i);
+                    }
+                    else
+                    {
+                        break;
+                    } 
+                    emergencybutton++;
                 }
             }
 
-            TurnOrderManager.Instance.downedPlayers.Add(BattleManager.Instance.enemyTarget.GetComponent<PlayerCharacter>());
+            TurnOrderManager.Instance.downedPlayers.Add(this);
             
           
                 
-            TurnOrderManager.Instance.allFighters.Remove(BattleManager.Instance.enemyTarget);
+            TurnOrderManager.Instance.allFighters.Remove(this.gameObject);
                 
             
 

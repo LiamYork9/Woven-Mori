@@ -26,16 +26,28 @@ public class Unit : MonoBehaviour
     public int initiative;
 
     public int slotNumber;
+
+    public int localTurnCount;
+
+    public int localTurnCountCurrentVal;
+
+    public int AP;
+
+    public int APCap;
+
+    public int APGain = 1;
+
+    public int emergencybutton;
    
     void Start()
     {
-
+        
     }
 
 
     void Update()
     {
-        
+    
     }
 
     public void CopyStats(Unit target)
@@ -50,5 +62,6 @@ public class Unit : MonoBehaviour
         maxHP = target.maxHP;
         currentHP = target.currentHP;
         speed = target.speed;
+  
     }
 }

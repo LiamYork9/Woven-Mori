@@ -9,11 +9,15 @@ public class TurnOrderManager : MonoBehaviour
 
     public List<Unit> downedPlayers = new List<Unit> { };
 
-    public List<Unit> turnOrder = new List<Unit> { };
+    public List<Turn> turnOrder = new List<Turn> { };
 
-    public List<Unit> recentTurns = new List<Unit> { };
+    public List<Turn> recentTurns = new List<Turn> { };
 
     public int emergencybutton = 0;
+
+    public int cycle = 0;
+
+    public BattleManager BM;
 
 
 
@@ -34,38 +38,33 @@ public class TurnOrderManager : MonoBehaviour
 
     void Start()
     {
-
+        BM = BattleManager.Instance;
     }
 
 
     void Update()
     {
-        turnPlayer = turnOrder[0];
 
-        if (turnOrder.Count <= 6)
-        {
-            TurnCalulation();
-        }
-
-        if (Input.GetKeyDown(KeyCode.P))
-        {
-            SpeedUp();
-        }
+        
     }
 
     // Creates a list of all the current fighters in a battle
     public void GatherFighters()
     {
-        for (int i = 0; i < BattleManager.Instance.playerSlots.Count; i++)
+        if (BM == null)
         {
-            BattleManager.Instance.playerSlots[i].name = BattleManager.Instance.playerSlots[i].GetComponent<Unit>().unitName;
-            allFighters.Add(BattleManager.Instance.playerSlots[i]);
+            BM = BattleManager.Instance;
+        }
+        for (int i = 0; i < BM.playerSlots.Count; i++)
+        {
+            BM.playerSlots[i].name = BM.playerSlots[i].GetComponent<Unit>().unitName;
+            allFighters.Add(BM.playerSlots[i]);
         }
 
-        for (int i = 0; i < BattleManager.Instance.enemySlots.Count; i++)
+        for (int i = 0; i < BM.enemySlots.Count; i++)
         {
-            BattleManager.Instance.enemySlots[i].name = BattleManager.Instance.enemySlots[i].GetComponent<Unit>().unitName;
-            allFighters.Add(BattleManager.Instance.enemySlots[i]);
+            BM.enemySlots[i].name = BM.enemySlots[i].GetComponent<Unit>().unitName;
+            allFighters.Add(BM.enemySlots[i]);
         }
         TurnCalulation();
 
@@ -81,15 +80,18 @@ public class TurnOrderManager : MonoBehaviour
             emergencybutton++;
             for (int i = 0; i < allFighters.Count; i++)
             {
-                Unit temp = allFighters[i].GetComponent<Unit>();
-                temp.initiative += temp.speed;
+                Turn tempTurn = new Turn();
+                Unit tempUnit = allFighters[i].GetComponent<Unit>();
+                tempUnit.initiative += tempUnit.speed;
 
-                if (temp.initiative >= 100)
+                if (tempUnit.initiative >= 100)
                 {
-                    temp.initiative -= 100;
-                    turnOrder.Add(temp);
+                    tempUnit.initiative -= 100;
+                    tempTurn.PopulateTurn(tempUnit);
+                    turnOrder.Add(tempTurn);
                 }
             }
+            cycle++;
         }
     }
 
@@ -100,5 +102,50 @@ public class TurnOrderManager : MonoBehaviour
         emergencybutton = 0;
         turnOrder.Clear();
         TurnCalulation();
+    }
+
+    public void TurnShift(int shift = 1)
+    {
+
+        if (shift >= 0)
+        {
+            for (int i = 0; i < shift; i++)
+            {
+                recentTurns.Insert(0, turnOrder[0]);
+                turnOrder.Remove(turnOrder[0]);
+                BM.globalTurn += 1;
+            }
+            //BM.TurnTransiton();
+        }
+        else
+        {
+            if (recentTurns.Count + shift >= 0)
+            {
+                for (int i = 0; i + shift < 0; i++)
+                {
+
+                    turnOrder.Insert(0, recentTurns[0]);
+                    recentTurns.Remove(recentTurns[0]);
+                    BM.globalTurn -= 1;
+                }
+                //BM.TurnTransiton();
+            }
+            else
+            {
+                TurnShift();
+            }
+        }
+       
+
+        if (turnOrder.Count <= 6)
+        {
+            TurnCalulation();
+        }
+        BM.gTurnText.text = "Turn: " + BM.globalTurn;
+    }
+
+    public void EndTurn()
+    {
+        turnOrder[0].EndTurn();
     }
 }

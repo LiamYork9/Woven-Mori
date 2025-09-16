@@ -52,7 +52,7 @@ namespace MoriSkills
 
     }
     [System.Serializable]
-    public class Skills
+    public class Skill
     {
         public String name;
         public SkillId skillId;
@@ -79,7 +79,7 @@ namespace MoriSkills
 
         public List<Condtion> condtions;
 
-        public Skills(SkillId SskillId, string SskillName, Element Selement, Target defualtTarget, Category Scategory, int Spower, int Saccuracy, int Scost, string StoolTip, int Schance, int SturnShift, List<SkillAttr> Sattr = null, List<Condtion> Scondtions = null)
+        public Skill(SkillId SskillId, string SskillName, Element Selement, Target defualtTarget, Category Scategory, int Spower, int Saccuracy, int Scost, string StoolTip, int Schance, int SturnShift, List<SkillAttr> Sattr = null, List<Condtion> Scondtions = null)
         {
             skillId = SskillId;
             name = SskillName;
