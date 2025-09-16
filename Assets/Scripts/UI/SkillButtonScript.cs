@@ -6,6 +6,7 @@ using UnityEngine.Events;
 using UnityEngine.EventSystems;
 using System.Collections;
 using MoriSkills;
+using Unity.VisualScripting;
 
 
 public class SkillButtonScript : MonoBehaviour
@@ -20,8 +21,11 @@ public class SkillButtonScript : MonoBehaviour
 
     public Skill selectedSkill;
 
+
+
     void Start()
     {
+        
         for (int i = 0; i < skillButtons.Count; i++)
         {
             if (skillButtons[i].GetComponent<ToolTipSkill>() != null)
@@ -41,13 +45,25 @@ public class SkillButtonScript : MonoBehaviour
         {
 
 
-            if (BattleManager.Instance.usingSkill == true)
+            if (BattleManager.Instance.usingSkill == true && BattleManager.Instance.multiTarget == false )
             {
                 BattleManager.Instance.targetArrow.SetActive(false);
                 ActivateSkill(selectedSkill);
-            }
                 
+            }
+
                 BattleManager.Instance.selecting = false;
+
+            if (BattleManager.Instance.usingSkill == true && BattleManager.Instance.multiTarget == true)
+            {
+                List<Unit> temp = new List<Unit> { };
+                for (int i = 0; i < BattleManager.Instance.enemySlots.Count; i++)
+                {
+                    temp.Add(BattleManager.Instance.enemySlots[i].GetComponent<Unit>());
+                }
+                ActivateMultiSkill(selectedSkill, temp);
+                BattleManager.Instance.multiTarget = false;
+            }
         }
     }
 
@@ -100,10 +116,23 @@ public class SkillButtonScript : MonoBehaviour
 
     }
 
+    public void ActivateMultiSkill(Skill skill, List<Unit> targets)
+    {
+        BattleManager.Instance.ButtonsOff();
+       
+            ButtonsOff();
+            if (BattleManager.Instance.selecting == false)
+            {
+                StartCoroutine(PlayerMultSkill(skill,targets));
+                toolTip.text = "";
+                TurnOrderManager.Instance.turnPlayer.AP -= skill.cost;
+            }
+    }
+
     IEnumerator PlayerSkill(Skill skill)
     {
         BattleManager.Instance.usingSkill = false;
-        dialogueText.text = " Player used " + skill.name + " On " + BattleManager.Instance.target.name;
+        dialogueText.text =  TurnOrderManager.Instance.turnPlayer.unitName + " used " + skill.name + " On " + BattleManager.Instance.target.name;
         yield return new WaitForSeconds(2f);
         TurnOrderManager.Instance.turnOrder[0].turnShift = skill.turnShift;
         dialogueText.text = "";
@@ -113,6 +142,24 @@ public class SkillButtonScript : MonoBehaviour
         selectedSkill = null;
         TurnOrderManager.Instance.EndTurn();
   
+    }
+
+    IEnumerator PlayerMultSkill(Skill skill, List<Unit> targets)
+    {
+        BattleManager.Instance.usingSkill = false;
+        dialogueText.text = TurnOrderManager.Instance.turnPlayer.unitName + " used " + skill.name + " On" ;
+        for (int i = 0; i < targets.Count; i++)
+        {
+            dialogueText.text += " " + targets[i].unitName;
+        }
+        yield return new WaitForSeconds(2f);
+        TurnOrderManager.Instance.turnOrder[0].turnShift = skill.turnShift;
+        dialogueText.text = "";
+        BattleManager.Instance.actionMenu.SetActive(true);
+        ButtonsOn();
+        BattleManager.Instance.skillMenu.SetActive(false);
+        selectedSkill = null;
+        TurnOrderManager.Instance.EndTurn();
     }
 
     public void ButtonsOn()
@@ -140,6 +187,14 @@ public class SkillButtonScript : MonoBehaviour
                 ButtonsOff();
                 BattleManager.Instance.selecting = true;
                 BattleManager.Instance.targetArrow.SetActive(true);
+            }
+
+            if (selectedSkill.target == Target.mutipleEnemy)
+            {
+                toolTip.text = "";
+                ButtonsOff();
+                BattleManager.Instance.multiTarget = true;
+                
             }
         }
         else

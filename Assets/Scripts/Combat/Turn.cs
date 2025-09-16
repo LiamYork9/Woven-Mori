@@ -87,9 +87,9 @@ public class Turn
         BattleManager.Instance.dialogueText.text = " ";
         BattleManager.Instance.attacking = false;
         BattleManager.Instance.playerTurn = false;
+        BattleManager.Instance.enemyTurn = false;
         yield return new WaitForSeconds(1f);
-        Debug.Log("start turn transiton");
         BattleManager.Instance.TurnTransiton();
-        Debug.Log("end turn transiton");
+     
     }
 }

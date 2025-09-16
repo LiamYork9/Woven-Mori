@@ -45,7 +45,7 @@ public class SkillMaker : MonoBehaviour
         madeSkills.Add(EndBringer);
         Skill SmallPunch = new Skill(SkillId.SmallPunch, "Small Punch", Element.None, Target.single, Category.Physical, 10, 100, 1, "You punch them", 100, 1);
         madeSkills.Add(SmallPunch);
-        Skill StaticShock = new Skill(SkillId.StaticShock, "Static Shock", Element.Air, Target.mutipleEnemy, Category.Magic, 40, 70, 4, "Hit mutiple guys with lighting", 0, 1);
+        Skill StaticShock = new Skill(SkillId.StaticShock, "Static Shock", Element.Air, Target.mutipleEnemy, Category.Magic, 40, 70, 1, "Hit mutiple guys with lighting", 0, 1);
         madeSkills.Add(StaticShock);
     }
 
