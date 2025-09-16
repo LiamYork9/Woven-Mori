@@ -23,6 +23,8 @@ public class BattleManager : MonoBehaviour
         return Instance;
     }
 
+    public TurnOrderManager TOM;
+
     public int globalTurn;
     public Transform pfCharacterBattle;
     public Sprite playerSprite;
@@ -87,6 +89,7 @@ public class BattleManager : MonoBehaviour
 
     void Start()
     {
+        TOM = TurnOrderManager.Instance;
         BattleStart();
         ButtonsOff();
     }
@@ -162,6 +165,7 @@ public class BattleManager : MonoBehaviour
 
 
 
+
         }
 
         if (playerSelecting == true)
@@ -223,7 +227,7 @@ public class BattleManager : MonoBehaviour
                 playerSlots.Add(defaultPlayerSlots[i]);
             }
             BattleStart();
-            TurnOrderManager.Instance.downedPlayers.Clear();
+            TOM.downedPlayers.Clear();
 
         }
 
@@ -241,6 +245,7 @@ public class BattleManager : MonoBehaviour
                 skillMenu.SetActive(false);
                 usingSkill = false;
                 actionMenu.SetActive(true);
+                ButtonsOn();
             }
             if (selecting == true)
             {
@@ -264,9 +269,9 @@ public class BattleManager : MonoBehaviour
         dialogueText.text = " ";
         enemySlots.Clear();
         //playerSlots.Clear();
-        TurnOrderManager.Instance.allFighters.Clear();
-        TurnOrderManager.Instance.recentTurns.Clear();
-        TurnOrderManager.Instance.cycle = 0;
+        TOM.allFighters.Clear();
+        TOM.recentTurns.Clear();
+        TOM.cycle = 0;
         for (int i = 0; i < defaultSlots.Count; i++)
         {
             enemySlots.Add(defaultSlots[i]);
@@ -290,9 +295,9 @@ public class BattleManager : MonoBehaviour
             enemySlots[i].GetComponent<Image>().sprite = temp.chSprite;
 
         }
-        TurnOrderManager.Instance.GatherFighters();
-        TurnOrderManager.Instance.turnPlayer = TurnOrderManager.Instance.turnOrder[0].unit;
-        TurnOrderManager.Instance.turnOrder[0].StartTurn();
+        TOM.GatherFighters();
+        TOM.turnPlayer = TOM.turnOrder[0].unit;
+        TOM.turnOrder[0].StartTurn();
 
     }
 
@@ -333,12 +338,13 @@ public class BattleManager : MonoBehaviour
     {
 
         targetArrow.SetActive(false);
-        target.GetComponent<Enemy>().currentHP -= TurnOrderManager.Instance.turnPlayer.attack;
+        target.GetComponent<Enemy>().currentHP -= TOM.turnPlayer.attack;
+        dialogueText.text = TOM.turnPlayer.unitName + " has Attacked " + target.GetComponent<Enemy>().unitName;
         if (target.GetComponent<Enemy>().currentHP <= 0)
         {
             target.GetComponent<Enemy>().Death();
         }
-        dialogueText.text = "Player has Attacked " + target.GetComponent<Enemy>().unitName;
+        
         yield return new WaitForSeconds(2f);
         if (enemySlots.Count == 0)
         {
@@ -346,7 +352,7 @@ public class BattleManager : MonoBehaviour
         }
         else
         {
-            TurnOrderManager.Instance.EndTurn();
+            TOM.EndTurn();
 
         }
 
@@ -355,15 +361,15 @@ public class BattleManager : MonoBehaviour
     IEnumerator EnemyAttackCo()
     {
         action = true;
-        enemyTarget = playerSlots[0];
+        enemyTarget = playerSlots[Random.Range(0,playerSlots.Count)];
         yield return new WaitForSeconds(2f);
         DamagePlayer();
-        dialogueText.text = "Enemy has Attacked " + enemyTarget.GetComponent<PlayerCharacter>().unitName;
+        dialogueText.text =  TOM.turnPlayer.unitName + " has attacked " + enemyTarget.GetComponent<PlayerCharacter>().unitName;
         yield return new WaitForSeconds(1f);
         dialogueText.text = " ";
         enemyTurn = false;
         action = false;
-        TurnOrderManager.Instance.EndTurn();
+        TOM.EndTurn();
 
 
 
@@ -412,30 +418,31 @@ public class BattleManager : MonoBehaviour
 
     public void TurnTransiton()
     {
-        if (TurnOrderManager.Instance.turnPlayer != null && TurnOrderManager.Instance.turnPlayer.partyMember == false)
+         TOM.turnPlayer = TOM.turnOrder[0].unit;
+        if (TOM.turnPlayer != null && TOM.turnPlayer.partyMember == false)
         {
             enemyTurn = true;
-            EnemyTurn();
+            //EnemyTurn();
+            playerTurn = false;
+
         }
 
 
-        if (TurnOrderManager.Instance.turnPlayer != null && TurnOrderManager.Instance.turnPlayer.partyMember == true)
+        if (TOM.turnPlayer != null && TOM.turnPlayer.partyMember == true)
         {
             playerTurn = true;
+            enemyTurn = false;
 
-        }
-
-        if (playerTurn == true && attacking == false && usingSkill == false)
-        {
-            //ButtonsOn();
         }
 
         skillButton.SetSkillButtons();
+        TOM.turnOrder[0].StartTurn();
+        
     }
 
     public void DamagePlayer()
     {
-        enemyTarget.GetComponent<PlayerCharacter>().currentHP -= TurnOrderManager.Instance.turnPlayer.attack;
+        enemyTarget.GetComponent<PlayerCharacter>().currentHP -= TOM.turnPlayer.attack;
 
         if (enemyTarget.GetComponent<PlayerCharacter>().currentHP <= 0)
         {

@@ -115,7 +115,7 @@ public class TurnOrderManager : MonoBehaviour
                 turnOrder.Remove(turnOrder[0]);
                 BM.globalTurn += 1;
             }
-            turnOrder[0].StartTurn();
+            //BM.TurnTransiton();
         }
         else
         {
@@ -128,14 +128,14 @@ public class TurnOrderManager : MonoBehaviour
                     recentTurns.Remove(recentTurns[0]);
                     BM.globalTurn -= 1;
                 }
-                turnOrder[0].StartTurn();
+                //BM.TurnTransiton();
             }
             else
             {
                 TurnShift();
             }
         }
-        turnPlayer = turnOrder[0].unit;
+       
 
         if (turnOrder.Count <= 6)
         {

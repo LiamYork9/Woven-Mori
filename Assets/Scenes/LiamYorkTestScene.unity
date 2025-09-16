@@ -218,10 +218,12 @@ MonoBehaviour:
   speed: 0
   initiative: 0
   slotNumber: 0
-  selfTurnCount: 0
-  selfTurnCountCurrentVal: 0
+  localTurnCount: 0
+  localTurnCountCurrentVal: 0
   AP: 0
   APCap: 0
+  APGain: 1
+  emergencybutton: 0
 --- !u!1 &130623153
 GameObject:
   m_ObjectHideFlags: 0
@@ -432,10 +434,12 @@ MonoBehaviour:
   speed: 3
   initiative: 0
   slotNumber: 0
-  selfTurnCount: 0
-  selfTurnCountCurrentVal: 0
+  localTurnCount: 0
+  localTurnCountCurrentVal: 0
   AP: 0
   APCap: 0
+  APGain: 1
+  emergencybutton: 0
 --- !u!114 &353917637
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -450,7 +454,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   unitName: Baller
   partyMember: 1
-  skills: 0100000002000000
+  skills: 0100000003000000
   chSprite: {fileID: 7482667652216324306, guid: 311925a002f4447b3a28927169b83ea6, type: 3}
   deathSprite: {fileID: 21300000, guid: cbaeed03e5416aa4bae23110b63a0c7d, type: 3}
   attack: 10
@@ -459,10 +463,12 @@ MonoBehaviour:
   speed: 15
   initiative: 0
   slotNumber: 0
-  selfTurnCount: 0
-  selfTurnCountCurrentVal: 0
+  localTurnCount: 0
+  localTurnCountCurrentVal: 0
   AP: 0
   APCap: 0
+  APGain: 1
+  emergencybutton: 0
 --- !u!114 &353917638
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -486,10 +492,12 @@ MonoBehaviour:
   speed: 11
   initiative: 0
   slotNumber: 0
-  selfTurnCount: 0
-  selfTurnCountCurrentVal: 0
+  localTurnCount: 0
+  localTurnCountCurrentVal: 0
   AP: 0
   APCap: 0
+  APGain: 1
+  emergencybutton: 0
 --- !u!1 &376329621
 GameObject:
   m_ObjectHideFlags: 0
@@ -714,10 +722,12 @@ MonoBehaviour:
   speed: 8
   initiative: 0
   slotNumber: 0
-  selfTurnCount: 0
-  selfTurnCountCurrentVal: 0
+  localTurnCount: 0
+  localTurnCountCurrentVal: 0
   AP: 0
   APCap: 0
+  APGain: 1
+  emergencybutton: 0
 --- !u!114 &415241306
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -741,10 +751,12 @@ MonoBehaviour:
   speed: 6
   initiative: 0
   slotNumber: 0
-  selfTurnCount: 0
-  selfTurnCountCurrentVal: 0
+  localTurnCount: 0
+  localTurnCountCurrentVal: 0
   AP: 0
   APCap: 0
+  APGain: 1
+  emergencybutton: 0
 --- !u!114 &415241307
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -768,10 +780,12 @@ MonoBehaviour:
   speed: 9
   initiative: 0
   slotNumber: 0
-  selfTurnCount: 0
-  selfTurnCountCurrentVal: 0
+  localTurnCount: 0
+  localTurnCountCurrentVal: 0
   AP: 0
   APCap: 0
+  APGain: 1
+  emergencybutton: 0
 --- !u!114 &415241308
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -947,10 +961,12 @@ MonoBehaviour:
   speed: 0
   initiative: 0
   slotNumber: 0
-  selfTurnCount: 0
-  selfTurnCountCurrentVal: 0
+  localTurnCount: 0
+  localTurnCountCurrentVal: 0
   AP: 0
   APCap: 0
+  APGain: 1
+  emergencybutton: 0
 --- !u!1 &481369539
 GameObject:
   m_ObjectHideFlags: 0
@@ -1161,6 +1177,7 @@ MonoBehaviour:
   - {fileID: 804541480}
   - {fileID: 1659237242}
   - {fileID: 1913163905}
+  TOM: {fileID: 0}
   globalTurn: 0
   pfCharacterBattle: {fileID: 2348353712630482822, guid: 2a1d1a5dc42531645a8a16e90a2a8d6d, type: 3}
   playerSprite: {fileID: 7482667652216324306, guid: 48e93eef0688c4a259cb0eddcd8661f7, type: 3}
@@ -1851,10 +1868,12 @@ MonoBehaviour:
   speed: 0
   initiative: 0
   slotNumber: 0
-  selfTurnCount: 0
-  selfTurnCountCurrentVal: 0
+  localTurnCount: 0
+  localTurnCountCurrentVal: 0
   AP: 0
   APCap: 0
+  APGain: 1
+  emergencybutton: 0
 --- !u!1 &820537214
 GameObject:
   m_ObjectHideFlags: 0
@@ -1954,10 +1973,12 @@ MonoBehaviour:
   speed: 0
   initiative: 0
   slotNumber: 0
-  selfTurnCount: 0
-  selfTurnCountCurrentVal: 0
+  localTurnCount: 0
+  localTurnCountCurrentVal: 0
   AP: 0
   APCap: 0
+  APGain: 1
+  emergencybutton: 0
 --- !u!1 &845932432
 GameObject:
   m_ObjectHideFlags: 0
@@ -4229,6 +4250,8 @@ MonoBehaviour:
   turnOrder: []
   recentTurns: []
   emergencybutton: 0
+  cycle: 0
+  BM: {fileID: 0}
 --- !u!4 &1613041418
 Transform:
   m_ObjectHideFlags: 0
@@ -4479,10 +4502,12 @@ MonoBehaviour:
   speed: 0
   initiative: 0
   slotNumber: 0
-  selfTurnCount: 0
-  selfTurnCountCurrentVal: 0
+  localTurnCount: 0
+  localTurnCountCurrentVal: 0
   AP: 0
   APCap: 0
+  APGain: 1
+  emergencybutton: 0
 --- !u!1 &1847061950
 GameObject:
   m_ObjectHideFlags: 0
@@ -4780,10 +4805,12 @@ MonoBehaviour:
   speed: 0
   initiative: 0
   slotNumber: 0
-  selfTurnCount: 0
-  selfTurnCountCurrentVal: 0
+  localTurnCount: 0
+  localTurnCountCurrentVal: 0
   AP: 0
   APCap: 0
+  APGain: 1
+  emergencybutton: 0
 --- !u!1 &1995154408
 GameObject:
   m_ObjectHideFlags: 0
