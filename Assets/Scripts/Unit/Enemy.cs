@@ -24,8 +24,8 @@ public class Enemy : Unit
         speed = 0;
     }
 
-// Enemy Death Function (Removes them from list)
-    public void Death()
+    // Enemy Death Function (Removes them from list)
+    public override void Death()
     {
         if (currentHP <= 0)
         {
@@ -74,5 +74,7 @@ public class Enemy : Unit
         {
             gameObject.SetActive(true);
         }
+        
+        base.Death();
     }
 }

@@ -132,6 +132,7 @@ public class SkillButtonScript : MonoBehaviour
     IEnumerator PlayerSkill(Skill skill)
     {
         BattleManager.Instance.usingSkill = false;
+        BattleManager.Instance.target.GetComponent<Unit>().TakeDamage(selectedSkill.power,selectedSkill.category,selectedSkill.element);
         dialogueText.text =  TurnOrderManager.Instance.turnPlayer.unitName + " used " + skill.name + " On " + BattleManager.Instance.target.name;
         yield return new WaitForSeconds(2f);
         TurnOrderManager.Instance.turnOrder[0].turnShift = skill.turnShift;
@@ -151,6 +152,7 @@ public class SkillButtonScript : MonoBehaviour
         for (int i = 0; i < targets.Count; i++)
         {
             dialogueText.text += " " + targets[i].unitName;
+            targets[i].TakeDamage(selectedSkill.power, selectedSkill.category, selectedSkill.element);
         }
         yield return new WaitForSeconds(2f);
         TurnOrderManager.Instance.turnOrder[0].turnShift = skill.turnShift;
@@ -179,10 +181,12 @@ public class SkillButtonScript : MonoBehaviour
         selectedSkill = SkillMaker.Instance.GetById(button.GetComponent<ToolTipSkill>().skillId);
         if (TurnOrderManager.Instance.turnPlayer.AP >= selectedSkill.cost)
         {
+           
 
 
             if (selectedSkill.target == Target.single)
             {
+              
                 toolTip.text = "";
                 ButtonsOff();
                 BattleManager.Instance.selecting = true;

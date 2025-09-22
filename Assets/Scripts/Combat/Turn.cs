@@ -34,7 +34,14 @@ public class Turn
 
     public void EndTurn()
     {
-        BattleManager.Instance.StartEndTurnCo(this);
+        if (BattleManager.Instance.fightState == FightState.Active)
+        {
+            BattleManager.Instance.StartEndTurnCo(this);
+        }
+
+        
+        
+       
     }
 
     public void PopulateTurn(Unit tempUnit)
