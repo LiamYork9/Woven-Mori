@@ -21,7 +21,7 @@ public class PlayerCharacter : Unit
 
 
 
-    public void Death()
+    public override void Death()
     {
         if (currentHP <= 0)
         {
@@ -39,7 +39,7 @@ public class PlayerCharacter : Unit
                     else
                     {
                         break;
-                    } 
+                    }
                     emergencybutton++;
                 }
             }
@@ -56,24 +56,26 @@ public class PlayerCharacter : Unit
                     else
                     {
                         break;
-                    } 
+                    }
                     emergencybutton++;
                 }
             }
 
             TurnOrderManager.Instance.downedPlayers.Add(this);
-            
-          
-                
+
+
+
             TurnOrderManager.Instance.allFighters.Remove(this.gameObject);
-                
-            
+
+
 
         }
         else
         {
             gameObject.SetActive(true);
         }
+
+        base.Death();
     }
 }
 

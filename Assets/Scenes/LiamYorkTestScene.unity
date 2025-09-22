@@ -213,6 +213,8 @@ MonoBehaviour:
   chSprite: {fileID: 0}
   deathSprite: {fileID: 0}
   attack: 0
+  defense: 1
+  mDefense: 1
   maxHP: 0
   currentHP: 0
   speed: 0
@@ -428,7 +430,9 @@ MonoBehaviour:
   skills: 
   chSprite: {fileID: 7482667652216324306, guid: 75f5f34dc1b5347e0b8351032682f224, type: 3}
   deathSprite: {fileID: 21300000, guid: cbaeed03e5416aa4bae23110b63a0c7d, type: 3}
-  attack: 1
+  attack: 100
+  defense: 1
+  mDefense: 1
   maxHP: 1
   currentHP: 1
   speed: 3
@@ -454,10 +458,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   unitName: Baller
   partyMember: 1
-  skills: 0100000003000000
+  skills: 0300000002000000
   chSprite: {fileID: 7482667652216324306, guid: 311925a002f4447b3a28927169b83ea6, type: 3}
   deathSprite: {fileID: 21300000, guid: cbaeed03e5416aa4bae23110b63a0c7d, type: 3}
-  attack: 10
+  attack: 100
+  defense: 1
+  mDefense: 1
   maxHP: 99
   currentHP: 99
   speed: 15
@@ -486,7 +492,9 @@ MonoBehaviour:
   skills: 0200000001000000
   chSprite: {fileID: -2413806693520163455, guid: ebe73ca9363db456bacf42c025bb4847, type: 3}
   deathSprite: {fileID: 21300000, guid: cbaeed03e5416aa4bae23110b63a0c7d, type: 3}
-  attack: 1
+  attack: 100
+  defense: 1
+  mDefense: 1
   maxHP: 2
   currentHP: 2
   speed: 11
@@ -717,6 +725,8 @@ MonoBehaviour:
   chSprite: {fileID: 21300000, guid: 950832395ec754ba48ab1cffa214cec0, type: 3}
   deathSprite: {fileID: 0}
   attack: 5
+  defense: 10
+  mDefense: 5
   maxHP: 5
   currentHP: 5
   speed: 8
@@ -746,6 +756,8 @@ MonoBehaviour:
   chSprite: {fileID: -5177388603050735206, guid: 71ebafeef3c03457483266a33ab2b270, type: 3}
   deathSprite: {fileID: 0}
   attack: 5
+  defense: 10
+  mDefense: 5
   maxHP: 5
   currentHP: 5
   speed: 6
@@ -775,6 +787,8 @@ MonoBehaviour:
   chSprite: {fileID: -2413806693520163455, guid: ebe73ca9363db456bacf42c025bb4847, type: 3}
   deathSprite: {fileID: 0}
   attack: 5
+  defense: 10
+  mDefense: 5
   maxHP: 5
   currentHP: 5
   speed: 9
@@ -956,6 +970,8 @@ MonoBehaviour:
   chSprite: {fileID: 0}
   deathSprite: {fileID: 0}
   attack: 0
+  defense: 1
+  mDefense: 1
   maxHP: 0
   currentHP: 0
   speed: 0
@@ -1204,6 +1220,7 @@ MonoBehaviour:
   skillMenu: {fileID: 856472937}
   actionMenu: {fileID: 751220620}
   usingSkill: 0
+  fightState: 0
 --- !u!4 &645222401
 Transform:
   m_ObjectHideFlags: 0
@@ -1863,6 +1880,8 @@ MonoBehaviour:
   chSprite: {fileID: 0}
   deathSprite: {fileID: 0}
   attack: 0
+  defense: 1
+  mDefense: 1
   maxHP: 0
   currentHP: 0
   speed: 0
@@ -1968,6 +1987,8 @@ MonoBehaviour:
   chSprite: {fileID: 0}
   deathSprite: {fileID: 0}
   attack: 0
+  defense: 1
+  mDefense: 1
   maxHP: 0
   currentHP: 0
   speed: 0
@@ -4497,6 +4518,8 @@ MonoBehaviour:
   chSprite: {fileID: 0}
   deathSprite: {fileID: 0}
   attack: 0
+  defense: 1
+  mDefense: 1
   maxHP: 0
   currentHP: 0
   speed: 0
@@ -4800,6 +4823,8 @@ MonoBehaviour:
   chSprite: {fileID: 0}
   deathSprite: {fileID: 0}
   attack: 0
+  defense: 1
+  mDefense: 1
   maxHP: 0
   currentHP: 0
   speed: 0

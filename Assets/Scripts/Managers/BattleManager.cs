@@ -5,7 +5,13 @@ using TMPro;
 using UnityEngine.UI;
 using MoriSkills;
 
-
+public enum FightState
+{
+    Active,
+    Lost,
+    Won,
+    Scripted
+}
 
 public class BattleManager : MonoBehaviour
 {
@@ -67,6 +73,8 @@ public class BattleManager : MonoBehaviour
     public GameObject actionMenu;
 
     public bool usingSkill;
+
+    public FightState fightState = FightState.Active;
 
 
 
@@ -265,7 +273,8 @@ public class BattleManager : MonoBehaviour
     void BattleStart()
     {
         globalTurn = 1;
-
+        gTurnText.text = "Turn: " + globalTurn;
+        //fightState = FightState.Active;
         dialogueText.text = " ";
         enemySlots.Clear();
         //playerSlots.Clear();
@@ -327,6 +336,7 @@ public class BattleManager : MonoBehaviour
     {
         usingSkill = true;
         actionMenu.SetActive(false);
+        //SkillButtonScript.ButtonsOn();
         ButtonsOff();
         skillMenu.SetActive(true);
 
@@ -338,23 +348,12 @@ public class BattleManager : MonoBehaviour
     {
 
         targetArrow.SetActive(false);
-        target.GetComponent<Enemy>().currentHP -= TOM.turnPlayer.attack;
         dialogueText.text = TOM.turnPlayer.unitName + " has Attacked " + target.GetComponent<Enemy>().unitName;
-        if (target.GetComponent<Enemy>().currentHP <= 0)
-        {
-            target.GetComponent<Enemy>().Death();
-        }
-        
         yield return new WaitForSeconds(2f);
-        if (enemySlots.Count == 0)
-        {
-            WinCondtion();
-        }
-        else
-        {
-            TOM.EndTurn();
-
-        }
+        target.GetComponent<Unit>().TakeDamage(TOM.turnPlayer.attack);
+        yield return new WaitForSeconds(2f);
+        TOM.EndTurn();
+        
 
     }
 
@@ -363,7 +362,7 @@ public class BattleManager : MonoBehaviour
         action = true;
         enemyTarget = playerSlots[Random.Range(0,playerSlots.Count)];
         yield return new WaitForSeconds(2f);
-        DamagePlayer();
+        enemyTarget.GetComponent<Unit>().TakeDamage(TOM.turnPlayer.attack);
         dialogueText.text =  TOM.turnPlayer.unitName + " has attacked " + enemyTarget.GetComponent<PlayerCharacter>().unitName;
         yield return new WaitForSeconds(1f);
         dialogueText.text = " ";
@@ -386,6 +385,7 @@ public class BattleManager : MonoBehaviour
     // What shows up when you Win
     public void WinCondtion()
     {
+        fightState = FightState.Won;
         ButtonsOff();
         for (int i = 0; i < PartyManager.Instance.party.Count; i++)
         {
@@ -400,6 +400,7 @@ public class BattleManager : MonoBehaviour
 
     public void LoseCondition()
     {
+        fightState = FightState.Lost;
         ButtonsOff();
         dialogueText.text = "You Lose";
     }

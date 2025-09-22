@@ -17,11 +17,15 @@ public class Unit : MonoBehaviour
 
     public int attack;
 
+    public int defense = 1;
+
+    public int mDefense = 1;
+
     public int maxHP;
 
     public int currentHP;
 
-    public int speed;
+    public int speed = 1;
 
     public int initiative;
 
@@ -38,16 +42,16 @@ public class Unit : MonoBehaviour
     public int APGain = 1;
 
     public int emergencybutton;
-   
+
     void Start()
     {
-        
+
     }
 
 
     void Update()
     {
-    
+
     }
 
     public void CopyStats(Unit target)
@@ -59,9 +63,52 @@ public class Unit : MonoBehaviour
         chSprite = target.chSprite;
         deathSprite = target.deathSprite;
         attack = target.attack;
+        defense = target.defense;
+        mDefense = target.mDefense;
         maxHP = target.maxHP;
         currentHP = target.currentHP;
         speed = target.speed;
-  
+
+    }
+
+    public virtual void Death()
+    {
+        if (BattleManager.Instance.enemySlots.Count == 0)
+        {
+            BattleManager.Instance.WinCondtion();
+        }
+        if (BattleManager.Instance.playerSlots.Count == 0)
+        {
+            BattleManager.Instance.LoseCondition();
+        }
+    }
+
+    public void TakeDamage(int damageValue, Category category = Category.Physical, Element element = Element.None)
+    {
+        int damageMod = 0;
+        if (category == Category.Physical)
+        {
+            damageMod = damageValue / defense;
+
+        }
+
+        if (category == Category.Magic)
+        {
+            damageMod = damageValue / mDefense;
+        }
+
+        //resistance and immunity checks
+
+        if (damageMod < 1)
+        {
+            damageMod = 1;
+        }
+
+        currentHP -= damageMod;
+
+        if (currentHP <= 0)
+        {
+            Death();
+        }
     }
 }
