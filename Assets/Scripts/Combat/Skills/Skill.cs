@@ -6,51 +6,49 @@ using UnityEngine;
 namespace MoriSkills
 {
 
-     public enum SkillId
-        {
-            None,
-            EndBringer,
-            SmallPunch,
-            StaticShock
-
-        }
-
-         public enum Element
-        {
-            None,
-            Fire,
-            Water,
-            Earth,
-            Air,
-            Dark,
-            Light,
-            Fate
-        }
-
-         public enum Target
-        {
-            single,
-            self,
-            party,
-            mutipleEnemy
-        }
-
-           public enum Category
-        {
-            Physical,
-            Magic,
-            Buff,
-            Debuff
-        }
-    public class SkillAttr
+    public enum SkillId
     {
+        None,
+        EndBringer,
+        SmallPunch,
+        StaticShock
 
     }
+
+    public enum Element
+    {
+        None,
+        Fire,
+        Water,
+        Earth,
+        Air,
+        Dark,
+        Light,
+        Fate
+    }
+
+    public enum Target
+    {
+        single,
+        self,
+        party,
+        mutipleEnemy
+    }
+
+    public enum Category
+    {
+        Physical,
+        Magic,
+        Buff,
+        Debuff
+    }
+
 
     public class Condtion
     {
 
     }
+
     [System.Serializable]
     public class Skill
     {
@@ -126,6 +124,11 @@ namespace MoriSkills
         void Update()
         {
 
+        }
+
+        public void ApplyEffects(Unit unit)
+        {
+            
         }
 
 
