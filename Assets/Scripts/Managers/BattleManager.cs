@@ -31,6 +31,8 @@ public class BattleManager : MonoBehaviour
 
     public TurnOrderManager TOM;
 
+    public SkillButtonScript SBS;
+
     public int globalTurn;
     public Transform pfCharacterBattle;
     public Sprite playerSprite;
@@ -47,6 +49,8 @@ public class BattleManager : MonoBehaviour
     public GameObject enemyTarget;
 
     public bool multiTarget;
+
+    public bool targetSelf;
 
     public bool selecting;
 
@@ -248,17 +252,26 @@ public class BattleManager : MonoBehaviour
 
         if (Input.GetKeyDown(KeyCode.Escape))
         {
-            if (usingSkill == true)
+            if (usingSkill == true )
             {
                 skillMenu.SetActive(false);
                 usingSkill = false;
+                multiTarget = false;
                 actionMenu.SetActive(true);
                 ButtonsOn();
             }
             if (selecting == true)
             {
                 targetArrow.SetActive(false);
-                ButtonsOn();
+                if (usingSkill == true)
+                {
+                    skillMenu.SetActive(true);
+                }
+                else
+                {
+                    ButtonsOn();
+                }
+              
                 selecting = false;
                 attacking = false;
                 dialogueText.text = "";
@@ -339,6 +352,8 @@ public class BattleManager : MonoBehaviour
         //SkillButtonScript.ButtonsOn();
         ButtonsOff();
         skillMenu.SetActive(true);
+        SBS.ButtonsOn();
+        SBS.dialogueText.text = " ";
 
     }
 

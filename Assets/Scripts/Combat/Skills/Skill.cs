@@ -11,7 +11,9 @@ namespace MoriSkills
         None,
         EndBringer,
         SmallPunch,
-        StaticShock
+        StaticShock,
+        Flex,
+        Heal
 
     }
 
@@ -32,6 +34,7 @@ namespace MoriSkills
         single,
         self,
         party,
+        ally,
         mutipleEnemy
     }
 
@@ -73,9 +76,11 @@ namespace MoriSkills
 
         public int turnShift;
 
+        [SerializeReference]
         public List<SkillAttr> attrs;
 
         public List<Condtion> condtions;
+
 
         public Skill(SkillId SskillId, string SskillName, Element Selement, Target defualtTarget, Category Scategory, int Spower, int Saccuracy, int Scost, string StoolTip, int Schance, int SturnShift, List<SkillAttr> Sattr = null, List<Condtion> Scondtions = null)
         {
@@ -108,6 +113,12 @@ namespace MoriSkills
             }
         }
 
+        // Attempt at adding Attrs
+        public Skill Attr(SkillAttr addedAttr)
+        {
+            attrs.Add(addedAttr);
+            return this;
+        }
 
 
 
@@ -126,9 +137,12 @@ namespace MoriSkills
 
         }
 
-        public void ApplyEffects(Unit unit)
+        public void ApplyEffects(Unit unitUser, Unit unitTarget)
         {
-            
+            for (int i = 0; i < attrs.Count; i++)
+            {
+                attrs[i].ActivateAttr(unitUser,unitTarget);
+            }
         }
 
 
