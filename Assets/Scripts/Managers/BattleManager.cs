@@ -187,6 +187,7 @@ public class BattleManager : MonoBehaviour
 
         if (playerSelecting == true)
         {
+            targetArrow.SetActive(true);
             target = playerSlots[targetIndex];
             targetArrow.transform.position = target.transform.position;
             if (Input.GetKeyDown(KeyCode.S))
