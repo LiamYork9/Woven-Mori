@@ -88,30 +88,42 @@ namespace MoriSkills
 
 
     }
-    
-      public class HealAttr : SkillAttr
+
+    public class HealAttr : SkillAttr
+    {
+        public int healAmount;
+
+        public HealAttr(int healNum, bool targetSelf = false) : base(targetSelf)
+
         {
-            public int healAmount;
+            name = "HealAttr";
+            healAmount = healNum;
 
-            public HealAttr(int healNum, bool targetSelf = false) : base(targetSelf)
-
-            {
-                name = "HealAttr";
-                healAmount = healNum;
-
-            }
-
-            public override void ActivateAttr(Unit unitUser, Unit unitTarget)
-            {
-                if (targetSelf == true)
-                {
-                    unitUser.currentHP += healAmount;
-                }
-                else
-                {
-                    unitTarget.currentHP += healAmount;
-                }
-            
-            }
         }
+
+        public override void ActivateAttr(Unit unitUser, Unit unitTarget)
+        {
+            if (targetSelf == true)
+            {
+                unitUser.currentHP += healAmount;
+            }
+            else
+            {
+                unitTarget.currentHP += healAmount;
+            }
+
+        }
+    }
+
+    public class ApplyConditionAttr : SkillAttr
+    {
+        public ApplyConditionAttr(bool targetSelf = false) : base(targetSelf)
+        {
+            name = "ApplyConditionAttr";
+        }
+        public override void ActivateAttr(Unit unitUser, Unit unitTarget)
+        {
+            unitUser.ApplyCondition(new Condition(2));
+        }
+    }
 }
