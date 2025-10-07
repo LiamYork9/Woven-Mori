@@ -50,6 +50,8 @@ public class BattleManager : MonoBehaviour
 
     public bool multiTarget;
 
+    public bool targetParty;
+
     public bool targetSelf;
 
     public bool selecting;
