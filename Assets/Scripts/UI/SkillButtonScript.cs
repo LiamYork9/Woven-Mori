@@ -71,7 +71,7 @@ public class SkillButtonScript : MonoBehaviour
 
             if (BattleManager.Instance.usingSkill == true && BattleManager.Instance.targetSelf == true)
             {
-
+                ActivateSkillSelf(selectedSkill);
             }
         }
     }
@@ -128,7 +128,13 @@ public class SkillButtonScript : MonoBehaviour
     public void ActivateSkillSelf(Skill skill)
     {
         BattleManager.Instance.ButtonsOff();
-         ButtonsOff();
+        ButtonsOff();
+      
+                StartCoroutine(PlayerSkillSelf(skill));
+                toolTip.text = "";
+                TurnOrderManager.Instance.turnPlayer.AP -= skill.cost;
+            
+        
     }
 
     public void ActivateMultiSkill(Skill skill, List<Unit> targets)
@@ -151,8 +157,8 @@ public class SkillButtonScript : MonoBehaviour
         {
             BattleManager.Instance.target.GetComponent<Unit>().TakeDamage(selectedSkill.power,selectedSkill.category,selectedSkill.element);
         }
-        skill.ApplyEffects(TurnOrderManager.Instance.turnPlayer,BattleManager.Instance.target.GetComponent<Unit>());
-        dialogueText.text =  TurnOrderManager.Instance.turnPlayer.unitName + " used " + skill.name + " On " + BattleManager.Instance.target.name;
+        skill.ApplyEffects(TurnOrderManager.Instance.turnPlayer,TurnOrderManager.Instance.turnPlayer);
+        dialogueText.text =  TurnOrderManager.Instance.turnPlayer.unitName + " used " + skill.name + " On " + TurnOrderManager.Instance.turnPlayer.unitName;
         yield return new WaitForSeconds(2f);
         TurnOrderManager.Instance.turnOrder[0].turnShift = skill.turnShift;
         dialogueText.text = "";
@@ -181,6 +187,20 @@ public class SkillButtonScript : MonoBehaviour
         }
         yield return new WaitForSeconds(2f);
         TurnOrderManager.Instance.turnOrder[0].turnShift = skill.turnShift;
+        dialogueText.text = "";
+        BattleManager.Instance.actionMenu.SetActive(true);
+        ButtonsOn();
+        BattleManager.Instance.skillMenu.SetActive(false);
+        selectedSkill = null;
+        TurnOrderManager.Instance.EndTurn();
+    }
+
+    IEnumerator PlayerSkillSelf(Skill skill)
+    {
+        skill.ApplyEffects(TurnOrderManager.Instance.turnPlayer, BattleManager.Instance.target.GetComponent<Unit>());
+        dialogueText.text = TurnOrderManager.Instance.turnPlayer.unitName + " used " + skill.name + " On " + BattleManager.Instance.target.name;
+        yield return new WaitForSeconds(2f);
+         TurnOrderManager.Instance.turnOrder[0].turnShift = skill.turnShift;
         dialogueText.text = "";
         BattleManager.Instance.actionMenu.SetActive(true);
         ButtonsOn();
@@ -230,6 +250,7 @@ public class SkillButtonScript : MonoBehaviour
             {
                 toolTip.text = "";
                 ButtonsOff();
+                BattleManager.Instance.targetSelf = true;
             }
         }
         else

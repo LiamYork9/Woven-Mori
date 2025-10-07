@@ -180,6 +180,11 @@ public class BattleManager : MonoBehaviour
 
         }
 
+        if (targetSelf == true)
+        {
+            target = null;
+        }
+
         if (playerSelecting == true)
         {
             target = playerSlots[targetIndex];
@@ -257,6 +262,7 @@ public class BattleManager : MonoBehaviour
                 skillMenu.SetActive(false);
                 usingSkill = false;
                 multiTarget = false;
+                targetSelf = false;
                 actionMenu.SetActive(true);
                 ButtonsOn();
             }
