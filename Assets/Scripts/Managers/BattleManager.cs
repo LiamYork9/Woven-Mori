@@ -260,7 +260,7 @@ public class BattleManager : MonoBehaviour
 
         if (Input.GetKeyDown(KeyCode.Escape))
         {
-            if (usingSkill == true )
+            if (usingSkill == true)
             {
                 skillMenu.SetActive(false);
                 usingSkill = false;
@@ -268,6 +268,7 @@ public class BattleManager : MonoBehaviour
                 targetSelf = false;
                 actionMenu.SetActive(true);
                 ButtonsOn();
+                targetArrow.SetActive(false);
             }
             if (selecting == true)
             {

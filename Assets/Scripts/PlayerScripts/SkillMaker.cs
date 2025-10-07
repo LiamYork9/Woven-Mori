@@ -51,7 +51,7 @@ public class SkillMaker : MonoBehaviour
         madeSkills.Add(Flex);
         Skill Heal = new Skill(SkillId.Heal, "Heal", Element.None, Target.ally, Category.Magic, 0, 0, 1, "Restore some HP", 0, 1).Attr(new HealAttr(10, false));
         madeSkills.Add(Heal);
-        Skill ConditionMaker = new Skill(SkillId.ConditionMaker, "ConditionMaker", Element.None, Target.self, Category.Magic, 0, 0, 1, "Makes A Condition (or 5) on the user", 0, 1).Attr(new ApplyConditionAttr(-1,true)).Attr(new ApplyConditionAttr(1,true)).Attr(new ApplyConditionAttr(2,true)).Attr(new ApplyConditionAttr(3,true)).Attr(new ApplyConditionAttr(4,true));
+        Skill ConditionMaker = new Skill(SkillId.ConditionMaker, "ConditionMaker", Element.None, Target.single, Category.Magic, 0, 0, 1, "Makes A Condition (or 5) on the user", 0, 1).Attr(new ApplyConditionAttr(-1,false)).Attr(new ApplyConditionAttr(1,false)).Attr(new ApplyConditionAttr(2,true)).Attr(new ApplyConditionAttr(3,true)).Attr(new ApplyConditionAttr(4,true));
         madeSkills.Add(ConditionMaker);
     }
 
