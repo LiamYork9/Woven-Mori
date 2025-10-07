@@ -12,8 +12,8 @@ public enum EffectTime
 [System.Serializable]
 public class Condition 
 {
-    public Unit unit;
     public string name;
+    public Unit unit;
     public int duration;
 
     //Higher = earlier

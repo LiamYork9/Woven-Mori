@@ -117,13 +117,22 @@ namespace MoriSkills
 
     public class ApplyConditionAttr : SkillAttr
     {
-        public ApplyConditionAttr(bool targetSelf = false) : base(targetSelf)
+        public int duration;
+        public ApplyConditionAttr(int conditionDuration = 2, bool targetSelf = false) : base(targetSelf)
         {
             name = "ApplyConditionAttr";
+            duration = conditionDuration;
         }
         public override void ActivateAttr(Unit unitUser, Unit unitTarget)
         {
-            unitUser.ApplyCondition(new Condition(2));
+            if (targetSelf==true)
+            {
+                unitUser.ApplyCondition(new Condition(duration));
+            }
+            else
+            {
+                unitTarget.ApplyCondition(new Condition(duration));
+            }
         }
     }
 }

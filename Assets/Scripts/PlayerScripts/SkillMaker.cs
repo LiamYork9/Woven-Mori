@@ -49,8 +49,10 @@ public class SkillMaker : MonoBehaviour
         madeSkills.Add(StaticShock);
         Skill Flex = new Skill(SkillId.Flex, "Flex", Element.None, Target.self, Category.Buff, 0, 0, 1, "Get Ripped", 0, 1).Attr(new StatBoostAttr(Stats.Attack, 10, true)).Attr(new StatBoostAttr(Stats.Defence, 2));
         madeSkills.Add(Flex);
-        Skill Heal = new Skill(SkillId.Heal, "Heal", Element.None, Target.ally, Category.Magic, 0, 0, 1, "Restore some HP", 0, 1).Attr(new HealAttr(10,false));
+        Skill Heal = new Skill(SkillId.Heal, "Heal", Element.None, Target.ally, Category.Magic, 0, 0, 1, "Restore some HP", 0, 1).Attr(new HealAttr(10, false));
         madeSkills.Add(Heal);
+        Skill ConditionMaker = new Skill(SkillId.ConditionMaker, "ConditionMaker", Element.None, Target.self, Category.Magic, 0, 0, 1, "Makes A Condition (or 5) on the user", 0, 1).Attr(new ApplyConditionAttr(-1,true)).Attr(new ApplyConditionAttr(1,true)).Attr(new ApplyConditionAttr(2,true)).Attr(new ApplyConditionAttr(3,true)).Attr(new ApplyConditionAttr(4,true));
+        madeSkills.Add(ConditionMaker);
     }
 
     public Skill GetById(SkillId Id)
