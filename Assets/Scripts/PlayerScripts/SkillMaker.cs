@@ -47,9 +47,9 @@ public class SkillMaker : MonoBehaviour
         madeSkills.Add(SmallPunch);
         Skill StaticShock = new Skill(SkillId.StaticShock, "Static Shock", Element.Air, Target.mutipleEnemy, Category.Magic, 40, 70, 1, "Hit mutiple guys with lighting", 0, 1);
         madeSkills.Add(StaticShock);
-        Skill Flex = new Skill(SkillId.Flex, "Flex", Element.None, Target.self, Category.Buff, 0, 0, 1, "Get Ripped", 0, 1).Attr(new StatBoostAttr(Stats.Attack, 10, false)).Attr(new StatBoostAttr(Stats.Defence, 2));
+        Skill Flex = new Skill(SkillId.Flex, "Flex", Element.None, Target.self, Category.Buff, 0, 0, 1, "Get Ripped", 0, 1).Attr(new StatBoostAttr(Stats.Attack, 10, true)).Attr(new StatBoostAttr(Stats.Defence, 2));
         madeSkills.Add(Flex);
-        Skill Heal = new Skill(SkillId.Heal, "Heal", Element.None, Target.single, Category.Magic, 0, 0, 1, "Restore some HP", 0, 1).Attr(new HealAttr(10,true));
+        Skill Heal = new Skill(SkillId.Heal, "Heal", Element.None, Target.ally, Category.Magic, 0, 0, 1, "Restore some HP", 0, 1).Attr(new HealAttr(10,false));
         madeSkills.Add(Heal);
     }
 
