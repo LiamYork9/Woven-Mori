@@ -49,7 +49,7 @@ public class SkillButtonScript : MonoBehaviour
         {
 
 
-            if (BattleManager.Instance.usingSkill == true && BattleManager.Instance.multiTarget == false)
+            if (BattleManager.Instance.usingSkill == true && BattleManager.Instance.multiTarget == false && BattleManager.Instance.targetSelf == false)
             {
                 BattleManager.Instance.targetArrow.SetActive(false);
                 ActivateSkill(selectedSkill);
@@ -72,6 +72,7 @@ public class SkillButtonScript : MonoBehaviour
             if (BattleManager.Instance.usingSkill == true && BattleManager.Instance.targetSelf == true)
             {
                 ActivateSkillSelf(selectedSkill);
+                BattleManager.Instance.targetSelf = false;
             }
         }
     }
@@ -157,8 +158,8 @@ public class SkillButtonScript : MonoBehaviour
         {
             BattleManager.Instance.target.GetComponent<Unit>().TakeDamage(selectedSkill.power,selectedSkill.category,selectedSkill.element);
         }
-        skill.ApplyEffects(TurnOrderManager.Instance.turnPlayer,TurnOrderManager.Instance.turnPlayer);
-        dialogueText.text =  TurnOrderManager.Instance.turnPlayer.unitName + " used " + skill.name + " On " + TurnOrderManager.Instance.turnPlayer.unitName;
+        skill.ApplyEffects(TurnOrderManager.Instance.turnPlayer,BattleManager.Instance.target.GetComponent<Unit>());
+        dialogueText.text =  TurnOrderManager.Instance.turnPlayer.unitName + " used " + skill.name + " On " + BattleManager.Instance.target.name;
         yield return new WaitForSeconds(2f);
         TurnOrderManager.Instance.turnOrder[0].turnShift = skill.turnShift;
         dialogueText.text = "";
@@ -197,8 +198,9 @@ public class SkillButtonScript : MonoBehaviour
 
     IEnumerator PlayerSkillSelf(Skill skill)
     {
-        skill.ApplyEffects(TurnOrderManager.Instance.turnPlayer, BattleManager.Instance.target.GetComponent<Unit>());
-        dialogueText.text = TurnOrderManager.Instance.turnPlayer.unitName + " used " + skill.name + " On " + BattleManager.Instance.target.name;
+        BattleManager.Instance.usingSkill = false;
+        skill.ApplyEffects(TurnOrderManager.Instance.turnPlayer, TurnOrderManager.Instance.turnPlayer);
+        dialogueText.text = TurnOrderManager.Instance.turnPlayer.unitName + " used " + skill.name;
         yield return new WaitForSeconds(2f);
          TurnOrderManager.Instance.turnOrder[0].turnShift = skill.turnShift;
         dialogueText.text = "";
