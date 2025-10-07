@@ -13,7 +13,8 @@ namespace MoriSkills
         SmallPunch,
         StaticShock,
         Flex,
-        Heal
+        Heal,
+        ConditionMaker
 
     }
 

@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using MoriSkills;
 using UnityEngine;
+using UnityEngine.Events;
 
 public class Unit : MonoBehaviour
 {
@@ -10,6 +11,7 @@ public class Unit : MonoBehaviour
     public bool partyMember;
 
     public List<SkillId> skills;
+    public List<Condition> conditions;
 
     public Sprite chSprite;
 
@@ -42,6 +44,13 @@ public class Unit : MonoBehaviour
     public int APGain = 1;
 
     public int emergencybutton;
+
+    //Events
+    public UnityEvent StartOfTurn;
+    public UnityEvent StartOfAction;
+    
+    public UnityEvent EndOfAction;
+    public UnityEvent EndOfTurn;
 
     void Start()
     {
@@ -111,4 +120,11 @@ public class Unit : MonoBehaviour
             Death();
         }
     }
+
+    public Unit ApplyCondition(Condition addedCondition)
+        {
+            conditions.Add(addedCondition);
+            addedCondition.OnApply(this);
+            return this;
+        }
 }
