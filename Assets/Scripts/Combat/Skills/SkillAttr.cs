@@ -2,8 +2,116 @@ using UnityEngine;
 
 namespace MoriSkills
 {
+    public enum Stats
+    {
+        Attack,
+        Defence,
+        mDefense,
+        Speed
+    }
+
+    [System.Serializable]
     public class SkillAttr
     {
-        
+        public string name;
+        public bool targetSelf;
+
+        public SkillAttr(bool doTargetSelf = false)
+        {
+            name = "Generic Attr";
+            this.targetSelf = doTargetSelf;
+
+        }
+
+        public virtual void ActivateAttr(Unit unitUser, Unit unitTarget)
+        {
+
+        }
     }
+
+
+    public class StatBoostAttr : SkillAttr
+    {
+        public Stats stat;
+
+        public int boost;
+        public StatBoostAttr(Stats boostedStat, int boostNum, bool targetSelf = false) : base(targetSelf)
+        {
+            name = "StatBoostAttr";
+            stat = boostedStat;
+
+            boost = boostNum;
+        }
+
+        public override void ActivateAttr(Unit unitUser, Unit unitTarget)
+        {
+            if (targetSelf == true)
+            {
+                if (stat == Stats.Attack)
+                {
+                    unitUser.attack += boost;
+                }
+                if (stat == Stats.Defence)
+                {
+                    unitUser.defense += boost;
+                }
+                if (stat == Stats.mDefense)
+                {
+                    unitUser.mDefense += boost;
+                }
+                if (stat == Stats.Speed)
+                {
+                    unitUser.speed += boost;
+                }
+
+            }
+            else
+            {
+                if (stat == Stats.Attack)
+                {
+                    unitTarget.attack += boost;
+                }
+                if (stat == Stats.Defence)
+                {
+                    unitTarget.defense += boost;
+                }
+                if (stat == Stats.mDefense)
+                {
+                    unitTarget.mDefense += boost;
+                }
+                if (stat == Stats.Speed)
+                {
+                    unitTarget.speed += boost;
+                }
+            }
+        }
+
+
+    }
+    
+      public class HealAttr : SkillAttr
+        {
+            public int healAmount;
+
+            public HealAttr(int healNum, bool targetSelf = false) : base(targetSelf)
+
+            {
+                name = "HealAttr";
+                healAmount = healNum;
+
+            }
+
+            public override void ActivateAttr(Unit unitUser, Unit unitTarget)
+            {
+                if (targetSelf == true)
+                {
+                    unitUser.currentHP += healAmount;
+                }
+                else
+                {
+                    unitTarget.currentHP += healAmount;
+                }
+            
+            }
+        }
 }

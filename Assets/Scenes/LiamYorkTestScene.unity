@@ -458,7 +458,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   unitName: Baller
   partyMember: 1
-  skills: 0300000002000000
+  skills: 0300000005000000
   chSprite: {fileID: 7482667652216324306, guid: 311925a002f4447b3a28927169b83ea6, type: 3}
   deathSprite: {fileID: 21300000, guid: cbaeed03e5416aa4bae23110b63a0c7d, type: 3}
   attack: 100
@@ -687,6 +687,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   madeSkills: []
+  references:
+    version: 2
+    RefIds: []
 --- !u!1 &415241304
 GameObject:
   m_ObjectHideFlags: 0
@@ -1194,6 +1197,7 @@ MonoBehaviour:
   - {fileID: 1659237242}
   - {fileID: 1913163905}
   TOM: {fileID: 0}
+  SBS: {fileID: 856472941}
   globalTurn: 0
   pfCharacterBattle: {fileID: 2348353712630482822, guid: 2a1d1a5dc42531645a8a16e90a2a8d6d, type: 3}
   playerSprite: {fileID: 7482667652216324306, guid: 48e93eef0688c4a259cb0eddcd8661f7, type: 3}
@@ -1203,6 +1207,7 @@ MonoBehaviour:
   target: {fileID: 0}
   enemyTarget: {fileID: 0}
   multiTarget: 0
+  targetSelf: 0
   selecting: 0
   playerSelecting: 0
   targetIndex: 0
@@ -2231,6 +2236,10 @@ MonoBehaviour:
     toolTip: 
     chance: 0
     turnShift: 0
+    attrs: []
+  references:
+    version: 2
+    RefIds: []
 --- !u!1 &866727219
 GameObject:
   m_ObjectHideFlags: 0
