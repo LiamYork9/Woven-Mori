@@ -11,6 +11,7 @@ public class Unit : MonoBehaviour
     public bool partyMember;
 
     public List<SkillId> skills;
+    [SerializeReference]
     public List<Condition> conditions;
 
     public Sprite chSprite;
