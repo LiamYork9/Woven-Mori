@@ -48,6 +48,7 @@ public class Condition
 
     public void RemoveCondition()
     {
+        // THESE STILL EXIST SOMEWHERE IN MEMORY SOMEHOW
         OnRemove();
         unit.EndOfTurn.RemoveListener(CountDown);
         unit.conditions.Remove(this);
