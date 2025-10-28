@@ -19,25 +19,50 @@ public class Dialogue : MonoBehaviour
 
     public Animator topBoxAnim;
 
+    public GameObject skip;
+
+    public PlayerController pc;
+
+    public bool textActive = false;
+
+
     void Start()
     {
-
+        
     }
 
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Space))
+        if (Input.GetKeyDown(KeyCode.Space) && textActive == true)
         {
-            NextLine();
+            LineSkip();
         }
     }
 
+    public void LineSkip()
+    {
+        if (textComponent.text == lines[index])
+        {
+            NextLine();
+        }
+        else
+        {
+            StopAllCoroutines();
+            textComponent.text = lines[index];
+        }
+    }
+    
+     
+
     public void StartDiolague()
     {
+        textActive = true;
+        pc = GameObject.FindWithTag("Player").GetComponent<PlayerController>();
         textBox.Play("TextBoxAnimation");
         topBoxAnim.Play("TopBox");
         textComponent.text = string.Empty;
         index = 0;
+        pc.inText = true;
         StartCoroutine(TypeLine());
     }
 
@@ -61,9 +86,12 @@ public class Dialogue : MonoBehaviour
         }
         else
         {
+            textActive = false;
+            pc.inText = false;
             textBox.Play("CloseBox");
             topBoxAnim.Play("CloseTopBox");
             //gameObject.SetActive(false);
+            skip.SetActive(false);
             Time.timeScale = 1.0f;
             textComponent.text = string.Empty;
             //topBox.SetActive(false);

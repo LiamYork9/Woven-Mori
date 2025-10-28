@@ -131,7 +131,7 @@ GameObject:
   - component: {fileID: 133158363}
   - component: {fileID: 133158362}
   - component: {fileID: 133158365}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: TextBox
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -168,7 +168,7 @@ BoxCollider2D:
   m_CallbackLayers:
     serializedVersion: 2
     m_Bits: 4294967295
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_UsedByEffector: 0
   m_CompositeOperation: 0
   m_CompositeOrder: 0
@@ -274,6 +274,7 @@ MonoBehaviour:
   pauseGame: 0
   once: 0
   notAgain: 0
+  skip: {fileID: 1985088590}
 --- !u!1 &279937345
 GameObject:
   m_ObjectHideFlags: 0
@@ -286,7 +287,7 @@ GameObject:
   - component: {fileID: 279937350}
   - component: {fileID: 279937349}
   - component: {fileID: 279937348}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: TextBox Canvas
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -389,7 +390,7 @@ GameObject:
   - component: {fileID: 465423059}
   - component: {fileID: 465423061}
   - component: {fileID: 465423060}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: DialogueText
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -664,6 +665,7 @@ GameObject:
   - component: {fileID: 841519295}
   - component: {fileID: 841519297}
   - component: {fileID: 841519298}
+  - component: {fileID: 841519299}
   m_Layer: 0
   m_Name: Player
   m_TagString: Player
@@ -760,6 +762,7 @@ MonoBehaviour:
   stopsMovement:
     serializedVersion: 2
     m_Bits: 64
+  inText: 0
 --- !u!61 &841519298
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -790,7 +793,7 @@ BoxCollider2D:
   m_CallbackLayers:
     serializedVersion: 2
     m_Bits: 4294967295
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_UsedByEffector: 0
   m_CompositeOperation: 0
   m_CompositeOrder: 0
@@ -806,6 +809,33 @@ BoxCollider2D:
   m_AutoTiling: 0
   m_Size: {x: 1, y: 1}
   m_EdgeRadius: 0
+--- !u!50 &841519299
+Rigidbody2D:
+  serializedVersion: 5
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 841519294}
+  m_BodyType: 0
+  m_Simulated: 1
+  m_UseFullKinematicContacts: 0
+  m_UseAutoMass: 0
+  m_Mass: 1
+  m_LinearDamping: 0
+  m_AngularDamping: 0.05
+  m_GravityScale: 0
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_Interpolate: 0
+  m_SleepingMode: 1
+  m_CollisionDetection: 0
+  m_Constraints: 4
 --- !u!1 &1126812123
 GameObject:
   m_ObjectHideFlags: 0
@@ -1028,7 +1058,7 @@ GameObject:
   - component: {fileID: 1360310866}
   - component: {fileID: 1360310865}
   - component: {fileID: 1360310867}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: TopBox
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1257,7 +1287,7 @@ GameObject:
   - component: {fileID: 1771552954}
   - component: {fileID: 1771552953}
   - component: {fileID: 1771552956}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: DialogueBox
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1300,10 +1330,15 @@ MonoBehaviour:
   lines:
   - Testing one two three
   - Next line
+  - This is much longer line meant for testing out an idea that i have about the
+    text
   textSpeed: 0.02
   topBox: {fileID: 1360310862}
   textBox: {fileID: 1771552956}
   topBoxAnim: {fileID: 1360310867}
+  skip: {fileID: 1985088590}
+  pc: {fileID: 0}
+  textActive: 0
 --- !u!114 &1771552954
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1375,7 +1410,7 @@ GameObject:
   - component: {fileID: 1985088591}
   - component: {fileID: 1985088593}
   - component: {fileID: 1985088592}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: SkipText
   m_TagString: Untagged
   m_Icon: {fileID: 0}
