@@ -89,6 +89,31 @@ namespace MoriSkills
 
     }
 
+    public class StatBoostConAttr : SkillAttr
+    {
+        public Stats stat;
+
+        public int boost;
+        public StatBoostConAttr(Stats boostedStat, int boostNum, bool targetSelf = false) : base(targetSelf)
+        {
+            name = "StatBoostAttr";
+            stat = boostedStat;
+
+            boost = boostNum;
+        }
+        public override void ActivateAttr(Unit unitUser, Unit unitTarget)
+        {
+            if (targetSelf==true)
+            {
+                unitUser.ApplyCondition(new StatBoostCondition(stat, boost, 3));
+            }
+            else
+            {
+                unitTarget.ApplyCondition(new StatBoostCondition(stat, boost, 3));
+            }
+        }
+    }
+
     public class HealAttr : SkillAttr
     {
         public int healAmount;
