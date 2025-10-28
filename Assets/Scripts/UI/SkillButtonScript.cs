@@ -89,7 +89,7 @@ public class SkillButtonScript : MonoBehaviour
                     temp.Add(BattleManager.Instance.playerSlots[i].GetComponent<Unit>());
                 }
                 ActivateMultiSkill(selectedSkill, temp);
-                BattleManager.Instance.multiTarget = false;
+                BattleManager.Instance.targetParty = false;
             }
 
             if (BattleManager.Instance.usingSkill == true && BattleManager.Instance.targetSelf == true)
