@@ -10,6 +10,8 @@ public class PlayerController : MonoBehaviour
 
     public bool inText;
     
+    
+    public Follower follower = null;
 
     private float tempDist = 0;
 
@@ -35,6 +37,10 @@ public class PlayerController : MonoBehaviour
                     {
                         Debug.Log(tempDist + " Horizontal");
                         movePoint.position += new Vector3(tempDist, 0f, 0f);
+                        if (follower != null)
+                        {
+                            follower.Move();
+                        }
                     }
                 }
 
@@ -46,9 +52,26 @@ public class PlayerController : MonoBehaviour
                     {
                         Debug.Log(tempDist + " Vertical");
                         movePoint.position += new Vector3(0f, tempDist, 0f);
+                        if (follower != null)
+                        {
+                            follower.Move();
+                        }
                     }
                 }
             }
+        }
+    }
+
+    public void Follower(Follower newFollower)
+    {
+        if(follower == null)
+        {
+            follower = newFollower;
+            newFollower.following = gameObject;
+        }
+        else
+        {
+            follower.Follower(newFollower);
         }
     }
 }

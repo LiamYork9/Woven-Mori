@@ -1,0 +1,115 @@
+{
+    "automappingRulesFile": "",
+    "commands": [
+    ],
+    "compatibilityVersion": 1100,
+    "extensionsPath": "extensions",
+    "folders": [
+        ".",
+        "TileMaps",
+        "Rules",
+        "TileSets"
+    ],
+    "properties": [
+    ],
+    "propertyTypes": [
+        {
+            "id": 2,
+            "name": "Encounters",
+            "storageType": "string",
+            "type": "enum",
+            "values": [
+                "Safe",
+                "Land",
+                "Forrest",
+                "Water",
+                "Town",
+                "Secret",
+                "Grass"
+            ],
+            "valuesAsFlags": true
+        },
+        {
+            "id": 4,
+            "name": "GroundType",
+            "storageType": "string",
+            "type": "enum",
+            "values": [
+                "Grass",
+                "Forrest",
+                "Path",
+                "Stone",
+                "Water",
+                "Floor",
+                "DungeonFloor",
+                "Cliff",
+                "Void"
+            ],
+            "valuesAsFlags": false
+        },
+        {
+            "color": "#ff01fbff",
+            "drawFill": true,
+            "id": 3,
+            "members": [
+                {
+                    "name": "EncounterType",
+                    "propertyType": "Encounters",
+                    "type": "string",
+                    "value": ""
+                },
+                {
+                    "name": "GroundType",
+                    "propertyType": "GroundType",
+                    "type": "string",
+                    "value": "Grass"
+                },
+                {
+                    "name": "Teehee",
+                    "propertyType": "TestClass2",
+                    "type": "class",
+                    "value": {
+                    }
+                }
+            ],
+            "name": "TestClass",
+            "type": "class",
+            "useAs": [
+                "property",
+                "map",
+                "layer",
+                "object",
+                "tile",
+                "tileset",
+                "wangcolor",
+                "wangset",
+                "project"
+            ]
+        },
+        {
+            "color": "#ffa0a0a4",
+            "drawFill": true,
+            "id": 5,
+            "members": [
+                {
+                    "name": "Words",
+                    "type": "string",
+                    "value": "I'm putting words here"
+                }
+            ],
+            "name": "TestClass2",
+            "type": "class",
+            "useAs": [
+                "property",
+                "map",
+                "layer",
+                "object",
+                "tile",
+                "tileset",
+                "wangcolor",
+                "wangset",
+                "project"
+            ]
+        }
+    ]
+}
