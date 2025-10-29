@@ -14,6 +14,8 @@ public class Turn
 
     public int turnShift = 1;
 
+    
+
     public void StartTurn()
     {
         // Checking Buff and Debuff timers, start of turn effects 
@@ -58,6 +60,7 @@ public class Turn
         BattleManager.Instance.ButtonsOff();
         BattleManager.Instance.dialogueText.text = "Start " + unit.name + "'s Turn!";
         yield return new WaitForSeconds(1f);
+        unit.StartOfTurn.Invoke();
 
         SelectAction();
       
@@ -89,6 +92,7 @@ public class Turn
 
     public IEnumerator EndTurnCo()
     {
+        unit.EndOfTurn.Invoke();
         // Removing Timed out Buff and Debuffs, end of turn effects 
         TurnOrderManager.Instance.TurnShift(turnShift);
         BattleManager.Instance.dialogueText.text = " ";

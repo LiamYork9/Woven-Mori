@@ -45,11 +45,23 @@ public class SkillButtonScript : MonoBehaviour
         {
             dialogueText.text = "Skill will hit all enemies";
         }
+        if (BattleManager.Instance.targetSelf == true)
+        {
+            dialogueText.text = "Skill will target user";
+        }
+         if (BattleManager.Instance.playerSelecting == true)
+        {
+            dialogueText.text = "Choose target";
+        }
+         if (BattleManager.Instance.targetParty == true)
+        {
+            dialogueText.text = "Skill will target whole party";
+        }
         if (Input.GetKeyDown(KeyCode.Space))
         {
 
 
-            if (BattleManager.Instance.usingSkill == true && BattleManager.Instance.multiTarget == false && BattleManager.Instance.targetSelf == false && BattleManager.Instance.playerSelecting == false)
+            if (BattleManager.Instance.usingSkill == true && BattleManager.Instance.multiTarget == false && BattleManager.Instance.targetSelf == false && BattleManager.Instance.playerSelecting == false && BattleManager.Instance.targetParty == false)
             {
                 BattleManager.Instance.targetArrow.SetActive(false);
                 ActivateSkill(selectedSkill);
@@ -69,6 +81,17 @@ public class SkillButtonScript : MonoBehaviour
                 BattleManager.Instance.multiTarget = false;
             }
 
+            if (BattleManager.Instance.usingSkill == true && BattleManager.Instance.targetParty == true)
+            {
+                List<Unit> temp = new List<Unit> { };
+                for (int i = 0; i < BattleManager.Instance.playerSlots.Count; i++)
+                {
+                    temp.Add(BattleManager.Instance.playerSlots[i].GetComponent<Unit>());
+                }
+                ActivateMultiSkill(selectedSkill, temp);
+                BattleManager.Instance.targetParty = false;
+            }
+
             if (BattleManager.Instance.usingSkill == true && BattleManager.Instance.targetSelf == true)
             {
                 ActivateSkillSelf(selectedSkill);
@@ -79,7 +102,7 @@ public class SkillButtonScript : MonoBehaviour
             {
                 BattleManager.Instance.playerSelecting = false;
                 ActivateSkillAlly(selectedSkill);
-                
+
             }
         }
     }
@@ -177,6 +200,19 @@ public class SkillButtonScript : MonoBehaviour
         }
     }
 
+    public void ActivateMultiSkillParty(Skill skill, List<Unit> targets)
+    {
+        BattleManager.Instance.ButtonsOff();
+       
+        ButtonsOff();
+        if (BattleManager.Instance.selecting == false)
+        {
+            StartCoroutine(PlayerMultSkill(skill, targets));
+            toolTip.text = "";
+            TurnOrderManager.Instance.turnPlayer.AP -= skill.cost;
+        }
+    }
+
     IEnumerator PlayerSkill(Skill skill)
     {
         BattleManager.Instance.usingSkill = false;
@@ -242,6 +278,32 @@ public class SkillButtonScript : MonoBehaviour
         TurnOrderManager.Instance.EndTurn();
     }
 
+    IEnumerator PlayerMultSkillParty(Skill skill, List<Unit> targets)
+    {
+        BattleManager.Instance.usingSkill = false;
+        dialogueText.text = TurnOrderManager.Instance.turnPlayer.unitName + " used " + skill.name + " On" ;
+        for (int i = 0; i < targets.Count; i++)
+        {
+            dialogueText.text += " " + targets[i].unitName;
+            if (selectedSkill.power != 0)
+            {
+                targets[i].TakeDamage(selectedSkill.power, selectedSkill.category, selectedSkill.element);
+            }
+           
+            // Remeber to cross this bridge (self buff multiple times)
+            skill.ApplyEffects(TurnOrderManager.Instance.turnPlayer,targets[i]);
+        }
+        yield return new WaitForSeconds(2f);
+        TurnOrderManager.Instance.turnOrder[0].turnShift = skill.turnShift;
+        dialogueText.text = "";
+        BattleManager.Instance.actionMenu.SetActive(true);
+        ButtonsOn();
+        BattleManager.Instance.skillMenu.SetActive(false);
+        selectedSkill = null;
+        TurnOrderManager.Instance.EndTurn();
+    }
+
+
     IEnumerator PlayerSkillSelf(Skill skill)
     {
         BattleManager.Instance.usingSkill = false;
@@ -306,6 +368,13 @@ public class SkillButtonScript : MonoBehaviour
                 toolTip.text = "";
                 ButtonsOff();
                 BattleManager.Instance.playerSelecting = true;
+            }
+
+            if (selectedSkill.target == Target.party)
+            {
+                toolTip.text = "";
+                ButtonsOff();
+                BattleManager.Instance.targetParty = true;
             }
         }
         else

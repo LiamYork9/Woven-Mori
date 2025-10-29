@@ -16,17 +16,23 @@ public class DiolagueInteraction : MonoBehaviour
 
      public bool once = false;
 
-     public bool notAgain = false;
+    public bool notAgain = false;
 
+    public GameObject skip;
 
+    public bool scriptedText;
+
+    
 
 
 
     // Start is called before the first frame update
     void Start()
     {
+        
         DiologueBox.SetActive(false);
         topBox.SetActive(false);
+        skip.SetActive(false);
     }
  
 
@@ -37,24 +43,46 @@ public class DiolagueInteraction : MonoBehaviour
         {
             DiologueBox.SetActive(true);
             topBox.SetActive(true);
+            skip.SetActive(true);
 
             text.StartDiolague();
         }
+
+         if(InRange == true)
+            {
+                if (Input.GetKeyDown(KeyCode.Space)&& text.textActive == false && scriptedText == false)
+               {
+                    
+                    DiologueBox.SetActive(true);
+                    topBox.SetActive(true);
+                    skip.SetActive(true);
+                    text.StartDiolague();
+                    
+
+                }
+            }
+
+        
     }
 
     void OnTriggerEnter2D(Collider2D other)
     {
 
-    
+
+
         if (other.gameObject.CompareTag("Player"))
+        {
+            InRange = true;
+        }
+        
+        if (other.gameObject.CompareTag("Player") && scriptedText == true)
         {
             DiologueBox.SetActive(true);
             topBox.SetActive(true);
-
+            skip.SetActive(true);
             text.StartDiolague();
-            Debug.Log("InText");
-
         }
+
 
         if (other.gameObject.CompareTag("Player")&& pauseGame == true && once == false){
              DiologueBox.SetActive(true);
@@ -88,15 +116,15 @@ public class DiolagueInteraction : MonoBehaviour
        
     }
 
-     void OnTriggerExit(Collider other) 
+    void OnTriggerExit2D(Collider2D other)
     {
-        if(InRange == true)
+        if (other.gameObject.CompareTag("Player"))
         {
-         DiologueBox.SetActive(false);
-         text.textComponent.text = string.Empty;
+            InRange = false;
         }
-        
     }
+
+
     
 }
 

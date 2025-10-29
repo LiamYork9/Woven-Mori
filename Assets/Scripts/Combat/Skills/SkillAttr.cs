@@ -88,30 +88,76 @@ namespace MoriSkills
 
 
     }
-    
-      public class HealAttr : SkillAttr
+
+    public class StatBoostConAttr : SkillAttr
+    {
+        public Stats stat;
+
+        public int boost;
+        public StatBoostConAttr(Stats boostedStat, int boostNum, bool targetSelf = false) : base(targetSelf)
         {
-            public int healAmount;
+            name = "StatBoostAttr";
+            stat = boostedStat;
 
-            public HealAttr(int healNum, bool targetSelf = false) : base(targetSelf)
-
+            boost = boostNum;
+        }
+        public override void ActivateAttr(Unit unitUser, Unit unitTarget)
+        {
+            if (targetSelf==true)
             {
-                name = "HealAttr";
-                healAmount = healNum;
-
+                unitUser.ApplyCondition(new StatBoostCondition(stat, boost, 3));
             }
-
-            public override void ActivateAttr(Unit unitUser, Unit unitTarget)
+            else
             {
-                if (targetSelf == true)
-                {
-                    unitUser.currentHP += healAmount;
-                }
-                else
-                {
-                    unitTarget.currentHP += healAmount;
-                }
-            
+                unitTarget.ApplyCondition(new StatBoostCondition(stat, boost, 3));
             }
         }
+    }
+
+    public class HealAttr : SkillAttr
+    {
+        public int healAmount;
+
+        public HealAttr(int healNum, bool targetSelf = false) : base(targetSelf)
+
+        {
+            name = "HealAttr";
+            healAmount = healNum;
+
+        }
+
+        public override void ActivateAttr(Unit unitUser, Unit unitTarget)
+        {
+            if (targetSelf == true)
+            {
+                unitUser.currentHP += healAmount;
+            }
+            else
+            {
+                unitTarget.currentHP += healAmount;
+            }
+
+        }
+    }
+
+    public class ApplyConditionAttr : SkillAttr
+    {
+        public int duration;
+        public ApplyConditionAttr(int conditionDuration = 2, bool targetSelf = false) : base(targetSelf)
+        {
+            name = "ApplyConditionAttr";
+            duration = conditionDuration;
+        }
+        public override void ActivateAttr(Unit unitUser, Unit unitTarget)
+        {
+            if (targetSelf==true)
+            {
+                unitUser.ApplyCondition(new Condition(duration));
+            }
+            else
+            {
+                unitTarget.ApplyCondition(new Condition(duration));
+            }
+        }
+    }
 }

@@ -210,6 +210,7 @@ MonoBehaviour:
   unitName: 
   partyMember: 0
   skills: 
+  conditions: []
   chSprite: {fileID: 0}
   deathSprite: {fileID: 0}
   attack: 0
@@ -226,6 +227,18 @@ MonoBehaviour:
   APCap: 0
   APGain: 1
   emergencybutton: 0
+  StartOfTurn:
+    m_PersistentCalls:
+      m_Calls: []
+  StartOfAction:
+    m_PersistentCalls:
+      m_Calls: []
+  EndOfAction:
+    m_PersistentCalls:
+      m_Calls: []
+  EndOfTurn:
+    m_PersistentCalls:
+      m_Calls: []
 --- !u!1 &130623153
 GameObject:
   m_ObjectHideFlags: 0
@@ -427,7 +440,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   unitName: Bill
   partyMember: 1
-  skills: 03000000
+  skills: 0300000006000000
+  conditions: []
   chSprite: {fileID: 7482667652216324306, guid: 75f5f34dc1b5347e0b8351032682f224, type: 3}
   deathSprite: {fileID: 21300000, guid: cbaeed03e5416aa4bae23110b63a0c7d, type: 3}
   attack: 100
@@ -444,6 +458,18 @@ MonoBehaviour:
   APCap: 0
   APGain: 1
   emergencybutton: 0
+  StartOfTurn:
+    m_PersistentCalls:
+      m_Calls: []
+  StartOfAction:
+    m_PersistentCalls:
+      m_Calls: []
+  EndOfAction:
+    m_PersistentCalls:
+      m_Calls: []
+  EndOfTurn:
+    m_PersistentCalls:
+      m_Calls: []
 --- !u!114 &353917637
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -458,7 +484,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   unitName: Baller
   partyMember: 1
-  skills: 0400000003000000
+  skills: 0400000006000000
+  conditions: []
   chSprite: {fileID: 7482667652216324306, guid: 311925a002f4447b3a28927169b83ea6, type: 3}
   deathSprite: {fileID: 21300000, guid: cbaeed03e5416aa4bae23110b63a0c7d, type: 3}
   attack: 100
@@ -475,6 +502,18 @@ MonoBehaviour:
   APCap: 0
   APGain: 1
   emergencybutton: 0
+  StartOfTurn:
+    m_PersistentCalls:
+      m_Calls: []
+  StartOfAction:
+    m_PersistentCalls:
+      m_Calls: []
+  EndOfAction:
+    m_PersistentCalls:
+      m_Calls: []
+  EndOfTurn:
+    m_PersistentCalls:
+      m_Calls: []
 --- !u!114 &353917638
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -489,7 +528,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   unitName: Bart
   partyMember: 1
-  skills: 0200000005000000
+  skills: 0200000006000000
+  conditions: []
   chSprite: {fileID: -2413806693520163455, guid: ebe73ca9363db456bacf42c025bb4847, type: 3}
   deathSprite: {fileID: 21300000, guid: cbaeed03e5416aa4bae23110b63a0c7d, type: 3}
   attack: 100
@@ -506,6 +546,18 @@ MonoBehaviour:
   APCap: 0
   APGain: 1
   emergencybutton: 0
+  StartOfTurn:
+    m_PersistentCalls:
+      m_Calls: []
+  StartOfAction:
+    m_PersistentCalls:
+      m_Calls: []
+  EndOfAction:
+    m_PersistentCalls:
+      m_Calls: []
+  EndOfTurn:
+    m_PersistentCalls:
+      m_Calls: []
 --- !u!1 &376329621
 GameObject:
   m_ObjectHideFlags: 0
@@ -725,6 +777,7 @@ MonoBehaviour:
   unitName: Aiden
   partyMember: 0
   skills: 
+  conditions: []
   chSprite: {fileID: 21300000, guid: 950832395ec754ba48ab1cffa214cec0, type: 3}
   deathSprite: {fileID: 0}
   attack: 5
@@ -741,6 +794,18 @@ MonoBehaviour:
   APCap: 0
   APGain: 1
   emergencybutton: 0
+  StartOfTurn:
+    m_PersistentCalls:
+      m_Calls: []
+  StartOfAction:
+    m_PersistentCalls:
+      m_Calls: []
+  EndOfAction:
+    m_PersistentCalls:
+      m_Calls: []
+  EndOfTurn:
+    m_PersistentCalls:
+      m_Calls: []
 --- !u!114 &415241306
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -756,6 +821,7 @@ MonoBehaviour:
   unitName: Guy
   partyMember: 0
   skills: 
+  conditions: []
   chSprite: {fileID: -5177388603050735206, guid: 71ebafeef3c03457483266a33ab2b270, type: 3}
   deathSprite: {fileID: 0}
   attack: 5
@@ -772,6 +838,18 @@ MonoBehaviour:
   APCap: 0
   APGain: 1
   emergencybutton: 0
+  StartOfTurn:
+    m_PersistentCalls:
+      m_Calls: []
+  StartOfAction:
+    m_PersistentCalls:
+      m_Calls: []
+  EndOfAction:
+    m_PersistentCalls:
+      m_Calls: []
+  EndOfTurn:
+    m_PersistentCalls:
+      m_Calls: []
 --- !u!114 &415241307
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -787,6 +865,7 @@ MonoBehaviour:
   unitName: Slime
   partyMember: 0
   skills: 
+  conditions: []
   chSprite: {fileID: -2413806693520163455, guid: ebe73ca9363db456bacf42c025bb4847, type: 3}
   deathSprite: {fileID: 0}
   attack: 5
@@ -803,6 +882,18 @@ MonoBehaviour:
   APCap: 0
   APGain: 1
   emergencybutton: 0
+  StartOfTurn:
+    m_PersistentCalls:
+      m_Calls: []
+  StartOfAction:
+    m_PersistentCalls:
+      m_Calls: []
+  EndOfAction:
+    m_PersistentCalls:
+      m_Calls: []
+  EndOfTurn:
+    m_PersistentCalls:
+      m_Calls: []
 --- !u!114 &415241308
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -970,6 +1061,7 @@ MonoBehaviour:
   unitName: 
   partyMember: 0
   skills: 
+  conditions: []
   chSprite: {fileID: 0}
   deathSprite: {fileID: 0}
   attack: 0
@@ -986,6 +1078,18 @@ MonoBehaviour:
   APCap: 0
   APGain: 1
   emergencybutton: 0
+  StartOfTurn:
+    m_PersistentCalls:
+      m_Calls: []
+  StartOfAction:
+    m_PersistentCalls:
+      m_Calls: []
+  EndOfAction:
+    m_PersistentCalls:
+      m_Calls: []
+  EndOfTurn:
+    m_PersistentCalls:
+      m_Calls: []
 --- !u!1 &481369539
 GameObject:
   m_ObjectHideFlags: 0
@@ -1207,6 +1311,7 @@ MonoBehaviour:
   target: {fileID: 0}
   enemyTarget: {fileID: 0}
   multiTarget: 0
+  targetParty: 0
   targetSelf: 0
   selecting: 0
   playerSelecting: 0
@@ -1882,6 +1987,7 @@ MonoBehaviour:
   unitName: 
   partyMember: 0
   skills: 
+  conditions: []
   chSprite: {fileID: 0}
   deathSprite: {fileID: 0}
   attack: 0
@@ -1898,6 +2004,18 @@ MonoBehaviour:
   APCap: 0
   APGain: 1
   emergencybutton: 0
+  StartOfTurn:
+    m_PersistentCalls:
+      m_Calls: []
+  StartOfAction:
+    m_PersistentCalls:
+      m_Calls: []
+  EndOfAction:
+    m_PersistentCalls:
+      m_Calls: []
+  EndOfTurn:
+    m_PersistentCalls:
+      m_Calls: []
 --- !u!1 &820537214
 GameObject:
   m_ObjectHideFlags: 0
@@ -1989,6 +2107,7 @@ MonoBehaviour:
   unitName: 
   partyMember: 0
   skills: 
+  conditions: []
   chSprite: {fileID: 0}
   deathSprite: {fileID: 0}
   attack: 0
@@ -2005,6 +2124,18 @@ MonoBehaviour:
   APCap: 0
   APGain: 1
   emergencybutton: 0
+  StartOfTurn:
+    m_PersistentCalls:
+      m_Calls: []
+  StartOfAction:
+    m_PersistentCalls:
+      m_Calls: []
+  EndOfAction:
+    m_PersistentCalls:
+      m_Calls: []
+  EndOfTurn:
+    m_PersistentCalls:
+      m_Calls: []
 --- !u!1 &845932432
 GameObject:
   m_ObjectHideFlags: 0
@@ -4524,6 +4655,7 @@ MonoBehaviour:
   unitName: 
   partyMember: 0
   skills: 
+  conditions: []
   chSprite: {fileID: 0}
   deathSprite: {fileID: 0}
   attack: 0
@@ -4540,6 +4672,18 @@ MonoBehaviour:
   APCap: 0
   APGain: 1
   emergencybutton: 0
+  StartOfTurn:
+    m_PersistentCalls:
+      m_Calls: []
+  StartOfAction:
+    m_PersistentCalls:
+      m_Calls: []
+  EndOfAction:
+    m_PersistentCalls:
+      m_Calls: []
+  EndOfTurn:
+    m_PersistentCalls:
+      m_Calls: []
 --- !u!1 &1847061950
 GameObject:
   m_ObjectHideFlags: 0
@@ -4829,6 +4973,7 @@ MonoBehaviour:
   unitName: 
   partyMember: 0
   skills: 
+  conditions: []
   chSprite: {fileID: 0}
   deathSprite: {fileID: 0}
   attack: 0
@@ -4845,6 +4990,18 @@ MonoBehaviour:
   APCap: 0
   APGain: 1
   emergencybutton: 0
+  StartOfTurn:
+    m_PersistentCalls:
+      m_Calls: []
+  StartOfAction:
+    m_PersistentCalls:
+      m_Calls: []
+  EndOfAction:
+    m_PersistentCalls:
+      m_Calls: []
+  EndOfTurn:
+    m_PersistentCalls:
+      m_Calls: []
 --- !u!1 &1995154408
 GameObject:
   m_ObjectHideFlags: 0
