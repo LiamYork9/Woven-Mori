@@ -1,0 +1,194 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1 &9037386977037729794
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 2108471912829710956}
+  - component: {fileID: 3722604092719107477}
+  - component: {fileID: 8275852703374260490}
+  - component: {fileID: 5729013798524992370}
+  - component: {fileID: 676456202878121242}
+  m_Layer: 0
+  m_Name: EnemyPool
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &2108471912829710956
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9037386977037729794}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 931.80365, y: 599.1459, z: -5.2032795}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &3722604092719107477
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9037386977037729794}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c15e9b9414929be45b1d4a95896eab36, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  encounterTable:
+  - {fileID: 8275852703374260490}
+  - {fileID: 5729013798524992370}
+  - {fileID: 676456202878121242}
+--- !u!114 &8275852703374260490
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9037386977037729794}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 22ff192d681faf34ca12b61a7c65a93d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  unitName: Slime
+  partyMember: 0
+  skills: 
+  conditions: []
+  chSprite: {fileID: -2413806693520163455, guid: ebe73ca9363db456bacf42c025bb4847, type: 3}
+  deathSprite: {fileID: 0}
+  attack: 5
+  defense: 10
+  mDefense: 5
+  maxHP: 5
+  currentHP: 5
+  speed: 9
+  initiative: 0
+  slotNumber: 0
+  localTurnCount: 0
+  localTurnCountCurrentVal: 0
+  AP: 0
+  APCap: 0
+  APGain: 1
+  emergencybutton: 0
+  StartOfTurn:
+    m_PersistentCalls:
+      m_Calls: []
+  StartOfAction:
+    m_PersistentCalls:
+      m_Calls: []
+  EndOfAction:
+    m_PersistentCalls:
+      m_Calls: []
+  EndOfTurn:
+    m_PersistentCalls:
+      m_Calls: []
+  references:
+    version: 2
+    RefIds: []
+--- !u!114 &5729013798524992370
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9037386977037729794}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 22ff192d681faf34ca12b61a7c65a93d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  unitName: Guy
+  partyMember: 0
+  skills: 
+  conditions: []
+  chSprite: {fileID: -5177388603050735206, guid: 71ebafeef3c03457483266a33ab2b270, type: 3}
+  deathSprite: {fileID: 0}
+  attack: 5
+  defense: 10
+  mDefense: 5
+  maxHP: 5
+  currentHP: 5
+  speed: 6
+  initiative: 0
+  slotNumber: 0
+  localTurnCount: 0
+  localTurnCountCurrentVal: 0
+  AP: 0
+  APCap: 0
+  APGain: 1
+  emergencybutton: 0
+  StartOfTurn:
+    m_PersistentCalls:
+      m_Calls: []
+  StartOfAction:
+    m_PersistentCalls:
+      m_Calls: []
+  EndOfAction:
+    m_PersistentCalls:
+      m_Calls: []
+  EndOfTurn:
+    m_PersistentCalls:
+      m_Calls: []
+  references:
+    version: 2
+    RefIds: []
+--- !u!114 &676456202878121242
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9037386977037729794}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 22ff192d681faf34ca12b61a7c65a93d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  unitName: Aiden
+  partyMember: 0
+  skills: 
+  conditions: []
+  chSprite: {fileID: 21300000, guid: 950832395ec754ba48ab1cffa214cec0, type: 3}
+  deathSprite: {fileID: 0}
+  attack: 5
+  defense: 10
+  mDefense: 5
+  maxHP: 5
+  currentHP: 5
+  speed: 8
+  initiative: 0
+  slotNumber: 0
+  localTurnCount: 0
+  localTurnCountCurrentVal: 0
+  AP: 0
+  APCap: 0
+  APGain: 1
+  emergencybutton: 0
+  StartOfTurn:
+    m_PersistentCalls:
+      m_Calls: []
+  StartOfAction:
+    m_PersistentCalls:
+      m_Calls: []
+  EndOfAction:
+    m_PersistentCalls:
+      m_Calls: []
+  EndOfTurn:
+    m_PersistentCalls:
+      m_Calls: []
+  references:
+    version: 2
+    RefIds: []
