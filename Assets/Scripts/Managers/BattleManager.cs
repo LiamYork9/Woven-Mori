@@ -357,6 +357,7 @@ public class BattleManager : MonoBehaviour
 
     public void SkillMenu()
     {
+        targetIndex = 0;
         usingSkill = true;
         actionMenu.SetActive(false);
         //SkillButtonScript.ButtonsOn();
