@@ -15,6 +15,10 @@ public class PlayerController : MonoBehaviour
 
     private float tempDist = 0;
 
+    public int stepCount;
+
+    public bool stepCheck;
+
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
@@ -35,7 +39,7 @@ public class PlayerController : MonoBehaviour
                     tempDist /= Math.Abs(tempDist);
                     if (!Physics2D.OverlapCircle(movePoint.position + new Vector3(tempDist, 0f, 0f), 0.2f, stopsMovement))
                     {
-                        Debug.Log(tempDist + " Horizontal");
+                        stepCheck = true;
                         movePoint.position += new Vector3(tempDist, 0f, 0f);
                         if (follower != null)
                         {
@@ -50,7 +54,7 @@ public class PlayerController : MonoBehaviour
                     tempDist /= Math.Abs(tempDist);
                     if (!Physics2D.OverlapCircle(movePoint.position + new Vector3(0f, tempDist, 0f), 0.2f, stopsMovement))
                     {
-                        Debug.Log(tempDist + " Vertical");
+                        stepCheck = true;
                         movePoint.position += new Vector3(0f, tempDist, 0f);
                         if (follower != null)
                         {
@@ -58,6 +62,11 @@ public class PlayerController : MonoBehaviour
                         }
                     }
                 }
+            }
+            if(stepCheck == true)
+            {
+                stepCount += 1;
+                stepCheck = false;
             }
         }
     }
