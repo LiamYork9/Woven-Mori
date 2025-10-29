@@ -1,0 +1,90 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1 &4387647554006667938
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 2783767259390318674}
+  - component: {fileID: 6150715196394293801}
+  m_Layer: 0
+  m_Name: BattleManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &2783767259390318674
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4387647554006667938}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &6150715196394293801
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4387647554006667938}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c3020258d0b37204f9d4be779cdd66c6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  playerSlots:
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  enemySlots: []
+  defaultSlots:
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  defaultPlayerSlots:
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  TOM: {fileID: 0}
+  SBS: {fileID: 0}
+  globalTurn: 0
+  pfCharacterBattle: {fileID: 2348353712630482822, guid: 2a1d1a5dc42531645a8a16e90a2a8d6d, type: 3}
+  playerSprite: {fileID: 7482667652216324306, guid: 48e93eef0688c4a259cb0eddcd8661f7, type: 3}
+  enemySprite: {fileID: 7482667652216324306, guid: 75f5f34dc1b5347e0b8351032682f224, type: 3}
+  gTurnText: {fileID: 0}
+  targetArrow: {fileID: 0}
+  target: {fileID: 0}
+  enemyTarget: {fileID: 0}
+  multiTarget: 0
+  targetParty: 0
+  targetSelf: 0
+  selecting: 0
+  playerSelecting: 0
+  targetIndex: 0
+  attacking: 0
+  dialogueText: {fileID: 0}
+  buttons:
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  enemyTurn: 0
+  playerTurn: 0
+  action: 0
+  skillButton: {fileID: 0}
+  skillMenu: {fileID: 0}
+  actionMenu: {fileID: 0}
+  usingSkill: 0
+  fightState: 0
