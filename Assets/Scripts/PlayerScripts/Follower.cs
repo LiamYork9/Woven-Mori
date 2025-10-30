@@ -33,11 +33,12 @@ public class Follower: PlayerController
 
     public void Move()
     {
-        movePoint.position = following.transform.position;
+
         if (follower != null)
         {
             follower.Move();
         }
+        movePoint.position = following.GetComponent<PlayerController>().movePoint.position;
     }    
     public void Follow(PlayerController target)
     {
