@@ -35,6 +35,8 @@ public class EncounterManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
+
     }
+    
+    
 }

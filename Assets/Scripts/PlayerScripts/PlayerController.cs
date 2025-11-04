@@ -2,6 +2,7 @@ using System;
 using System.Reflection;
 using UnityEngine;
 
+
 public class PlayerController : MonoBehaviour
 {
     public float moveSpeed = 5f;
@@ -9,6 +10,14 @@ public class PlayerController : MonoBehaviour
     public LayerMask stopsMovement;
 
     public bool inText;
+
+    public int battleCheck = 1;
+
+    public int encounterMod;
+
+    public int min;
+
+    public int max;
     
     
     public Follower follower = null;
@@ -28,6 +37,7 @@ public class PlayerController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+      
         if (inText == false)
         {
             transform.position = Vector3.MoveTowards(transform.position, movePoint.position, moveSpeed * Time.deltaTime);
@@ -63,17 +73,20 @@ public class PlayerController : MonoBehaviour
                     }
                 }
             }
-            if(stepCheck == true)
+            if (stepCheck == true)
             {
                 stepCount += 1;
+                battleCheck = UnityEngine.Random.Range(min, max);
                 stepCheck = false;
+                FightCheck();
             }
+            
         }
     }
 
     public void Follower(Follower newFollower)
     {
-        if(follower == null)
+        if (follower == null)
         {
             follower = newFollower;
             newFollower.following = gameObject;
@@ -81,6 +94,16 @@ public class PlayerController : MonoBehaviour
         else
         {
             follower.Follower(newFollower);
+        }
+    }
+    
+    public void FightCheck()
+    {
+        if(battleCheck <= stepCount + encounterMod)
+        {
+            Debug.Log("FIGHT!");
+            stepCount = 0;
+                
         }
     }
 }
