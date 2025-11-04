@@ -2,10 +2,13 @@ using UnityEngine;
 using System.Collections.Generic;
 using System.Collections;
 using UnityEngine.Events;
+using UnityEngine.SceneManagement;
 
 public class EncounterManager : MonoBehaviour
 {
     public List<Enemy> encounterPool;
+    
+    public List<Enemy> encounteredEnemies;
 
     public static EncounterManager Instance;
 
@@ -17,11 +20,11 @@ public class EncounterManager : MonoBehaviour
     public int min = 1;
 
     public int max = 256;
+    public int maxEnemies = 3;
 
     public int stepsSinceEncounter = 0;
-
-    public PlayerController player;
-    public DialogueInteraction FightText;
+    public string sceneName = "LiamYorkTestScene";
+    public DialogueInteraction fightText;
 
     public static EncounterManager GetInstance()
     {
@@ -32,13 +35,13 @@ public class EncounterManager : MonoBehaviour
     {
         if (EncounterManager.Instance != this && EncounterManager.Instance != null)
         {
-            Destroy(EncounterManager.Instance);
-            Instance = this;
+            Destroy(this.gameObject);
         }
         else
         {
             Instance = this;
         }
+        DontDestroyOnLoad(this);
         
         
 
@@ -46,9 +49,9 @@ public class EncounterManager : MonoBehaviour
     
     void Start()
     {
-        if (player == null)
+        if (fightText != null)
         {
-            player = GameObject.FindWithTag("Player").GetComponent<PlayerController>();
+            fightText.text.EndDialogueEvent.AddListener(StartEncounter);
         }
     }
 
@@ -61,17 +64,66 @@ public class EncounterManager : MonoBehaviour
     public void EncounterCheck()
     {
         stepsSinceEncounter += 1;
-        battleCheck = UnityEngine.Random.Range(min, max);
+        battleCheck = Random.Range(min, max);
         if (battleCheck <= stepsSinceEncounter + encounterMod)
         {
             stepsSinceEncounter = 0;
-            StartEncounter();
+            AnounceEncounter();
+        }
+    }
+
+    public void AnounceEncounter()
+    {
+
+        Debug.Log("FIGHT!");
+        RollEncounter();
+        if (fightText != null)
+        {
+
+            fightText.text.lines[2] = "";
+            for (int i = 0; i < encounteredEnemies.Count; i++)
+            {
+                if (i + 1 == encounteredEnemies.Count && encounteredEnemies.Count != 1)
+                {
+                    fightText.text.lines[2] += "and ";
+                }
+                fightText.text.lines[2] += encounteredEnemies[i].unitName;
+                if (i + 1 < encounteredEnemies.Count)
+                {
+                    fightText.text.lines[2] += ", ";
+                }
+                else
+                {
+                    fightText.text.lines[2] += "!!!";
+                }
+            }
+            fightText.StartDialogue();
         }
     }
     
     public void StartEncounter()
     {
-        Debug.Log("FIGHT!");
+        SceneManager.LoadScene(sceneName);
+    }
+    
+    public void RollEncounter(int count = -1)
+    {
+        encounteredEnemies.Clear();
+        if (count == -1)
+        {
+            count = Random.Range(1, maxEnemies+1);
+        }
+        
+        for (int i = 0; i<count; i++)
+        {
+            encounteredEnemies.Add(RollEnemy());
+        }
+    }
+
+    public Enemy RollEnemy()
+    {
+        return encounterPool[Random.Range(0, encounterPool.Count)];
+
     }
     
     

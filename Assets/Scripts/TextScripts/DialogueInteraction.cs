@@ -124,6 +124,14 @@ public class DialogueInteraction : MonoBehaviour
         }
     }
 
+    public void StartDialogue()
+    {
+        DiologueBox.SetActive(true);
+        topBox.SetActive(true);
+        skip.SetActive(true);
+        text.StartDiolague();
+    }
+
 
     
 }
