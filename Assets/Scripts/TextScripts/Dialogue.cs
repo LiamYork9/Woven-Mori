@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
+using UnityEngine.Events;
 
 public class Dialogue : MonoBehaviour
 {
@@ -24,11 +25,15 @@ public class Dialogue : MonoBehaviour
     public PlayerController pc;
 
     public bool textActive = false;
+    public UnityEvent EndDialogueEvent;
 
 
     void Start()
     {
-        
+        if (EndDialogueEvent == null)
+        {
+            EndDialogueEvent = new UnityEvent();
+        }
     }
 
     void Update()
@@ -86,16 +91,22 @@ public class Dialogue : MonoBehaviour
         }
         else
         {
-            textActive = false;
-            pc.inText = false;
-            textBox.Play("CloseBox");
-            topBoxAnim.Play("CloseTopBox");
-            //gameObject.SetActive(false);
-            skip.SetActive(false);
-            Time.timeScale = 1.0f;
-            textComponent.text = string.Empty;
-            //topBox.SetActive(false);
+            EndDialogue();
         }
     }
-    
+
+    public void EndDialogue()
+    {
+        textActive = false;
+        pc.inText = false;
+        textBox.Play("CloseBox");
+        topBoxAnim.Play("CloseTopBox");
+        //gameObject.SetActive(false);
+        skip.SetActive(false);
+        Time.timeScale = 1.0f;
+        textComponent.text = string.Empty;
+        //topBox.SetActive(false);
+        EndDialogueEvent.Invoke();
+    }
+
 }

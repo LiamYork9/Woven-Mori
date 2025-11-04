@@ -18,13 +18,13 @@ public class EnemyPool : MonoBehaviour
     {
         if (EnemyPool.Instance != this && EnemyPool.Instance != null)
         {
-            Destroy(EnemyPool.Instance);
-            Instance = this;
+            Destroy(this.gameObject);
         }
         else
         {
             Instance = this;
         }
+        DontDestroyOnLoad(this);
 
     }
 

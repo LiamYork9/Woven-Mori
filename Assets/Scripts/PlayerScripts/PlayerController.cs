@@ -1,6 +1,7 @@
 using System;
 using System.Reflection;
 using UnityEngine;
+using UnityEngine.Events;
 
 
 public class PlayerController : MonoBehaviour
@@ -10,15 +11,6 @@ public class PlayerController : MonoBehaviour
     public LayerMask stopsMovement;
 
     public bool inText;
-
-    public int battleCheck = 1;
-
-    public int encounterMod;
-
-    public int min;
-
-    public int max;
-    
     
     public Follower follower = null;
 
@@ -27,11 +19,18 @@ public class PlayerController : MonoBehaviour
     public int stepCount;
 
     public bool stepCheck;
+    public UnityEvent Step;
+
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
         movePoint.parent = null;
+        if (Step == null)
+        {
+            Step = new UnityEvent();
+        }
+        Step.AddListener(TakeStep);
     }
 
     // Update is called once per frame
@@ -75,10 +74,8 @@ public class PlayerController : MonoBehaviour
             }
             if (stepCheck == true)
             {
-                stepCount += 1;
-                battleCheck = UnityEngine.Random.Range(min, max);
+                Step.Invoke();
                 stepCheck = false;
-                FightCheck();
             }
             
         }
@@ -97,13 +94,10 @@ public class PlayerController : MonoBehaviour
         }
     }
     
-    public void FightCheck()
+    public void TakeStep()
     {
-        if(battleCheck <= stepCount + encounterMod)
-        {
-            Debug.Log("FIGHT!");
-            stepCount = 0;
-                
-        }
+        stepCount += 1;
+        //eventually add check to see if this is an encounter tile
+        EncounterManager.Instance.EncounterCheck();
     }
 }
