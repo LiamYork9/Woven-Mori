@@ -606,6 +606,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: -7920511790583455133, guid: c1f518cba0be73b448f374cc686346f8, type: 3}
+      propertyPath: m_Properties.Array.size
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: -3612650526335256552, guid: c1f518cba0be73b448f374cc686346f8, type: 3}
       propertyPath: m_Name
       value: Shlap

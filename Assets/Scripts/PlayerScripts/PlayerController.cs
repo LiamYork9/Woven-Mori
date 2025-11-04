@@ -39,12 +39,12 @@ public class PlayerController : MonoBehaviour
                     tempDist /= Math.Abs(tempDist);
                     if (!Physics2D.OverlapCircle(movePoint.position + new Vector3(tempDist, 0f, 0f), 0.2f, stopsMovement))
                     {
-                        stepCheck = true;
-                        movePoint.position += new Vector3(tempDist, 0f, 0f);
-                        if (follower != null)
+                        if (follower != null&&!stepCheck)
                         {
                             follower.Move();
                         }
+                        stepCheck = true;
+                        movePoint.position += new Vector3(tempDist, 0f, 0f);
                     }
                 }
 
@@ -54,12 +54,12 @@ public class PlayerController : MonoBehaviour
                     tempDist /= Math.Abs(tempDist);
                     if (!Physics2D.OverlapCircle(movePoint.position + new Vector3(0f, tempDist, 0f), 0.2f, stopsMovement))
                     {
-                        stepCheck = true;
-                        movePoint.position += new Vector3(0f, tempDist, 0f);
-                        if (follower != null)
+                        if (follower != null&&!stepCheck)
                         {
                             follower.Move();
                         }
+                        stepCheck = true;
+                        movePoint.position += new Vector3(0f, tempDist, 0f);
                     }
                 }
             }
