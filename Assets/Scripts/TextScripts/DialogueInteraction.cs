@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class DiolagueInteraction : MonoBehaviour
+public class DialogueInteraction : MonoBehaviour
 {
      public bool InRange = false;
 
