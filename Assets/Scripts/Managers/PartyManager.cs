@@ -25,6 +25,7 @@ public class PartyManager : MonoBehaviour
         {
             Destroy(this);
         }
+        DontDestroyOnLoad(this);
 
     }
     void Start()

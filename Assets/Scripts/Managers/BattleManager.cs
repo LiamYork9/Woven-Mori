@@ -4,6 +4,7 @@ using UnityEngine;
 using TMPro;
 using UnityEngine.UI;
 using MoriSkills;
+using UnityEngine.SceneManagement;
 
 public enum FightState
 {
@@ -82,6 +83,9 @@ public class BattleManager : MonoBehaviour
 
     public FightState fightState = FightState.Active;
 
+    public bool win;
+    public string sceneName = "EncounterTest";
+
 
 
 
@@ -104,12 +108,23 @@ public class BattleManager : MonoBehaviour
     void Start()
     {
         TOM = TurnOrderManager.Instance;
-        BattleStart();
+        if (EncounterManager.Instance.encounteredEnemies.Count > 0)
+        {
+            BattleStartFromScene();
+        }
+        else
+        {
+            BattleStart();
+        }
         ButtonsOff();
     }
 
     public void Update()
     {
+        if(win && Input.GetKeyDown(KeyCode.G))
+        {
+            SceneManager.LoadScene(sceneName);
+        }
         //Move later for optemization 
         for (int i = 0; i < enemySlots.Count; i++)
         {
@@ -159,10 +174,11 @@ public class BattleManager : MonoBehaviour
             {
                 if (attacking == true)
                 {
+                    selecting = false;
                     StartCoroutine(PlayerAttack());
                 }
-                selecting = false;
-                Debug.Log("Player has Attacked " + target);
+               
+              
 
             }
 
@@ -295,6 +311,8 @@ public class BattleManager : MonoBehaviour
     // The funcation that will be called at the start of every fight 
     void BattleStart()
     {
+        win = false;
+        Debug.Log("Ol Reliable");
         globalTurn = 1;
         gTurnText.text = "Turn: " + globalTurn;
         //fightState = FightState.Active;
@@ -334,6 +352,57 @@ public class BattleManager : MonoBehaviour
     }
 
 
+    public void BattleStartFromScene()
+    {
+        win =false;
+        Debug.Log("FromScene");
+        globalTurn = 1;
+        gTurnText.text = "Turn: " + globalTurn;
+        //fightState = FightState.Active;
+        dialogueText.text = " ";
+        enemySlots.Clear();
+        //playerSlots.Clear();
+        TOM.allFighters.Clear();
+        TOM.recentTurns.Clear();
+        TOM.cycle = 0;
+        for (int i = 0; i < defaultSlots.Count; i++)
+        {
+            if (i < EncounterManager.Instance.encounteredEnemies.Count)
+            {
+                enemySlots.Add(defaultSlots[i]);
+            }
+            else
+            {
+                defaultSlots[i].SetActive(false);
+            }
+        }
+
+        for (int i = 0; i < PartyManager.Instance.party.Count; i++)
+        {
+
+            playerSlots[i].SetActive(true);
+            PlayerCharacter temp = playerSlots[i].GetComponent<PlayerCharacter>();
+            temp.CopyStats(PartyManager.Instance.party[i]);
+            playerSlots[i].GetComponent<Image>().sprite = temp.chSprite;
+        }
+
+        for (int i = 0; i < EncounterManager.Instance.encounteredEnemies.Count; i++)
+        {
+
+            enemySlots[i].SetActive(true);
+            Enemy temp = enemySlots[i].GetComponent<Enemy>();
+            temp.CopyStats(EncounterManager.Instance.encounteredEnemies[i]);
+            enemySlots[i].GetComponent<Image>().sprite = temp.chSprite;
+
+        }
+        TOM.GatherFighters();
+        TOM.turnPlayer = TOM.turnOrder[0].unit;
+        TOM.turnOrder[0].StartTurn();
+
+    }
+
+
+
 
     //Where we roll our Enimies 
     public Enemy RollEnemy()
@@ -357,6 +426,7 @@ public class BattleManager : MonoBehaviour
 
     public void SkillMenu()
     {
+        targetIndex = 0;
         usingSkill = true;
         actionMenu.SetActive(false);
         //SkillButtonScript.ButtonsOn();
@@ -419,6 +489,8 @@ public class BattleManager : MonoBehaviour
             temp.CopyStats(defaultPlayerSlots[i].GetComponent<PlayerCharacter>());
         }
         dialogueText.text = "You Win!";
+
+        win = true;
     }
 
     // What happens when you lose

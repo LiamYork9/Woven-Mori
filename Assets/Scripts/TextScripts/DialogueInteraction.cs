@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class DiolagueInteraction : MonoBehaviour
+public class DialogueInteraction : MonoBehaviour
 {
      public bool InRange = false;
 
@@ -122,6 +122,14 @@ public class DiolagueInteraction : MonoBehaviour
         {
             InRange = false;
         }
+    }
+
+    public void StartDialogue()
+    {
+        DiologueBox.SetActive(true);
+        topBox.SetActive(true);
+        skip.SetActive(true);
+        text.StartDiolague();
     }
 
 

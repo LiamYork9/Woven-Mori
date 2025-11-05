@@ -1,6 +1,8 @@
 using System;
 using System.Reflection;
 using UnityEngine;
+using UnityEngine.Events;
+
 
 public class PlayerController : MonoBehaviour
 {
@@ -10,20 +12,31 @@ public class PlayerController : MonoBehaviour
 
     public bool inText;
     
-    
     public Follower follower = null;
 
     private float tempDist = 0;
+
+    public int stepCount;
+
+    public bool stepCheck;
+    public UnityEvent Step;
+
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
         movePoint.parent = null;
+        if (Step == null)
+        {
+            Step = new UnityEvent();
+        }
+        Step.AddListener(TakeStep);
     }
 
     // Update is called once per frame
     void Update()
     {
+      
         if (inText == false)
         {
             transform.position = Vector3.MoveTowards(transform.position, movePoint.position, moveSpeed * Time.deltaTime);
@@ -35,12 +48,12 @@ public class PlayerController : MonoBehaviour
                     tempDist /= Math.Abs(tempDist);
                     if (!Physics2D.OverlapCircle(movePoint.position + new Vector3(tempDist, 0f, 0f), 0.2f, stopsMovement))
                     {
-                        Debug.Log(tempDist + " Horizontal");
-                        movePoint.position += new Vector3(tempDist, 0f, 0f);
-                        if (follower != null)
+                        if (follower != null&&!stepCheck)
                         {
                             follower.Move();
                         }
+                        stepCheck = true;
+                        movePoint.position += new Vector3(tempDist, 0f, 0f);
                     }
                 }
 
@@ -50,21 +63,27 @@ public class PlayerController : MonoBehaviour
                     tempDist /= Math.Abs(tempDist);
                     if (!Physics2D.OverlapCircle(movePoint.position + new Vector3(0f, tempDist, 0f), 0.2f, stopsMovement))
                     {
-                        Debug.Log(tempDist + " Vertical");
-                        movePoint.position += new Vector3(0f, tempDist, 0f);
-                        if (follower != null)
+                        if (follower != null&&!stepCheck)
                         {
                             follower.Move();
                         }
+                        stepCheck = true;
+                        movePoint.position += new Vector3(0f, tempDist, 0f);
                     }
                 }
             }
+            if (stepCheck == true)
+            {
+                Step.Invoke();
+                stepCheck = false;
+            }
+            
         }
     }
 
     public void Follower(Follower newFollower)
     {
-        if(follower == null)
+        if (follower == null)
         {
             follower = newFollower;
             newFollower.following = gameObject;
@@ -73,5 +92,12 @@ public class PlayerController : MonoBehaviour
         {
             follower.Follower(newFollower);
         }
+    }
+    
+    public void TakeStep()
+    {
+        stepCount += 1;
+        //eventually add check to see if this is an encounter tile
+        EncounterManager.Instance.EncounterCheck();
     }
 }
