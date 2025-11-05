@@ -208,6 +208,11 @@ GameObject:
   m_CorrespondingSourceObject: {fileID: 5326957922552362013, guid: c14100d79b2ddbd4c97c369e306032c3, type: 3}
   m_PrefabInstance: {fileID: 8132812045290668313}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &990903435 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 5735575768180992924, guid: c14100d79b2ddbd4c97c369e306032c3, type: 3}
+  m_PrefabInstance: {fileID: 8132812045290668313}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1121782136
 GameObject:
   m_ObjectHideFlags: 0
@@ -712,6 +717,10 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 935130472}
     - target: {fileID: 6150715196394293801, guid: 8089a5ef6f4ee464ea9324d77e01a3da, type: 3}
+      propertyPath: playerSlots.Array.size
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 6150715196394293801, guid: 8089a5ef6f4ee464ea9324d77e01a3da, type: 3}
       propertyPath: 'playerSlots.Array.data[0]'
       value: 
       objectReference: {fileID: 804541480}
@@ -723,6 +732,10 @@ PrefabInstance:
       propertyPath: 'playerSlots.Array.data[2]'
       value: 
       objectReference: {fileID: 1913163905}
+    - target: {fileID: 6150715196394293801, guid: 8089a5ef6f4ee464ea9324d77e01a3da, type: 3}
+      propertyPath: 'playerSlots.Array.data[3]'
+      value: 
+      objectReference: {fileID: 990903435}
     - target: {fileID: 6150715196394293801, guid: 8089a5ef6f4ee464ea9324d77e01a3da, type: 3}
       propertyPath: 'defaultSlots.Array.data[0]'
       value: 
@@ -736,6 +749,10 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 820537214}
     - target: {fileID: 6150715196394293801, guid: 8089a5ef6f4ee464ea9324d77e01a3da, type: 3}
+      propertyPath: defaultPlayerSlots.Array.size
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 6150715196394293801, guid: 8089a5ef6f4ee464ea9324d77e01a3da, type: 3}
       propertyPath: 'defaultPlayerSlots.Array.data[0]'
       value: 
       objectReference: {fileID: 804541480}
@@ -747,6 +764,10 @@ PrefabInstance:
       propertyPath: 'defaultPlayerSlots.Array.data[2]'
       value: 
       objectReference: {fileID: 1913163905}
+    - target: {fileID: 6150715196394293801, guid: 8089a5ef6f4ee464ea9324d77e01a3da, type: 3}
+      propertyPath: 'defaultPlayerSlots.Array.data[3]'
+      value: 
+      objectReference: {fileID: 990903435}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []

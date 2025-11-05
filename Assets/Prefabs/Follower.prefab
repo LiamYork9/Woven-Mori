@@ -102,13 +102,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6efca20e9c2807e4685062b23e4cde68, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  moveSpeed: 5
+  moveSpeed: 3.5
   movePoint: {fileID: 2012988879588401955}
   stopsMovement:
     serializedVersion: 2
     m_Bits: 0
   inText: 0
   follower: {fileID: 0}
+  stepCount: 0
+  stepCheck: 0
+  Step:
+    m_PersistentCalls:
+      m_Calls: []
   following: {fileID: 0}
 --- !u!1 &5590865523159439092
 GameObject:
@@ -230,8 +235,8 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 7482667652216324306, guid: 75f5f34dc1b5347e0b8351032682f224, type: 3}
-  m_Color: {r: 0, g: 0.91503406, b: 1, a: 1}
+  m_Sprite: {fileID: 4175320429086864182, guid: 2ae8830c3f959ec409a3e5f9c0b93f79, type: 3}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0

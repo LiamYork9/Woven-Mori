@@ -92,12 +92,22 @@ public class PlayerController : MonoBehaviour
         {
             follower.Follower(newFollower);
         }
+        SetPosition();
     }
-    
+
     public void TakeStep()
     {
         stepCount += 1;
         //eventually add check to see if this is an encounter tile
         EncounterManager.Instance.EncounterCheck();
+    }
+    public void SetPosition()
+    {
+        movePoint.position = transform.position;
+        if (follower != null)
+        {
+            follower.transform.position = transform.position;
+            follower.SetPosition();
+        }
     }
 }
