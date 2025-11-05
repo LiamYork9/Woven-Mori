@@ -61,14 +61,15 @@ public class SkillButtonScript : MonoBehaviour
         {
 
 
-            if (BattleManager.Instance.usingSkill == true && BattleManager.Instance.multiTarget == false && BattleManager.Instance.targetSelf == false && BattleManager.Instance.playerSelecting == false && BattleManager.Instance.targetParty == false)
+            if (BattleManager.Instance.usingSkill == true && BattleManager.Instance.multiTarget == false && BattleManager.Instance.targetSelf == false && BattleManager.Instance.playerSelecting == false && BattleManager.Instance.targetParty == false && BattleManager.Instance.selecting == true )
             {
                 BattleManager.Instance.targetArrow.SetActive(false);
+                BattleManager.Instance.selecting = false;
                 ActivateSkill(selectedSkill);
-
+               
             }
 
-            BattleManager.Instance.selecting = false;
+             BattleManager.Instance.selecting = false;
 
             if (BattleManager.Instance.usingSkill == true && BattleManager.Instance.multiTarget == true)
             {

@@ -45,3 +45,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   encounterPool: []
+  encounteredEnemies: []
+  battleCheck: 1
+  encounterMod: 0
+  min: 1
+  max: 256
+  maxEnemies: 3
+  stepsSinceEncounter: 0
+  sceneName: LiamYorkTestScene
+  fightText: {fileID: 0}

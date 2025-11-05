@@ -174,10 +174,11 @@ public class BattleManager : MonoBehaviour
             {
                 if (attacking == true)
                 {
+                    selecting = false;
                     StartCoroutine(PlayerAttack());
                 }
-                selecting = false;
-                Debug.Log("Player has Attacked " + target);
+               
+              
 
             }
 

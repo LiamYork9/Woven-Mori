@@ -768,6 +768,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: PartyManager
       objectReference: {fileID: 0}
+    - target: {fileID: 7565768045970429493, guid: 9be9c3a6200bc05409c5c20538f16e36, type: 3}
+      propertyPath: 'skills.Array.data[0]'
+      value: 2
+      objectReference: {fileID: 0}
     - target: {fileID: 7779081396731353705, guid: 9be9c3a6200bc05409c5c20538f16e36, type: 3}
       propertyPath: m_LocalPosition.x
       value: 960
