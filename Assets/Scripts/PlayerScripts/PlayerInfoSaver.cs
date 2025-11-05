@@ -15,7 +15,7 @@ public class PlayerInfoSaver : MonoBehaviour
             float y = PlayerPrefs.GetFloat("PlayerPosY");
             float z = PlayerPrefs.GetFloat("PlayerPosZ");
             transform.position = new Vector3(x, y, z);
-            gameObject.GetComponent<PlayerController>().movePoint.position = transform.position;
+            gameObject.GetComponent<PlayerController>().SetPosition();
         }
     }
 
