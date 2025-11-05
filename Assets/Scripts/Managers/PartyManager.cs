@@ -23,7 +23,7 @@ public class PartyManager : MonoBehaviour
         }
         else
         {
-            Destroy(this);
+            Destroy(this.gameObject);
         }
         DontDestroyOnLoad(this);
 
