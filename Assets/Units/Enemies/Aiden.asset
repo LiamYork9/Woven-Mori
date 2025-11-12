@@ -1,0 +1,48 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 22ff192d681faf34ca12b61a7c65a93d, type: 3}
+  m_Name: Aiden
+  m_EditorClassIdentifier: 
+  unitName: Aiden
+  partyMember: 0
+  skills: 
+  conditions: []
+  chSprite: {fileID: 21300000, guid: beab9b7c72a3261428d76581f1dff51c, type: 3}
+  deathSprite: {fileID: 21300000, guid: beab9b7c72a3261428d76581f1dff51c, type: 3}
+  attack: 8
+  defense: 1
+  mDefense: 1
+  maxHP: 7
+  currentHP: 7
+  speed: 5
+  initiative: 15
+  localTurnCount: 3
+  localTurnCountCurrentVal: 0
+  AP: 4
+  APCap: 10
+  APGain: 1
+  emergencybutton: 0
+  StartOfTurn:
+    m_PersistentCalls:
+      m_Calls: []
+  StartOfAction:
+    m_PersistentCalls:
+      m_Calls: []
+  EndOfAction:
+    m_PersistentCalls:
+      m_Calls: []
+  EndOfTurn:
+    m_PersistentCalls:
+      m_Calls: []
+  references:
+    version: 2
+    RefIds: []

@@ -763,11 +763,11 @@ PrefabInstance:
     - target: {fileID: 6150715196394293801, guid: 8089a5ef6f4ee464ea9324d77e01a3da, type: 3}
       propertyPath: 'defaultPlayerSlots.Array.data[2]'
       value: 
-      objectReference: {fileID: 1913163905}
+      objectReference: {fileID: 990903435}
     - target: {fileID: 6150715196394293801, guid: 8089a5ef6f4ee464ea9324d77e01a3da, type: 3}
       propertyPath: 'defaultPlayerSlots.Array.data[3]'
       value: 
-      objectReference: {fileID: 990903435}
+      objectReference: {fileID: 1913163905}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -968,9 +968,17 @@ PrefabInstance:
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
       objectReference: {fileID: 645222400}
+    - target: {fileID: 3651201660359233823, guid: c14100d79b2ddbd4c97c369e306032c3, type: 3}
+      propertyPath: m_Name
+      value: Slot4
+      objectReference: {fileID: 0}
     - target: {fileID: 4547600716756143188, guid: c14100d79b2ddbd4c97c369e306032c3, type: 3}
       propertyPath: m_Name
       value: BattleScreen
+      objectReference: {fileID: 0}
+    - target: {fileID: 5735575768180992924, guid: c14100d79b2ddbd4c97c369e306032c3, type: 3}
+      propertyPath: m_Name
+      value: Slot3
       objectReference: {fileID: 0}
     - target: {fileID: 7648609458876619987, guid: c14100d79b2ddbd4c97c369e306032c3, type: 3}
       propertyPath: m_Pivot.x

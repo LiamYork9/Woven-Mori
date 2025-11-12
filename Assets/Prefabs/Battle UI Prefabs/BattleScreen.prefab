@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 1666517445550008024}
   - component: {fileID: 6521383022491001542}
   - component: {fileID: 3540516043654273359}
-  - component: {fileID: 1229800562456076590}
+  - component: {fileID: 1893886830957652168}
   m_Layer: 5
   m_Name: Slot1
   m_TagString: Untagged
@@ -76,7 +76,7 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
---- !u!114 &1229800562456076590
+--- !u!114 &1893886830957652168
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -85,10 +85,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 102256644679001493}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f0f3fbfbcd255794e9933f4b0c1cf923, type: 3}
+  m_Script: {fileID: 11500000, guid: e65cd28f89a046d43bed58c4a74e867e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  unitName: 
+  unit: {fileID: 0}
   partyMember: 0
   skills: 
   conditions: []
@@ -99,7 +99,7 @@ MonoBehaviour:
   mDefense: 1
   maxHP: 0
   currentHP: 0
-  speed: 0
+  speed: 1
   initiative: 0
   slotNumber: 0
   localTurnCount: 0
@@ -108,18 +108,6 @@ MonoBehaviour:
   APCap: 0
   APGain: 1
   emergencybutton: 0
-  StartOfTurn:
-    m_PersistentCalls:
-      m_Calls: []
-  StartOfAction:
-    m_PersistentCalls:
-      m_Calls: []
-  EndOfAction:
-    m_PersistentCalls:
-      m_Calls: []
-  EndOfTurn:
-    m_PersistentCalls:
-      m_Calls: []
   references:
     version: 2
     RefIds: []
@@ -287,7 +275,7 @@ GameObject:
   - component: {fileID: 5648297243314436696}
   - component: {fileID: 1244140780264582901}
   - component: {fileID: 8234482552554612650}
-  - component: {fileID: 8053879374801056597}
+  - component: {fileID: 8297365774884848943}
   m_Layer: 5
   m_Name: Slot2
   m_TagString: Enemy
@@ -352,7 +340,7 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
---- !u!114 &8053879374801056597
+--- !u!114 &8297365774884848943
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -361,10 +349,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 798804906255859472}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 22ff192d681faf34ca12b61a7c65a93d, type: 3}
+  m_Script: {fileID: 11500000, guid: e65cd28f89a046d43bed58c4a74e867e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  unitName: 
+  unit: {fileID: 0}
   partyMember: 0
   skills: 
   conditions: []
@@ -375,7 +363,7 @@ MonoBehaviour:
   mDefense: 1
   maxHP: 0
   currentHP: 0
-  speed: 0
+  speed: 1
   initiative: 0
   slotNumber: 0
   localTurnCount: 0
@@ -384,18 +372,6 @@ MonoBehaviour:
   APCap: 0
   APGain: 1
   emergencybutton: 0
-  StartOfTurn:
-    m_PersistentCalls:
-      m_Calls: []
-  StartOfAction:
-    m_PersistentCalls:
-      m_Calls: []
-  EndOfAction:
-    m_PersistentCalls:
-      m_Calls: []
-  EndOfTurn:
-    m_PersistentCalls:
-      m_Calls: []
   references:
     version: 2
     RefIds: []
@@ -803,7 +779,7 @@ GameObject:
   - component: {fileID: 6700254517438219035}
   - component: {fileID: 6705355465510150773}
   - component: {fileID: 5375998939504555166}
-  - component: {fileID: 8251454396164287841}
+  - component: {fileID: 755389316606251457}
   m_Layer: 5
   m_Name: Slot2
   m_TagString: Untagged
@@ -868,7 +844,7 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
---- !u!114 &8251454396164287841
+--- !u!114 &755389316606251457
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -877,10 +853,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 2828629844139304349}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f0f3fbfbcd255794e9933f4b0c1cf923, type: 3}
+  m_Script: {fileID: 11500000, guid: e65cd28f89a046d43bed58c4a74e867e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  unitName: 
+  unit: {fileID: 0}
   partyMember: 0
   skills: 
   conditions: []
@@ -891,7 +867,7 @@ MonoBehaviour:
   mDefense: 1
   maxHP: 0
   currentHP: 0
-  speed: 0
+  speed: 1
   initiative: 0
   slotNumber: 0
   localTurnCount: 0
@@ -900,18 +876,6 @@ MonoBehaviour:
   APCap: 0
   APGain: 1
   emergencybutton: 0
-  StartOfTurn:
-    m_PersistentCalls:
-      m_Calls: []
-  StartOfAction:
-    m_PersistentCalls:
-      m_Calls: []
-  EndOfAction:
-    m_PersistentCalls:
-      m_Calls: []
-  EndOfTurn:
-    m_PersistentCalls:
-      m_Calls: []
   references:
     version: 2
     RefIds: []
@@ -1062,9 +1026,9 @@ GameObject:
   - component: {fileID: 6601936545795156600}
   - component: {fileID: 4533651467200819862}
   - component: {fileID: 1733757033701112389}
-  - component: {fileID: 8109618992013050180}
+  - component: {fileID: 1324402020535587122}
   m_Layer: 5
-  m_Name: Slot3
+  m_Name: Slot4
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1127,7 +1091,7 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
---- !u!114 &8109618992013050180
+--- !u!114 &1324402020535587122
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -1136,10 +1100,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 3651201660359233823}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f0f3fbfbcd255794e9933f4b0c1cf923, type: 3}
+  m_Script: {fileID: 11500000, guid: e65cd28f89a046d43bed58c4a74e867e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  unitName: 
+  unit: {fileID: 0}
   partyMember: 0
   skills: 
   conditions: []
@@ -1150,7 +1114,7 @@ MonoBehaviour:
   mDefense: 1
   maxHP: 0
   currentHP: 0
-  speed: 0
+  speed: 1
   initiative: 0
   slotNumber: 0
   localTurnCount: 0
@@ -1159,18 +1123,6 @@ MonoBehaviour:
   APCap: 0
   APGain: 1
   emergencybutton: 0
-  StartOfTurn:
-    m_PersistentCalls:
-      m_Calls: []
-  StartOfAction:
-    m_PersistentCalls:
-      m_Calls: []
-  EndOfAction:
-    m_PersistentCalls:
-      m_Calls: []
-  EndOfTurn:
-    m_PersistentCalls:
-      m_Calls: []
   references:
     version: 2
     RefIds: []
@@ -2087,9 +2039,9 @@ GameObject:
   - component: {fileID: 3161783205705813274}
   - component: {fileID: 7614360121548139090}
   - component: {fileID: 3513432925331685246}
-  - component: {fileID: 4949701713864894917}
+  - component: {fileID: 3606622518929943883}
   m_Layer: 5
-  m_Name: Slot4
+  m_Name: Slot3
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2152,7 +2104,7 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
---- !u!114 &4949701713864894917
+--- !u!114 &3606622518929943883
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -2161,10 +2113,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 5735575768180992924}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f0f3fbfbcd255794e9933f4b0c1cf923, type: 3}
+  m_Script: {fileID: 11500000, guid: e65cd28f89a046d43bed58c4a74e867e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  unitName: 
+  unit: {fileID: 0}
   partyMember: 0
   skills: 
   conditions: []
@@ -2175,7 +2127,7 @@ MonoBehaviour:
   mDefense: 1
   maxHP: 0
   currentHP: 0
-  speed: 0
+  speed: 1
   initiative: 0
   slotNumber: 0
   localTurnCount: 0
@@ -2184,18 +2136,6 @@ MonoBehaviour:
   APCap: 0
   APGain: 1
   emergencybutton: 0
-  StartOfTurn:
-    m_PersistentCalls:
-      m_Calls: []
-  StartOfAction:
-    m_PersistentCalls:
-      m_Calls: []
-  EndOfAction:
-    m_PersistentCalls:
-      m_Calls: []
-  EndOfTurn:
-    m_PersistentCalls:
-      m_Calls: []
   references:
     version: 2
     RefIds: []
@@ -2230,8 +2170,8 @@ Transform:
   m_Children:
   - {fileID: 1666517445550008024}
   - {fileID: 6700254517438219035}
-  - {fileID: 6601936545795156600}
   - {fileID: 3161783205705813274}
+  - {fileID: 6601936545795156600}
   m_Father: {fileID: 7648609458876619987}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &6237051170261956792
@@ -2568,7 +2508,7 @@ GameObject:
   - component: {fileID: 187867696717930434}
   - component: {fileID: 4775769052191330017}
   - component: {fileID: 354671630958317096}
-  - component: {fileID: 7645932030240393487}
+  - component: {fileID: 7205776902212263577}
   m_Layer: 5
   m_Name: Slot1
   m_TagString: Enemy
@@ -2633,7 +2573,7 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
---- !u!114 &7645932030240393487
+--- !u!114 &7205776902212263577
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -2642,10 +2582,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 6873723896140581915}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 22ff192d681faf34ca12b61a7c65a93d, type: 3}
+  m_Script: {fileID: 11500000, guid: e65cd28f89a046d43bed58c4a74e867e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  unitName: 
+  unit: {fileID: 0}
   partyMember: 0
   skills: 
   conditions: []
@@ -2656,7 +2596,7 @@ MonoBehaviour:
   mDefense: 1
   maxHP: 0
   currentHP: 0
-  speed: 0
+  speed: 1
   initiative: 0
   slotNumber: 0
   localTurnCount: 0
@@ -2665,18 +2605,6 @@ MonoBehaviour:
   APCap: 0
   APGain: 1
   emergencybutton: 0
-  StartOfTurn:
-    m_PersistentCalls:
-      m_Calls: []
-  StartOfAction:
-    m_PersistentCalls:
-      m_Calls: []
-  EndOfAction:
-    m_PersistentCalls:
-      m_Calls: []
-  EndOfTurn:
-    m_PersistentCalls:
-      m_Calls: []
   references:
     version: 2
     RefIds: []
@@ -3232,7 +3160,7 @@ GameObject:
   - component: {fileID: 4168101716149225496}
   - component: {fileID: 8719754060858400826}
   - component: {fileID: 544406598806864779}
-  - component: {fileID: 2341434506618907522}
+  - component: {fileID: 1974259392831641814}
   m_Layer: 5
   m_Name: Slot3
   m_TagString: Enemy
@@ -3297,7 +3225,7 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
---- !u!114 &2341434506618907522
+--- !u!114 &1974259392831641814
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -3306,10 +3234,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 8812473602271026392}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 22ff192d681faf34ca12b61a7c65a93d, type: 3}
+  m_Script: {fileID: 11500000, guid: e65cd28f89a046d43bed58c4a74e867e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  unitName: 
+  unit: {fileID: 0}
   partyMember: 0
   skills: 
   conditions: []
@@ -3320,7 +3248,7 @@ MonoBehaviour:
   mDefense: 1
   maxHP: 0
   currentHP: 0
-  speed: 0
+  speed: 1
   initiative: 0
   slotNumber: 0
   localTurnCount: 0
@@ -3329,18 +3257,6 @@ MonoBehaviour:
   APCap: 0
   APGain: 1
   emergencybutton: 0
-  StartOfTurn:
-    m_PersistentCalls:
-      m_Calls: []
-  StartOfAction:
-    m_PersistentCalls:
-      m_Calls: []
-  EndOfAction:
-    m_PersistentCalls:
-      m_Calls: []
-  EndOfTurn:
-    m_PersistentCalls:
-      m_Calls: []
   references:
     version: 2
     RefIds: []

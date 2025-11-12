@@ -1,0 +1,49 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f0f3fbfbcd255794e9933f4b0c1cf923, type: 3}
+  m_Name: Xander
+  m_EditorClassIdentifier: 
+  unitName: Xander
+  partyMember: 1
+  skills: 0100000005000000
+  conditions: []
+  chSprite: {fileID: -2316854331444592169, guid: 2ae8830c3f959ec409a3e5f9c0b93f79, type: 3}
+  deathSprite: {fileID: 21300000, guid: 7ef42231652fcda41b73cf85791d6841, type: 3}
+  attack: 5
+  defense: 2
+  mDefense: 3
+  maxHP: 20
+  currentHP: 20
+  speed: 7
+  initiative: 3
+  slotNumber: 0
+  localTurnCount: 1
+  localTurnCountCurrentVal: 0
+  AP: 2
+  APCap: 10
+  APGain: 1
+  emergencybutton: 100
+  StartOfTurn:
+    m_PersistentCalls:
+      m_Calls: []
+  StartOfAction:
+    m_PersistentCalls:
+      m_Calls: []
+  EndOfAction:
+    m_PersistentCalls:
+      m_Calls: []
+  EndOfTurn:
+    m_PersistentCalls:
+      m_Calls: []
+  references:
+    version: 2
+    RefIds: []

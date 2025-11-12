@@ -3,13 +3,12 @@ using System.Collections.Generic;
 using MoriSkills;
 using UnityEngine;
 using UnityEngine.Events;
+using UnityEngine.UI;
 
-[CreateAssetMenu(fileName = "unit", menuName = "ScriptableObjects/Unit/Generic", order = 1)]
-[Serializable]
-public class Unit : ScriptableObject
+public class UnitBody : MonoBehaviour
 {
 
-    public string unitName;
+    public Unit unit;
     public bool partyMember;
 
     public List<SkillId> skills;
@@ -34,6 +33,8 @@ public class Unit : ScriptableObject
 
     public int initiative;
 
+    public int slotNumber;
+
     public int localTurnCount;
 
     public int localTurnCountCurrentVal;
@@ -45,28 +46,48 @@ public class Unit : ScriptableObject
     public int APGain = 1;
 
     public int emergencybutton;
-
-    //Events
-    public UnityEvent StartOfTurn;
-    public UnityEvent StartOfAction;
-
-    public UnityEvent EndOfAction;
-    public UnityEvent EndOfTurn;
-
+   
+    // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
-
+        if (unit != null)
+        {
+           SetUnit(unit);
+        }
     }
 
-
+    // Update is called once per frame
     void Update()
     {
 
     }
 
+    public void SetUnit(Unit newUnit)
+    {
+        unit = newUnit;
+        CopyStats(newUnit);
+    }
+
+    public void Death()
+    {
+        Debug.Log(name + " Body Death");
+        if (currentHP <= 0)
+        {
+            if (partyMember)
+            {
+                BattleManager.Instance.playerSlots[slotNumber].GetComponent<Image>().sprite = deathSprite;
+            }
+            else
+            {
+                BattleManager.Instance.enemySlots[slotNumber].GetComponent<Image>().sprite = deathSprite;
+            }
+            unit.Death(this);
+        }
+    }
+
     public void CopyStats(Unit target)
     {
-        unitName = target.unitName;
+        name = target.unitName;
         skills = target.skills;
         partyMember = target.partyMember;
         chSprite = target.chSprite;
@@ -79,30 +100,33 @@ public class Unit : ScriptableObject
         speed = target.speed;
     }
 
-    public virtual void Death(UnitBody body)
+    public void ClearStats()
     {
-        if (BattleManager.Instance.enemySlots.Count == 0)
-        {
-            BattleManager.Instance.WinCondtion();
-        }
-        if (BattleManager.Instance.playerSlots.Count == 0)
-        {
-            BattleManager.Instance.LoseCondition();
-        }
+        name = "";
+        skills = null;
+        partyMember = false;
+        chSprite = null;
+        deathSprite = null;
+        attack = 0;
+        defense = 0;
+        mDefense = 0;
+        maxHP = 0;
+        currentHP = 0;
+        speed = 0;
     }
-
+    
     public void TakeDamage(int damageValue, Category category = Category.Physical, Element element = Element.None)
     {
         int damageMod = 0;
         if (category == Category.Physical)
         {
-            damageMod = damageValue / defense;
+            damageMod = damageValue-defense;
 
         }
 
         if (category == Category.Magic)
         {
-            damageMod = damageValue / mDefense;
+            damageMod = damageValue-mDefense;
         }
 
         //resistance and immunity checks
@@ -116,14 +140,8 @@ public class Unit : ScriptableObject
 
         if (currentHP <= 0)
         {
-            //Death();
+            Death();
         }
     }
 
-    public Unit ApplyCondition(Condition addedCondition)
-    {
-        conditions.Add(addedCondition);
-        addedCondition.OnApply(this);
-        return this;
-    }
 }

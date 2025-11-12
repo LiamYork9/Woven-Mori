@@ -7,7 +7,7 @@ public class TurnOrderManager : MonoBehaviour
     public Unit turnPlayer;
     public List<GameObject> allFighters;
 
-    public List<Unit> downedPlayers = new List<Unit> { };
+    public List<UnitBody> downedPlayers = new List<UnitBody> { };
 
     public List<Turn> turnOrder = new List<Turn> { };
 
@@ -57,13 +57,13 @@ public class TurnOrderManager : MonoBehaviour
         }
         for (int i = 0; i < BM.playerSlots.Count; i++)
         {
-            BM.playerSlots[i].name = BM.playerSlots[i].GetComponent<Unit>().unitName;
+            BM.playerSlots[i].name = BM.playerSlots[i].GetComponent<UnitBody>().unit.unitName;
             allFighters.Add(BM.playerSlots[i]);
         }
 
         for (int i = 0; i < BM.enemySlots.Count; i++)
         {
-            BM.enemySlots[i].name = BM.enemySlots[i].GetComponent<Unit>().unitName;
+            BM.enemySlots[i].name = BM.enemySlots[i].GetComponent<UnitBody>().unit.unitName;
             allFighters.Add(BM.enemySlots[i]);
         }
         TurnCalulation();
@@ -81,12 +81,12 @@ public class TurnOrderManager : MonoBehaviour
             for (int i = 0; i < allFighters.Count; i++)
             {
                 Turn tempTurn = new Turn();
-                Unit tempUnit = allFighters[i].GetComponent<Unit>();
-                tempUnit.initiative += tempUnit.speed;
+                UnitBody tempUnit = allFighters[i].GetComponent<UnitBody>();
+                tempUnit.unit.initiative += tempUnit.unit.speed;
 
-                if (tempUnit.initiative >= 100)
+                if (tempUnit.unit.initiative >= 100)
                 {
-                    tempUnit.initiative -= 100;
+                    tempUnit.unit.initiative -= 100;
                     tempTurn.PopulateTurn(tempUnit);
                     turnOrder.Add(tempTurn);
                 }

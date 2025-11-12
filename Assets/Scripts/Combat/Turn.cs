@@ -8,6 +8,7 @@ using UnityEngine.UI;
 public class Turn
 {
     public string name;
+    public UnitBody unitBody;
     public Unit unit;
     public int initiative;
     public int cycle;
@@ -46,11 +47,12 @@ public class Turn
        
     }
 
-    public void PopulateTurn(Unit tempUnit)
+    public void PopulateTurn(UnitBody tempUnit)
     {
-        unit = tempUnit;
+        unitBody = tempUnit;
+        unit = tempUnit.unit;
         name = unit.name;
-        initiative = tempUnit.initiative;
+        initiative = unit.initiative;
         cycle = TurnOrderManager.Instance.cycle;
     }
 
