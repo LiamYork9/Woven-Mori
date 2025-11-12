@@ -187,7 +187,7 @@ public class BattleManager : MonoBehaviour
 
                 if (enemySlots[i].GetComponent<UnitBody>().currentHP <= 0)
                 {
-                    enemySlots.Remove(target);
+                    enemySlots.Remove(enemySlots[i]);
                 }
 
             }
@@ -443,7 +443,7 @@ public class BattleManager : MonoBehaviour
     {
 
         targetArrow.SetActive(false);
-        dialogueText.text = TOM.turnPlayer.unitName + " has Attacked " + target.GetComponent<UnitBody>().name;
+        dialogueText.text = TOM.turnPlayer.name + " has Attacked " + target.GetComponent<UnitBody>().name;
         yield return new WaitForSeconds(2f);
         target.GetComponent<UnitBody>().TakeDamage(TOM.turnPlayer.attack);
         yield return new WaitForSeconds(2f);
@@ -458,7 +458,7 @@ public class BattleManager : MonoBehaviour
         enemyTarget = playerSlots[Random.Range(0,playerSlots.Count)];
         yield return new WaitForSeconds(2f);
         enemyTarget.GetComponent<UnitBody>().TakeDamage(TOM.turnPlayer.attack);
-        dialogueText.text =  TOM.turnPlayer.unitName + " has attacked " + enemyTarget.GetComponent<UnitBody>().name;
+        dialogueText.text =  TOM.turnPlayer.name + " has attacked " + enemyTarget.GetComponent<UnitBody>().name;
         yield return new WaitForSeconds(1f);
         dialogueText.text = " ";
         enemyTurn = false;
@@ -513,7 +513,7 @@ public class BattleManager : MonoBehaviour
 
     public void TurnTransiton()
     {
-         TOM.turnPlayer = TOM.turnOrder[0].unit;
+        TOM.turnPlayer = TOM.turnOrder[0].unit;
         if (TOM.turnPlayer != null && TOM.turnPlayer.partyMember == false)
         {
             enemyTurn = true;
@@ -552,7 +552,7 @@ public class BattleManager : MonoBehaviour
 
     public void StartSelectActionCo(Turn turn)
     {
-        if (turn.unitBody.partyMember == true)
+        if (turn.unit.partyMember == true)
         {
             StartCoroutine(turn.SelectActionCo());
         }

@@ -23,7 +23,7 @@ namespace MoriSkills
 
         }
 
-        public virtual void ActivateAttr(Unit unitUser, Unit unitTarget)
+        public virtual void ActivateAttr(UnitBody unitUser, UnitBody unitTarget)
         {
 
         }
@@ -43,7 +43,7 @@ namespace MoriSkills
             boost = boostNum;
         }
 
-        public override void ActivateAttr(Unit unitUser, Unit unitTarget)
+        public override void ActivateAttr(UnitBody unitUser, UnitBody unitTarget)
         {
             if (targetSelf == true)
             {
@@ -101,7 +101,7 @@ namespace MoriSkills
 
             boost = boostNum;
         }
-        public override void ActivateAttr(Unit unitUser, Unit unitTarget)
+        public override void ActivateAttr(UnitBody unitUser, UnitBody unitTarget)
         {
             if (targetSelf==true)
             {
@@ -126,7 +126,7 @@ namespace MoriSkills
 
         }
 
-        public override void ActivateAttr(Unit unitUser, Unit unitTarget)
+        public override void ActivateAttr(UnitBody unitUser, UnitBody unitTarget)
         {
             if (targetSelf == true)
             {
@@ -148,7 +148,7 @@ namespace MoriSkills
             name = "ApplyConditionAttr";
             duration = conditionDuration;
         }
-        public override void ActivateAttr(Unit unitUser, Unit unitTarget)
+        public override void ActivateAttr(UnitBody unitUser, UnitBody unitTarget)
         {
             if (targetSelf==true)
             {

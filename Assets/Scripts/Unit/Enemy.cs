@@ -28,9 +28,9 @@ public class Enemy : Unit
     // Enemy Death Function (Removes them from list)
     public override void Death(UnitBody body)
     {
-        Debug.Log(unitName + " Soul Death");
-        if (currentHP <= 0)
+        if (body.currentHP <= 0)
         {
+            Debug.Log(unitName + " Soul Death");
             body.gameObject.SetActive(false);
             //ClearStats();
             for (int i = 0; i < TurnOrderManager.Instance.turnOrder.Count; i++)
@@ -38,7 +38,7 @@ public class Enemy : Unit
                 emergencybutton = 0;
                 while (i < TurnOrderManager.Instance.turnOrder.Count && emergencybutton < 20)
                 {
-                    if (TurnOrderManager.Instance.turnOrder[i].unitBody == body)
+                    if (TurnOrderManager.Instance.turnOrder[i].unit == body)
                     {
                         TurnOrderManager.Instance.turnOrder.RemoveAt(i);
                     }
@@ -55,7 +55,7 @@ public class Enemy : Unit
                 emergencybutton = 0;
                 while (i < TurnOrderManager.Instance.recentTurns.Count && emergencybutton < 20)
                 {
-                    if (TurnOrderManager.Instance.recentTurns[i].unitBody == body)
+                    if (TurnOrderManager.Instance.recentTurns[i].unit == body)
                     {
                         TurnOrderManager.Instance.recentTurns.RemoveAt(i);
                     }

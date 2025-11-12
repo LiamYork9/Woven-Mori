@@ -73,10 +73,10 @@ public class SkillButtonScript : MonoBehaviour
 
             if (BattleManager.Instance.usingSkill == true && BattleManager.Instance.multiTarget == true)
             {
-                List<Unit> temp = new List<Unit> { };
+                List<UnitBody> temp = new List<UnitBody> { };
                 for (int i = 0; i < BattleManager.Instance.enemySlots.Count; i++)
                 {
-                    temp.Add(BattleManager.Instance.enemySlots[i].GetComponent<Unit>());
+                    temp.Add(BattleManager.Instance.enemySlots[i].GetComponent<UnitBody>());
                 }
                 ActivateMultiSkill(selectedSkill, temp);
                 BattleManager.Instance.multiTarget = false;
@@ -84,10 +84,10 @@ public class SkillButtonScript : MonoBehaviour
 
             if (BattleManager.Instance.usingSkill == true && BattleManager.Instance.targetParty == true)
             {
-                List<Unit> temp = new List<Unit> { };
+                List<UnitBody> temp = new List<UnitBody> { };
                 for (int i = 0; i < BattleManager.Instance.playerSlots.Count; i++)
                 {
-                    temp.Add(BattleManager.Instance.playerSlots[i].GetComponent<Unit>());
+                    temp.Add(BattleManager.Instance.playerSlots[i].GetComponent<UnitBody>());
                 }
                 ActivateMultiSkill(selectedSkill, temp);
                 BattleManager.Instance.targetParty = false;
@@ -188,7 +188,7 @@ public class SkillButtonScript : MonoBehaviour
 
     }
 
-    public void ActivateMultiSkill(Skill skill, List<Unit> targets)
+    public void ActivateMultiSkill(Skill skill, List<UnitBody> targets)
     {
         BattleManager.Instance.ButtonsOff();
        
@@ -201,7 +201,7 @@ public class SkillButtonScript : MonoBehaviour
         }
     }
 
-    public void ActivateMultiSkillParty(Skill skill, List<Unit> targets)
+    public void ActivateMultiSkillParty(Skill skill, List<UnitBody> targets)
     {
         BattleManager.Instance.ButtonsOff();
        
@@ -219,10 +219,10 @@ public class SkillButtonScript : MonoBehaviour
         BattleManager.Instance.usingSkill = false;
         if (selectedSkill.power != 0)
         {
-            BattleManager.Instance.target.GetComponent<Unit>().TakeDamage(selectedSkill.power,selectedSkill.category,selectedSkill.element);
+            BattleManager.Instance.target.GetComponent<UnitBody>().TakeDamage(selectedSkill.power,selectedSkill.category,selectedSkill.element);
         }
-        skill.ApplyEffects(TurnOrderManager.Instance.turnPlayer,BattleManager.Instance.target.GetComponent<Unit>());
-        dialogueText.text =  TurnOrderManager.Instance.turnPlayer.unitName + " used " + skill.name + " On " + BattleManager.Instance.target.name;
+        skill.ApplyEffects(TurnOrderManager.Instance.turnPlayer,BattleManager.Instance.target.GetComponent<UnitBody>());
+        dialogueText.text =  TurnOrderManager.Instance.turnPlayer.name + " used " + skill.name + " On " + BattleManager.Instance.target.name;
         yield return new WaitForSeconds(2f);
         TurnOrderManager.Instance.turnOrder[0].turnShift = skill.turnShift;
         dialogueText.text = "";
@@ -239,10 +239,10 @@ public class SkillButtonScript : MonoBehaviour
         BattleManager.Instance.usingSkill = false;
         if (selectedSkill.power != 0)
         {
-            BattleManager.Instance.target.GetComponent<Unit>().TakeDamage(selectedSkill.power,selectedSkill.category,selectedSkill.element);
+            BattleManager.Instance.target.GetComponent<UnitBody>().TakeDamage(selectedSkill.power,selectedSkill.category,selectedSkill.element);
         }
-        skill.ApplyEffects(TurnOrderManager.Instance.turnPlayer,BattleManager.Instance.target.GetComponent<Unit>());
-        dialogueText.text =  TurnOrderManager.Instance.turnPlayer.unitName + " used " + skill.name + " On " + BattleManager.Instance.target.name;
+        skill.ApplyEffects(TurnOrderManager.Instance.turnPlayer,BattleManager.Instance.target.GetComponent<UnitBody>());
+        dialogueText.text =  TurnOrderManager.Instance.turnPlayer.name + " used " + skill.name + " On " + BattleManager.Instance.target.name;
         yield return new WaitForSeconds(2f);
         TurnOrderManager.Instance.turnOrder[0].turnShift = skill.turnShift;
         dialogueText.text = "";
@@ -254,13 +254,13 @@ public class SkillButtonScript : MonoBehaviour
   
     }
 
-    IEnumerator PlayerMultSkill(Skill skill, List<Unit> targets)
+    IEnumerator PlayerMultSkill(Skill skill, List<UnitBody> targets)
     {
         BattleManager.Instance.usingSkill = false;
-        dialogueText.text = TurnOrderManager.Instance.turnPlayer.unitName + " used " + skill.name + " On" ;
+        dialogueText.text = TurnOrderManager.Instance.turnPlayer.name + " used " + skill.name + " On" ;
         for (int i = 0; i < targets.Count; i++)
         {
-            dialogueText.text += " " + targets[i].unitName;
+            dialogueText.text += " " + targets[i].name;
             if (selectedSkill.power != 0)
             {
                 targets[i].TakeDamage(selectedSkill.power, selectedSkill.category, selectedSkill.element);
@@ -279,13 +279,13 @@ public class SkillButtonScript : MonoBehaviour
         TurnOrderManager.Instance.EndTurn();
     }
 
-    IEnumerator PlayerMultSkillParty(Skill skill, List<Unit> targets)
+    IEnumerator PlayerMultSkillParty(Skill skill, List<UnitBody> targets)
     {
         BattleManager.Instance.usingSkill = false;
-        dialogueText.text = TurnOrderManager.Instance.turnPlayer.unitName + " used " + skill.name + " On" ;
+        dialogueText.text = TurnOrderManager.Instance.turnPlayer.name + " used " + skill.name + " On" ;
         for (int i = 0; i < targets.Count; i++)
         {
-            dialogueText.text += " " + targets[i].unitName;
+            dialogueText.text += " " + targets[i].name;
             if (selectedSkill.power != 0)
             {
                 targets[i].TakeDamage(selectedSkill.power, selectedSkill.category, selectedSkill.element);
@@ -309,7 +309,7 @@ public class SkillButtonScript : MonoBehaviour
     {
         BattleManager.Instance.usingSkill = false;
         skill.ApplyEffects(TurnOrderManager.Instance.turnPlayer, TurnOrderManager.Instance.turnPlayer);
-        dialogueText.text = TurnOrderManager.Instance.turnPlayer.unitName + " used " + skill.name;
+        dialogueText.text = TurnOrderManager.Instance.turnPlayer.name + " used " + skill.name;
         yield return new WaitForSeconds(2f);
          TurnOrderManager.Instance.turnOrder[0].turnShift = skill.turnShift;
         dialogueText.text = "";

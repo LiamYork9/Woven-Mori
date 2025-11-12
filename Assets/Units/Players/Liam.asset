@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   unitName: Liam
   partyMember: 1
-  skills: 0100000005000000
+  skills: 0100000006000000
   conditions: []
   chSprite: {fileID: -824916867, guid: 2ae8830c3f959ec409a3e5f9c0b93f79, type: 3}
   deathSprite: {fileID: 21300000, guid: 7ef42231652fcda41b73cf85791d6841, type: 3}
@@ -24,26 +24,13 @@ MonoBehaviour:
   maxHP: 25
   currentHP: 25
   speed: 5
-  initiative: 45
-  slotNumber: 3
+  initiative: 0
   localTurnCount: 2
   localTurnCountCurrentVal: 0
-  AP: 3
+  AP: 0
   APCap: 10
   APGain: 1
   emergencybutton: 100
-  StartOfTurn:
-    m_PersistentCalls:
-      m_Calls: []
-  StartOfAction:
-    m_PersistentCalls:
-      m_Calls: []
-  EndOfAction:
-    m_PersistentCalls:
-      m_Calls: []
-  EndOfTurn:
-    m_PersistentCalls:
-      m_Calls: []
   references:
     version: 2
     RefIds: []

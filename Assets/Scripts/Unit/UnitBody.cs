@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using MoriSkills;
 using UnityEngine;
 using UnityEngine.Events;
+using UnityEngine.Rendering;
 using UnityEngine.UI;
 
 public class UnitBody : MonoBehaviour
@@ -46,6 +47,13 @@ public class UnitBody : MonoBehaviour
     public int APGain = 1;
 
     public int emergencybutton;
+
+    
+    public UnityEvent StartOfTurn;
+    public UnityEvent StartOfAction;
+
+    public UnityEvent EndOfAction;
+    public UnityEvent EndOfTurn;
    
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
@@ -75,11 +83,11 @@ public class UnitBody : MonoBehaviour
         {
             if (partyMember)
             {
-                BattleManager.Instance.playerSlots[slotNumber].GetComponent<Image>().sprite = deathSprite;
+                //BattleManager.Instance.playerSlots[slotNumber].GetComponent<Image>().sprite = deathSprite;
             }
             else
             {
-                BattleManager.Instance.enemySlots[slotNumber].GetComponent<Image>().sprite = deathSprite;
+                //BattleManager.Instance.enemySlots[slotNumber].GetComponent<Image>().sprite = deathSprite;
             }
             unit.Death(this);
         }
@@ -98,6 +106,8 @@ public class UnitBody : MonoBehaviour
         maxHP = target.maxHP;
         currentHP = target.currentHP;
         speed = target.speed;
+        APCap = target.APCap;
+        APGain = target.APGain;
     }
 
     public void ClearStats()
@@ -114,19 +124,19 @@ public class UnitBody : MonoBehaviour
         currentHP = 0;
         speed = 0;
     }
-    
+
     public void TakeDamage(int damageValue, Category category = Category.Physical, Element element = Element.None)
     {
         int damageMod = 0;
         if (category == Category.Physical)
         {
-            damageMod = damageValue-defense;
+            damageMod = damageValue - defense;
 
         }
 
         if (category == Category.Magic)
         {
-            damageMod = damageValue-mDefense;
+            damageMod = damageValue - mDefense;
         }
 
         //resistance and immunity checks
@@ -142,6 +152,13 @@ public class UnitBody : MonoBehaviour
         {
             Death();
         }
+    }
+    
+    public UnitBody ApplyCondition(Condition addedCondition)
+    {
+        conditions.Add(addedCondition);
+        addedCondition.OnApply(this);
+        return this;
     }
 
 }
