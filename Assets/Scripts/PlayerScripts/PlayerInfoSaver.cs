@@ -2,13 +2,17 @@ using UnityEngine;
 using UnityEditor;
 using System.Collections;
 using System.Collections.Generic;
+using Unity.Cinemachine;
 
 public class PlayerInfoSaver : MonoBehaviour
 {
 
     
+
+    
     void Start()
     {
+       
         if (PlayerPrefs.HasKey("PlayerPosX"))
         {
             float x = PlayerPrefs.GetFloat("PlayerPosX");
@@ -30,6 +34,7 @@ public class PlayerInfoSaver : MonoBehaviour
         PlayerPrefs.SetFloat("PlayerPosX", transform.position.x);
         PlayerPrefs.SetFloat("PlayerPosY", transform.position.y);
         PlayerPrefs.SetFloat("PlayerPosZ", transform.position.z);
+        
         PlayerPrefs.Save();
     }
 
