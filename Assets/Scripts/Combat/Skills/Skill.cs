@@ -138,7 +138,7 @@ namespace MoriSkills
 
         }
 
-        public void ApplyEffects(Unit unitUser, Unit unitTarget)
+        public void ApplyEffects(UnitBody unitUser, UnitBody unitTarget)
         {
             for (int i = 0; i < attrs.Count; i++)
             {

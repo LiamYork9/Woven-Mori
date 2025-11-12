@@ -5,6 +5,7 @@ using System.Collections;
 public class PartyManager : MonoBehaviour
 {
 
+    [SerializeReference]
     public List<PlayerCharacter> party;
     public static PartyManager Instance;
 

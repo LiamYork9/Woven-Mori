@@ -21,7 +21,7 @@ public class TurnOrderPastTurnsDisplay : MonoBehaviour
     {
         if (TurnOrderManager.Instance.recentTurns.Count > turnPostion)
         {
-            displayName.text = TurnOrderManager.Instance.recentTurns[turnPostion].unit.unitName;
+            displayName.text = TurnOrderManager.Instance.recentTurns[turnPostion].unit.name;
             gameObject.GetComponent<Image>().sprite = TurnOrderManager.Instance.recentTurns[turnPostion].unit.chSprite;
 
 

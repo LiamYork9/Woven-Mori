@@ -15,7 +15,7 @@ public enum EffectTime
 public class Condition
 {
     public string name;
-    public Unit unit;
+    public UnitBody unit;
     public int duration;
 
     //Higher = earlier
@@ -30,7 +30,7 @@ public class Condition
         priority = conditionPriority;
     }
 
-    public virtual void OnApply(Unit appliedUnit)
+    public virtual void OnApply(UnitBody appliedUnit)
     {
         unit = appliedUnit;
         unit.EndOfTurn.AddListener(CountDown);
@@ -81,7 +81,7 @@ public class StatBoostCondition : Condition
         name = boostStat + " Boost Condition";
     }
 
-    public override void OnApply(Unit appliedUnit)
+    public override void OnApply(UnitBody appliedUnit)
     {
         unit = appliedUnit;
         if (boostStat == Stats.Attack)

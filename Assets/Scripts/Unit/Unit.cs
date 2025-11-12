@@ -4,7 +4,9 @@ using MoriSkills;
 using UnityEngine;
 using UnityEngine.Events;
 
-public class Unit : MonoBehaviour
+[CreateAssetMenu(fileName = "unit", menuName = "ScriptableObjects/Unit/Generic", order = 1)]
+[Serializable]
+public class Unit : ScriptableObject
 {
 
     public string unitName;
@@ -32,8 +34,6 @@ public class Unit : MonoBehaviour
 
     public int initiative;
 
-    public int slotNumber;
-
     public int localTurnCount;
 
     public int localTurnCountCurrentVal;
@@ -47,28 +47,11 @@ public class Unit : MonoBehaviour
     public int emergencybutton;
 
     //Events
-    public UnityEvent StartOfTurn;
-    public UnityEvent StartOfAction;
-    
-    public UnityEvent EndOfAction;
-    public UnityEvent EndOfTurn;
 
-    void Start()
+    public void CopyStats(UnitBody target)
     {
-
-    }
-
-
-    void Update()
-    {
-
-    }
-
-    public void CopyStats(Unit target)
-    {
-        unitName = target.unitName;
+        unitName = target.name;
         skills = target.skills;
-        slotNumber = target.slotNumber;
         partyMember = target.partyMember;
         chSprite = target.chSprite;
         deathSprite = target.deathSprite;
@@ -78,10 +61,11 @@ public class Unit : MonoBehaviour
         maxHP = target.maxHP;
         currentHP = target.currentHP;
         speed = target.speed;
-
+        APCap = target.APCap;
+        APGain = target.APGain;
     }
 
-    public virtual void Death()
+    public virtual void Death(UnitBody body)
     {
         if (BattleManager.Instance.enemySlots.Count == 0)
         {
@@ -118,14 +102,7 @@ public class Unit : MonoBehaviour
 
         if (currentHP <= 0)
         {
-            Death();
+            //Death();
         }
     }
-
-    public Unit ApplyCondition(Condition addedCondition)
-        {
-            conditions.Add(addedCondition);
-            addedCondition.OnApply(this);
-            return this;
-        }
 }

@@ -128,12 +128,12 @@ public class BattleManager : MonoBehaviour
         //Move later for optemization 
         for (int i = 0; i < enemySlots.Count; i++)
         {
-            enemySlots[i].GetComponent<Unit>().slotNumber = i;
+            enemySlots[i].GetComponent<UnitBody>().slotNumber = i;
         }
 
         for (int i = 0; i < playerSlots.Count; i++)
         {
-            playerSlots[i].GetComponent<Unit>().slotNumber = i;
+            playerSlots[i].GetComponent<UnitBody>().slotNumber = i;
         }
 
         if (selecting == true)
@@ -185,9 +185,9 @@ public class BattleManager : MonoBehaviour
             for (int i = 0; i < enemySlots.Count; i++)
             {
 
-                if (enemySlots[i].GetComponent<Enemy>().currentHP <= 0)
+                if (enemySlots[i].GetComponent<UnitBody>().currentHP <= 0)
                 {
-                    enemySlots.Remove(target);
+                    enemySlots.Remove(enemySlots[i]);
                 }
 
             }
@@ -242,7 +242,7 @@ public class BattleManager : MonoBehaviour
         for (int i = 0; i < playerSlots.Count; i++)
         {
 
-            if (playerSlots[i].GetComponent<PlayerCharacter>().currentHP <= 0)
+            if (playerSlots[i].GetComponent<UnitBody>().currentHP <= 0)
             {
                 Debug.Log("player died");
                 playerSlots.Remove(enemyTarget);
@@ -331,8 +331,8 @@ public class BattleManager : MonoBehaviour
         {
 
             playerSlots[i].SetActive(true);
-            PlayerCharacter temp = playerSlots[i].GetComponent<PlayerCharacter>();
-            temp.CopyStats(PartyManager.Instance.party[i]);
+            UnitBody temp = playerSlots[i].GetComponent<UnitBody>();
+            temp.SetUnit(PartyManager.Instance.party[i]);
             playerSlots[i].GetComponent<Image>().sprite = temp.chSprite;
         }
 
@@ -340,8 +340,8 @@ public class BattleManager : MonoBehaviour
         {
 
             enemySlots[i].SetActive(true);
-            Enemy temp = enemySlots[i].GetComponent<Enemy>();
-            temp.CopyStats(RollEnemy());
+            UnitBody temp = enemySlots[i].GetComponent<UnitBody>();
+            temp.SetUnit(RollEnemy());
             enemySlots[i].GetComponent<Image>().sprite = temp.chSprite;
 
         }
@@ -381,8 +381,8 @@ public class BattleManager : MonoBehaviour
         {
 
             playerSlots[i].SetActive(true);
-            PlayerCharacter temp = playerSlots[i].GetComponent<PlayerCharacter>();
-            temp.CopyStats(PartyManager.Instance.party[i]);
+            UnitBody temp = playerSlots[i].GetComponent<UnitBody>();
+            temp.SetUnit(PartyManager.Instance.party[i]);
             playerSlots[i].GetComponent<Image>().sprite = temp.chSprite;
         }
 
@@ -390,8 +390,8 @@ public class BattleManager : MonoBehaviour
         {
 
             enemySlots[i].SetActive(true);
-            Enemy temp = enemySlots[i].GetComponent<Enemy>();
-            temp.CopyStats(EncounterManager.Instance.encounteredEnemies[i]);
+            UnitBody temp = enemySlots[i].GetComponent<UnitBody>();
+            temp.SetUnit(EncounterManager.Instance.encounteredEnemies[i]);
             enemySlots[i].GetComponent<Image>().sprite = temp.chSprite;
 
         }
@@ -443,9 +443,9 @@ public class BattleManager : MonoBehaviour
     {
 
         targetArrow.SetActive(false);
-        dialogueText.text = TOM.turnPlayer.unitName + " has Attacked " + target.GetComponent<Enemy>().unitName;
+        dialogueText.text = TOM.turnPlayer.name + " has Attacked " + target.GetComponent<UnitBody>().name;
         yield return new WaitForSeconds(2f);
-        target.GetComponent<Unit>().TakeDamage(TOM.turnPlayer.attack);
+        target.GetComponent<UnitBody>().TakeDamage(TOM.turnPlayer.attack);
         yield return new WaitForSeconds(2f);
         TOM.EndTurn();
         
@@ -457,16 +457,13 @@ public class BattleManager : MonoBehaviour
         action = true;
         enemyTarget = playerSlots[Random.Range(0,playerSlots.Count)];
         yield return new WaitForSeconds(2f);
-        enemyTarget.GetComponent<Unit>().TakeDamage(TOM.turnPlayer.attack);
-        dialogueText.text =  TOM.turnPlayer.unitName + " has attacked " + enemyTarget.GetComponent<PlayerCharacter>().unitName;
+        enemyTarget.GetComponent<UnitBody>().TakeDamage(TOM.turnPlayer.attack);
+        dialogueText.text =  TOM.turnPlayer.name + " has attacked " + enemyTarget.GetComponent<UnitBody>().name;
         yield return new WaitForSeconds(1f);
         dialogueText.text = " ";
         enemyTurn = false;
         action = false;
         TOM.EndTurn();
-
-
-
     }
 
     public void EnemyTurn()
@@ -484,9 +481,9 @@ public class BattleManager : MonoBehaviour
         ButtonsOff();
         for (int i = 0; i < PartyManager.Instance.party.Count; i++)
         {
-            PlayerCharacter temp = PartyManager.Instance.party[i];
+            //PlayerCharacter temp = PartyManager.Instance.party[i];
 
-            temp.CopyStats(defaultPlayerSlots[i].GetComponent<PlayerCharacter>());
+            //temp.CopyStats(defaultPlayerSlots[i].GetComponent<PlayerCharacter>());
         }
         dialogueText.text = "You Win!";
 
@@ -516,7 +513,7 @@ public class BattleManager : MonoBehaviour
 
     public void TurnTransiton()
     {
-         TOM.turnPlayer = TOM.turnOrder[0].unit;
+        TOM.turnPlayer = TOM.turnOrder[0].unit;
         if (TOM.turnPlayer != null && TOM.turnPlayer.partyMember == false)
         {
             enemyTurn = true;
@@ -540,11 +537,11 @@ public class BattleManager : MonoBehaviour
 
     public void DamagePlayer()
     {
-        enemyTarget.GetComponent<PlayerCharacter>().currentHP -= TOM.turnPlayer.attack;
+        enemyTarget.GetComponent<UnitBody>().currentHP -= TOM.turnPlayer.attack;
 
-        if (enemyTarget.GetComponent<PlayerCharacter>().currentHP <= 0)
+        if (enemyTarget.GetComponent<UnitBody>().currentHP <= 0)
         {
-            enemyTarget.GetComponent<PlayerCharacter>().Death();
+            enemyTarget.GetComponent<UnitBody>().Death();
         }
     }
 

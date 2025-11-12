@@ -1,12 +1,13 @@
-using Unity.VisualScripting;
 using UnityEngine;
 
+[CreateAssetMenu(fileName = "unit", menuName = "ScriptableObjects/Unit/Enemy", order = 1)]
+[System.Serializable]
 public class Enemy : Unit
 {
 
     void Start()
     {
-        
+
     }
 
     // Update is called once per frame
@@ -25,18 +26,19 @@ public class Enemy : Unit
     }
 
     // Enemy Death Function (Removes them from list)
-    public override void Death()
+    public override void Death(UnitBody body)
     {
-        if (currentHP <= 0)
+        if (body.currentHP <= 0)
         {
-            gameObject.SetActive(false);
-            ClearStats();
+            Debug.Log(unitName + " Soul Death");
+            body.gameObject.SetActive(false);
+            //ClearStats();
             for (int i = 0; i < TurnOrderManager.Instance.turnOrder.Count; i++)
             {
                 emergencybutton = 0;
                 while (i < TurnOrderManager.Instance.turnOrder.Count && emergencybutton < 20)
                 {
-                    if (TurnOrderManager.Instance.turnOrder[i].unit == this)
+                    if (TurnOrderManager.Instance.turnOrder[i].unit == body)
                     {
                         TurnOrderManager.Instance.turnOrder.RemoveAt(i);
                     }
@@ -53,7 +55,7 @@ public class Enemy : Unit
                 emergencybutton = 0;
                 while (i < TurnOrderManager.Instance.recentTurns.Count && emergencybutton < 20)
                 {
-                    if (TurnOrderManager.Instance.recentTurns[i].unit == this)
+                    if (TurnOrderManager.Instance.recentTurns[i].unit == body)
                     {
                         TurnOrderManager.Instance.recentTurns.RemoveAt(i);
                     }
@@ -66,15 +68,15 @@ public class Enemy : Unit
             }
 
 
-            BattleManager.Instance.enemySlots.Remove(this.gameObject);
-            TurnOrderManager.Instance.allFighters.Remove(this.gameObject);
+            BattleManager.Instance.enemySlots.Remove(body.gameObject);
+            TurnOrderManager.Instance.allFighters.Remove(body.gameObject);
 
         }
         else
         {
-            gameObject.SetActive(true);
+            body.gameObject.SetActive(true);
         }
-        
-        base.Death();
+
+        base.Death(body);
     }
 }
