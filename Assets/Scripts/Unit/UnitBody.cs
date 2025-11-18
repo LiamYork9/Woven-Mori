@@ -20,6 +20,8 @@ public class UnitBody : MonoBehaviour
 
     public Sprite deathSprite;
 
+    public int level;
+
     public int attack;
 
     public int defense = 1;
@@ -100,6 +102,7 @@ public class UnitBody : MonoBehaviour
         partyMember = target.partyMember;
         chSprite = target.chSprite;
         deathSprite = target.deathSprite;
+        level = target.level;
         attack = target.attack;
         defense = target.defense;
         mDefense = target.mDefense;
@@ -125,18 +128,23 @@ public class UnitBody : MonoBehaviour
         speed = 0;
     }
 
-    public void TakeDamage(int damageValue, Category category = Category.Physical, Element element = Element.None)
+    public void TakeDamage(int damageValue, DamageType damageType = DamageType.Physical, Element element = Element.None)
     {
         int damageMod = 0;
-        if (category == Category.Physical)
+        if (damageType == DamageType.Physical)
         {
-            damageMod = damageValue - defense;
+            damageMod = damageValue / defense;
 
         }
 
-        if (category == Category.Magic)
+        if (damageType == DamageType.Magic)
         {
-            damageMod = damageValue - mDefense;
+            damageMod = damageValue / mDefense;
+        }
+
+        if(damageType == DamageType.Destined)
+        {
+            damageMod = damageValue;
         }
 
         //resistance and immunity checks

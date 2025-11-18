@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using UnityEngine;
 
 namespace MoriSkills
@@ -8,6 +9,13 @@ namespace MoriSkills
         Defence,
         mDefense,
         Speed
+    }
+
+    public enum DamageType
+    {
+        Physical,
+        Magic,
+        Destined
     }
 
     [System.Serializable]
@@ -29,6 +37,30 @@ namespace MoriSkills
         }
     }
 
+    public class DamageAttr : SkillAttr
+    {
+        public int power;
+        DamageType type;
+        Element element;
+
+        public DamageAttr(int skillPower, DamageType damageType, Element damageElement = Element.None, bool targetSelf = false) : base(targetSelf)
+        {
+            name = "DamageAttr";
+            power = skillPower;
+            type = damageType;
+            element = damageElement;
+        }
+
+        public override void ActivateAttr(UnitBody unitUser, UnitBody unitTarget)
+        {
+            unitTarget.TakeDamage(power * unitUser.attack, type, element);
+        }
+
+    }
+
+
+
+
 
     public class StatBoostAttr : SkillAttr
     {
@@ -39,7 +71,6 @@ namespace MoriSkills
         {
             name = "StatBoostAttr";
             stat = boostedStat;
-
             boost = boostNum;
         }
 
@@ -87,6 +118,43 @@ namespace MoriSkills
         }
 
 
+    }
+
+    public class LevelScaleAttr : SkillAttr
+    {
+        int scaleValue;
+        [SerializeReference]
+        List<SkillAttr> scaledAttr = null;
+
+        public LevelScaleAttr Attr(SkillAttr addedAttr)
+        {
+            if(scaledAttr == null)
+            {
+                scaledAttr = new List<SkillAttr> { };
+            }
+            scaledAttr.Add(addedAttr);
+            return this;
+        }
+
+
+        public LevelScaleAttr(int scaleRate, bool targetSelf = false) : base(targetSelf)
+        {
+            name = "LevelScaleAttr";
+            Debug.Log("Made it");
+            scaleValue = scaleRate;
+        }
+
+        public override void ActivateAttr(UnitBody unitUser, UnitBody unitTarget)
+        {
+            for(int i = 0; i < scaledAttr.Count; i++)
+            {
+                if (scaledAttr[i] is DamageAttr)
+                {
+                    ((DamageAttr)scaledAttr[i]).power = scaleValue * unitUser.level;
+                }
+                scaledAttr[i].ActivateAttr(unitUser, unitTarget);
+            }
+        }
     }
 
     public class StatBoostConAttr : SkillAttr

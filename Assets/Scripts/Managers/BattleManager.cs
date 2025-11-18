@@ -445,19 +445,20 @@ public class BattleManager : MonoBehaviour
         targetArrow.SetActive(false);
         dialogueText.text = TOM.turnPlayer.name + " has Attacked " + target.GetComponent<UnitBody>().name;
         yield return new WaitForSeconds(2f);
-        target.GetComponent<UnitBody>().TakeDamage(TOM.turnPlayer.attack);
+        SkillMaker.Instance.GetById(SkillId.Attack).ApplyEffects(TurnOrderManager.Instance.turnPlayer,target.GetComponent<UnitBody>());
         yield return new WaitForSeconds(2f);
         TOM.EndTurn();
-        
+
 
     }
+    
 
     IEnumerator EnemyAttackCo()
     {
         action = true;
         enemyTarget = playerSlots[Random.Range(0,playerSlots.Count)];
         yield return new WaitForSeconds(2f);
-        enemyTarget.GetComponent<UnitBody>().TakeDamage(TOM.turnPlayer.attack);
+        SkillMaker.Instance.GetById(SkillId.Attack).ApplyEffects(TurnOrderManager.Instance.turnPlayer,enemyTarget.GetComponent<UnitBody>());
         dialogueText.text =  TOM.turnPlayer.name + " has attacked " + enemyTarget.GetComponent<UnitBody>().name;
         yield return new WaitForSeconds(1f);
         dialogueText.text = " ";
@@ -481,13 +482,14 @@ public class BattleManager : MonoBehaviour
         ButtonsOff();
         for (int i = 0; i < PartyManager.Instance.party.Count; i++)
         {
-            //PlayerCharacter temp = PartyManager.Instance.party[i];
+            PlayerCharacter temp = PartyManager.Instance.party[i];
 
-            //temp.CopyStats(defaultPlayerSlots[i].GetComponent<PlayerCharacter>());
+            temp.CopyStats(defaultPlayerSlots[i].GetComponent<UnitBody>());
         }
         dialogueText.text = "You Win!";
 
         win = true;
+        BattleEnd();
     }
 
     // What happens when you lose
@@ -497,6 +499,21 @@ public class BattleManager : MonoBehaviour
         fightState = FightState.Lost;
         ButtonsOff();
         dialogueText.text = "You Lose";
+        BattleEnd();
+    }
+
+    public void BattleEnd()
+    {
+        StartCoroutine(EndBattle());
+    }
+    
+     IEnumerator EndBattle()
+    {
+        yield return new WaitForSeconds(1.5f);
+        dialogueText.text = "The Battle is Over";
+        yield return new WaitForSeconds(1f);
+        SceneManager.LoadScene(sceneName);
+         
     }
 
     public void ButtonsOn()

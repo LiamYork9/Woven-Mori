@@ -20,6 +20,8 @@ public class Unit : ScriptableObject
 
     public Sprite deathSprite;
 
+    public int level = 1;
+
     public int attack;
 
     public int defense = 1;
@@ -55,6 +57,7 @@ public class Unit : ScriptableObject
         partyMember = target.partyMember;
         chSprite = target.chSprite;
         deathSprite = target.deathSprite;
+        level = target.level;
         attack = target.attack;
         defense = target.defense;
         mDefense = target.mDefense;
@@ -77,32 +80,10 @@ public class Unit : ScriptableObject
         }
     }
 
-    public void TakeDamage(int damageValue, Category category = Category.Physical, Element element = Element.None)
+    public void Restore()
     {
-        int damageMod = 0;
-        if (category == Category.Physical)
-        {
-            damageMod = damageValue / defense;
-
-        }
-
-        if (category == Category.Magic)
-        {
-            damageMod = damageValue / mDefense;
-        }
-
-        //resistance and immunity checks
-
-        if (damageMod < 1)
-        {
-            damageMod = 1;
-        }
-
-        currentHP -= damageMod;
-
-        if (currentHP <= 0)
-        {
-            //Death();
-        }
+        currentHP = maxHP;
+        conditions.Clear();
     }
+
 }

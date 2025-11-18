@@ -217,10 +217,7 @@ public class SkillButtonScript : MonoBehaviour
     IEnumerator PlayerSkill(Skill skill)
     {
         BattleManager.Instance.usingSkill = false;
-        if (selectedSkill.power != 0)
-        {
-            BattleManager.Instance.target.GetComponent<UnitBody>().TakeDamage(selectedSkill.power,selectedSkill.category,selectedSkill.element);
-        }
+        
         skill.ApplyEffects(TurnOrderManager.Instance.turnPlayer,BattleManager.Instance.target.GetComponent<UnitBody>());
         dialogueText.text =  TurnOrderManager.Instance.turnPlayer.name + " used " + skill.name + " On " + BattleManager.Instance.target.name;
         yield return new WaitForSeconds(2f);
@@ -237,10 +234,6 @@ public class SkillButtonScript : MonoBehaviour
     IEnumerator PlayerSkillAlly(Skill skill)
     {
         BattleManager.Instance.usingSkill = false;
-        if (selectedSkill.power != 0)
-        {
-            BattleManager.Instance.target.GetComponent<UnitBody>().TakeDamage(selectedSkill.power,selectedSkill.category,selectedSkill.element);
-        }
         skill.ApplyEffects(TurnOrderManager.Instance.turnPlayer,BattleManager.Instance.target.GetComponent<UnitBody>());
         dialogueText.text =  TurnOrderManager.Instance.turnPlayer.name + " used " + skill.name + " On " + BattleManager.Instance.target.name;
         yield return new WaitForSeconds(2f);
@@ -261,10 +254,6 @@ public class SkillButtonScript : MonoBehaviour
         for (int i = 0; i < targets.Count; i++)
         {
             dialogueText.text += " " + targets[i].name;
-            if (selectedSkill.power != 0)
-            {
-                targets[i].TakeDamage(selectedSkill.power, selectedSkill.category, selectedSkill.element);
-            }
            
             // Remeber to cross this bridge (self buff multiple times)
             skill.ApplyEffects(TurnOrderManager.Instance.turnPlayer,targets[i]);
@@ -286,10 +275,6 @@ public class SkillButtonScript : MonoBehaviour
         for (int i = 0; i < targets.Count; i++)
         {
             dialogueText.text += " " + targets[i].name;
-            if (selectedSkill.power != 0)
-            {
-                targets[i].TakeDamage(selectedSkill.power, selectedSkill.category, selectedSkill.element);
-            }
            
             // Remeber to cross this bridge (self buff multiple times)
             skill.ApplyEffects(TurnOrderManager.Instance.turnPlayer,targets[i]);
