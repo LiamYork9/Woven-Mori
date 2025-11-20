@@ -54,6 +54,8 @@ public class SkillMaker : MonoBehaviour
         madeSkills.Add(Flex);
         Skill Heal = new Skill(SkillId.Heal, "Heal", Element.None, Target.ally, Category.Support, 0, 1, "Restore some HP", 0, 1).Attr(new HealAttr(10, false));
         madeSkills.Add(Heal);
+        Skill EvenOdd = new Skill(SkillId.EvenOdd, "EvenOdd", Element.None, Target.single, Category.Attack, 100, 1, "On Even turns Heal and buff yourself, on Odd turns hit the enemy and debuff them", 100, -2).Attr(new EvenOddAttr().Odd(new DamageAttr(10,DamageType.Magic)).Odd(new StatBoostConAttr(Stats.Attack, -5)).Even(new HealAttr(10, true)).Even(new StatBoostConAttr(Stats.Attack, 5,true)).Even(new StatBoostConAttr(Stats.Defence,5,true)));
+        madeSkills.Add(EvenOdd);
     }
 
     public Skill GetById(SkillId Id)

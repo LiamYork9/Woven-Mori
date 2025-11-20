@@ -14,8 +14,8 @@ namespace MoriSkills
         StaticShock,
         Flex,
         Heal,
-        Attack
-
+        Attack,
+        EvenOdd
     }
 
     public enum Element

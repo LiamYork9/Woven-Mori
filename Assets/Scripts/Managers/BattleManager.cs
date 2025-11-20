@@ -484,6 +484,11 @@ public class BattleManager : MonoBehaviour
         {
             PlayerCharacter temp = PartyManager.Instance.party[i];
 
+            for (int j = 0; j < temp.conditions.Count; j++)
+            {
+                temp.conditions[j].RemoveCondition();
+            }
+
             temp.CopyStats(defaultPlayerSlots[i].GetComponent<UnitBody>());
         }
         dialogueText.text = "You Win!";
@@ -498,6 +503,17 @@ public class BattleManager : MonoBehaviour
     {
         fightState = FightState.Lost;
         ButtonsOff();
+        for (int i = 0; i < PartyManager.Instance.party.Count; i++)
+        {
+            PlayerCharacter temp = PartyManager.Instance.party[i];
+
+            for (int j = 0; j < temp.conditions.Count; j++)
+            {
+                temp.conditions[j].RemoveCondition();
+            }
+
+            temp.CopyStats(defaultPlayerSlots[i].GetComponent<UnitBody>());
+        }
         dialogueText.text = "You Lose";
         BattleEnd();
     }
