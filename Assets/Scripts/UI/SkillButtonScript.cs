@@ -6,7 +6,7 @@ using UnityEngine.Events;
 using UnityEngine.EventSystems;
 using System.Collections;
 using MoriSkills;
-using Unity.VisualScripting;
+
 
 
 public class SkillButtonScript : MonoBehaviour
@@ -20,6 +20,10 @@ public class SkillButtonScript : MonoBehaviour
     public TextMeshProUGUI dialogueText;
 
     public Skill selectedSkill;
+
+    public GameObject buttonPrefab;
+
+    public GameObject buttonParent;
 
 
 
@@ -35,6 +39,32 @@ public class SkillButtonScript : MonoBehaviour
             }
         }
 
+        SetSkillButtons();
+    }
+
+    private void OnEnable()
+    {
+        skillButtons.Clear();
+        foreach (Transform child in buttonParent.transform) 
+        {
+            GameObject.Destroy(child.gameObject);
+        }
+        for(int i = 0; i < TurnOrderManager.Instance.turnPlayer.unit.skills.Count; i++)
+        {
+            GameObject newButton = Instantiate(buttonPrefab, buttonParent.transform);
+            newButton.GetComponent<Button>().onClick.AddListener(()=> SkillUse(newButton));
+            skillButtons.Add(newButton);
+            
+        }
+
+        for (int i = 0; i < skillButtons.Count; i++)
+        {
+            if (skillButtons[i].GetComponent<ToolTipSkill>() != null)
+            {
+                skillButtons[i].GetComponent<ToolTipSkill>().hoverEvent.AddListener(ToolTipAdder);
+                skillButtons[i].GetComponent<ToolTipSkill>().unHoverEvent.AddListener(ToolTipRemover);
+            }
+        }
         SetSkillButtons();
     }
 

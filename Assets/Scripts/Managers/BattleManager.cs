@@ -282,6 +282,7 @@ public class BattleManager : MonoBehaviour
                 usingSkill = false;
                 multiTarget = false;
                 targetSelf = false;
+                playerSelecting = false;
                 actionMenu.SetActive(true);
                 ButtonsOn();
                 targetArrow.SetActive(false);
