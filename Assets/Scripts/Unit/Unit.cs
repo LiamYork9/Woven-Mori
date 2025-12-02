@@ -13,12 +13,20 @@ public class Unit : ScriptableObject
     public bool partyMember;
 
     public List<SkillId> skills;
+
+    public List<Element> resistance;
+
+    public List<Element> immunity;
+
+    public List<Element> vulnerability;
     [SerializeReference]
     public List<Condition> conditions;
 
     public Sprite chSprite;
 
     public Sprite deathSprite;
+
+    public int level = 1;
 
     public int attack;
 
@@ -46,6 +54,7 @@ public class Unit : ScriptableObject
 
     public int emergencybutton;
 
+
     //Events
 
     public void CopyStats(UnitBody target)
@@ -55,6 +64,7 @@ public class Unit : ScriptableObject
         partyMember = target.partyMember;
         chSprite = target.chSprite;
         deathSprite = target.deathSprite;
+        level = target.level;
         attack = target.attack;
         defense = target.defense;
         mDefense = target.mDefense;
@@ -63,6 +73,9 @@ public class Unit : ScriptableObject
         speed = target.speed;
         APCap = target.APCap;
         APGain = target.APGain;
+        resistance = target.resistance;
+        immunity = target.immunity;
+        vulnerability = target.vulnerability;
     }
 
     public virtual void Death(UnitBody body)
@@ -77,32 +90,10 @@ public class Unit : ScriptableObject
         }
     }
 
-    public void TakeDamage(int damageValue, Category category = Category.Physical, Element element = Element.None)
+    public void Restore()
     {
-        int damageMod = 0;
-        if (category == Category.Physical)
-        {
-            damageMod = damageValue / defense;
-
-        }
-
-        if (category == Category.Magic)
-        {
-            damageMod = damageValue / mDefense;
-        }
-
-        //resistance and immunity checks
-
-        if (damageMod < 1)
-        {
-            damageMod = 1;
-        }
-
-        currentHP -= damageMod;
-
-        if (currentHP <= 0)
-        {
-            //Death();
-        }
+        currentHP = maxHP;
+        conditions.Clear();
     }
+
 }

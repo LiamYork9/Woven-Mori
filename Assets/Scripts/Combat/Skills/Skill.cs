@@ -14,8 +14,8 @@ namespace MoriSkills
         StaticShock,
         Flex,
         Heal,
-        ConditionMaker
-
+        Attack,
+        EvenOdd
     }
 
     public enum Element
@@ -41,10 +41,10 @@ namespace MoriSkills
 
     public enum Category
     {
-        Physical,
-        Magic,
+        Attack,
         Buff,
-        Debuff
+        Debuff,
+        Support
     }
 
 
@@ -83,14 +83,13 @@ namespace MoriSkills
         public List<Condtion> condtions;
 
 
-        public Skill(SkillId SskillId, string SskillName, Element Selement, Target defualtTarget, Category Scategory, int Spower, int Saccuracy, int Scost, string StoolTip, int Schance, int SturnShift, List<SkillAttr> Sattr = null, List<Condtion> Scondtions = null)
+        public Skill(SkillId SskillId, string SskillName, Element Selement, Target defualtTarget, Category Scategory, int Saccuracy, int Scost, string StoolTip, int Schance, int SturnShift, List<SkillAttr> Sattr = null, List<Condtion> Scondtions = null)
         {
             skillId = SskillId;
             name = SskillName;
             element = Selement;
             target = defualtTarget;
             category = Scategory;
-            power = Spower;
             accurcy = Saccuracy;
             cost = Scost;
             toolTip = StoolTip;

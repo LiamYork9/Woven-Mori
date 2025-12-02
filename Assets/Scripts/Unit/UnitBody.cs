@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using MoriSkills;
 using UnityEngine;
 using UnityEngine.Events;
@@ -13,12 +14,20 @@ public class UnitBody : MonoBehaviour
     public bool partyMember;
 
     public List<SkillId> skills;
+
+    public List<Element> resistance;
+
+    public List<Element> immunity;
+
+    public List<Element> vulnerability;
     [SerializeReference]
     public List<Condition> conditions;
 
     public Sprite chSprite;
 
     public Sprite deathSprite;
+
+    public int level;
 
     public int attack;
 
@@ -54,6 +63,7 @@ public class UnitBody : MonoBehaviour
 
     public UnityEvent EndOfAction;
     public UnityEvent EndOfTurn;
+
    
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
@@ -100,6 +110,7 @@ public class UnitBody : MonoBehaviour
         partyMember = target.partyMember;
         chSprite = target.chSprite;
         deathSprite = target.deathSprite;
+        level = target.level;
         attack = target.attack;
         defense = target.defense;
         mDefense = target.mDefense;
@@ -108,6 +119,9 @@ public class UnitBody : MonoBehaviour
         speed = target.speed;
         APCap = target.APCap;
         APGain = target.APGain;
+          resistance = target.resistance;
+        immunity = target.immunity;
+        vulnerability = target.vulnerability;
     }
 
     public void ClearStats()
@@ -125,25 +139,43 @@ public class UnitBody : MonoBehaviour
         speed = 0;
     }
 
-    public void TakeDamage(int damageValue, Category category = Category.Physical, Element element = Element.None)
+    public void TakeDamage(int damageValue, DamageType damageType = DamageType.Physical, Element element = Element.None)
     {
         int damageMod = 0;
-        if (category == Category.Physical)
+        if (damageType == DamageType.Physical)
         {
-            damageMod = damageValue - defense;
+            damageMod = damageValue / defense;
 
         }
 
-        if (category == Category.Magic)
+        if (damageType == DamageType.Magic)
         {
-            damageMod = damageValue - mDefense;
+            damageMod = damageValue / mDefense;
         }
 
-        //resistance and immunity checks
+        if(damageType == DamageType.Destined)
+        {
+            damageMod = damageValue;
+        }
+
+        if (resistance.Contains(element))
+        {
+            damageMod /= 2;
+        }
+
+        if (vulnerability.Contains(element))
+        {
+            damageMod *= 2;
+        }
 
         if (damageMod < 1)
         {
             damageMod = 1;
+        }
+
+        if (immunity.Contains(element))
+        {
+            damageMod = 0;
         }
 
         currentHP -= damageMod;
