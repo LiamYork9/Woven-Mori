@@ -1484,11 +1484,11 @@ PrefabInstance:
     - target: {fileID: 6150715196394293801, guid: 8089a5ef6f4ee464ea9324d77e01a3da, type: 3}
       propertyPath: 'playerSlots.Array.data[2]'
       value: 
-      objectReference: {fileID: 1913163905}
+      objectReference: {fileID: 990903435}
     - target: {fileID: 6150715196394293801, guid: 8089a5ef6f4ee464ea9324d77e01a3da, type: 3}
       propertyPath: 'playerSlots.Array.data[3]'
       value: 
-      objectReference: {fileID: 990903435}
+      objectReference: {fileID: 1913163905}
     - target: {fileID: 6150715196394293801, guid: 8089a5ef6f4ee464ea9324d77e01a3da, type: 3}
       propertyPath: 'defaultSlots.Array.data[0]'
       value: 

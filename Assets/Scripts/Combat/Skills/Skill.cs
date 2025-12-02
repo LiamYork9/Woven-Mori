@@ -15,7 +15,16 @@ namespace MoriSkills
         Flex,
         Heal,
         Attack,
-        EvenOdd
+        EvenOdd,
+        Fortifiy,
+        PowerUp,
+        BurnAway,
+        TriSlash,
+        FiredUp,
+        Berserk,
+        Rampage,
+        CutLine,
+        HolyAbsorption
     }
 
     public enum Element

@@ -161,22 +161,25 @@ namespace MoriSkills
         public Stats stat;
 
         public int boost;
-        public StatBoostConAttr(Stats boostedStat, int boostNum, bool targetSelf = false) : base(targetSelf)
+
+        public int duration;
+        public StatBoostConAttr(Stats boostedStat, int boostNum, int conDuration = 3, bool targetSelf = false) : base(targetSelf)
         {
             name = "StatBoostAttr";
             stat = boostedStat;
-
+            duration = conDuration;
             boost = boostNum;
+            
         }
         public override void ActivateAttr(UnitBody unitUser, UnitBody unitTarget)
         {
             if (targetSelf==true)
             {
-                unitUser.ApplyCondition(new StatBoostCondition(stat, boost, 3));
+                unitUser.ApplyCondition(new StatBoostCondition(stat, boost, duration));
             }
             else
             {
-                unitTarget.ApplyCondition(new StatBoostCondition(stat, boost, 3));
+                unitTarget.ApplyCondition(new StatBoostCondition(stat, boost, duration));
             }
         }
     }
