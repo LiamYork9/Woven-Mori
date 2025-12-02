@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using MoriSkills;
 using UnityEngine;
 using UnityEngine.Events;
@@ -13,6 +14,12 @@ public class UnitBody : MonoBehaviour
     public bool partyMember;
 
     public List<SkillId> skills;
+
+    public List<Element> resistance;
+
+    public List<Element> immunity;
+
+    public List<Element> vulnerability;
     [SerializeReference]
     public List<Condition> conditions;
 
@@ -56,6 +63,7 @@ public class UnitBody : MonoBehaviour
 
     public UnityEvent EndOfAction;
     public UnityEvent EndOfTurn;
+
    
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
@@ -111,6 +119,9 @@ public class UnitBody : MonoBehaviour
         speed = target.speed;
         APCap = target.APCap;
         APGain = target.APGain;
+          resistance = target.resistance;
+        immunity = target.immunity;
+        vulnerability = target.vulnerability;
     }
 
     public void ClearStats()
@@ -147,11 +158,24 @@ public class UnitBody : MonoBehaviour
             damageMod = damageValue;
         }
 
-        //resistance and immunity checks
+        if (resistance.Contains(element))
+        {
+            damageMod /= 2;
+        }
+
+        if (vulnerability.Contains(element))
+        {
+            damageMod *= 2;
+        }
 
         if (damageMod < 1)
         {
             damageMod = 1;
+        }
+
+        if (immunity.Contains(element))
+        {
+            damageMod = 0;
         }
 
         currentHP -= damageMod;

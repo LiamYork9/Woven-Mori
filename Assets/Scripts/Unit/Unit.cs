@@ -13,6 +13,12 @@ public class Unit : ScriptableObject
     public bool partyMember;
 
     public List<SkillId> skills;
+
+    public List<Element> resistance;
+
+    public List<Element> immunity;
+
+    public List<Element> vulnerability;
     [SerializeReference]
     public List<Condition> conditions;
 
@@ -48,6 +54,7 @@ public class Unit : ScriptableObject
 
     public int emergencybutton;
 
+
     //Events
 
     public void CopyStats(UnitBody target)
@@ -66,6 +73,9 @@ public class Unit : ScriptableObject
         speed = target.speed;
         APCap = target.APCap;
         APGain = target.APGain;
+        resistance = target.resistance;
+        immunity = target.immunity;
+        vulnerability = target.vulnerability;
     }
 
     public virtual void Death(UnitBody body)
