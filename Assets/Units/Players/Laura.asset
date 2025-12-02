@@ -14,17 +14,20 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   unitName: Laura
   partyMember: 1
-  skills: 0500000002000000
+  skills: 050000000800000009000000
+  resistance: 
+  immunity: 
+  vulnerability: 
   conditions: []
   chSprite: {fileID: 972637018, guid: 2ae8830c3f959ec409a3e5f9c0b93f79, type: 3}
   deathSprite: {fileID: 21300000, guid: 7ef42231652fcda41b73cf85791d6841, type: 3}
-  level: 1
-  attack: 5
-  defense: 1
-  mDefense: 2
-  maxHP: 20
-  currentHP: 20
-  speed: 8
+  level: 10
+  attack: 15
+  defense: 10
+  mDefense: 15
+  maxHP: 40
+  currentHP: 23
+  speed: 25
   initiative: 0
   localTurnCount: 0
   localTurnCountCurrentVal: 0

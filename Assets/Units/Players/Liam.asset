@@ -14,17 +14,20 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   unitName: Liam
   partyMember: 1
-  skills: 0100000006000000
+  skills: 0a0000000b0000000c000000
+  resistance: 
+  immunity: 
+  vulnerability: 
   conditions: []
   chSprite: {fileID: -824916867, guid: 2ae8830c3f959ec409a3e5f9c0b93f79, type: 3}
   deathSprite: {fileID: 21300000, guid: 7ef42231652fcda41b73cf85791d6841, type: 3}
-  level: 1
-  attack: 6
-  defense: 4
-  mDefense: 2
-  maxHP: 25
-  currentHP: 25
-  speed: 5
+  level: 10
+  attack: 21
+  defense: 17
+  mDefense: 12
+  maxHP: 54
+  currentHP: 44
+  speed: 18
   initiative: 0
   localTurnCount: 2
   localTurnCountCurrentVal: 0
