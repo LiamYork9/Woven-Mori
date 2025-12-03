@@ -469,6 +469,20 @@ public class BattleManager : MonoBehaviour
         action = false;
         TOM.EndTurn();
     }
+    
+        IEnumerator EnemyUseSkillCo()
+    {
+        action = true;
+        enemyTarget = playerSlots[Random.Range(0,playerSlots.Count)];
+        yield return new WaitForSeconds(2f);
+        SkillMaker.Instance.GetById(SkillId.Attack).ApplyEffects(TurnOrderManager.Instance.turnPlayer,enemyTarget.GetComponent<UnitBody>());
+        dialogueText.text =  TOM.turnPlayer.name + " has attacked " + enemyTarget.GetComponent<UnitBody>().name;
+        yield return new WaitForSeconds(1f);
+        dialogueText.text = " ";
+        enemyTurn = false;
+        action = false;
+        TOM.EndTurn();
+    }
 
     public void EnemyTurn()
     {
@@ -607,6 +621,11 @@ public class BattleManager : MonoBehaviour
     public void EnemyAttack()
     {
         StartCoroutine(EnemyAttackCo());
+    }
+
+    public void EnemyUseSkill()
+    {
+        StartCoroutine(EnemyUseSkillCo());
     }
 
 
