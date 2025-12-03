@@ -247,7 +247,6 @@ public class SkillButtonScript : MonoBehaviour
     IEnumerator PlayerSkill(Skill skill)
     {
         BattleManager.Instance.usingSkill = false;
-        TurnOrderManager.Instance.turnOrder[0].turnShift = skill.turnShift;
         skill.ApplyEffects(TurnOrderManager.Instance.turnPlayer,BattleManager.Instance.target.GetComponent<UnitBody>());
         dialogueText.text =  TurnOrderManager.Instance.turnPlayer.name + " used " + skill.name + " On " + BattleManager.Instance.target.name;
         yield return new WaitForSeconds(2f);
@@ -263,7 +262,6 @@ public class SkillButtonScript : MonoBehaviour
     IEnumerator PlayerSkillAlly(Skill skill)
     {
         BattleManager.Instance.usingSkill = false;
-        TurnOrderManager.Instance.turnOrder[0].turnShift = skill.turnShift;
         skill.ApplyEffects(TurnOrderManager.Instance.turnPlayer,BattleManager.Instance.target.GetComponent<UnitBody>());
         dialogueText.text =  TurnOrderManager.Instance.turnPlayer.name + " used " + skill.name + " On " + BattleManager.Instance.target.name;
         yield return new WaitForSeconds(2f);
@@ -280,7 +278,6 @@ public class SkillButtonScript : MonoBehaviour
     {
         BattleManager.Instance.usingSkill = false;
         dialogueText.text = TurnOrderManager.Instance.turnPlayer.name + " used " + skill.name + " On" ;
-        TurnOrderManager.Instance.turnOrder[0].turnShift = skill.turnShift;
         for (int i = 0; i < targets.Count; i++)
         {
             dialogueText.text += " " + targets[i].name;
@@ -301,7 +298,6 @@ public class SkillButtonScript : MonoBehaviour
     {
         BattleManager.Instance.usingSkill = false;
         dialogueText.text = TurnOrderManager.Instance.turnPlayer.name + " used " + skill.name + " On" ;
-        TurnOrderManager.Instance.turnOrder[0].turnShift = skill.turnShift;
         for (int i = 0; i < targets.Count; i++)
         {
             dialogueText.text += " " + targets[i].name;
@@ -322,7 +318,6 @@ public class SkillButtonScript : MonoBehaviour
     IEnumerator PlayerSkillSelf(Skill skill)
     {
         BattleManager.Instance.usingSkill = false;
-        TurnOrderManager.Instance.turnOrder[0].turnShift = skill.turnShift;
         skill.ApplyEffects(TurnOrderManager.Instance.turnPlayer, TurnOrderManager.Instance.turnPlayer);
         dialogueText.text = TurnOrderManager.Instance.turnPlayer.name + " used " + skill.name;
         yield return new WaitForSeconds(2f);
