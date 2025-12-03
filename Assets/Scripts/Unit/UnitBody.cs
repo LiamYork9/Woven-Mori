@@ -179,13 +179,15 @@ public class UnitBody : MonoBehaviour
         }
 
         currentHP -= damageMod;
+        PopUpManager.Instance.DamageDone(damageMod,this.transform.position,false);
 
-        DamageNumber(damageMod);
+        
 
         if (currentHP <= 0)
         {
             Death();
         }
+        
     }
     
     public UnitBody ApplyCondition(Condition addedCondition)
