@@ -180,6 +180,8 @@ public class UnitBody : MonoBehaviour
 
         currentHP -= damageMod;
 
+        DamageNumber(damageMod);
+
         if (currentHP <= 0)
         {
             Death();
@@ -191,6 +193,11 @@ public class UnitBody : MonoBehaviour
         conditions.Add(addedCondition);
         addedCondition.OnApply(this);
         return this;
+    }
+
+    public void DamageNumber(int damage)
+    {
+        
     }
 
 }

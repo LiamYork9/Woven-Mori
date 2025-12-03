@@ -86,6 +86,8 @@ public class BattleManager : MonoBehaviour
     public bool win;
     public string sceneName = "EncounterTest";
 
+    public GameObject damageNumber;
+
 
 
 
@@ -446,6 +448,7 @@ public class BattleManager : MonoBehaviour
         targetArrow.SetActive(false);
         dialogueText.text = TOM.turnPlayer.name + " has Attacked " + target.GetComponent<UnitBody>().name;
         yield return new WaitForSeconds(2f);
+        TurnOrderManager.Instance.turnOrder[0].turnShift = 1;
         SkillMaker.Instance.GetById(SkillId.Attack).ApplyEffects(TurnOrderManager.Instance.turnPlayer,target.GetComponent<UnitBody>());
         yield return new WaitForSeconds(2f);
         TOM.EndTurn();
