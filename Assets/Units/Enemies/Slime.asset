@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   unitName: Slime
   partyMember: 0
-  skills: 
+  skills: 09000000050000000e000000
   resistance: 
   immunity: 
   vulnerability: 

@@ -457,33 +457,26 @@ public class BattleManager : MonoBehaviour
     }
     
 
-    IEnumerator EnemyAttackCo()
+    IEnumerator EnemyAttackCo(Skill skill, List<UnitBody> targets)
     {
         action = true;
-        enemyTarget = playerSlots[Random.Range(0,playerSlots.Count)];
         yield return new WaitForSeconds(2f);
-        SkillMaker.Instance.GetById(SkillId.Attack).ApplyEffects(TurnOrderManager.Instance.turnPlayer,enemyTarget.GetComponent<UnitBody>());
-        dialogueText.text =  TOM.turnPlayer.name + " has attacked " + enemyTarget.GetComponent<UnitBody>().name;
-        yield return new WaitForSeconds(1f);
+        dialogueText.text = TurnOrderManager.Instance.turnPlayer.name + " used " + skill.name + " On" ;
+        TurnOrderManager.Instance.turnPlayer.AP -= skill.cost;
+        for (int i = 0; i < targets.Count; i++)
+        {
+            dialogueText.text += " " + targets[i].name;
+           
+            // Remeber to cross this bridge (self buff multiple times)
+            skill.ApplyEffects(TurnOrderManager.Instance.turnPlayer,targets[i]);
+        }
+        yield return new WaitForSeconds(2f);
         dialogueText.text = " ";
         enemyTurn = false;
         action = false;
         TOM.EndTurn();
     }
     
-        IEnumerator EnemyUseSkillCo()
-    {
-        action = true;
-        enemyTarget = playerSlots[Random.Range(0,playerSlots.Count)];
-        yield return new WaitForSeconds(2f);
-        SkillMaker.Instance.GetById(SkillId.Attack).ApplyEffects(TurnOrderManager.Instance.turnPlayer,enemyTarget.GetComponent<UnitBody>());
-        dialogueText.text =  TOM.turnPlayer.name + " has attacked " + enemyTarget.GetComponent<UnitBody>().name;
-        yield return new WaitForSeconds(1f);
-        dialogueText.text = " ";
-        enemyTurn = false;
-        action = false;
-        TOM.EndTurn();
-    }
 
     public void EnemyTurn()
     {
@@ -619,15 +612,11 @@ public class BattleManager : MonoBehaviour
         StartCoroutine(turn.EndTurnCo());
     }
 
-    public void EnemyAttack()
+    public void EnemyAttack(Skill skill, List<UnitBody> targets)
     {
-        StartCoroutine(EnemyAttackCo());
+        StartCoroutine(EnemyAttackCo(skill,targets));
     }
 
-    public void EnemyUseSkill()
-    {
-        StartCoroutine(EnemyUseSkillCo());
-    }
 
 
 
