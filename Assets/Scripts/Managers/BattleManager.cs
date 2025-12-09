@@ -92,6 +92,7 @@ public class BattleManager : MonoBehaviour
 
 
 
+
     public void Awake()
     {
         if (BattleManager.Instance != this && BattleManager.Instance != null)
