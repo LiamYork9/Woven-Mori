@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Collections;
 using TMPro;
 using UnityEngine.UI;
+using MoriSkills;
 
 [System.Serializable]
 public class Turn
@@ -87,7 +88,9 @@ public class Turn
     {
         //Enemy AI Here !!!!!
         yield return new WaitForSeconds(0.5f);
-        BattleManager.Instance.EnemyAttack();
+        Skill Temp = EnemySelectSkill();
+        List<UnitBody> tempTargets = EnemySkillTarget(Temp);
+        BattleManager.Instance.EnemyAttack(Temp,tempTargets);
     }
 
     public IEnumerator EndTurnCo()
@@ -102,5 +105,59 @@ public class Turn
         yield return new WaitForSeconds(1f);
         BattleManager.Instance.TurnTransiton();
      
+    }
+
+    public Skill EnemySelectSkill()
+    {
+        int AP = TurnOrderManager.Instance.turnPlayer.AP;
+        List<Skill> enemySkills = new List<Skill>();
+        for(int i = 0; i < TurnOrderManager.Instance.turnPlayer.skills.Count; i++)
+        {
+            if(SkillMaker.Instance.GetById(TurnOrderManager.Instance.turnPlayer.skills[i]).cost <= AP)
+            {
+                enemySkills.Add(SkillMaker.Instance.GetById(TurnOrderManager.Instance.turnPlayer.skills[i]));
+            }
+        }
+       int temp = Random.Range(-1,enemySkills.Count);
+        if(temp == -1)
+        {
+            return SkillMaker.Instance.GetById(SkillId.Attack);
+        }
+        else
+        {
+            return enemySkills[temp];
+        }
+    }
+    
+    public List<UnitBody> EnemySkillTarget(Skill skill)
+    {
+        List<UnitBody> targets = new List<UnitBody>();
+        switch (skill.target)
+        {
+            case Target.single:
+               targets.Add(BattleManager.Instance.playerSlots[Random.Range(0,BattleManager.Instance.playerSlots.Count)].GetComponent<UnitBody>());
+                break;
+             case Target.mutipleEnemy:
+               for( int i = 0; i < BattleManager.Instance.playerSlots.Count ; i++)
+                {
+                    targets.Add(BattleManager.Instance.playerSlots[i].GetComponent<UnitBody>());
+                }
+                break;
+             case Target.self:
+                targets.Add(TurnOrderManager.Instance.turnPlayer);
+                break;
+             case Target.party:
+                for( int i = 0; i < BattleManager.Instance.enemySlots.Count ; i++)
+                {
+                    targets.Add(BattleManager.Instance.enemySlots[i].GetComponent<UnitBody>());
+                }
+                break;
+             case Target.ally:
+                 targets.Add(BattleManager.Instance.enemySlots[Random.Range(0,BattleManager.Instance.enemySlots.Count)].GetComponent<UnitBody>());
+                break;
+            
+        }
+        return targets;
+
     }
 }

@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   unitName: Guy
   partyMember: 0
-  skills: 
+  skills: 03000000
   resistance: 
   immunity: 
   vulnerability: 

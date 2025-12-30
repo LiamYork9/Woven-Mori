@@ -64,6 +64,8 @@ public class UnitBody : MonoBehaviour
     public UnityEvent EndOfAction;
     public UnityEvent EndOfTurn;
 
+     public HPTest hPTest;
+
    
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
@@ -72,12 +74,13 @@ public class UnitBody : MonoBehaviour
         {
            SetUnit(unit);
         }
+        hPTest.SetHpBar();
     }
 
     // Update is called once per frame
     void Update()
     {
-
+        hPTest.SetHpBar();
     }
 
     public void SetUnit(Unit newUnit)
@@ -179,13 +182,15 @@ public class UnitBody : MonoBehaviour
         }
 
         currentHP -= damageMod;
+        PopUpManager.Instance.DamageDone(damageMod,this.transform.position,false);
 
-        DamageNumber(damageMod);
+        
 
         if (currentHP <= 0)
         {
             Death();
         }
+        
     }
     
     public UnitBody ApplyCondition(Condition addedCondition)
