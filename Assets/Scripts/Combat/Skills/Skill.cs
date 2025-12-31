@@ -25,6 +25,11 @@ namespace MoriSkills
         Rampage,
         CutLine,
         HolyAbsorption
+
+
+
+        ,//Enemy Skills
+        PoisonBite
     }
 
     public enum Element

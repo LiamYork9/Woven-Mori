@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   unitName: Aiden
   partyMember: 0
-  skills: 020000000100000010000000
+  skills: 110000001100000011000000
   resistance: 
   immunity: 
   vulnerability: 
@@ -31,7 +31,7 @@ MonoBehaviour:
   initiative: 0
   localTurnCount: 0
   localTurnCountCurrentVal: 0
-  AP: 1
+  AP: 0
   APCap: 10
   APGain: 1
   emergencybutton: 0

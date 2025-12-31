@@ -6,6 +6,7 @@ using UnityEngine.Events;
 using UnityEngine.EventSystems;
 using System.Collections;
 using MoriSkills;
+using UnityEngine.Rendering;
 
 
 
@@ -14,6 +15,12 @@ public class SkillButtonScript : MonoBehaviour
     public List<GameObject> skillButtons;
 
     public TMP_Text toolTip;
+    
+    public TMP_Text currentAP;
+    
+    public TMP_Text skillCost;
+    
+    public TMP_Text turnShift;
 
     public int page = 0;
 
@@ -65,6 +72,7 @@ public class SkillButtonScript : MonoBehaviour
                 skillButtons[i].GetComponent<ToolTipSkill>().unHoverEvent.AddListener(ToolTipRemover);
             }
         }
+        currentAP.text = "Current AP: " + TurnOrderManager.Instance.turnPlayer.AP;
         SetSkillButtons();
     }
 
@@ -140,11 +148,16 @@ public class SkillButtonScript : MonoBehaviour
 
     public void ToolTipAdder(GameObject button)
     {
-        toolTip.text = SkillMaker.Instance.GetById(button.GetComponent<ToolTipSkill>().skillId).toolTip;
+        Skill temp = SkillMaker.Instance.GetById(button.GetComponent<ToolTipSkill>().skillId);
+        toolTip.text = temp.toolTip;
+        turnShift.text = "TurnShift: " + temp.turnShift;
+        skillCost.text = "Cost: " + temp.cost;
     }
     public void ToolTipRemover()
     {
         toolTip.text = " ";
+        turnShift.text =  " ";
+        skillCost.text = " ";
     }
 
     public void SetSkillButtons()
@@ -177,7 +190,7 @@ public class SkillButtonScript : MonoBehaviour
             if (BattleManager.Instance.selecting == false)
             {
                 StartCoroutine(PlayerSkill(skill));
-                toolTip.text = "";
+                NullText();
                 TurnOrderManager.Instance.turnPlayer.AP -= skill.cost;
             }
 
@@ -196,7 +209,7 @@ public class SkillButtonScript : MonoBehaviour
             if (BattleManager.Instance.playerSelecting == false)
             {
                 StartCoroutine(PlayerSkillAlly(skill));
-                toolTip.text = "";
+                NullText();
                 TurnOrderManager.Instance.turnPlayer.AP -= skill.cost;
             }
 
@@ -212,7 +225,7 @@ public class SkillButtonScript : MonoBehaviour
         ButtonsOff();
 
         StartCoroutine(PlayerSkillSelf(skill));
-        toolTip.text = "";
+        NullText();
         TurnOrderManager.Instance.turnPlayer.AP -= skill.cost;
 
 
@@ -226,7 +239,7 @@ public class SkillButtonScript : MonoBehaviour
         if (BattleManager.Instance.selecting == false)
         {
             StartCoroutine(PlayerMultSkill(skill, targets));
-            toolTip.text = "";
+            NullText();
             TurnOrderManager.Instance.turnPlayer.AP -= skill.cost;
         }
     }
@@ -239,7 +252,7 @@ public class SkillButtonScript : MonoBehaviour
         if (BattleManager.Instance.selecting == false)
         {
             StartCoroutine(PlayerMultSkill(skill, targets));
-            toolTip.text = "";
+            NullText();
             TurnOrderManager.Instance.turnPlayer.AP -= skill.cost;
         }
     }
@@ -351,8 +364,7 @@ public class SkillButtonScript : MonoBehaviour
 
             if (selectedSkill.target == Target.single)
             {
-
-                toolTip.text = "";
+                NullText();
                 ButtonsOff();
                 BattleManager.Instance.selecting = true;
                 BattleManager.Instance.targetArrow.SetActive(true);
@@ -360,7 +372,7 @@ public class SkillButtonScript : MonoBehaviour
 
             if (selectedSkill.target == Target.mutipleEnemy)
             {
-                toolTip.text = "";
+                NullText();
                 ButtonsOff();
                 BattleManager.Instance.multiTarget = true;
 
@@ -368,21 +380,21 @@ public class SkillButtonScript : MonoBehaviour
 
             if (selectedSkill.target == Target.self)
             {
-                toolTip.text = "";
+                NullText();
                 ButtonsOff();
                 BattleManager.Instance.targetSelf = true;
             }
 
             if (selectedSkill.target == Target.ally)
             {
-                toolTip.text = "";
+                NullText();
                 ButtonsOff();
                 BattleManager.Instance.playerSelecting = true;
             }
 
             if (selectedSkill.target == Target.party)
             {
-                toolTip.text = "";
+                NullText();
                 ButtonsOff();
                 BattleManager.Instance.targetParty = true;
             }
@@ -391,6 +403,14 @@ public class SkillButtonScript : MonoBehaviour
         {
             toolTip.text = "Not Enough AP";
         }
+    }
+
+    public void NullText()
+    {
+        currentAP.text = "";
+        toolTip.text = "";
+        turnShift.text =  "";
+        skillCost.text = "";
     }
 }
 
