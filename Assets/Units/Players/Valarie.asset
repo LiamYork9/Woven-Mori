@@ -23,10 +23,10 @@ MonoBehaviour:
   deathSprite: {fileID: 21300000, guid: 7ef42231652fcda41b73cf85791d6841, type: 3}
   level: 10
   attack: 25
-  defense: 22
+  defense: 17
   mDefense: 10
   maxHP: 65
-  currentHP: 65
+  currentHP: 33
   speed: 16
   initiative: 0
   localTurnCount: 0

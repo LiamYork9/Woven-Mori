@@ -475,9 +475,9 @@ public class BattleManager : MonoBehaviour
         {
             PlayerCharacter temp = PartyManager.Instance.party[i];
 
-            for (int j = 0; j < temp.conditions.Count; j++)
+            for (int j = 0; j < defaultPlayerSlots[i].GetComponent<UnitBody>().conditions.Count; j++)
             {
-                temp.conditions[j].RemoveCondition();
+                defaultPlayerSlots[i].GetComponent<UnitBody>().conditions[j].RemoveCondition();
             }
 
             temp.CopyStats(defaultPlayerSlots[i].GetComponent<UnitBody>());
@@ -498,9 +498,9 @@ public class BattleManager : MonoBehaviour
         {
             PlayerCharacter temp = PartyManager.Instance.party[i];
 
-            for (int j = 0; j < temp.conditions.Count; j++)
+            for (int j = 0; j < defaultPlayerSlots[i].GetComponent<UnitBody>().conditions.Count; j++)
             {
-                temp.conditions[j].RemoveCondition();
+                defaultPlayerSlots[i].GetComponent<UnitBody>().conditions[j].RemoveCondition();
             }
 
             temp.CopyStats(defaultPlayerSlots[i].GetComponent<UnitBody>());

@@ -22,7 +22,7 @@ MonoBehaviour:
   chSprite: {fileID: -2316854331444592169, guid: 2ae8830c3f959ec409a3e5f9c0b93f79, type: 3}
   deathSprite: {fileID: 21300000, guid: 7ef42231652fcda41b73cf85791d6841, type: 3}
   level: 10
-  attack: 23
+  attack: 18
   defense: 12
   mDefense: 17
   maxHP: 45
