@@ -290,4 +290,31 @@ namespace MoriSkills
             }
         }
     }
+
+    public class ApplyPoisonAttr : SkillAttr
+    {
+        public int duration;
+        public int category;
+        public int potency;
+
+
+        public ApplyPoisonAttr(int conditionDuration = 2, int poisonCat = 1, int poisonPower = 5, bool targetSelf = false) : base(targetSelf)
+        {
+            name = "ApplyConditionAttr";
+            duration = conditionDuration;
+            category = poisonCat;
+            potency = poisonPower;
+        }
+        public override void ActivateAttr(UnitBody unitUser, UnitBody unitTarget)
+        {
+            if (targetSelf == true)
+            {
+                unitUser.ApplyCondition(new DamageOverTimeCondition(category,potency,duration));
+            }
+            else
+            {
+                unitTarget.ApplyCondition(new DamageOverTimeCondition(category,potency,duration));
+            }
+        }
+    }
 }
