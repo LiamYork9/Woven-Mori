@@ -187,13 +187,15 @@ namespace MoriSkills
     public class HealAttr : SkillAttr
     {
         public int healAmount;
+        public float statModifier;
         UnitBody target = null;
 
-        public HealAttr(int healNum, bool targetSelf = false) : base(targetSelf)
+        public HealAttr(int healNum, float statMod = .2f, bool targetSelf = false) : base(targetSelf)
 
         {
             name = "HealAttr";
             healAmount = healNum;
+            statModifier = statMod;
 
         }
 
@@ -208,7 +210,7 @@ namespace MoriSkills
             {
                 target = unitTarget;
             }
-            target.currentHP += healAmount;
+            target.currentHP += healAmount + (int)(unitUser.attack*statModifier);
             if (target.currentHP>target.maxHP)
             {
                 target.currentHP = target.maxHP;

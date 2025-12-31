@@ -52,7 +52,7 @@ public class SkillMaker : MonoBehaviour
         madeSkills.Add(StaticShock);
         Skill Flex = new Skill(SkillId.Flex, "Flex", Element.None, Target.self, Category.Buff, 0, 1, "Get Ripped", 0, 1).Attr(new StatBoostConAttr(Stats.Attack, 10, 3, true)).Attr(new StatBoostConAttr(Stats.Defence, 2));
         madeSkills.Add(Flex);
-        Skill Heal = new Skill(SkillId.Heal, "Heal", Element.None, Target.ally, Category.Support, 0, 1, "Restore some HP", 0, 1).Attr(new HealAttr(10, false));
+        Skill Heal = new Skill(SkillId.Heal, "Heal", Element.None, Target.ally, Category.Support, 0, 1, "Restore some HP to an Ally", 0, 1).Attr(new HealAttr(10, .5f, false));
         madeSkills.Add(Heal);
         Skill Fortifiy = new Skill(SkillId.Fortifiy, "Fortifiy", Element.None, Target.party, Category.Buff, 0, 3,"Boosts the parties Defense",0,1).Attr(new StatBoostConAttr(Stats.Defence, 5));
         madeSkills.Add(Fortifiy);
@@ -70,9 +70,9 @@ public class SkillMaker : MonoBehaviour
         madeSkills.Add(Rampage);
         Skill CutLine = new Skill(SkillId.CutLine, "Cut Line", Element.Fate, Target.mutipleEnemy,Category.Debuff,0,3,"Lower all enimes Attack",0,-2).Attr(new StatBoostConAttr(Stats.Attack, -5));
         madeSkills.Add(CutLine);
-        Skill HolyAbsorption = new Skill(SkillId.HolyAbsorption,"Holy Absorption",Element.Light,Target.single,Category.Attack,0,2,"Absorb HP from the enemy",0,-1).Attr(new DamageAttr(25,DamageType.Magic,Element.Light)).Attr( new HealAttr(10,true));
+        Skill HolyAbsorption = new Skill(SkillId.HolyAbsorption,"Holy Absorption",Element.Light,Target.single,Category.Attack,0,2,"Absorb HP from the enemy",0,-1).Attr(new DamageAttr(25,DamageType.Magic,Element.Light)).Attr( new HealAttr(10,.2f,true));
         madeSkills.Add(HolyAbsorption);
-        Skill EvenOdd = new Skill(SkillId.EvenOdd, "EvenOdd", Element.None, Target.single, Category.Attack, 100, 1, "On Even turns Heal and buff yourself, on Odd turns hit the enemy and debuff them", 100, -2).Attr(new EvenOddAttr().Odd(new DamageAttr(10,DamageType.Magic)).Odd(new StatBoostConAttr(Stats.Attack, -5)).Even(new HealAttr(10, true)).Even(new StatBoostConAttr(Stats.Attack, 5,3,true)).Even(new StatBoostConAttr(Stats.Defence,5,3,true)));
+        Skill EvenOdd = new Skill(SkillId.EvenOdd, "EvenOdd", Element.None, Target.single, Category.Attack, 100, 1, "On Even turns Heal and buff yourself, on Odd turns hit the enemy and debuff them", 100, -2).Attr(new EvenOddAttr().Odd(new DamageAttr(10,DamageType.Magic)).Odd(new StatBoostConAttr(Stats.Attack, -5)).Even(new HealAttr(10, .2f, true)).Even(new StatBoostConAttr(Stats.Attack, 5,3,true)).Even(new StatBoostConAttr(Stats.Defence,5,3,true)));
         madeSkills.Add(EvenOdd);
 
         //Enemy Skills
