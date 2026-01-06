@@ -185,16 +185,6 @@ public class BattleManager : MonoBehaviour
 
             }
 
-            for (int i = 0; i < enemySlots.Count; i++)
-            {
-
-                if (enemySlots[i].GetComponent<UnitBody>().currentHP <= 0)
-                {
-                    enemySlots.Remove(enemySlots[i]);
-                }
-
-            }
-
 
 
 
@@ -241,16 +231,6 @@ public class BattleManager : MonoBehaviour
             }
         }
 
-        //Put in Take Damage Function 
-        for (int i = 0; i < playerSlots.Count; i++)
-        {
-
-            if (playerSlots[i].GetComponent<UnitBody>().currentHP <= 0)
-            {
-                Debug.Log("player died");
-                playerSlots.Remove(enemyTarget);
-            }
-        }
 
         //For testing will be reomved later
         if (Input.GetKeyDown(KeyCode.R))
@@ -495,9 +475,9 @@ public class BattleManager : MonoBehaviour
         {
             PlayerCharacter temp = PartyManager.Instance.party[i];
 
-            for (int j = 0; j < temp.conditions.Count; j++)
+            for (int j = 0; j < defaultPlayerSlots[i].GetComponent<UnitBody>().conditions.Count; j++)
             {
-                temp.conditions[j].RemoveCondition();
+                defaultPlayerSlots[i].GetComponent<UnitBody>().conditions[j].RemoveCondition();
             }
 
             temp.CopyStats(defaultPlayerSlots[i].GetComponent<UnitBody>());
@@ -518,9 +498,9 @@ public class BattleManager : MonoBehaviour
         {
             PlayerCharacter temp = PartyManager.Instance.party[i];
 
-            for (int j = 0; j < temp.conditions.Count; j++)
+            for (int j = 0; j < defaultPlayerSlots[i].GetComponent<UnitBody>().conditions.Count; j++)
             {
-                temp.conditions[j].RemoveCondition();
+                defaultPlayerSlots[i].GetComponent<UnitBody>().conditions[j].RemoveCondition();
             }
 
             temp.CopyStats(defaultPlayerSlots[i].GetComponent<UnitBody>());

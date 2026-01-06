@@ -1,3 +1,4 @@
+using System.Collections;
 using JetBrains.Annotations;
 using MoriSkills;
 using UnityEditor;
@@ -126,5 +127,55 @@ public class StatBoostCondition : Condition
     public override void Activate()
     {
 
+    }
+}
+
+[System.Serializable]
+public class DamageOverTimeCondition : Condition
+{
+    public int category;
+    public int damageValue;
+    public int attackMult = 1;
+    
+    public DamageOverTimeCondition(int damageCat /*1 = set damage, 2 = attack power, 3 = fixed percent*/, int conditionStrength, int effectDuration,int conditionPriority = 0): base(effectDuration, conditionPriority)
+    {
+        category = damageCat;
+        damageValue = conditionStrength;
+        if(damageCat == 3)
+        {
+            attackMult = TurnOrderManager.Instance.turnPlayer.attack;
+        }
+        name = "Poison Condition";
+    }
+
+    public override void OnApply(UnitBody appliedUnit)
+    {
+        unit = appliedUnit;
+        unit.EndOfTurn.AddListener(Activate);
+        unit.EndOfTurn.AddListener(CountDown);
+    }
+
+    public override void OnRemove()
+    {
+        unit.EndOfTurn.RemoveListener(Activate);
+    }
+
+    public override void Activate()
+    {
+        switch(category)
+        {
+            case 1: //Set Damage
+                unit.TakeDamage(damageValue, DamageType.Destined, Element.None);
+                break;
+            case 2: //Base Power Damage
+                unit.TakeDamage(damageValue*attackMult, DamageType.Magic, Element.Dark);
+                break;
+            case 3: //%HP Damage
+                unit.TakeDamage((damageValue * unit.maxHP)/100, DamageType.Destined, Element.None);
+                break;
+            default:
+                unit.TakeDamage(damageValue, DamageType.Destined, Element.None); 
+                break;
+        }
     }
 }

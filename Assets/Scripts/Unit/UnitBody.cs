@@ -96,11 +96,11 @@ public class UnitBody : MonoBehaviour
         {
             if (partyMember)
             {
-                //BattleManager.Instance.playerSlots[slotNumber].GetComponent<Image>().sprite = deathSprite;
+                BattleManager.Instance.playerSlots.Remove(this.gameObject);
             }
             else
             {
-                //BattleManager.Instance.enemySlots[slotNumber].GetComponent<Image>().sprite = deathSprite;
+                BattleManager.Instance.enemySlots.Remove(this.gameObject);
             }
             unit.Death(this);
         }
