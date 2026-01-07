@@ -313,7 +313,7 @@ public class BattleManager : MonoBehaviour
 
         for (int i = 0; i < PartyManager.Instance.party.Count; i++)
         {
-
+            playerSlots.Add(defaultPlayerSlots[i]);
             playerSlots[i].SetActive(true);
             UnitBody temp = playerSlots[i].GetComponent<UnitBody>();
             temp.SetUnit(PartyManager.Instance.party[i]);
@@ -363,7 +363,7 @@ public class BattleManager : MonoBehaviour
 
         for (int i = 0; i < PartyManager.Instance.party.Count; i++)
         {
-
+            playerSlots.Add(defaultPlayerSlots[i]);
             playerSlots[i].SetActive(true);
             UnitBody temp = playerSlots[i].GetComponent<UnitBody>();
             temp.SetUnit(PartyManager.Instance.party[i]);

@@ -26,7 +26,7 @@ MonoBehaviour:
   defense: 17
   mDefense: 10
   maxHP: 65
-  currentHP: 33
+  currentHP: 65
   speed: 16
   initiative: 0
   localTurnCount: 0
@@ -34,7 +34,7 @@ MonoBehaviour:
   AP: 0
   APCap: 10
   APGain: 1
-  emergencybutton: 0
+  emergencybutton: 100
   references:
     version: 2
     RefIds: []

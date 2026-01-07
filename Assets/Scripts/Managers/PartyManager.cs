@@ -40,5 +40,16 @@ public class PartyManager : MonoBehaviour
 
     }
 
+    public void AddPartyMemeber(PlayerCharacter playerCharacter)
+    {
+        if (!party.Contains(playerCharacter))
+        {
+            party.Add(playerCharacter);
+        }
+        
+
+        
+    }
+
     
 }

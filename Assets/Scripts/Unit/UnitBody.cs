@@ -87,6 +87,7 @@ public class UnitBody : MonoBehaviour
     {
         unit = newUnit;
         CopyStats(newUnit);
+        //Debug.Log("Copied Stats" + newUnit.name);
     }
 
     public void Death()
@@ -108,6 +109,7 @@ public class UnitBody : MonoBehaviour
 
     public void CopyStats(Unit target)
     {
+        Debug.Log("Copy Stats " + target.unitName);
         name = target.unitName;
         skills = target.skills;
         partyMember = target.partyMember;
@@ -122,7 +124,7 @@ public class UnitBody : MonoBehaviour
         speed = target.speed;
         APCap = target.APCap;
         APGain = target.APGain;
-          resistance = target.resistance;
+        resistance = target.resistance;
         immunity = target.immunity;
         vulnerability = target.vulnerability;
     }
