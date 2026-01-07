@@ -26,6 +26,7 @@ public class PlayerController : MonoBehaviour
     void Start()
     {
         movePoint.parent = null;
+        SpawnFollowers();
         if (Step == null)
         {
             Step = new UnityEvent();
@@ -108,6 +109,14 @@ public class PlayerController : MonoBehaviour
         {
             follower.transform.position = transform.position;
             follower.SetPosition();
+        }
+    }
+
+    public virtual void SpawnFollowers()
+    {
+        for(int i = 0; i < PartyManager.Instance.followers.Count; i++)
+        {
+            Instantiate(PartyManager.Instance.followers[i],gameObject.transform.position,gameObject.transform.rotation);
         }
     }
 }

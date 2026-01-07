@@ -1,3 +1,4 @@
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class PartyMemberAdder : MonoBehaviour
@@ -12,7 +13,10 @@ public class PartyMemberAdder : MonoBehaviour
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
-        
+        if(PartyManager.Instance.PM1 == true)
+        {
+            Destroy(gameObject);
+        }
     }
 
     // Update is called once per frame
@@ -23,18 +27,11 @@ public class PartyMemberAdder : MonoBehaviour
 
     public void AddToParty()
     {
+        PartyManager.Instance.PM1 = true;
         PartyManager.Instance.AddPartyMemeber(partyMember);
-        if (willFollow)
-        {
-            if (follower.GetComponent<Follower>() != null)
-            {
-                  follower.GetComponent<Follower>().Follow(GameObject.FindWithTag("Player").GetComponent<PlayerController>());
-            }
-            else
-            {
-               Follower temp = follower.AddComponent<Follower>();
-               temp.movePoint = Instantiate(movePoint,follower.transform.position,follower.transform.rotation).transform;
-            }
-        }
+       Instantiate(follower,gameObject.transform.position,gameObject.transform.rotation);
+       PartyManager.Instance.followers.Add(follower);
+       Destroy(gameObject);
+        
     }
 }

@@ -109,7 +109,6 @@ public class UnitBody : MonoBehaviour
 
     public void CopyStats(Unit target)
     {
-        Debug.Log("Copy Stats " + target.unitName);
         name = target.unitName;
         skills = target.skills;
         partyMember = target.partyMember;

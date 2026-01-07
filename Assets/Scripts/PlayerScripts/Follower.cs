@@ -44,4 +44,9 @@ public class Follower: PlayerController
     {
         target.Follower(this);
     }
+
+    public override void SpawnFollowers()
+    {
+        
+    }
 }
