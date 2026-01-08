@@ -784,7 +784,7 @@ PrefabInstance:
       objectReference: {fileID: 744602751}
     - target: {fileID: 6150715196394293801, guid: 8089a5ef6f4ee464ea9324d77e01a3da, type: 3}
       propertyPath: sceneName
-      value: DemoScene
+      value: EncounterTest
       objectReference: {fileID: 0}
     - target: {fileID: 6150715196394293801, guid: 8089a5ef6f4ee464ea9324d77e01a3da, type: 3}
       propertyPath: skillMenu

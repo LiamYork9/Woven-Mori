@@ -4,6 +4,8 @@ using System.Collections;
 using TMPro;
 using UnityEngine.UI;
 using MoriSkills;
+using UnityEditor.Rendering;
+using System.Reflection;
 
 [System.Serializable]
 public class Turn
@@ -153,8 +155,34 @@ public class Turn
                 }
                 break;
              case Target.ally:
-                 targets.Add(BattleManager.Instance.enemySlots[Random.Range(0,BattleManager.Instance.enemySlots.Count)].GetComponent<UnitBody>());
-                break;
+                bool heals = false;
+                for( int i = 0; i<skill.attrs.Count; i++)
+                {
+                    if(skill.attrs[i] is HealAttr && !skill.attrs[i].targetSelf)
+                    {
+                        heals = true;
+                    }
+                }
+                if(heals)
+                {
+                    int temptarget = 0;
+                    int missingHP = 0;
+                    for( int i = 0; i<BattleManager.Instance.enemySlots.Count; i++)
+                    {   
+                        UnitBody temp = BattleManager.Instance.enemySlots[i].GetComponent<UnitBody>();
+                        if(temp.maxHP-temp.currentHP>missingHP)
+                        {
+                            missingHP=temp.maxHP-temp.currentHP;
+                            temptarget = i;
+                        }
+                    }
+                    targets.Add(BattleManager.Instance.enemySlots[temptarget].GetComponent<UnitBody>());
+                }
+                else
+                {
+                   targets.Add(BattleManager.Instance.enemySlots[Random.Range(0,BattleManager.Instance.enemySlots.Count)].GetComponent<UnitBody>()); 
+                }
+                 break;
             
         }
         return targets;
