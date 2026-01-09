@@ -10,6 +10,8 @@ public class MapTransition : MonoBehaviour
     enum Direction { Up, Down, Left, Right }
     public ZoneCheck zoneCheck;
 
+    public bool battleZone = false;
+
 
 
     public PlayerController pController;
@@ -36,6 +38,15 @@ public class MapTransition : MonoBehaviour
             confiner.BoundingShape2D = mapBoundry;
             UpdatePlayerPos(collison.gameObject);
             pController.SetPosition();
+
+            if(battleZone == true)
+            {
+                EncounterManager.Instance.fightArea = true;
+            }
+            else
+            {
+                EncounterManager.Instance.fightArea = false;
+            }
         }
     }
 
