@@ -26,7 +26,7 @@ public class PlayerInfoSaver : MonoBehaviour
     
     void Update()
     {
-
+        
     }
 
     private void OnDestroy()

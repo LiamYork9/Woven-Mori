@@ -35,6 +35,7 @@ public class MapTransition : MonoBehaviour
     {
         if (collison.gameObject.CompareTag("Player"))
         {
+            EncounterManager.Instance.stepsSinceEncounter = 0;
             confiner.BoundingShape2D = mapBoundry;
             UpdatePlayerPos(collison.gameObject);
             pController.SetPosition();
