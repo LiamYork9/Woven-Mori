@@ -1098,8 +1098,24 @@ PrefabInstance:
       propertyPath: m_Name
       value: BattleScreen
       objectReference: {fileID: 0}
+    - target: {fileID: 5457721071183106612, guid: c14100d79b2ddbd4c97c369e306032c3, type: 3}
+      propertyPath: m_Color.a
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 5735575768180992924, guid: c14100d79b2ddbd4c97c369e306032c3, type: 3}
       propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5853646956090298536, guid: c14100d79b2ddbd4c97c369e306032c3, type: 3}
+      propertyPath: m_text
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 6549108257197390013, guid: c14100d79b2ddbd4c97c369e306032c3, type: 3}
+      propertyPath: m_text
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 7242947746013294853, guid: c14100d79b2ddbd4c97c369e306032c3, type: 3}
+      propertyPath: m_Color.a
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7648609458876619987, guid: c14100d79b2ddbd4c97c369e306032c3, type: 3}
