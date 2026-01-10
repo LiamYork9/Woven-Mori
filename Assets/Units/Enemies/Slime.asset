@@ -17,7 +17,7 @@ MonoBehaviour:
   skills: 09000000050000000e000000
   resistance: 
   immunity: 
-  vulnerability: 
+  vulnerability: 04000000
   conditions: []
   chSprite: {fileID: 21300000, guid: 7ef42231652fcda41b73cf85791d6841, type: 3}
   deathSprite: {fileID: 21300000, guid: 7ef42231652fcda41b73cf85791d6841, type: 3}

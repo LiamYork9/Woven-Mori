@@ -7,5 +7,6 @@ public class ExitGame : MonoBehaviour
     {
         PlayerPrefs.DeleteAll();
         Application.Quit();
+        PlayerPrefs.DeleteAll();
     }
 }
