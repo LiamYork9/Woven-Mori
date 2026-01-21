@@ -1570,6 +1570,7 @@ GameObject:
   - component: {fileID: 575111218}
   - component: {fileID: 575111220}
   - component: {fileID: 575111219}
+  - component: {fileID: 575111221}
   m_Layer: 0
   m_Name: A2_Waypoint
   m_TagString: Untagged
@@ -1607,7 +1608,6 @@ MonoBehaviour:
   mapBoundry: {fileID: 1555291639}
   direction: 2
   zoneCheck: {fileID: 1555291638}
-  battleZone: 1
   pController: {fileID: 0}
 --- !u!61 &575111220
 BoxCollider2D:
@@ -1655,6 +1655,23 @@ BoxCollider2D:
   m_AutoTiling: 0
   m_Size: {x: 29.84064, y: 0.054695845}
   m_EdgeRadius: 0
+--- !u!114 &575111221
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 575111217}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: adae5e4fb1764f54f93b17fea8c1934f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  encounterTable:
+  - {fileID: 11400000, guid: 05071c4e09cd9f64182f3c2062dbcd2d, type: 2}
+  - {fileID: 11400000, guid: f6f4a97da73ac2a4385bd6643c4b2122, type: 2}
+  - {fileID: 11400000, guid: 89e126f7d00c46a49a7c231e61fa92fd, type: 2}
+  battleZone: 1
 --- !u!1001 &594700795
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -2564,6 +2581,7 @@ GameObject:
   - component: {fileID: 982575264}
   - component: {fileID: 982575266}
   - component: {fileID: 982575265}
+  - component: {fileID: 982575267}
   m_Layer: 0
   m_Name: 'A1_Waypoint '
   m_TagString: Untagged
@@ -2601,7 +2619,6 @@ MonoBehaviour:
   mapBoundry: {fileID: 1094370469}
   direction: 3
   zoneCheck: {fileID: 1094370468}
-  battleZone: 0
   pController: {fileID: 0}
 --- !u!61 &982575266
 BoxCollider2D:
@@ -2649,6 +2666,20 @@ BoxCollider2D:
   m_AutoTiling: 0
   m_Size: {x: 29.84064, y: 0.058613196}
   m_EdgeRadius: 0
+--- !u!114 &982575267
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 982575263}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: adae5e4fb1764f54f93b17fea8c1934f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  encounterTable: []
+  battleZone: 0
 --- !u!1 &1007981478
 GameObject:
   m_ObjectHideFlags: 0
@@ -3640,63 +3671,6 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!1001 &1248578024
-PrefabInstance:
-  m_ObjectHideFlags: 0
-  serializedVersion: 2
-  m_Modification:
-    serializedVersion: 3
-    m_TransformParent: {fileID: 0}
-    m_Modifications:
-    - target: {fileID: 2108471912829710956, guid: dff2bcc460642c3489f19957f6b24001, type: 3}
-      propertyPath: m_LocalPosition.x
-      value: 931.80365
-      objectReference: {fileID: 0}
-    - target: {fileID: 2108471912829710956, guid: dff2bcc460642c3489f19957f6b24001, type: 3}
-      propertyPath: m_LocalPosition.y
-      value: 599.1459
-      objectReference: {fileID: 0}
-    - target: {fileID: 2108471912829710956, guid: dff2bcc460642c3489f19957f6b24001, type: 3}
-      propertyPath: m_LocalPosition.z
-      value: -5.2032795
-      objectReference: {fileID: 0}
-    - target: {fileID: 2108471912829710956, guid: dff2bcc460642c3489f19957f6b24001, type: 3}
-      propertyPath: m_LocalRotation.w
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 2108471912829710956, guid: dff2bcc460642c3489f19957f6b24001, type: 3}
-      propertyPath: m_LocalRotation.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 2108471912829710956, guid: dff2bcc460642c3489f19957f6b24001, type: 3}
-      propertyPath: m_LocalRotation.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 2108471912829710956, guid: dff2bcc460642c3489f19957f6b24001, type: 3}
-      propertyPath: m_LocalRotation.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 2108471912829710956, guid: dff2bcc460642c3489f19957f6b24001, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 2108471912829710956, guid: dff2bcc460642c3489f19957f6b24001, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 2108471912829710956, guid: dff2bcc460642c3489f19957f6b24001, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 9037386977037729794, guid: dff2bcc460642c3489f19957f6b24001, type: 3}
-      propertyPath: m_Name
-      value: EnemyPool
-      objectReference: {fileID: 0}
-    m_RemovedComponents: []
-    m_RemovedGameObjects: []
-    m_AddedGameObjects: []
-    m_AddedComponents: []
-  m_SourcePrefab: {fileID: 100100000, guid: dff2bcc460642c3489f19957f6b24001, type: 3}
 --- !u!1 &1329903249
 GameObject:
   m_ObjectHideFlags: 0
@@ -5189,7 +5163,6 @@ SceneRoots:
   m_Roots:
   - {fileID: 805652338}
   - {fileID: 1770792804}
-  - {fileID: 1248578024}
   - {fileID: 490160240}
   - {fileID: 1751154397}
   - {fileID: 1562698265}

@@ -10,7 +10,7 @@ public class MapTransition : MonoBehaviour
     enum Direction { Up, Down, Left, Right }
     public ZoneCheck zoneCheck;
 
-    public bool battleZone = false;
+   
 
 
 
@@ -40,14 +40,6 @@ public class MapTransition : MonoBehaviour
             UpdatePlayerPos(collison.gameObject);
             pController.SetPosition();
 
-            if(battleZone == true)
-            {
-                EncounterManager.Instance.fightArea = true;
-            }
-            else
-            {
-                EncounterManager.Instance.fightArea = false;
-            }
         }
     }
 
