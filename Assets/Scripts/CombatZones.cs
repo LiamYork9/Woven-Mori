@@ -26,7 +26,7 @@ public class CombatZones : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collison)
     {
-        if (collison.gameObject.CompareTag("Player"))
+        if (collison.gameObject.CompareTag("MovePoint"))
         {
             UsePool();
             if(battleZone == true)

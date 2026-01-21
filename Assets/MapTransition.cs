@@ -38,7 +38,7 @@ public class MapTransition : MonoBehaviour
             EncounterManager.Instance.stepsSinceEncounter = 0;
             confiner.BoundingShape2D = mapBoundry;
             UpdatePlayerPos(collison.gameObject);
-            pController.SetPosition();
+      
 
         }
     }
@@ -54,12 +54,12 @@ public class MapTransition : MonoBehaviour
 
     private void UpdatePlayerPos(GameObject player)
     {
-        Vector3 newPos = player.transform.position;
+        Vector3 newPos = pController.movePoint.transform.position;
 
         switch (direction)
         {
             case Direction.Up:
-                newPos.y += pController.movePoint.position.y + 2;
+                newPos.y +=  2;
                 break;
             case Direction.Down:
                 newPos.y -= 2;
@@ -73,5 +73,6 @@ public class MapTransition : MonoBehaviour
 
         }
         player.transform.position = newPos;
+        pController.SetPosition();
     }
 }
