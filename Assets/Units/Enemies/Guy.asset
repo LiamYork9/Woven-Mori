@@ -15,7 +15,7 @@ MonoBehaviour:
   unitName: Guy
   partyMember: 0
   skills: 03000000
-  resistance: 
+  resistance: 04000000
   immunity: 
   vulnerability: 
   conditions: []

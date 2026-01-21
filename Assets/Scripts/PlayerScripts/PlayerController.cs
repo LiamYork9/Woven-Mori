@@ -98,9 +98,12 @@ public class PlayerController : MonoBehaviour
 
     public void TakeStep()
     {
-        stepCount += 1;
-        //eventually add check to see if this is an encounter tile
-        EncounterManager.Instance.EncounterCheck();
+        if(EncounterManager.Instance.fightArea == true)
+        {
+            stepCount += 1;
+            //eventually add check to see if this is an encounter tile
+            EncounterManager.Instance.EncounterCheck();
+        }
     }
     public void SetPosition()
     {

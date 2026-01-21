@@ -366,6 +366,10 @@ public class BattleManager : MonoBehaviour
             playerSlots.Add(defaultPlayerSlots[i]);
             playerSlots[i].SetActive(true);
             UnitBody temp = playerSlots[i].GetComponent<UnitBody>();
+            if(PartyManager.Instance.party[i].currentHP <= 0)
+            {
+                PartyManager.Instance.party[i].currentHP = 1;
+            }
             temp.SetUnit(PartyManager.Instance.party[i]);
             playerSlots[i].GetComponent<Image>().sprite = temp.chSprite;
         }
@@ -502,10 +506,13 @@ public class BattleManager : MonoBehaviour
             {
                 defaultPlayerSlots[i].GetComponent<UnitBody>().conditions[j].RemoveCondition();
             }
-
+          
             temp.CopyStats(defaultPlayerSlots[i].GetComponent<UnitBody>());
+            temp.currentHP = temp.maxHP;
         }
         dialogueText.text = "You Lose";
+        PlayerPrefs.DeleteAll();
+        EncounterManager.Instance.fightArea = false;
         BattleEnd();
     }
 

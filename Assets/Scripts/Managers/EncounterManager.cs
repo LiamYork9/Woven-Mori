@@ -26,6 +26,8 @@ public class EncounterManager : MonoBehaviour
     public string sceneName = "LiamYorkTestScene";
     public DialogueInteraction fightText;
 
+    public bool fightArea = false;
+
     public static EncounterManager GetInstance()
     {
         return Instance;

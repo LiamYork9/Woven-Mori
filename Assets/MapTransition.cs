@@ -10,6 +10,8 @@ public class MapTransition : MonoBehaviour
     enum Direction { Up, Down, Left, Right }
     public ZoneCheck zoneCheck;
 
+   
+
 
 
     public PlayerController pController;
@@ -33,9 +35,11 @@ public class MapTransition : MonoBehaviour
     {
         if (collison.gameObject.CompareTag("Player"))
         {
+            EncounterManager.Instance.stepsSinceEncounter = 0;
             confiner.BoundingShape2D = mapBoundry;
             UpdatePlayerPos(collison.gameObject);
             pController.SetPosition();
+
         }
     }
 
