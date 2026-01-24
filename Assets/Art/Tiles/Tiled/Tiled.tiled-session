@@ -31,6 +31,7 @@
             "scaleInEditor": 5.5
         }
     },
+    "last.imagePath": "C:/Users/Xander Adams/Desktop/Game Dev/Woven-Mori/Assets/Art/Tiles",
     "openFiles": [
         "TileMaps/Shlap.tmx",
         "TileSets/WovenMoriGrassPath.tsx"
@@ -40,5 +41,10 @@
     "recentFiles": [
         "TileSets/WovenMoriGrassPath.tsx",
         "TileMaps/Shlap.tmx"
-    ]
+    ],
+    "tileset.lastUsedFormat": "tsx",
+    "tileset.tileSize": {
+        "height": 16,
+        "width": 16
+    }
 }
