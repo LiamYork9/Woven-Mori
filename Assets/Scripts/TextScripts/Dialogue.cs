@@ -3,13 +3,21 @@ using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
 using UnityEngine.Events;
+using UnityEngine.UI;
 
 public class Dialogue : MonoBehaviour
 {
     public TextMeshProUGUI textComponent;
 
     public TextMeshProUGUI skipText;
-    public string[] lines;
+    public DialogGraph lines;
+
+    public GameObject buttonPrefab;
+
+    public Transform buttonParent;
+
+
+    public DialogSegment activeSegment;
     public float textSpeed;
 
     private int index;
@@ -27,6 +35,8 @@ public class Dialogue : MonoBehaviour
     public bool textActive = false;
     public UnityEvent EndDialogueEvent;
 
+     public string[] dialogText;
+
 
     void Start()
     {
@@ -34,6 +44,7 @@ public class Dialogue : MonoBehaviour
         {
             EndDialogueEvent = new UnityEvent();
         }
+          
     }
 
     void Update()
@@ -46,14 +57,22 @@ public class Dialogue : MonoBehaviour
 
     public void LineSkip()
     {
-        if (textComponent.text == lines[index])
+        
+        if (textComponent.text == activeSegment.DialogText[index])
         {
-            NextLine();
+             if (index < activeSegment.DialogText.Length - 1)
+             {
+                NextLine();
+             }
+            else
+            {
+                NextNode();
+            }
         }
         else
         {
             StopAllCoroutines();
-            textComponent.text = lines[index];
+            textComponent.text = activeSegment.DialogText[index];
         }
     }
     
@@ -61,6 +80,13 @@ public class Dialogue : MonoBehaviour
 
     public void StartDiolague()
     {
+         foreach (DialogSegment node in lines.nodes)
+            {
+                if (!node.GetInputPort("input").IsConnected)
+                {
+                    UpdateDialog(node);
+                }
+            }
         textActive = true;
         pc = GameObject.FindWithTag("Player").GetComponent<PlayerController>();
         textBox.Play("TextBoxAnimation");
@@ -73,7 +99,7 @@ public class Dialogue : MonoBehaviour
 
     IEnumerator TypeLine()
     {
-        foreach (char c in lines[index].ToCharArray())
+        foreach (char c in activeSegment.DialogText[index].ToCharArray())
         {
             textComponent.text += c;
             yield return new WaitForSecondsRealtime(textSpeed);
@@ -83,20 +109,88 @@ public class Dialogue : MonoBehaviour
 
     public void NextLine()
     {
-        if (index < lines.Length - 1)
-        {
+       
+        
             index++;
             textComponent.text = string.Empty;
             StartCoroutine(TypeLine());
+        
+      
+    }
+
+    public void NextNode()
+    {
+        if(!(activeSegment is DialogAnswerSegments)){
+        
+            if (activeSegment.GetPort("output").IsConnected)
+            {
+                UpdateDialog(activeSegment.GetPort("output").Connection.node as DialogSegment);
+                 textComponent.text = string.Empty;
+                 StartCoroutine(TypeLine());
+            }
+            else
+            {
+                EndDialogue();
+            }
         }
+        else
+        {
+            if((activeSegment as DialogAnswerSegments).Answers.Count > 0)
+            {
+                 int answerIndex = 0;
+                 
+                 foreach(string answer in (activeSegment as DialogAnswerSegments).Answers)
+                {
+                    GameObject btn = Instantiate(buttonPrefab, buttonParent);
+                    btn.GetComponentInChildren<TMP_Text>().text = answer;
+
+                    int index = answerIndex;
+
+                     btn.GetComponentInChildren<Button>().onClick.AddListener((() => { AnswerClicked(index); }));
+
+                    answerIndex++;
+                }
+            }
+            else
+            {
+                if (activeSegment.GetPort("output").IsConnected)
+                {
+                    UpdateDialog(activeSegment.GetPort("output").Connection.node as DialogSegment);
+                    textComponent.text = string.Empty;
+                    StartCoroutine(TypeLine());
+                }
+                else
+                {
+                    EndDialogue();
+                }
+            }
+        }
+           
+        
+    }
+
+     public void AnswerClicked(int clickedIndex)
+    {
+        XNode.NodePort port = activeSegment.GetPort("Answers " + clickedIndex);
+        if (port.IsConnected)
+        {
+            UpdateDialog(port.Connection.node as DialogSegment);
+            LineSkip();
+        }
+
         else
         {
             EndDialogue();
         }
+            
     }
 
     public void EndDialogue()
     {
+         foreach (Transform child in buttonParent)
+        {
+            Destroy(child.gameObject);
+        }
         textActive = false;
         pc.inText = false;
         textBox.Play("CloseBox");
@@ -107,6 +201,19 @@ public class Dialogue : MonoBehaviour
         textComponent.text = string.Empty;
         //topBox.SetActive(false);
         EndDialogueEvent.Invoke();
+        
     }
+
+     private void UpdateDialog(DialogSegment newSegment)
+        {
+            index = 0;
+            activeSegment = newSegment;
+            dialogText = newSegment.DialogText;
+             foreach (Transform child in buttonParent)
+            {
+                Destroy(child.gameObject);
+            }
+
+        }
 
 }
