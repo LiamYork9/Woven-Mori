@@ -14,8 +14,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   unitName: Guy
   partyMember: 0
-  skills: 
-  resistance: 
+  skills: 03000000
+  resistance: 04000000
   immunity: 
   vulnerability: 
   conditions: []
@@ -31,10 +31,10 @@ MonoBehaviour:
   initiative: 0
   localTurnCount: 0
   localTurnCountCurrentVal: 0
-  AP: 1
+  AP: 0
   APCap: 10
   APGain: 1
-  emergencybutton: 1
+  emergencybutton: 100
   references:
     version: 2
     RefIds: []

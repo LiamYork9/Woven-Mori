@@ -187,13 +187,15 @@ namespace MoriSkills
     public class HealAttr : SkillAttr
     {
         public int healAmount;
+        public float statModifier;
         UnitBody target = null;
 
-        public HealAttr(int healNum, bool targetSelf = false) : base(targetSelf)
+        public HealAttr(int healNum, float statMod = .2f, bool targetSelf = false) : base(targetSelf)
 
         {
             name = "HealAttr";
             healAmount = healNum;
+            statModifier = statMod;
 
         }
 
@@ -208,7 +210,7 @@ namespace MoriSkills
             {
                 target = unitTarget;
             }
-            target.currentHP += healAmount;
+            target.currentHP += healAmount + (int)(unitUser.attack*statModifier);
             if (target.currentHP>target.maxHP)
             {
                 target.currentHP = target.maxHP;
@@ -287,6 +289,33 @@ namespace MoriSkills
                 {
                     oddAttr[i].ActivateAttr(unitUser, unitTarget);
                 }
+            }
+        }
+    }
+
+    public class ApplyPoisonAttr : SkillAttr
+    {
+        public int duration;
+        public int category;
+        public int potency;
+
+
+        public ApplyPoisonAttr(int conditionDuration = 2, int poisonCat = 1, int poisonPower = 5, bool targetSelf = false) : base(targetSelf)
+        {
+            name = "ApplyConditionAttr";
+            duration = conditionDuration;
+            category = poisonCat;
+            potency = poisonPower;
+        }
+        public override void ActivateAttr(UnitBody unitUser, UnitBody unitTarget)
+        {
+            if (targetSelf == true)
+            {
+                unitUser.ApplyCondition(new DamageOverTimeCondition(category,potency,duration));
+            }
+            else
+            {
+                unitTarget.ApplyCondition(new DamageOverTimeCondition(category,potency,duration));
             }
         }
     }

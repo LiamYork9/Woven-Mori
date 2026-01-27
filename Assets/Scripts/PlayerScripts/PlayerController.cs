@@ -6,7 +6,7 @@ using UnityEngine.Events;
 
 public class PlayerController : MonoBehaviour
 {
-    public float moveSpeed = 5f;
+    public float moveSpeed = 3.5f;
     public Transform movePoint;
     public LayerMask stopsMovement;
 
@@ -26,6 +26,7 @@ public class PlayerController : MonoBehaviour
     void Start()
     {
         movePoint.parent = null;
+        SpawnFollowers();
         if (Step == null)
         {
             Step = new UnityEvent();
@@ -97,9 +98,12 @@ public class PlayerController : MonoBehaviour
 
     public void TakeStep()
     {
-        stepCount += 1;
-        //eventually add check to see if this is an encounter tile
-        EncounterManager.Instance.EncounterCheck();
+        if(EncounterManager.Instance.fightArea == true)
+        {
+            stepCount += 1;
+            //eventually add check to see if this is an encounter tile
+            EncounterManager.Instance.EncounterCheck();
+        }
     }
     public void SetPosition()
     {
@@ -108,6 +112,14 @@ public class PlayerController : MonoBehaviour
         {
             follower.transform.position = transform.position;
             follower.SetPosition();
+        }
+    }
+
+    public virtual void SpawnFollowers()
+    {
+        for(int i = 0; i < PartyManager.Instance.followers.Count; i++)
+        {
+            Instantiate(PartyManager.Instance.followers[i],gameObject.transform.position,gameObject.transform.rotation);
         }
     }
 }

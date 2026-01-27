@@ -25,6 +25,11 @@ namespace MoriSkills
         Rampage,
         CutLine,
         HolyAbsorption
+
+
+
+        ,//Enemy Skills
+        PoisonBite
     }
 
     public enum Element
@@ -148,6 +153,7 @@ namespace MoriSkills
 
         public void ApplyEffects(UnitBody unitUser, UnitBody unitTarget)
         {
+            TurnOrderManager.Instance.turnOrder[0].turnShift = turnShift;
             for (int i = 0; i < attrs.Count; i++)
             {
                 attrs[i].ActivateAttr(unitUser,unitTarget);

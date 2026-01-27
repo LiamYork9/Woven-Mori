@@ -14,10 +14,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   unitName: Aiden
   partyMember: 0
-  skills: 
+  skills: 110000001100000011000000
   resistance: 
   immunity: 
-  vulnerability: 
+  vulnerability: 01000000
   conditions: []
   chSprite: {fileID: 21300000, guid: beab9b7c72a3261428d76581f1dff51c, type: 3}
   deathSprite: {fileID: 21300000, guid: beab9b7c72a3261428d76581f1dff51c, type: 3}
@@ -31,7 +31,7 @@ MonoBehaviour:
   initiative: 0
   localTurnCount: 0
   localTurnCountCurrentVal: 0
-  AP: 1
+  AP: 0
   APCap: 10
   APGain: 1
   emergencybutton: 0

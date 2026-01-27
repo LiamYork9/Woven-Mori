@@ -9,6 +9,10 @@ public class PartyManager : MonoBehaviour
     public List<PlayerCharacter> party;
     public static PartyManager Instance;
 
+    public List<GameObject> followers; 
+
+    public bool PM1,PM2,PM3;
+
     public static PartyManager GetInstance()
     {
         return Instance;
@@ -38,6 +42,17 @@ public class PartyManager : MonoBehaviour
     void Update()
     {
 
+    }
+
+    public void AddPartyMemeber(PlayerCharacter playerCharacter)
+    {
+        if (!party.Contains(playerCharacter))
+        {
+            party.Add(playerCharacter);
+        }
+        
+
+        
     }
 
     

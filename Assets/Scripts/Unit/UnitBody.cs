@@ -64,6 +64,8 @@ public class UnitBody : MonoBehaviour
     public UnityEvent EndOfAction;
     public UnityEvent EndOfTurn;
 
+     public HPTest hPTest;
+
    
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
@@ -72,18 +74,20 @@ public class UnitBody : MonoBehaviour
         {
            SetUnit(unit);
         }
+        hPTest.SetHpBar();
     }
 
     // Update is called once per frame
     void Update()
     {
-
+        hPTest.SetHpBar();
     }
 
     public void SetUnit(Unit newUnit)
     {
         unit = newUnit;
         CopyStats(newUnit);
+        //Debug.Log("Copied Stats" + newUnit.name);
     }
 
     public void Death()
@@ -93,11 +97,11 @@ public class UnitBody : MonoBehaviour
         {
             if (partyMember)
             {
-                //BattleManager.Instance.playerSlots[slotNumber].GetComponent<Image>().sprite = deathSprite;
+                BattleManager.Instance.playerSlots.Remove(this.gameObject);
             }
             else
             {
-                //BattleManager.Instance.enemySlots[slotNumber].GetComponent<Image>().sprite = deathSprite;
+                BattleManager.Instance.enemySlots.Remove(this.gameObject);
             }
             unit.Death(this);
         }
@@ -119,7 +123,7 @@ public class UnitBody : MonoBehaviour
         speed = target.speed;
         APCap = target.APCap;
         APGain = target.APGain;
-          resistance = target.resistance;
+        resistance = target.resistance;
         immunity = target.immunity;
         vulnerability = target.vulnerability;
     }
@@ -179,11 +183,15 @@ public class UnitBody : MonoBehaviour
         }
 
         currentHP -= damageMod;
+        PopUpManager.Instance.DamageDone(damageMod,this.transform.position,false);
+
+        
 
         if (currentHP <= 0)
         {
             Death();
         }
+        
     }
     
     public UnitBody ApplyCondition(Condition addedCondition)
@@ -191,6 +199,11 @@ public class UnitBody : MonoBehaviour
         conditions.Add(addedCondition);
         addedCondition.OnApply(this);
         return this;
+    }
+
+    public void DamageNumber(int damage)
+    {
+        
     }
 
 }

@@ -7,7 +7,7 @@ using Unity.Cinemachine;
 public class PlayerInfoSaver : MonoBehaviour
 {
 
-    
+public GameObject player;
 
     
     void Start()
@@ -18,15 +18,15 @@ public class PlayerInfoSaver : MonoBehaviour
             float x = PlayerPrefs.GetFloat("PlayerPosX");
             float y = PlayerPrefs.GetFloat("PlayerPosY");
             float z = PlayerPrefs.GetFloat("PlayerPosZ");
-            transform.position = new Vector3(x, y, z);
-            gameObject.GetComponent<PlayerController>().SetPosition();
+            player.transform.position = new Vector3(x, y, z);
+            player.GetComponent<PlayerController>().SetPosition();
         }
     }
 
     
     void Update()
     {
-
+        
     }
 
     private void OnDestroy()

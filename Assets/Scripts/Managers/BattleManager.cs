@@ -86,6 +86,9 @@ public class BattleManager : MonoBehaviour
     public bool win;
     public string sceneName = "EncounterTest";
 
+    public GameObject damageNumber;
+
+
 
 
 
@@ -182,16 +185,6 @@ public class BattleManager : MonoBehaviour
 
             }
 
-            for (int i = 0; i < enemySlots.Count; i++)
-            {
-
-                if (enemySlots[i].GetComponent<UnitBody>().currentHP <= 0)
-                {
-                    enemySlots.Remove(enemySlots[i]);
-                }
-
-            }
-
 
 
 
@@ -238,16 +231,6 @@ public class BattleManager : MonoBehaviour
             }
         }
 
-        //Put in Take Damage Function 
-        for (int i = 0; i < playerSlots.Count; i++)
-        {
-
-            if (playerSlots[i].GetComponent<UnitBody>().currentHP <= 0)
-            {
-                Debug.Log("player died");
-                playerSlots.Remove(enemyTarget);
-            }
-        }
 
         //For testing will be reomved later
         if (Input.GetKeyDown(KeyCode.R))
@@ -330,7 +313,7 @@ public class BattleManager : MonoBehaviour
 
         for (int i = 0; i < PartyManager.Instance.party.Count; i++)
         {
-
+            playerSlots.Add(defaultPlayerSlots[i]);
             playerSlots[i].SetActive(true);
             UnitBody temp = playerSlots[i].GetComponent<UnitBody>();
             temp.SetUnit(PartyManager.Instance.party[i]);
@@ -380,9 +363,13 @@ public class BattleManager : MonoBehaviour
 
         for (int i = 0; i < PartyManager.Instance.party.Count; i++)
         {
-
+            playerSlots.Add(defaultPlayerSlots[i]);
             playerSlots[i].SetActive(true);
             UnitBody temp = playerSlots[i].GetComponent<UnitBody>();
+            if(PartyManager.Instance.party[i].currentHP <= 0)
+            {
+                PartyManager.Instance.party[i].currentHP = 1;
+            }
             temp.SetUnit(PartyManager.Instance.party[i]);
             playerSlots[i].GetComponent<Image>().sprite = temp.chSprite;
         }
@@ -454,19 +441,26 @@ public class BattleManager : MonoBehaviour
     }
     
 
-    IEnumerator EnemyAttackCo()
+    IEnumerator EnemyAttackCo(Skill skill, List<UnitBody> targets)
     {
         action = true;
-        enemyTarget = playerSlots[Random.Range(0,playerSlots.Count)];
         yield return new WaitForSeconds(2f);
-        SkillMaker.Instance.GetById(SkillId.Attack).ApplyEffects(TurnOrderManager.Instance.turnPlayer,enemyTarget.GetComponent<UnitBody>());
-        dialogueText.text =  TOM.turnPlayer.name + " has attacked " + enemyTarget.GetComponent<UnitBody>().name;
-        yield return new WaitForSeconds(1f);
+        dialogueText.text = TurnOrderManager.Instance.turnPlayer.name + " used " + skill.name + " On" ;
+        TurnOrderManager.Instance.turnPlayer.AP -= skill.cost;
+        for (int i = 0; i < targets.Count; i++)
+        {
+            dialogueText.text += " " + targets[i].name;
+           
+            // Remeber to cross this bridge (self buff multiple times)
+            skill.ApplyEffects(TurnOrderManager.Instance.turnPlayer,targets[i]);
+        }
+        yield return new WaitForSeconds(2f);
         dialogueText.text = " ";
         enemyTurn = false;
         action = false;
         TOM.EndTurn();
     }
+    
 
     public void EnemyTurn()
     {
@@ -485,9 +479,9 @@ public class BattleManager : MonoBehaviour
         {
             PlayerCharacter temp = PartyManager.Instance.party[i];
 
-            for (int j = 0; j < temp.conditions.Count; j++)
+            for (int j = 0; j < defaultPlayerSlots[i].GetComponent<UnitBody>().conditions.Count; j++)
             {
-                temp.conditions[j].RemoveCondition();
+                defaultPlayerSlots[i].GetComponent<UnitBody>().conditions[j].RemoveCondition();
             }
 
             temp.CopyStats(defaultPlayerSlots[i].GetComponent<UnitBody>());
@@ -508,14 +502,17 @@ public class BattleManager : MonoBehaviour
         {
             PlayerCharacter temp = PartyManager.Instance.party[i];
 
-            for (int j = 0; j < temp.conditions.Count; j++)
+            for (int j = 0; j < defaultPlayerSlots[i].GetComponent<UnitBody>().conditions.Count; j++)
             {
-                temp.conditions[j].RemoveCondition();
+                defaultPlayerSlots[i].GetComponent<UnitBody>().conditions[j].RemoveCondition();
             }
-
+          
             temp.CopyStats(defaultPlayerSlots[i].GetComponent<UnitBody>());
+            temp.currentHP = temp.maxHP;
         }
         dialogueText.text = "You Lose";
+        PlayerPrefs.DeleteAll();
+        EncounterManager.Instance.fightArea = false;
         BattleEnd();
     }
 
@@ -602,10 +599,11 @@ public class BattleManager : MonoBehaviour
         StartCoroutine(turn.EndTurnCo());
     }
 
-    public void EnemyAttack()
+    public void EnemyAttack(Skill skill, List<UnitBody> targets)
     {
-        StartCoroutine(EnemyAttackCo());
+        StartCoroutine(EnemyAttackCo(skill,targets));
     }
+
 
 
 

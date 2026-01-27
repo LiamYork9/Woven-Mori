@@ -26,6 +26,8 @@ public class EncounterManager : MonoBehaviour
     public string sceneName = "LiamYorkTestScene";
     public DialogueInteraction fightText;
 
+    public bool fightArea = false;
+
     public static EncounterManager GetInstance()
     {
         return Instance;
@@ -80,21 +82,21 @@ public class EncounterManager : MonoBehaviour
         if (fightText != null)
         {
 
-            fightText.text.lines[2] = "";
+            fightText.text.activeSegment.DialogText[2] = "";
             for (int i = 0; i < encounteredEnemies.Count; i++)
             {
                 if (i + 1 == encounteredEnemies.Count && encounteredEnemies.Count != 1)
                 {
-                    fightText.text.lines[2] += "and ";
+                    fightText.text.activeSegment.DialogText[2] += "and ";
                 }
-                fightText.text.lines[2] += encounteredEnemies[i].unitName;
+                fightText.text.activeSegment.DialogText[2] += encounteredEnemies[i].unitName;
                 if (i + 1 < encounteredEnemies.Count)
                 {
-                    fightText.text.lines[2] += ", ";
+                    fightText.text.activeSegment.DialogText[2] += ", ";
                 }
                 else
                 {
-                    fightText.text.lines[2] += "!!!";
+                    fightText.text.activeSegment.DialogText[2] += "!!!";
                 }
             }
             fightText.StartDialogue();
