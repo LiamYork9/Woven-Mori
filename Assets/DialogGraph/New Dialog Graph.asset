@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Dialog Answer Segments
   m_EditorClassIdentifier: 
   graph: {fileID: 11400000}
-  position: {x: -344, y: -104}
+  position: {x: -440, y: -152}
   ports:
     keys:
     - Answers
@@ -21,9 +21,6 @@ MonoBehaviour:
     - output
     - Answers 0
     - Answers 1
-    - Answers 2
-    - Answers 3
-    - Answers 4
     values:
     - _fieldName: Answers
       _node: {fileID: -919809504309644391}
@@ -83,44 +80,14 @@ MonoBehaviour:
       _connectionType: 0
       _typeConstraint: 0
       _dynamic: 1
-    - _fieldName: Answers 2
-      _node: {fileID: -919809504309644391}
-      _typeQualifiedName: System.String, mscorlib, Version=4.0.0.0, Culture=neutral,
-        PublicKeyToken=b77a5c561934e089
-      connections: []
-      _direction: 1
-      _connectionType: 0
-      _typeConstraint: 0
-      _dynamic: 1
-    - _fieldName: Answers 3
-      _node: {fileID: -919809504309644391}
-      _typeQualifiedName: System.String, mscorlib, Version=4.0.0.0, Culture=neutral,
-        PublicKeyToken=b77a5c561934e089
-      connections: []
-      _direction: 1
-      _connectionType: 0
-      _typeConstraint: 0
-      _dynamic: 1
-    - _fieldName: Answers 4
-      _node: {fileID: -919809504309644391}
-      _typeQualifiedName: System.String, mscorlib, Version=4.0.0.0, Culture=neutral,
-        PublicKeyToken=b77a5c561934e089
-      connections: []
-      _direction: 1
-      _connectionType: 0
-      _typeConstraint: 0
-      _dynamic: 1
-  portrait: {fileID: 0}
-  speakerName: 
+  portrait: {fileID: -824916867, guid: 2ae8830c3f959ec409a3e5f9c0b93f79, type: 3}
+  speakerName: Baller
   DialogText:
   - Will you help me??
   textSpeed: 0
   Answers:
   - Yes
   - No
-  - Fart
-  - No again
-  - Hi Xander
 --- !u!114 &-142768936856396326
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -197,7 +164,7 @@ MonoBehaviour:
   m_Name: Dialog Segment
   m_EditorClassIdentifier: 
   graph: {fileID: 11400000}
-  position: {x: -632, y: -104}
+  position: {x: -712, y: -104}
   ports:
     keys:
     - input
@@ -224,8 +191,8 @@ MonoBehaviour:
       _connectionType: 0
       _typeConstraint: 0
       _dynamic: 0
-  portrait: {fileID: 0}
-  speakerName: 
+  portrait: {fileID: -2316854331444592169, guid: 2ae8830c3f959ec409a3e5f9c0b93f79, type: 3}
+  speakerName: You
   DialogText:
   - Hello
   textSpeed: 0
