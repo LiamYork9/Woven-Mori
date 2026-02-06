@@ -1,5 +1,131 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
+--- !u!114 &-8954537302996797220
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1b68604c365045a47ad1fbd116ea6bf3, type: 3}
+  m_Name: Dialog Segment
+  m_EditorClassIdentifier: 
+  graph: {fileID: 11400000}
+  position: {x: -552, y: 296}
+  ports:
+    keys:
+    - input
+    - output
+    values:
+    - _fieldName: input
+      _node: {fileID: -8954537302996797220}
+      _typeQualifiedName: Connection, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
+        PublicKeyToken=null
+      connections:
+      - fieldName: outputPaths 1
+        node: {fileID: -8272094174573374170}
+        reroutePoints: []
+      _direction: 0
+      _connectionType: 0
+      _typeConstraint: 0
+      _dynamic: 0
+    - _fieldName: output
+      _node: {fileID: -8954537302996797220}
+      _typeQualifiedName: Connection, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
+        PublicKeyToken=null
+      connections: []
+      _direction: 1
+      _connectionType: 0
+      _typeConstraint: 0
+      _dynamic: 0
+  portrait: {fileID: 0}
+  speakerName: 
+  DialogText:
+  - Already talked to you
+  textSpeed: 0
+--- !u!114 &-8272094174573374170
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 297375ffc6dfe174a8fdb4f89724c139, type: 3}
+  m_Name: Retalk Segment
+  m_EditorClassIdentifier: 
+  graph: {fileID: 11400000}
+  position: {x: -904, y: -120}
+  ports:
+    keys:
+    - outputPaths
+    - input
+    - output
+    - outputPaths 0
+    - outputPaths 1
+    values:
+    - _fieldName: outputPaths
+      _node: {fileID: -8272094174573374170}
+      _typeQualifiedName: System.Collections.Generic.List`1[[System.Boolean, mscorlib,
+        Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]], mscorlib,
+        Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089
+      connections: []
+      _direction: 1
+      _connectionType: 0
+      _typeConstraint: 0
+      _dynamic: 0
+    - _fieldName: input
+      _node: {fileID: -8272094174573374170}
+      _typeQualifiedName: Connection, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
+        PublicKeyToken=null
+      connections: []
+      _direction: 0
+      _connectionType: 0
+      _typeConstraint: 0
+      _dynamic: 0
+    - _fieldName: output
+      _node: {fileID: -8272094174573374170}
+      _typeQualifiedName: Connection, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
+        PublicKeyToken=null
+      connections: []
+      _direction: 1
+      _connectionType: 0
+      _typeConstraint: 0
+      _dynamic: 0
+    - _fieldName: outputPaths 0
+      _node: {fileID: -8272094174573374170}
+      _typeQualifiedName: System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral,
+        PublicKeyToken=b77a5c561934e089
+      connections:
+      - fieldName: input
+        node: {fileID: -919809504309644391}
+        reroutePoints: []
+      _direction: 1
+      _connectionType: 0
+      _typeConstraint: 0
+      _dynamic: 1
+    - _fieldName: outputPaths 1
+      _node: {fileID: -8272094174573374170}
+      _typeQualifiedName: System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral,
+        PublicKeyToken=b77a5c561934e089
+      connections:
+      - fieldName: input
+        node: {fileID: -8954537302996797220}
+        reroutePoints: []
+      _direction: 1
+      _connectionType: 0
+      _typeConstraint: 0
+      _dynamic: 1
+  portrait: {fileID: -2316854331444592169, guid: 2ae8830c3f959ec409a3e5f9c0b93f79, type: 3}
+  speakerName: You
+  DialogText:
+  - Hello
+  textSpeed: 0
+  hasTalked: 0
+  outputPaths: 0001
 --- !u!114 &-919809504309644391
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -37,8 +163,8 @@ MonoBehaviour:
       _typeQualifiedName: Connection, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
         PublicKeyToken=null
       connections:
-      - fieldName: output
-        node: {fileID: 5226520379420899486}
+      - fieldName: outputPaths 0
+        node: {fileID: -8272094174573374170}
         reroutePoints: []
       _direction: 0
       _connectionType: 0
@@ -83,7 +209,7 @@ MonoBehaviour:
   portrait: {fileID: -824916867, guid: 2ae8830c3f959ec409a3e5f9c0b93f79, type: 3}
   speakerName: Baller
   DialogText:
-  - Will you help me??
+  - Will you help me?
   textSpeed: 0
   Answers:
   - Yes
@@ -146,56 +272,12 @@ MonoBehaviour:
   m_Name: New Dialog Graph
   m_EditorClassIdentifier: 
   nodes:
-  - {fileID: 5226520379420899486}
   - {fileID: -919809504309644391}
   - {fileID: 5384176771220472522}
   - {fileID: 8173968579831095419}
   - {fileID: -142768936856396326}
---- !u!114 &5226520379420899486
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1b68604c365045a47ad1fbd116ea6bf3, type: 3}
-  m_Name: Dialog Segment
-  m_EditorClassIdentifier: 
-  graph: {fileID: 11400000}
-  position: {x: -856, y: -152}
-  ports:
-    keys:
-    - input
-    - output
-    values:
-    - _fieldName: input
-      _node: {fileID: 5226520379420899486}
-      _typeQualifiedName: Connection, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
-        PublicKeyToken=null
-      connections: []
-      _direction: 0
-      _connectionType: 0
-      _typeConstraint: 0
-      _dynamic: 0
-    - _fieldName: output
-      _node: {fileID: 5226520379420899486}
-      _typeQualifiedName: Connection, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
-        PublicKeyToken=null
-      connections:
-      - fieldName: input
-        node: {fileID: -919809504309644391}
-        reroutePoints: []
-      _direction: 1
-      _connectionType: 0
-      _typeConstraint: 0
-      _dynamic: 0
-  portrait: {fileID: -2316854331444592169, guid: 2ae8830c3f959ec409a3e5f9c0b93f79, type: 3}
-  speakerName: You
-  DialogText:
-  - Hello
-  textSpeed: 0
+  - {fileID: -8272094174573374170}
+  - {fileID: -8954537302996797220}
 --- !u!114 &5384176771220472522
 MonoBehaviour:
   m_ObjectHideFlags: 0

@@ -112,21 +112,8 @@ public class Dialogue : MonoBehaviour
 
     public void NextNode()
     {
-        if(!(activeSegment is DialogAnswerSegments)){
+        if(activeSegment is DialogAnswerSegments){
         
-            if (activeSegment.GetPort("output").IsConnected)
-            {
-                UpdateDialog(activeSegment.GetPort("output").Connection.node as DialogSegment);
-                  TextBoxManager.Instance.textComponent.text = string.Empty;
-                 StartCoroutine(TypeLine());
-            }
-            else
-            {
-                EndDialogue();
-            }
-        }
-        else
-        {
             if((activeSegment as DialogAnswerSegments).Answers.Count > 0)
             {
                  int answerIndex = 0;
@@ -161,10 +148,49 @@ public class Dialogue : MonoBehaviour
                     EndDialogue();
                 }
             }
+           
         }
+        
+           
+          
+        else if(activeSegment is RetalkSegment)
+        {
+            
+            if(!(activeSegment as RetalkSegment).hasTalked)
+            {
+                 (activeSegment as RetalkSegment).hasTalked = true;
+                UpdateDialog(activeSegment.GetPort("outputPaths 0").Connection.node as DialogSegment);
+                TextBoxManager.Instance.textComponent.text = string.Empty;
+                StartCoroutine(TypeLine());
+              
+            }
+            else
+            {
+                UpdateDialog(activeSegment.GetPort("outputPaths 1").Connection.node as DialogSegment);
+                TextBoxManager.Instance.textComponent.text = string.Empty;
+                StartCoroutine(TypeLine());
+                
+            }
+        }
+          
+        else
+        {
+             if (activeSegment.GetPort("output").IsConnected)
+            {
+                UpdateDialog(activeSegment.GetPort("output").Connection.node as DialogSegment);
+                  TextBoxManager.Instance.textComponent.text = string.Empty;
+                 StartCoroutine(TypeLine());
+            }
+            else
+            {
+                EndDialogue();
+            }
+           
+        }
+    
            
         
-    }
+}
 
      public void AnswerClicked(int clickedIndex)
     {
