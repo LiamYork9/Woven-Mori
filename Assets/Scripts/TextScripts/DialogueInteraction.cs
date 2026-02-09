@@ -6,9 +6,9 @@ public class DialogueInteraction : MonoBehaviour
 {
      public bool InRange = false;
 
-     public GameObject DiologueBox;
 
-    public GameObject topBox;
+
+  
 
      public Dialogue text;
 
@@ -18,9 +18,11 @@ public class DialogueInteraction : MonoBehaviour
 
     public bool notAgain = false;
 
-    public GameObject skip;
+    
 
     public bool scriptedText;
+
+    public bool canTalk = true;
 
     
 
@@ -30,37 +32,39 @@ public class DialogueInteraction : MonoBehaviour
     void Start()
     {
         
-        DiologueBox.SetActive(false);
-        topBox.SetActive(false);
-        skip.SetActive(false);
+        TextBoxManager.Instance.DiologueBox.SetActive(false);
+        TextBoxManager.Instance.topBox.SetActive(false);
+        TextBoxManager.Instance.skip.SetActive(false);
+        TextBoxManager.Instance.nameTextObj.SetActive(false);
     }
  
 
     // Update is called once per frame
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.T))
+        if(text.textActive == true)
         {
-            DiologueBox.SetActive(true);
-            topBox.SetActive(true);
-            skip.SetActive(true);
-
-            text.StartDiolague();
+            canTalk = false;
         }
-
-         if(InRange == true)
+         if(InRange == true && canTalk == true)
             {
                 if (Input.GetKeyDown(KeyCode.Space)&& text.textActive == false && scriptedText == false)
                {
                     
-                    DiologueBox.SetActive(true);
-                    topBox.SetActive(true);
-                    skip.SetActive(true);
+                    TextBoxManager.Instance.DiologueBox.SetActive(true);
+                     TextBoxManager.Instance.topBox.SetActive(true);
+                     TextBoxManager.Instance.skip.SetActive(true);
+                    TextBoxManager.Instance.nameTextObj.SetActive(true);
                     text.StartDiolague();
                     
 
                 }
             }
+        if(text.textActive == false)
+        {
+            canTalk = true;
+        }
+        
 
         
     }
@@ -70,22 +74,23 @@ public class DialogueInteraction : MonoBehaviour
 
 
 
-        if (other.gameObject.CompareTag("Player"))
+        if (other.gameObject.CompareTag("Player")&& text.textActive == false )
         {
             InRange = true;
         }
         
         if (other.gameObject.CompareTag("Player") && scriptedText == true)
         {
-            DiologueBox.SetActive(true);
-            topBox.SetActive(true);
-            skip.SetActive(true);
+            TextBoxManager.Instance.DiologueBox.SetActive(true);
+             TextBoxManager.Instance.topBox.SetActive(true);
+             TextBoxManager.Instance.skip.SetActive(true);
+            TextBoxManager.Instance.nameTextObj.SetActive(true);
             text.StartDiolague();
         }
 
 
         if (other.gameObject.CompareTag("Player")&& pauseGame == true && once == false){
-             DiologueBox.SetActive(true);
+             TextBoxManager.Instance.DiologueBox.SetActive(true);
            
             text.StartDiolague();
             Debug.Log("InText");
@@ -97,7 +102,7 @@ public class DialogueInteraction : MonoBehaviour
 
         if(other.gameObject.CompareTag("Player")&& notAgain == true && once == false)
         {
-            DiologueBox.SetActive(true);
+            TextBoxManager.Instance.DiologueBox.SetActive(true);
             text.StartDiolague();
             Debug.Log("InText");
             
@@ -106,7 +111,7 @@ public class DialogueInteraction : MonoBehaviour
 
         if(other.gameObject.CompareTag("Player")&& notAgain == true && once == false &&  notAgain == false)
         {
-            DiologueBox.SetActive(true);
+            TextBoxManager.Instance.DiologueBox.SetActive(true);
             text.StartDiolague();
             Debug.Log("InText");
             
@@ -126,9 +131,10 @@ public class DialogueInteraction : MonoBehaviour
 
     public void StartDialogue()
     {
-        DiologueBox.SetActive(true);
-        topBox.SetActive(true);
-        skip.SetActive(true);
+        TextBoxManager.Instance.DiologueBox.SetActive(true);
+        TextBoxManager.Instance.topBox.SetActive(true);
+        TextBoxManager.Instance.skip.SetActive(true);
+        TextBoxManager.Instance.nameTextObj.SetActive(true);
         text.StartDiolague();
     }
 

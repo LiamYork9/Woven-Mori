@@ -2,6 +2,7 @@ using UnityEngine;
 using System;
 using XNode;
 using System.Collections.Generic;
+using TMPro;
 
 
 [Serializable]
