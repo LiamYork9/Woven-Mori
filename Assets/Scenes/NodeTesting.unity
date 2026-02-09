@@ -2510,6 +2510,12 @@ MonoBehaviour:
   EndDialogueEvent:
     m_PersistentCalls:
       m_Calls: []
+  StartNodeEvent:
+    m_PersistentCalls:
+      m_Calls: []
+  EndNodeEvent:
+    m_PersistentCalls:
+      m_Calls: []
   dialogText: []
 --- !u!1 &1613291888 stripped
 GameObject:
@@ -2552,6 +2558,7 @@ GameObject:
   - component: {fileID: 1743823527}
   - component: {fileID: 1743823526}
   - component: {fileID: 1743823531}
+  - component: {fileID: 1743823532}
   m_Layer: 0
   m_Name: guy to recruit
   m_TagString: Untagged
@@ -2731,7 +2738,66 @@ MonoBehaviour:
   EndDialogueEvent:
     m_PersistentCalls:
       m_Calls: []
+  StartNodeEvent:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 1743823532}
+        m_TargetAssemblyTypeName: NodeEventSplitter, Assembly-CSharp
+        m_MethodName: ListenEvent
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+  EndNodeEvent:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 1743823532}
+        m_TargetAssemblyTypeName: NodeEventSplitter, Assembly-CSharp
+        m_MethodName: ListenEvent
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
   dialogText: []
+--- !u!114 &1743823532
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1743823525}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5e3b2af2066bf624a812d3bdd8d9b0b8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  eventList:
+  - m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 1743823526}
+        m_TargetAssemblyTypeName: PartyMemberAdder, Assembly-CSharp
+        m_MethodName: AddToParty
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+  eventNames:
+  - AddToParty
 --- !u!1001 &1751154397
 PrefabInstance:
   m_ObjectHideFlags: 0

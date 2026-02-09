@@ -45,6 +45,8 @@ MonoBehaviour:
   DialogText:
   - Already talked to you
   textSpeed: 0
+  endNodeEvent: []
+  startNodeEvent: []
 --- !u!114 &-8272094174573374170
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -124,8 +126,10 @@ MonoBehaviour:
   DialogText:
   - Hello
   textSpeed: 0
-  hasTalked: 0
-  outputPaths: 0001
+  endNodeEvent: []
+  startNodeEvent: []
+  hasTalked: 1
+  outputPaths: 0100
 --- !u!114 &-919809504309644391
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -211,6 +215,8 @@ MonoBehaviour:
   DialogText:
   - Will you help me?
   textSpeed: 0
+  endNodeEvent: []
+  startNodeEvent: []
   Answers:
   - Yes
   - No
@@ -259,6 +265,8 @@ MonoBehaviour:
   DialogText:
   - Wrong
   textSpeed: 0
+  endNodeEvent: []
+  startNodeEvent: []
 --- !u!114 &11400000
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -323,6 +331,11 @@ MonoBehaviour:
   DialogText:
   - YIPPIEEEEE!!!
   textSpeed: 0
+  endNodeEvent:
+  - AddToParty
+  - AddToParty
+  - AddToParty
+  startNodeEvent: []
 --- !u!114 &8173968579831095419
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -368,3 +381,5 @@ MonoBehaviour:
   DialogText:
   - KILL YOUR SELF!
   textSpeed: 0
+  endNodeEvent: []
+  startNodeEvent: []
