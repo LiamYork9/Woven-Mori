@@ -88,6 +88,8 @@ public class BattleManager : MonoBehaviour
 
     public GameObject damageNumber;
 
+    public bool noRunning = false;
+
 
 
 
@@ -460,6 +462,48 @@ public class BattleManager : MonoBehaviour
         action = false;
         TOM.EndTurn();
     }
+
+    IEnumerator RunAwayCo()
+    {
+        ButtonsOff();
+         int fleeNum = Random.Range(-5,11)+TurnOrderManager.Instance.turnPlayer.speed+TurnOrderManager.Instance.turnPlayer.level;
+       int fastEnemy = 0;
+        dialogueText.text = "You try to run away";
+        yield return new WaitForSeconds(1f);
+        for(int i = 0; i < enemySlots.Count; i++)
+            {
+                if(enemySlots[i].GetComponent<UnitBody>().speed + enemySlots[i].GetComponent<UnitBody>().level > fastEnemy)
+                {
+                    fastEnemy = enemySlots[i].GetComponent<UnitBody>().speed + enemySlots[i].GetComponent<UnitBody>().level;
+                }
+            }
+            if(fleeNum > fastEnemy)
+            {
+                for (int i = 0; i < PartyManager.Instance.party.Count; i++)
+            {
+                PlayerCharacter temp = PartyManager.Instance.party[i];
+
+                for (int j = 0; j < defaultPlayerSlots[i].GetComponent<UnitBody>().conditions.Count; j++)
+                {
+                    defaultPlayerSlots[i].GetComponent<UnitBody>().conditions[j].RemoveCondition();
+                }
+
+                temp.CopyStats(defaultPlayerSlots[i].GetComponent<UnitBody>());
+            }
+                dialogueText.text = "You Escape";
+                yield return new WaitForSeconds(1f);
+                BattleEnd();
+            }
+            else
+            {
+                dialogueText.text = "Escape Failed";
+                yield return new WaitForSeconds(1f);
+                TOM.EndTurn();
+            }
+
+
+
+    }
     
 
     public void EnemyTurn()
@@ -602,6 +646,11 @@ public class BattleManager : MonoBehaviour
     public void EnemyAttack(Skill skill, List<UnitBody> targets)
     {
         StartCoroutine(EnemyAttackCo(skill,targets));
+    }
+
+    public void RunAway()
+    {
+        StartCoroutine(RunAwayCo());
     }
 
 
