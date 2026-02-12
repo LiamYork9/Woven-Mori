@@ -27,7 +27,7 @@ MonoBehaviour:
   mDefense: 17
   speed: 20
   maxHP: 45
-  currentHP: 10
+  currentHP: 45
   initiative: 0
   localTurnCount: 0
   localTurnCountCurrentVal: 0
