@@ -1,12 +1,15 @@
 using System.Collections.Generic;
 using UnityEngine;
+using System;
 
-public enum EquipmentType
+[Flags]
+public enum Classes
     {
-        Weapon,
-        Armor,
-        Accessory,
-        Scroll
+        Protag=1<<0,
+        Barbarian=1<<1,
+        Cleric=1<<2,
+        Rogue=1<<3,
+        All=~0
     }
 
 [CreateAssetMenu(fileName = "Equipment", menuName = "ScriptableObjects/Item/Equipment")]
@@ -14,7 +17,7 @@ public enum EquipmentType
 
 public class Equipment : Item
 {
-    public EquipmentType equipmentType;
+    public Classes classList;
     public bool equiped;
 
     public Unit user;

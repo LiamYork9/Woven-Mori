@@ -4,11 +4,12 @@ using UnityEngine;
 [System.Serializable]
 public class PlayerCharacter : Unit
 {
-    public Equipment weapon; 
+    public Classes theirClass;
+    public Weapon weapon; 
 
-    public Equipment armor;
+    public Armor armor;
 
-    public Equipment accessory;
+    public Accessory accessory;
 
     void Start()
     {
@@ -75,6 +76,22 @@ public class PlayerCharacter : Unit
         }
 
         base.Death(body);
+    }
+
+    public void EquipGear(Equipment equipment)
+    {
+        if(equipment is Weapon)
+        {
+            weapon = equipment as Weapon;
+        }
+        else if (equipment is Armor)
+        {
+            armor = equipment as Armor;
+        }
+        else if(equipment is Accessory)
+        {
+            accessory = equipment as Accessory;
+        }
     }
 }
 

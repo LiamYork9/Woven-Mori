@@ -25,9 +25,9 @@ MonoBehaviour:
   attack: 18
   defense: 12
   mDefense: 17
+  speed: 20
   maxHP: 45
   currentHP: 10
-  speed: 20
   initiative: 0
   localTurnCount: 0
   localTurnCountCurrentVal: 0
@@ -35,6 +35,10 @@ MonoBehaviour:
   APCap: 10
   APGain: 1
   emergencybutton: 100
+  theirClass: 0
+  weapon: {fileID: 0}
+  armor: {fileID: 0}
+  accessory: {fileID: 0}
   references:
     version: 2
     RefIds: []

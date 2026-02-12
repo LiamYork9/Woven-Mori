@@ -9,7 +9,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 31bdec04d729b2e4d98960a0d834b3ca, type: 3}
+  m_Script: {fileID: 11500000, guid: 31aa37704f81cfc45aaca42d462239a4, type: 3}
   m_Name: ACoolHat
   m_EditorClassIdentifier: 
   itemSprite: {fileID: 0}
@@ -18,7 +18,7 @@ MonoBehaviour:
   sellValue: 0
   stackable: 0
   maxStack: 0
-  equipmentType: 0
+  classList: 0
   equiped: 0
   user: {fileID: 0}
-  stats: 000000000000000000000000000000000000000000000000
+  stats: 000000000000000000000000000000000000000001000000
