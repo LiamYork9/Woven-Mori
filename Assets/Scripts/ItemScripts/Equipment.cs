@@ -19,9 +19,6 @@ public class Equipment : Item
 {
     public Classes classList;
     public bool equiped;
-
-    public Unit user;
-
     public List<int> stats = new List<int> {0,0,0,0,0,0};
 
     public void OnEquip()

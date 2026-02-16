@@ -87,7 +87,7 @@ public class SkillMaker : MonoBehaviour
         {
             if (madeSkills[i].skillId == Id)
             {
-                return madeSkills[i];
+                return new Skill( madeSkills[i].skillId, madeSkills[i].name, madeSkills[i].element, madeSkills[i].target, madeSkills[i].category, madeSkills[i].accurcy, madeSkills[i].cost, madeSkills[i].toolTip, madeSkills[i].chance, madeSkills[i].turnShift, madeSkills[i].attrs, madeSkills[i].condtions);
             }
         }
         return null;
