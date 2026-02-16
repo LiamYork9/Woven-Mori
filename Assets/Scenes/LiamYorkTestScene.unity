@@ -784,7 +784,7 @@ PrefabInstance:
       objectReference: {fileID: 744602751}
     - target: {fileID: 6150715196394293801, guid: 8089a5ef6f4ee464ea9324d77e01a3da, type: 3}
       propertyPath: sceneName
-      value: DemoScene
+      value: NodeTesting
       objectReference: {fileID: 0}
     - target: {fileID: 6150715196394293801, guid: 8089a5ef6f4ee464ea9324d77e01a3da, type: 3}
       propertyPath: skillMenu
@@ -1181,6 +1181,34 @@ PrefabInstance:
     - target: {fileID: 7648609458876619987, guid: c14100d79b2ddbd4c97c369e306032c3, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8194778413587452179, guid: c14100d79b2ddbd4c97c369e306032c3, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8194778413587452179, guid: c14100d79b2ddbd4c97c369e306032c3, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8194778413587452179, guid: c14100d79b2ddbd4c97c369e306032c3, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 645222400}
+    - target: {fileID: 8194778413587452179, guid: c14100d79b2ddbd4c97c369e306032c3, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_CallState
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 8194778413587452179, guid: c14100d79b2ddbd4c97c369e306032c3, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: RunAway
+      objectReference: {fileID: 0}
+    - target: {fileID: 8194778413587452179, guid: c14100d79b2ddbd4c97c369e306032c3, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
+      value: BattleManager, Assembly-CSharp
+      objectReference: {fileID: 0}
+    - target: {fileID: 8194778413587452179, guid: c14100d79b2ddbd4c97c369e306032c3, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
+      value: UnityEngine.Object, UnityEngine
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

@@ -35,11 +35,12 @@ public class UnitBody : MonoBehaviour
 
     public int mDefense = 1;
 
+    public int speed = 1;
+
     public int maxHP;
 
     public int currentHP;
 
-    public int speed = 1;
 
     public int initiative;
 
@@ -65,6 +66,8 @@ public class UnitBody : MonoBehaviour
     public UnityEvent EndOfTurn;
 
      public HPTest hPTest;
+
+    public List<int> equipmentStats = new List<int> {0,0,0,0,0,0};
 
    
     // Start is called once before the first execution of Update after the MonoBehaviour is created
@@ -109,20 +112,24 @@ public class UnitBody : MonoBehaviour
 
     public void CopyStats(Unit target)
     {
+        if(target is PlayerCharacter)
+        {
+            CheckEquipment(target as PlayerCharacter);
+        }
         name = target.unitName;
         skills = target.skills;
         partyMember = target.partyMember;
         chSprite = target.chSprite;
         deathSprite = target.deathSprite;
         level = target.level;
-        attack = target.attack;
-        defense = target.defense;
-        mDefense = target.mDefense;
-        maxHP = target.maxHP;
+        attack = target.attack + equipmentStats[0];
+        defense = target.defense + equipmentStats[1];
+        mDefense = target.mDefense + equipmentStats[2];
+        speed = target.speed + equipmentStats[3];
+        maxHP = target.maxHP + equipmentStats[4];
         currentHP = target.currentHP;
-        speed = target.speed;
         APCap = target.APCap;
-        APGain = target.APGain;
+        APGain = target.APGain + equipmentStats[5];
         resistance = target.resistance;
         immunity = target.immunity;
         vulnerability = target.vulnerability;
@@ -141,6 +148,28 @@ public class UnitBody : MonoBehaviour
         maxHP = 0;
         currentHP = 0;
         speed = 0;
+    }
+
+    public void CheckEquipment(PlayerCharacter target)
+    {
+        equipmentStats = new List<int> {0,0,0,0,0,0};
+
+        for(int i = 0; i < equipmentStats.Count; i++)
+        {
+            if(target.armor != null)
+            {
+                equipmentStats[i] += target.armor.stats[i];
+            }
+            if(target.weapon != null)
+            {
+                equipmentStats[i] += target.weapon.stats[i];
+            }
+            if(target.accessory != null)
+            {
+                equipmentStats[i] += target.accessory.stats[i];
+            }
+           
+        }
     }
 
     public void TakeDamage(int damageValue, DamageType damageType = DamageType.Physical, Element element = Element.None)

@@ -2,10 +2,15 @@ using UnityEngine;
 using System;
 using XNode;
 using System.Collections.Generic;
+using TMPro;
+
+
+
 
 
 [Serializable]
 public struct Connection {}
+
 public class DialogSegment : Node
 {
     public Sprite portrait;
@@ -19,9 +24,17 @@ public class DialogSegment : Node
 
      public float textSpeed;
 
+     public List<string> endNodeEvent;
+
+     public List<string> startNodeEvent;
+
+
+
     [Output]
 
     public Connection output;
+
+   
 
     public override object GetValue(NodePort port)
     {
