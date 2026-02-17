@@ -20,9 +20,15 @@ MonoBehaviour:
   stackable: 0
   maxStack: 0
   classList: 0
-  equipmentAttrs: []
+  equipmentAttrs:
+  - rid: 618942989461356650
   equiped: 0
   stats: 000000000500000005000000000000000000000000000000
   references:
     version: 2
-    RefIds: []
+    RefIds:
+    - rid: 618942989461356650
+      type: {class: SkillBoostAttr, ns: MoriSkills, asm: Assembly-CSharp}
+      data:
+        name: Skill Boost
+        boostValue: 4

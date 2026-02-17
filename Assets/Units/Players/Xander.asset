@@ -36,9 +36,9 @@ MonoBehaviour:
   APGain: 1
   emergencybutton: 100
   theirClass: 0
-  weapon: {fileID: 0}
-  armor: {fileID: 0}
-  accessory: {fileID: 0}
+  weapon: {fileID: 11400000, guid: 05a4881bbeb364b49923a2507d5ce8b1, type: 2}
+  armor: {fileID: 11400000, guid: 0d5ac9a214cb58741b2c494ada04ccf2, type: 2}
+  accessory: {fileID: 11400000, guid: 08abe7bc70b149144827e568aa2164fb, type: 2}
   references:
     version: 2
     RefIds: []

@@ -19,17 +19,21 @@ public class Forge : MonoBehaviour
 
     public void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Space))
+        if (Input.GetKeyDown(KeyCode.Tab))
         {
-            AddAttr();
+            if(equipment != null)
+            {
+                AddAttr();
+            }
         }
     }
     public void AddAttr()
     {
+       
         switch (equipmentAttrTypes)
         {
             case EquipmentAttrTypes.skillBoost: 
-            equipment.AddAttr(skillBoostAttr);
+            equipment.AddAttr(skillBoostAttr.ShallowCopy());
             break;
 
             default: break;

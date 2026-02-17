@@ -21,17 +21,32 @@ MonoBehaviour:
   maxStack: 0
   classList: 0
   equipmentAttrs:
-  - rid: 618942987092361361
-  - rid: 618942987092361361
-  - rid: 618942987092361361
-  - rid: 618942987092361361
+  - rid: 618942989461356623
+  - rid: 618942989461356624
+  - rid: 618942989461356635
+  - rid: 618942989461356636
   equiped: 0
   stats: 050000000000000000000000000000000000000000000000
   references:
     version: 2
     RefIds:
-    - rid: 618942987092361361
+    - rid: 618942989461356623
       type: {class: SkillBoostAttr, ns: MoriSkills, asm: Assembly-CSharp}
       data:
-        name: BoostAttr
-        boostValue: 100
+        name: Skill Boost
+        boostValue: 5
+    - rid: 618942989461356624
+      type: {class: SkillBoostAttr, ns: MoriSkills, asm: Assembly-CSharp}
+      data:
+        name: Skill Boost
+        boostValue: 0
+    - rid: 618942989461356635
+      type: {class: SkillBoostAttr, ns: MoriSkills, asm: Assembly-CSharp}
+      data:
+        name: Skill Boost
+        boostValue: 4
+    - rid: 618942989461356636
+      type: {class: SkillBoostAttr, ns: MoriSkills, asm: Assembly-CSharp}
+      data:
+        name: Skill Boost
+        boostValue: 4

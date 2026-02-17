@@ -23,6 +23,9 @@ public class UnitBody : MonoBehaviour
     [SerializeReference]
     public List<Condition> conditions;
 
+    [SerializeReference]
+    public List<EquipmentAttr> equipmentAttrs;
+
     public Sprite chSprite;
 
     public Sprite deathSprite;
@@ -78,6 +81,9 @@ public class UnitBody : MonoBehaviour
            SetUnit(unit);
         }
         hPTest.SetHpBar();
+        if(equipmentAttrs == null){
+        equipmentAttrs = new List<EquipmentAttr>();
+        }
     }
 
     // Update is called once per frame

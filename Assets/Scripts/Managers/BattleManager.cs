@@ -319,6 +319,15 @@ public class BattleManager : MonoBehaviour
             playerSlots[i].SetActive(true);
             UnitBody temp = playerSlots[i].GetComponent<UnitBody>();
             temp.SetUnit(PartyManager.Instance.party[i]);
+            if((temp.unit as PlayerCharacter).weapon != null){
+            temp.equipmentAttrs.AddRange((temp.unit as PlayerCharacter).weapon.equipmentAttrs);
+            }
+             if((temp.unit as PlayerCharacter).armor != null){
+            temp.equipmentAttrs.AddRange((temp.unit as PlayerCharacter).armor.equipmentAttrs);
+            }
+             if((temp.unit as PlayerCharacter).accessory != null){
+            temp.equipmentAttrs.AddRange((temp.unit as PlayerCharacter).accessory.equipmentAttrs);
+            }
             playerSlots[i].GetComponent<Image>().sprite = temp.chSprite;
         }
 
@@ -373,6 +382,15 @@ public class BattleManager : MonoBehaviour
                 PartyManager.Instance.party[i].currentHP = 1;
             }
             temp.SetUnit(PartyManager.Instance.party[i]);
+           if((temp.unit as PlayerCharacter).weapon != null){
+            temp.equipmentAttrs.AddRange((temp.unit as PlayerCharacter).weapon.equipmentAttrs);
+            }
+             if((temp.unit as PlayerCharacter).armor != null){
+            temp.equipmentAttrs.AddRange((temp.unit as PlayerCharacter).armor.equipmentAttrs);
+            }
+             if((temp.unit as PlayerCharacter).accessory != null){
+            temp.equipmentAttrs.AddRange((temp.unit as PlayerCharacter).accessory.equipmentAttrs);
+            }
             playerSlots[i].GetComponent<Image>().sprite = temp.chSprite;
         }
 

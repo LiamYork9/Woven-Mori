@@ -43,6 +43,7 @@ namespace MoriSkills
 
         public SkillBoostAttr(int boost)
         {
+            name = "Skill Boost";
             boostValue = boost;
         }
 

@@ -172,6 +172,10 @@ public class SkillButtonScript : MonoBehaviour
                     skillButtons[i].GetComponent<ToolTipSkill>().skill = SkillMaker.Instance.GetById(TurnOrderManager.Instance.turnPlayer.skills[i + page]);
                     skillButtons[i].GetComponent<ToolTipSkill>().skillId = skillButtons[i].GetComponent<ToolTipSkill>().skill.skillId;
                     skillButtons[i].GetComponentInChildren<TextMeshProUGUI>().text = TurnOrderManager.Instance.turnPlayer.skills[i + page].ToString();
+                    for( int j = 0; j < TurnOrderManager.Instance.turnPlayer.equipmentAttrs.Count; j++)
+                    {
+                        TurnOrderManager.Instance.turnPlayer.equipmentAttrs[j].ActivateOnSkill(skillButtons[i].GetComponent<ToolTipSkill>().skill);
+                    }
                     
                 }
                 else
