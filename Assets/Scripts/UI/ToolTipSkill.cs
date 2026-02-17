@@ -7,6 +7,7 @@ public class ToolTipSkill : MonoBehaviour, IPointerEnterHandler, IPointerExitHan
 
 {
     public SkillId skillId;
+    public Skill skill;
 
     public UnityEvent<GameObject> hoverEvent;
     public UnityEvent unHoverEvent;

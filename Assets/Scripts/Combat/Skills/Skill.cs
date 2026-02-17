@@ -114,8 +114,11 @@ namespace MoriSkills
                 attrs = new List<SkillAttr> { };
             }
             else
-            {
-                attrs = Sattr;
+            {   attrs = new List<SkillAttr> { };
+                for(int i = 0; i < Sattr.Count; i++)
+                {
+                    Attr(Sattr[i].ShallowCopy());
+                }
             }
             if (Scondtions == null)
             {
@@ -123,7 +126,8 @@ namespace MoriSkills
             }
             else
             {
-                condtions = Scondtions;
+                condtions = new List<Condtion> { };
+                condtions.AddRange(Scondtions);
             }
         }
 
