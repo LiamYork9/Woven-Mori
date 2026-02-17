@@ -149,7 +149,7 @@ public class SkillButtonScript : MonoBehaviour
 
     public void ToolTipAdder(GameObject button)
     {
-        Skill temp = SkillMaker.Instance.GetById(button.GetComponent<ToolTipSkill>().skillId);
+        Skill temp = button.GetComponent<ToolTipSkill>().skill;
         toolTip.text = temp.toolTip;
         turnShift.text = "TurnShift: " + temp.turnShift;
         skillCost.text = "Cost: " + temp.cost;
@@ -169,9 +169,10 @@ public class SkillButtonScript : MonoBehaviour
             {
                 if ((i + page) < TurnOrderManager.Instance.turnPlayer.skills.Count && TurnOrderManager.Instance.turnPlayer.skills[i + page] != SkillId.None)
                 {
+                    skillButtons[i].GetComponent<ToolTipSkill>().skill = SkillMaker.Instance.GetById(TurnOrderManager.Instance.turnPlayer.skills[i + page]);
+                    skillButtons[i].GetComponent<ToolTipSkill>().skillId = skillButtons[i].GetComponent<ToolTipSkill>().skill.skillId;
                     skillButtons[i].GetComponentInChildren<TextMeshProUGUI>().text = TurnOrderManager.Instance.turnPlayer.skills[i + page].ToString();
-                    skillButtons[i].GetComponent<ToolTipSkill>().skillId = TurnOrderManager.Instance.turnPlayer.skills[i + page];
-
+                    
                 }
                 else
                 {
@@ -357,12 +358,9 @@ public class SkillButtonScript : MonoBehaviour
 
     public void SkillUse(GameObject button)
     {
-        selectedSkill = SkillMaker.Instance.GetById(button.GetComponent<ToolTipSkill>().skillId);
+        selectedSkill = button.GetComponent<ToolTipSkill>().skill;
         if (TurnOrderManager.Instance.turnPlayer.AP >= selectedSkill.cost)
         {
-
-
-
             if (selectedSkill.target == Target.single)
             {
                 NullText();

@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.AI;
 
 namespace MoriSkills
 {
@@ -31,6 +32,11 @@ namespace MoriSkills
 
         }
 
+        public virtual SkillAttr ShallowCopy()
+        {
+            return (SkillAttr)this.MemberwiseClone();
+        }
+
         public virtual void ActivateAttr(UnitBody unitUser, UnitBody unitTarget)
         {
 
@@ -53,7 +59,15 @@ namespace MoriSkills
 
         public override void ActivateAttr(UnitBody unitUser, UnitBody unitTarget)
         {
-            unitTarget.TakeDamage(power * unitUser.attack, type, element);
+            if(targetSelf)
+            {
+                unitUser.TakeDamage(power * unitUser.attack, type, element);                
+            }
+            else
+            {
+                unitTarget.TakeDamage(power * unitUser.attack, type, element);
+            }
+           
         }
 
     }
@@ -153,6 +167,17 @@ namespace MoriSkills
                 }
                 scaledAttr[i].ActivateAttr(unitUser, unitTarget);
             }
+        }
+
+        public override SkillAttr ShallowCopy()
+        {
+            LevelScaleAttr temp = (LevelScaleAttr)this.MemberwiseClone();
+            temp.scaledAttr = new List<SkillAttr>();
+            for(int i=0; i<scaledAttr.Count; i++)
+            {
+                temp.scaledAttr.Add(scaledAttr[i].ShallowCopy());
+            }
+            return temp;
         }
     }
 
@@ -290,6 +315,22 @@ namespace MoriSkills
                     oddAttr[i].ActivateAttr(unitUser, unitTarget);
                 }
             }
+        }
+
+        public override SkillAttr ShallowCopy()
+        {
+            EvenOddAttr temp = (EvenOddAttr)this.MemberwiseClone();
+            temp.oddAttr = new List<SkillAttr>();
+            temp.evenAttr = new List<SkillAttr>();
+            for(int i=0; i<oddAttr.Count; i++)
+            {
+                temp.oddAttr.Add(oddAttr[i].ShallowCopy());
+            }
+            for(int i=0; i<evenAttr.Count; i++)
+            {
+                temp.evenAttr.Add(evenAttr[i].ShallowCopy());
+            }
+            return temp;
         }
     }
 
