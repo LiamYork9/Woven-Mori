@@ -25,9 +25,9 @@ MonoBehaviour:
   attack: 20
   defense: 22
   mDefense: 13
+  speed: 18
   maxHP: 60
   currentHP: 60
-  speed: 18
   initiative: 0
   localTurnCount: 0
   localTurnCountCurrentVal: 0

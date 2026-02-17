@@ -130,9 +130,22 @@ public class UnitBody : MonoBehaviour
         currentHP = target.currentHP;
         APCap = target.APCap;
         APGain = target.APGain + equipmentStats[5];
-        resistance = target.resistance;
-        immunity = target.immunity;
-        vulnerability = target.vulnerability;
+        resistance = new List<Element>();
+        for(int i = 0; i < target.resistance.Count; i++)
+        {
+             resistance.Add(target.resistance[i]);
+        }
+        vulnerability = new List<Element>();
+        for(int i = 0; i < target.vulnerability.Count; i++)
+        {
+             vulnerability.Add(target.vulnerability[i]);
+        }
+        immunity = new List<Element>();
+        for(int i = 0; i < target.immunity.Count; i++)
+        {
+             immunity.Add(target.immunity[i]);
+        }
+        
     }
 
     public void ClearStats()

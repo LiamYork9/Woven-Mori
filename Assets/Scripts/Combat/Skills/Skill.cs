@@ -97,10 +97,11 @@ namespace MoriSkills
         public List<Condtion> condtions;
 
 
-        public Skill(SkillId SskillId, string SskillName, Element Selement, Target defualtTarget, Category Scategory, int Saccuracy, int Scost, string StoolTip, int Schance, int SturnShift, List<SkillAttr> Sattr = null, List<Condtion> Scondtions = null)
+        public Skill(SkillId SskillId, string SskillName, int Spower, Element Selement, Target defualtTarget, Category Scategory, int Saccuracy, int Scost, string StoolTip, int Schance, int SturnShift, List<SkillAttr> Sattr = null, List<Condtion> Scondtions = null)
         {
             skillId = SskillId;
             name = SskillName;
+            power = Spower;
             element = Selement;
             target = defualtTarget;
             category = Scategory;
@@ -160,7 +161,7 @@ namespace MoriSkills
             TurnOrderManager.Instance.turnOrder[0].turnShift = turnShift;
             for (int i = 0; i < attrs.Count; i++)
             {
-                attrs[i].ActivateAttr(unitUser,unitTarget);
+                attrs[i].ActivateAttr(unitUser,unitTarget,power);
             }
         }
 
