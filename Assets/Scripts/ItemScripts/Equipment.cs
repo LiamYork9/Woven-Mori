@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using System;
+using MoriSkills;
 
 [Flags]
 public enum Classes
@@ -18,6 +19,8 @@ public enum Classes
 public class Equipment : Item
 {
     public Classes classList;
+    [SerializeReference]
+    public List<EquipmentAttr> equipmentAttrs;
     public bool equiped;
     public List<int> stats = new List<int> {0,0,0,0,0,0};
 
@@ -29,5 +32,10 @@ public class Equipment : Item
     public void OnUnequip()
     {
         
+    }
+
+     public void AddAttr(EquipmentAttr equipmentAttr)
+    {
+        equipmentAttrs.Add(equipmentAttr);
     }
 }

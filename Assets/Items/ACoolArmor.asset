@@ -14,11 +14,15 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   itemSprite: {fileID: 0}
   itemName: 
+  itemDescription: 
   value: 0
   sellValue: 0
   stackable: 0
   maxStack: 0
   classList: 0
+  equipmentAttrs: []
   equiped: 0
-  user: {fileID: 0}
   stats: 000000000500000005000000000000000000000000000000
+  references:
+    version: 2
+    RefIds: []

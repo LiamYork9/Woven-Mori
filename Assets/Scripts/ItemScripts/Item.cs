@@ -6,6 +6,8 @@ public class Item : ScriptableObject
     public Sprite itemSprite;
     public string itemName;
 
+    public string itemDescription;
+
     public int value;
 
     public int sellValue;

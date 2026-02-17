@@ -14,11 +14,24 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   itemSprite: {fileID: 0}
   itemName: 
+  itemDescription: 
   value: 0
   sellValue: 0
   stackable: 0
   maxStack: 0
   classList: 0
+  equipmentAttrs:
+  - rid: 618942987092361361
+  - rid: 618942987092361361
+  - rid: 618942987092361361
+  - rid: 618942987092361361
   equiped: 0
-  user: {fileID: 0}
   stats: 050000000000000000000000000000000000000000000000
+  references:
+    version: 2
+    RefIds:
+    - rid: 618942987092361361
+      type: {class: SkillBoostAttr, ns: MoriSkills, asm: Assembly-CSharp}
+      data:
+        name: BoostAttr
+        boostValue: 100
