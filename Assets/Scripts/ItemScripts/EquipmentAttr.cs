@@ -1,6 +1,6 @@
 using UnityEngine;
 
-namespace MoriSkills
+namespace MoriSkills 
 {
     public enum EquipmentAttrTypes
     {
@@ -8,13 +8,16 @@ namespace MoriSkills
         skillBoost
     }
      [System.Serializable]
-    public class EquipmentAttr 
+
+     [CreateAssetMenu(fileName = "EquipmentAttr", menuName = "ScriptableObjects/EqupmentAttr")]
+    public class EquipmentAttr : ScriptableObject
     {
-        public string name;
+        public bool basicAttackAttr = false;
+        public string attrName;
 
         public EquipmentAttr()
         {
-            name = "Generic Attr";
+            attrName = "Generic Attr";
            
 
         }
@@ -33,23 +36,14 @@ namespace MoriSkills
         {
             
         }
+        
     
         
     }
 
-    public class SkillBoostAttr: EquipmentAttr
-    {
-        public int boostValue;
+   
 
-        public SkillBoostAttr(int boost)
-        {
-            name = "Skill Boost";
-            boostValue = boost;
-        }
+    
 
-        public override void ActivateOnSkill(Skill skill)
-        {
-            skill.power += boostValue;
-        }
-    }
+     
 }

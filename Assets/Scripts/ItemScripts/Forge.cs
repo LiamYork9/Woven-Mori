@@ -1,43 +1,43 @@
-using UnityEngine;
-using MoriSkills;
+// using UnityEngine;
+// using MoriSkills;
 
 
 
-public class Forge : MonoBehaviour
-{
-    public Equipment equipment;
+// public class Forge : MonoBehaviour
+// {
+//     public Equipment equipment;
 
-    public EquipmentAttrTypes equipmentAttrTypes;
+//     public EquipmentAttrTypes equipmentAttrTypes;
 
-    [SerializeReference]
-    public  SkillBoostAttr skillBoostAttr;
+//     [SerializeReference]
+//     //public  SkillBoostAttr skillBoostAttr;
 
-    public void Start()
-    {
-        skillBoostAttr = new SkillBoostAttr(4);
-    }
+//     public void Start()
+//     {
+//         //skillBoostAttr = new SkillBoostAttr(4);
+//     }
 
-    public void Update()
-    {
-        if (Input.GetKeyDown(KeyCode.Tab))
-        {
-            if(equipment != null)
-            {
-                AddAttr();
-            }
-        }
-    }
-    public void AddAttr()
-    {
+//     public void Update()
+//     {
+//         if (Input.GetKeyDown(KeyCode.Tab))
+//         {
+//             if(equipment != null)
+//             {
+//                 AddAttr();
+//             }
+//         }
+//     }
+//     public void AddAttr()
+//     {
        
-        switch (equipmentAttrTypes)
-        {
-            case EquipmentAttrTypes.skillBoost: 
-            equipment.AddAttr(skillBoostAttr.ShallowCopy());
-            break;
+//         switch (equipmentAttrTypes)
+//         {
+//             case EquipmentAttrTypes.skillBoost: 
+//             equipment.AddAttr(skillBoostAttr.ShallowCopy());
+//             break;
 
-            default: break;
+//             default: break;
 
-        }
-    }
-}
+//         }
+//     }
+// }

@@ -328,6 +328,10 @@ public class BattleManager : MonoBehaviour
              if((temp.unit as PlayerCharacter).accessory != null){
             temp.equipmentAttrs.AddRange((temp.unit as PlayerCharacter).accessory.equipmentAttrs);
             }
+            for(int j = 0; j<temp.equipmentAttrs.Count; j++)
+            {
+                temp.equipmentAttrs[j].ActivateAttr(playerSlots[i].GetComponent<UnitBody>());
+            }
             playerSlots[i].GetComponent<Image>().sprite = temp.chSprite;
         }
 
@@ -391,6 +395,10 @@ public class BattleManager : MonoBehaviour
              if((temp.unit as PlayerCharacter).accessory != null){
             temp.equipmentAttrs.AddRange((temp.unit as PlayerCharacter).accessory.equipmentAttrs);
             }
+             for(int j = 0; j<temp.equipmentAttrs.Count; j++)
+            {
+                temp.equipmentAttrs[j].ActivateAttr(playerSlots[i].GetComponent<UnitBody>());
+            }
             playerSlots[i].GetComponent<Image>().sprite = temp.chSprite;
         }
 
@@ -453,7 +461,12 @@ public class BattleManager : MonoBehaviour
         targetArrow.SetActive(false);
         dialogueText.text = TOM.turnPlayer.name + " has Attacked " + target.GetComponent<UnitBody>().name;
         yield return new WaitForSeconds(2f);
-        SkillMaker.Instance.GetById(SkillId.Attack).ApplyEffects(TurnOrderManager.Instance.turnPlayer,target.GetComponent<UnitBody>());
+        Skill temp = SkillMaker.Instance.GetById(SkillId.Attack);
+        for(int i = 0; i<TurnOrderManager.Instance.turnPlayer.equipmentAttrs.Count; i++)
+        {
+            TurnOrderManager.Instance.turnPlayer.equipmentAttrs[i].ActivateOnSkill(temp);
+        }
+        temp.ApplyEffects(TurnOrderManager.Instance.turnPlayer,target.GetComponent<UnitBody>());
         yield return new WaitForSeconds(2f);
         TOM.EndTurn();
 

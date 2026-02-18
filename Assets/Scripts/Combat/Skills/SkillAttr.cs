@@ -46,8 +46,8 @@ namespace MoriSkills
     public class DamageAttr : SkillAttr
     {
         public float mutiplier;
-        DamageType type;
-        Element element;
+        public DamageType type;
+        public Element element;
 
         public DamageAttr(float skillMult, DamageType damageType, Element damageElement = Element.None, bool targetSelf = false) : base(targetSelf)
         {
@@ -138,7 +138,7 @@ namespace MoriSkills
     {
         int scaleValue;
         [SerializeReference]
-        List<SkillAttr> scaledAttr = null;
+        public List<SkillAttr> scaledAttr = null;
 
         public LevelScaleAttr Attr(SkillAttr addedAttr)
         {
@@ -162,7 +162,7 @@ namespace MoriSkills
             for(int i = 0; i < scaledAttr.Count; i++)
             {
                 
-                scaledAttr[i].ActivateAttr(unitUser, unitTarget,power*scaleValue*unitUser.level);
+                scaledAttr[i].ActivateAttr(unitUser, unitTarget,power+scaleValue*unitUser.level);
             }
         }
 

@@ -21,14 +21,6 @@ MonoBehaviour:
   maxStack: 0
   classList: 0
   equipmentAttrs:
-  - rid: 618942989461356649
+  - {fileID: 11400000, guid: 108ba873f87035b4fb264866b970d911, type: 2}
   equiped: 0
   stats: 000000000000000000000000000000000000000001000000
-  references:
-    version: 2
-    RefIds:
-    - rid: 618942989461356649
-      type: {class: SkillBoostAttr, ns: MoriSkills, asm: Assembly-CSharp}
-      data:
-        name: Skill Boost
-        boostValue: 4

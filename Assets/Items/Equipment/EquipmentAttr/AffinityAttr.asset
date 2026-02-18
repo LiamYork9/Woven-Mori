@@ -1,0 +1,19 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 565a89a5ec349b9439575a234f7f8592, type: 3}
+  m_Name: AffinityAttr
+  m_EditorClassIdentifier: 
+  basicAttackAttr: 0
+  attrName: Generic Attr
+  vulnerability: 
+  immunity: 00000000
+  resistince: 05000000

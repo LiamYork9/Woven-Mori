@@ -76,7 +76,7 @@ public class UnitBody : MonoBehaviour
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
-        if (unit != null)
+        if (unit != null && unit.partyMember == false)
         {
            SetUnit(unit);
         }
