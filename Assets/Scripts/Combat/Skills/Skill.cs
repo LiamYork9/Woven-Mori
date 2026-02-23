@@ -161,7 +161,7 @@ namespace MoriSkills
             TurnOrderManager.Instance.turnOrder[0].turnShift = turnShift;
             for (int i = 0; i < attrs.Count; i++)
             {
-                attrs[i].ActivateAttr(unitUser,unitTarget,power);
+                attrs[i].ActivateAttr(unitUser,unitTarget,power,element);
             }
         }
 

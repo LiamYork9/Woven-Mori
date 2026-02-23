@@ -45,7 +45,7 @@ public class SkillMaker : MonoBehaviour
     {
         Skill Attack = new Skill(SkillId.Attack, "Attack",1, Element.None, Target.single, Category.Attack, 100, 0, "Your basic attack", 0, 1).Attr(new LevelScaleAttr(1).Attr(new DamageAttr(1,DamageType.Physical)));
         madeSkills.Add(Attack);
-        Skill EndBringer = new Skill(SkillId.EndBringer, "End Bringer",100 , Element.Fate, Target.single, Category.Attack, 100, 4, "This shit kills people", 0, 2).Attr(new DamageAttr(1,DamageType.Magic,Element.Fate)).Attr(new DamageAttr(0.1f,DamageType.Magic,Element.Fate,true));
+        Skill EndBringer = new Skill(SkillId.EndBringer, "End Bringer",100 , Element.Fate, Target.single, Category.Attack, 100, 4, "This shit kills people", 0, 2).Attr(new DamageAttr(1,DamageType.Magic,Element.Fate)).Attr(new DamageAttr(0.1f,DamageType.Magic,Element.Fate,true,true));
         madeSkills.Add(EndBringer);
         Skill SmallPunch = new Skill(SkillId.SmallPunch, "Small Punch",10 , Element.None, Target.single, Category.Attack, 100, 1, "You punch them", 100, 1).Attr(new DamageAttr(1,DamageType.Magic));
         madeSkills.Add(SmallPunch);
@@ -61,7 +61,7 @@ public class SkillMaker : MonoBehaviour
         madeSkills.Add(PowerUp);
         Skill BurnAway = new Skill(SkillId.BurnAway, "Burn Away",15 ,Element.Fire, Target.single,Category.Attack,0,2, "Power: 15 \nTargets: One Enemies \nElement: Fire \nLower targets Defense",0,1).Attr(new StatBoostConAttr(Stats.Defence, -5)).Attr(new DamageAttr(1,DamageType.Physical,Element.Fire));
         madeSkills.Add(BurnAway);
-        Skill TriSlash = new Skill(SkillId.TriSlash, "Tri-Slash",10 ,Element.Fate,Target.single,Category.Attack,0,3, "Power: 10 \nTargets: One Enemie \nElement: Fire,Water,Earth \nThis attack hits 3 times each with a uniqe element",0,3).Attr(new DamageAttr(1,DamageType.Physical,Element.Fire)).Attr(new DamageAttr(1,DamageType.Physical,Element.Water)).Attr(new DamageAttr(1.5f,DamageType.Physical,Element.Earth));
+        Skill TriSlash = new Skill(SkillId.TriSlash, "Tri-Slash",10 ,Element.Fate,Target.single,Category.Attack,0,3, "Power: 10 \nTargets: One Enemie \nElement: Fire,Water,Earth \nThis attack hits 3 times each with a uniqe element",0,3).Attr(new DamageAttr(1,DamageType.Physical,Element.Fire,true)).Attr(new DamageAttr(1,DamageType.Physical,Element.Water,true)).Attr(new DamageAttr(1.5f,DamageType.Physical,Element.Earth,true));
         madeSkills.Add(TriSlash);
         Skill FiredUp = new Skill(SkillId.FiredUp, "Fired Up",0 , Element.Fire, Target.self, Category.Buff,0,3,"Targets: Self \nElement: Fire \nGreatly boost attack For 1 strike",0,0).Attr(new StatBoostConAttr(Stats.Attack, 20,2));
         madeSkills.Add(FiredUp);

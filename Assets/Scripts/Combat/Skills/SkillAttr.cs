@@ -37,7 +37,7 @@ namespace MoriSkills
             return (SkillAttr)this.MemberwiseClone();
         }
 
-        public virtual void ActivateAttr(UnitBody unitUser, UnitBody unitTarget, int power)
+        public virtual void ActivateAttr(UnitBody unitUser, UnitBody unitTarget, int power, Element skillElement)
         {
 
         }
@@ -49,16 +49,23 @@ namespace MoriSkills
         public DamageType type;
         public Element element;
 
-        public DamageAttr(float skillMult, DamageType damageType, Element damageElement = Element.None, bool targetSelf = false) : base(targetSelf)
+        public bool changeElement;
+
+        public DamageAttr(float skillMult, DamageType damageType, Element damageElement = Element.None,bool elementOverride = false, bool targetSelf = false) : base(targetSelf)
         {
             name = "DamageAttr";
             mutiplier = skillMult;
             type = damageType;
             element = damageElement;
+            changeElement = elementOverride;
         }
 
-        public override void ActivateAttr(UnitBody unitUser, UnitBody unitTarget, int power)
+        public override void ActivateAttr(UnitBody unitUser, UnitBody unitTarget, int power,Element skillElement)
         {
+            if(changeElement == false)
+            {
+                element = skillElement;
+            }
             if(targetSelf)
             {
                 unitUser.TakeDamage((int)(power * mutiplier * unitUser.attack), type, element);                
@@ -88,7 +95,7 @@ namespace MoriSkills
             boost = boostNum;
         }
 
-        public override void ActivateAttr(UnitBody unitUser, UnitBody unitTarget, int power)
+        public override void ActivateAttr(UnitBody unitUser, UnitBody unitTarget, int power,Element skillElement)
         {
             if (targetSelf == true)
             {
@@ -157,12 +164,12 @@ namespace MoriSkills
             scaleValue = scaleRate;
         }
 
-        public override void ActivateAttr(UnitBody unitUser, UnitBody unitTarget, int power)
+        public override void ActivateAttr(UnitBody unitUser, UnitBody unitTarget, int power,Element skillElement)
         {
             for(int i = 0; i < scaledAttr.Count; i++)
             {
                 
-                scaledAttr[i].ActivateAttr(unitUser, unitTarget,power+scaleValue*unitUser.level);
+                scaledAttr[i].ActivateAttr(unitUser, unitTarget,power+scaleValue*unitUser.level, skillElement);
             }
         }
 
@@ -193,7 +200,7 @@ namespace MoriSkills
             boost = boostNum;
             
         }
-        public override void ActivateAttr(UnitBody unitUser, UnitBody unitTarget, int power)
+        public override void ActivateAttr(UnitBody unitUser, UnitBody unitTarget, int power,Element skillElement)
         {
             if (targetSelf==true)
             {
@@ -221,7 +228,7 @@ namespace MoriSkills
 
         }
 
-        public override void ActivateAttr(UnitBody unitUser, UnitBody unitTarget, int power)
+        public override void ActivateAttr(UnitBody unitUser, UnitBody unitTarget, int power,Element skillElement)
         {
             
             if (targetSelf == true)
@@ -249,7 +256,7 @@ namespace MoriSkills
             name = "ApplyConditionAttr";
             duration = conditionDuration;
         }
-        public override void ActivateAttr(UnitBody unitUser, UnitBody unitTarget, int power)
+        public override void ActivateAttr(UnitBody unitUser, UnitBody unitTarget, int power,Element skillElement)
         {
             if (targetSelf == true)
             {
@@ -296,20 +303,20 @@ namespace MoriSkills
             name = "EvenOddAttr";
         }
 
-        public override void ActivateAttr(UnitBody unitUser, UnitBody unitTarget, int power)
+        public override void ActivateAttr(UnitBody unitUser, UnitBody unitTarget, int power,Element skillElement)
         {
             if (BattleManager.Instance.globalTurn % 2 == 0)
             {
                 for (int i = 0; i < evenAttr.Count; i++)
                 {
-                    evenAttr[i].ActivateAttr(unitUser, unitTarget,power);
+                    evenAttr[i].ActivateAttr(unitUser, unitTarget,power,skillElement);
                 }
             }
             else
             {
                 for (int i = 0; i < oddAttr.Count; i++)
                 {
-                    oddAttr[i].ActivateAttr(unitUser, unitTarget,power);
+                    oddAttr[i].ActivateAttr(unitUser, unitTarget,power,skillElement);
                 }
             }
         }
@@ -345,7 +352,7 @@ namespace MoriSkills
             category = poisonCat;
             potency = poisonPower;
         }
-        public override void ActivateAttr(UnitBody unitUser, UnitBody unitTarget, int power)
+        public override void ActivateAttr(UnitBody unitUser, UnitBody unitTarget, int power,Element skillElement)
         {
             if (targetSelf == true)
             {

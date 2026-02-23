@@ -3897,7 +3897,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &1850503664
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3910,15 +3910,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f05f713fdb0774c488fd1fad83dac002, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  equipment: {fileID: 0}
-  equipmentAttrTypes: 0
-  skillBoostAttr:
-    rid: -2
-  references:
-    version: 2
-    RefIds:
-    - rid: -2
-      type: {class: , ns: , asm: }
 --- !u!4 &1850503665
 Transform:
   m_ObjectHideFlags: 0
