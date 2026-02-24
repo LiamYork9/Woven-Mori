@@ -14,6 +14,8 @@ public class StatScreenScript : MonoBehaviour
      public GameObject buttonPrefab;
 
       public GameObject buttonParent;
+
+      public List<GameObject> partyMemberButton;
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
@@ -34,17 +36,27 @@ public class StatScreenScript : MonoBehaviour
                 CloseMenu();
             }
         }
+        currentParty.text = "Current Party: ";
+        for(int i = 0; i<PartyManager.Instance.party.Count; i++)
+        {
+            currentParty.text += PartyManager.Instance.party[i].name + ", ";
+        }
         
-        currentParty.text = "Current Party: " + PartyManager.Instance.party[0].name;
+       
     }
 
     public void OpenMenu()
     {
          statScreen.SetActive(true);
         screenOn = true;
+         foreach (Transform child in buttonParent.transform) 
+        {
+            GameObject.Destroy(child.gameObject);
+        }
         for(int i = 0; i < PartyManager.Instance.party.Count; i++)
         {
             GameObject newButton = Instantiate(buttonPrefab, buttonParent.transform);
+            partyMemberButton.Add(newButton);
         }
     }
 
