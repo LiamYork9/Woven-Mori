@@ -55,6 +55,8 @@ public class Unit : ScriptableObject
 
     public int emergencybutton;
 
+    public List<int> equipmentStats = new List<int> {0,0,0,0,0,0};
+
 
     //Events
 
@@ -93,7 +95,24 @@ public class Unit : ScriptableObject
 
     public void Restore()
     {
-        currentHP = maxHP;
+        int equipmentBouns  = 0;
+        if(this is PlayerCharacter)
+        {
+            if((this as PlayerCharacter).weapon != null)
+            {
+                equipmentBouns += (this as PlayerCharacter).weapon.stats[4];
+            }
+            if((this as PlayerCharacter).armor != null)
+            {
+                equipmentBouns += (this as PlayerCharacter).armor.stats[4];
+            }
+            if((this as PlayerCharacter).accessory != null)
+            {
+                equipmentBouns += (this as PlayerCharacter).accessory.stats[4];
+            }
+
+        }
+        currentHP = maxHP + equipmentBouns;
         conditions.Clear();
     }
 
