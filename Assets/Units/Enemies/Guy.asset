@@ -25,16 +25,18 @@ MonoBehaviour:
   attack: 17
   defense: 10
   mDefense: 10
+  speed: 25
   maxHP: 40
   currentHP: 40
-  speed: 25
   initiative: 0
   localTurnCount: 0
   localTurnCountCurrentVal: 0
   AP: 0
   APCap: 10
   APGain: 1
-  emergencybutton: 100
+  emergencybutton: 1
+  equipmentStats: 000000000000000000000000000000000000000000000000
+  expYield: 100
   references:
     version: 2
     RefIds: []

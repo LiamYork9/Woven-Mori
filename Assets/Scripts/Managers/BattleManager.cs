@@ -90,6 +90,8 @@ public class BattleManager : MonoBehaviour
 
     public bool noRunning = false;
 
+    public int expEarned = 0;
+
 
 
 
@@ -549,6 +551,7 @@ public class BattleManager : MonoBehaviour
     public void WinCondtion()
     {
         fightState = FightState.Won;
+        
         ButtonsOff();
         for (int i = 0; i < PartyManager.Instance.party.Count; i++)
         {
@@ -560,6 +563,7 @@ public class BattleManager : MonoBehaviour
             }
 
             temp.CopyStats(defaultPlayerSlots[i].GetComponent<UnitBody>());
+            temp.exp += expEarned;
         }
         dialogueText.text = "You Win!";
 
@@ -593,6 +597,7 @@ public class BattleManager : MonoBehaviour
 
     public void BattleEnd()
     {
+        expEarned = 0;
         StartCoroutine(EndBattle());
     }
     

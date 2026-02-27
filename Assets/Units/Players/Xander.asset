@@ -15,8 +15,8 @@ MonoBehaviour:
   unitName: Xander
   partyMember: 1
   skills: 0f0000001000000003000000
-  resistance: 
-  immunity: 
+  resistance: 05000000050000000500000005000000
+  immunity: 00000000000000000000000000000000
   vulnerability: 
   conditions: []
   chSprite: {fileID: -2316854331444592169, guid: 2ae8830c3f959ec409a3e5f9c0b93f79, type: 3}
@@ -35,10 +35,12 @@ MonoBehaviour:
   APCap: 10
   APGain: 1
   emergencybutton: 100
+  equipmentStats: 000000000000000000000000000000000000000000000000
   theirClass: 0
   weapon: {fileID: 11400000, guid: 05a4881bbeb364b49923a2507d5ce8b1, type: 2}
   armor: {fileID: 11400000, guid: 0d5ac9a214cb58741b2c494ada04ccf2, type: 2}
   accessory: {fileID: 11400000, guid: 08abe7bc70b149144827e568aa2164fb, type: 2}
+  exp: 0
   references:
     version: 2
     RefIds: []

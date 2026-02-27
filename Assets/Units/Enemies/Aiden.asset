@@ -34,7 +34,9 @@ MonoBehaviour:
   AP: 0
   APCap: 10
   APGain: 1
-  emergencybutton: 0
+  emergencybutton: 1
+  equipmentStats: 000000000000000000000000000000000000000000000000
+  expYield: 100
   references:
     version: 2
     RefIds: []

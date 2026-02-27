@@ -106,7 +106,13 @@ public class StatScreenScript : MonoBehaviour
 
             }
             
+             if(PartyManager.Instance.party[i].currentHP > PartyManager.Instance.party[i].maxHP)
+            {
+                PartyManager.Instance.party[i].currentHP = PartyManager.Instance.party[i].maxHP;
+            }
+            
         }
+        
 
       for(int i = 0; i < partyMemberButton.Count; i++)
         {

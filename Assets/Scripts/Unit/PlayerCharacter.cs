@@ -11,6 +11,8 @@ public class PlayerCharacter : Unit
 
     public Accessory accessory;
 
+     public int exp;
+
     void Start()
     {
         AP = 1;
@@ -93,6 +95,8 @@ public class PlayerCharacter : Unit
             accessory = equipment as Accessory;
         }
     }
+
+   
 }
 
 

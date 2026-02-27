@@ -32,6 +32,7 @@ public class UnitBody : MonoBehaviour
 
     public int level;
 
+
     public int attack;
 
     public int defense = 1;
@@ -60,6 +61,8 @@ public class UnitBody : MonoBehaviour
     public int APGain = 1;
 
     public int emergencybutton;
+
+    public Classes playerClass;
 
     
     public UnityEvent StartOfTurn;
@@ -134,6 +137,10 @@ public class UnitBody : MonoBehaviour
         speed = target.speed + equipmentStats[3];
         maxHP = target.maxHP + equipmentStats[4];
         currentHP = target.currentHP;
+        if(currentHP > maxHP)
+        {
+            currentHP = maxHP;
+        }
         APCap = target.APCap;
         APGain = target.APGain + equipmentStats[5];
         resistance = new List<Element>();
