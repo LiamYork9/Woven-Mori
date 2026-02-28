@@ -64,6 +64,7 @@ public class Unit : ScriptableObject
         for (int j = 0; j < target.conditions.Count; j++)
             {
                 target.conditions[j].RemoveCondition();
+                j--;
             }
         unitName = target.name;
         skills = target.skills;
