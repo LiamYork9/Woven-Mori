@@ -254,12 +254,7 @@ public class BattleManager : MonoBehaviour
 
         }
 
-
-        // Will go into a death function later
-        if (playerSlots.Count == 0)
-        {
-            LoseCondition();
-        }
+        
 
         if (Input.GetKeyDown(KeyCode.Escape))
         {
@@ -564,6 +559,11 @@ public class BattleManager : MonoBehaviour
 
             temp.CopyStats(defaultPlayerSlots[i].GetComponent<UnitBody>());
             temp.exp += expEarned;
+            while (temp.exp >= 100*temp.level)
+            {
+                temp.exp -= temp.level*100;
+                temp.LevelUp();
+            }
         }
         dialogueText.text = "You Win!";
 
@@ -597,6 +597,7 @@ public class BattleManager : MonoBehaviour
 
     public void BattleEnd()
     {
+        Debug.Log("BattleEnd");
         expEarned = 0;
         StartCoroutine(EndBattle());
     }
@@ -604,6 +605,7 @@ public class BattleManager : MonoBehaviour
      IEnumerator EndBattle()
     {
         yield return new WaitForSeconds(1.5f);
+        Debug.Log("EndBattle");
         dialogueText.text = "The Battle is Over";
         yield return new WaitForSeconds(1f);
         SceneManager.LoadScene(sceneName);

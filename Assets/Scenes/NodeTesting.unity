@@ -3480,6 +3480,9 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 05071c4e09cd9f64182f3c2062dbcd2d, type: 2}
   - {fileID: 11400000, guid: f6f4a97da73ac2a4385bd6643c4b2122, type: 2}
   - {fileID: 11400000, guid: 89e126f7d00c46a49a7c231e61fa92fd, type: 2}
+  - {fileID: 11400000, guid: 319564360a40d3945a4b4654397d85db, type: 2}
+  - {fileID: 11400000, guid: f3ad838d526acd4428cc7bc2249f2b66, type: 2}
+  - {fileID: 11400000, guid: dfe9c6ec2678f1d4fb4d21753df47e7f, type: 2}
   battleZone: 1
 --- !u!1 &1673041018 stripped
 GameObject:
@@ -4054,7 +4057,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1850503665}
-  - component: {fileID: 1850503664}
   m_Layer: 0
   m_Name: Forge
   m_TagString: Untagged
@@ -4062,18 +4064,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 0
---- !u!114 &1850503664
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1850503663}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f05f713fdb0774c488fd1fad83dac002, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!4 &1850503665
 Transform:
   m_ObjectHideFlags: 0

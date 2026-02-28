@@ -26,7 +26,14 @@ public class Unit : ScriptableObject
 
     public Sprite deathSprite;
 
+    [Header("Stats")]
+
     public int level = 1;
+
+    
+    public int maxHP;
+
+    public int currentHP;
 
     public int attack;
 
@@ -36,49 +43,46 @@ public class Unit : ScriptableObject
 
      public int speed = 1;
 
-    public int maxHP;
-
-    public int currentHP;
 
 
-    public int initiative;
+    
 
-    public int localTurnCount;
-
-    public int localTurnCountCurrentVal;
-
-    public int AP;
 
     public int APCap;
 
     public int APGain = 1;
 
-    public int emergencybutton;
 
     public List<int> equipmentStats = new List<int> {0,0,0,0,0,0};
 
-
+    protected int initiative;
+    protected int emergencybutton;
     //Events
 
     public void CopyStats(UnitBody target)
     {
+        for (int j = 0; j < target.conditions.Count; j++)
+            {
+                target.conditions[j].RemoveCondition();
+            }
         unitName = target.name;
         skills = target.skills;
         partyMember = target.partyMember;
         chSprite = target.chSprite;
         deathSprite = target.deathSprite;
         level = target.level;
+        maxHP = target.maxHP - target.equipmentStats[4];
+        currentHP = target.currentHP;
         attack = target.attack - target.equipmentStats[0];
         defense = target.defense - target.equipmentStats[1];
         mDefense = target.mDefense - target.equipmentStats[2];
         speed = target.speed - target.equipmentStats[3];
-        maxHP = target.maxHP - target.equipmentStats[4];
-        currentHP = target.currentHP;
+        
         APCap = target.APCap;
         APGain = target.APGain - target.equipmentStats[5];
-        resistance = target.resistance;
-        immunity = target.immunity;
-        vulnerability = target.vulnerability;
+        // resistance = target.resistance;
+        // immunity = target.immunity;
+        // vulnerability = target.vulnerability;
     }
 
     public virtual void Death(UnitBody body)

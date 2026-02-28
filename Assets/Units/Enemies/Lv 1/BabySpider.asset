@@ -10,28 +10,28 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 22ff192d681faf34ca12b61a7c65a93d, type: 3}
-  m_Name: Guy
+  m_Name: BabySpider
   m_EditorClassIdentifier: 
-  unitName: Guy
+  unitName: BabyGiantSpider
   partyMember: 0
-  skills: 03000000
-  resistance: 04000000
+  skills: 11000000
+  resistance: 
   immunity: 
-  vulnerability: 
+  vulnerability: 0100000004000000
   conditions: []
-  chSprite: {fileID: 21300000, guid: ee70c188ca1f70f46897f1d0ac7f3bbc, type: 3}
-  deathSprite: {fileID: 21300000, guid: ee70c188ca1f70f46897f1d0ac7f3bbc, type: 3}
-  level: 10
-  maxHP: 40
-  currentHP: 40
-  attack: 17
-  defense: 10
-  mDefense: 10
-  speed: 25
+  chSprite: {fileID: 21300000, guid: beab9b7c72a3261428d76581f1dff51c, type: 3}
+  deathSprite: {fileID: 21300000, guid: beab9b7c72a3261428d76581f1dff51c, type: 3}
+  level: 1
+  maxHP: 8
+  currentHP: 8
+  attack: 4
+  defense: 4
+  mDefense: 3
+  speed: 3
   APCap: 10
   APGain: 1
   equipmentStats: 000000000000000000000000000000000000000000000000
-  expYield: 130
+  expYield: 25
   references:
     version: 2
     RefIds: []

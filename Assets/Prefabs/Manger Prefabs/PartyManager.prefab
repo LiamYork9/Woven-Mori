@@ -10,6 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 7779081396731353705}
   - component: {fileID: 4757034985748211624}
+  - component: {fileID: 4309056369536889324}
   m_Layer: 0
   m_Name: PartyManager
   m_TagString: Untagged
@@ -49,3 +50,24 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 98275b40d19287d4ba0b5300d4fa6878, type: 2}
   - {fileID: 11400000, guid: 146f13f3cd4a21e43a604b1ab79ddaf0, type: 2}
   - {fileID: 11400000, guid: 831d84f0820d76f41b9c82488f55af8d, type: 2}
+  followers: []
+  PM1: 0
+  PM2: 0
+  PM3: 0
+--- !u!114 &4309056369536889324
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7458185388826930755}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 76fe31f3b4dcc8244aecf9821980ddcb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  classGrowths:
+  - {fileID: 11400000, guid: 05ff9db71c43dcc45af0eca2d26574a0, type: 2}
+  - {fileID: 11400000, guid: 48bff5ba3eca9ec45b5fa511405253ea, type: 2}
+  - {fileID: 11400000, guid: aa69195aadef0064889d95bb7f608b3e, type: 2}
+  - {fileID: 11400000, guid: 351d87eea05128a46a70b28cc1276e48, type: 2}

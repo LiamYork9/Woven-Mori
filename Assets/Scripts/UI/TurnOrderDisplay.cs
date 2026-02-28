@@ -17,8 +17,11 @@ public class TurnOrderDisplay : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        displayName.text = TurnOrderManager.Instance.turnOrder[turnPostion].unit.name;
-        gameObject.GetComponent<Image>().sprite = TurnOrderManager.Instance.turnOrder[turnPostion].unit.chSprite;
+        if(TurnOrderManager.Instance.turnOrder[turnPostion]!=null)
+        {
+            displayName.text = TurnOrderManager.Instance.turnOrder[turnPostion].unit.name;
+            gameObject.GetComponent<Image>().sprite = TurnOrderManager.Instance.turnOrder[turnPostion].unit.chSprite;
+        }
         
      
        
