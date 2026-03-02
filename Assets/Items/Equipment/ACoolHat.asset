@@ -17,8 +17,8 @@ MonoBehaviour:
   itemDescription: 
   value: 0
   sellValue: 0
-  stackable: 0
-  maxStack: 0
+  stackable: 1
+  maxStack: 2
   classList: 0
   equipmentAttrs:
   - {fileID: 11400000, guid: 108ba873f87035b4fb264866b970d911, type: 2}

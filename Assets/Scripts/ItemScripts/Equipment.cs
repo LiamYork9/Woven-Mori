@@ -19,7 +19,7 @@ public class Equipment : Item
     public Classes classList;
     [SerializeReference]
     public List<EquipmentAttr> equipmentAttrs;
-    public bool equiped;
+    public bool equipped;
     public List<int> stats = new List<int> {0,0,0,0,0,0};
 
     public void OnEquip()

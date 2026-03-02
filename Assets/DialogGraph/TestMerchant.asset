@@ -111,7 +111,7 @@ MonoBehaviour:
   m_Name: Dialog Segment
   m_EditorClassIdentifier: 
   graph: {fileID: 11400000}
-  position: {x: 24, y: -168}
+  position: {x: -8, y: -296}
   ports:
     keys:
     - input
@@ -159,7 +159,7 @@ MonoBehaviour:
   m_Name: Dialog Segment
   m_EditorClassIdentifier: 
   graph: {fileID: 11400000}
-  position: {x: -56, y: 200}
+  position: {x: 40, y: 232}
   ports:
     keys:
     - input
@@ -207,7 +207,7 @@ MonoBehaviour:
   m_Name: Dialog Segment
   m_EditorClassIdentifier: 
   graph: {fileID: 11400000}
-  position: {x: 168, y: 104}
+  position: {x: 296, y: 24}
   ports:
     keys:
     - input

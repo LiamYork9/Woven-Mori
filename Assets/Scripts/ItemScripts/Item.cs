@@ -14,5 +14,5 @@ public class Item : ScriptableObject
 
     public bool stackable;
 
-    public int maxStack;
+    public int maxStack = 1;
 }
