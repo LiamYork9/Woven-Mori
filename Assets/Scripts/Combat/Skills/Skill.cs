@@ -29,7 +29,11 @@ namespace MoriSkills
 
 
         ,//Enemy Skills
-        PoisonBite
+        PoisonBite,
+        
+        MassHeal,
+        PoisonBlade,
+        WindBlade
     }
 
     public enum Element

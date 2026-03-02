@@ -4,18 +4,18 @@ using UnityEngine;
 [System.Serializable]
 public class PlayerCharacter : Unit
 {
+    [Header ("Player Specific")]
     public Classes theirClass;
+    public int exp;
     public Weapon weapon; 
 
     public Armor armor;
 
     public Accessory accessory;
 
-     public int exp;
 
     void Start()
     {
-        AP = 1;
         APCap = 10;
     }
 
@@ -94,6 +94,55 @@ public class PlayerCharacter : Unit
         {
             accessory = equipment as Accessory;
         }
+    }
+
+    public void LevelUp()
+    {
+        for(int i = 0; i<LevelUpManager.Instance.classGrowths.Count; i++)
+        {
+            if(LevelUpManager.Instance.classGrowths[i].playerClass == theirClass)
+            {
+                int milestoneIndex = -1;
+                for(int j=0; j<LevelUpManager.Instance.classGrowths[i].milestones.Count;j++)
+                {
+                    if(LevelUpManager.Instance.classGrowths[i].milestones[j].Level > level)
+                    {
+                        milestoneIndex = j;
+                        break;
+                    }
+                }
+
+                if(milestoneIndex != -1)
+                {
+                    ClassGrowth.Milestones goal = LevelUpManager.Instance.classGrowths[i].milestones[milestoneIndex];
+                    int levelgap = goal.Level-level;
+                    level ++;
+                    currentHP += (goal.MaxHP-maxHP)/levelgap;
+                    maxHP += (goal.MaxHP-maxHP)/levelgap;
+                    attack += (goal.Attack-attack)/levelgap;
+                    defense += (goal.Defense-defense)/levelgap;
+                    mDefense += (goal.Mdefense-mDefense)/levelgap;
+                    speed += (goal.Speed-speed)/levelgap;
+                }
+
+                for(int j=0; j<LevelUpManager.Instance.classGrowths[i].skillUnlocks.Count;j++)
+                {
+                    if(LevelUpManager.Instance.classGrowths[i].skillUnlocks[j].Level == level)
+                    {
+                        ClassGrowth.SkillUnlocks newSkills = LevelUpManager.Instance.classGrowths[i].skillUnlocks[j];
+                        for(int k=0; k<newSkills.SkillIds.Count;k++)
+                        {
+                            if (!(skills.Contains(newSkills.SkillIds[k])))
+                            {
+                                skills.Add(newSkills.SkillIds[k]);
+                            }
+                        }
+                    }
+                }
+                break;
+            }
+        }
+        
     }
 
    

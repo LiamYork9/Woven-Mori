@@ -10,31 +10,32 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: f0f3fbfbcd255794e9933f4b0c1cf923, type: 3}
-  m_Name: Valarie
+  m_Name: Valerie
   m_EditorClassIdentifier: 
-  unitName: Valarie
+  unitName: Valerie
   partyMember: 1
-  skills: 010000000d0000000e000000
+  skills: 02000000040000000e000000
   resistance: 
   immunity: 
   vulnerability: 
   conditions: []
   chSprite: {fileID: 4175320429086864182, guid: 2ae8830c3f959ec409a3e5f9c0b93f79, type: 3}
   deathSprite: {fileID: 21300000, guid: 7ef42231652fcda41b73cf85791d6841, type: 3}
-  level: 10
-  attack: 25
-  defense: 17
-  mDefense: 10
-  maxHP: 65
-  currentHP: 65
-  speed: 16
-  initiative: 0
-  localTurnCount: 0
-  localTurnCountCurrentVal: 0
-  AP: 0
+  level: 6
+  maxHP: 37
+  currentHP: 37
+  attack: 15
+  defense: 15
+  mDefense: 6
+  speed: 8
   APCap: 10
   APGain: 1
-  emergencybutton: 100
+  equipmentStats: 050000000000000000000000000000000000000001000000
+  theirClass: 2
+  exp: 195
+  weapon: {fileID: 11400000, guid: 907f1ae82da87f04c8b8e905d27e4407, type: 2}
+  armor: {fileID: 0}
+  accessory: {fileID: 0}
   references:
     version: 2
     RefIds: []

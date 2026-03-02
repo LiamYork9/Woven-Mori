@@ -14,8 +14,6 @@ public enum Classes
     }
 
 [CreateAssetMenu(fileName = "Equipment", menuName = "ScriptableObjects/Item/Equipment")]
-
-
 public class Equipment : Item
 {
     public Classes classList;

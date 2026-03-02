@@ -107,6 +107,10 @@ public class TurnOrderManager : MonoBehaviour
 
     public void TurnShift(int shift = 1)
     {
+        if (turnOrder.Count <= 10)
+        {
+            TurnCalulation();
+        }
 
         if (shift >= 0)
         {
@@ -138,7 +142,7 @@ public class TurnOrderManager : MonoBehaviour
         }
        
 
-        if (turnOrder.Count <= 6)
+        if (turnOrder.Count <= 10)
         {
             TurnCalulation();
         }

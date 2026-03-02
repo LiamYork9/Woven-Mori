@@ -128,7 +128,7 @@ MonoBehaviour:
   textSpeed: 0
   endNodeEvent: []
   startNodeEvent: []
-  hasTalked: 1
+  hasTalked: 0
   outputPaths: 0100
 --- !u!114 &-919809504309644391
 MonoBehaviour:
