@@ -32,6 +32,8 @@ public class SkillButtonScript : MonoBehaviour
 
     public GameObject buttonParent;
 
+    public GameObject equipmentButtonPrefab;
+
 
 
 

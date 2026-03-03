@@ -11,7 +11,11 @@ public class StatScreenScript : MonoBehaviour
 
     public TMP_Text statText;
 
+    public TMP_Text inventoryText;
+
     public GameObject statScreen;
+
+    public GameObject inventoryScreen;
 
     public bool screenOn = false;
 
@@ -19,11 +23,25 @@ public class StatScreenScript : MonoBehaviour
 
       public GameObject buttonParent;
 
+      public GameObject buttonParentInv;
+
       public List<GameObject> partyMemberButton;
+
+      public List<GameObject> inventoryButtons;
+
+      public GameObject equipmentButtonPrefab;
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
-        
+         for(int i = 0; i<inventoryButtons.Count; i++)
+        {
+            if(inventoryButtons[i].GetComponent<EquipmentToolTip>() != null)
+            {
+                inventoryButtons[i].GetComponent<EquipmentToolTip>().hoverEvent.AddListener(ToolTipAdder);
+                inventoryButtons[i].GetComponent<EquipmentToolTip>().unHoverEvent.AddListener(ToolTipRemover);
+            }
+        }
+        SetEquipmentButton();
     }
 
     // Update is called once per frame
@@ -79,6 +97,7 @@ public class StatScreenScript : MonoBehaviour
     public void CloseMenu()
     {
          statScreen.SetActive(false);
+         inventoryScreen.SetActive(false);
         screenOn = false;
     }
 
@@ -157,5 +176,56 @@ public class StatScreenScript : MonoBehaviour
 
         
 
+    }
+     public void ToolTipAdder(GameObject button)
+    {
+        Equipment temp = button.GetComponent<EquipmentToolTip>().equipment;
+        inventoryText.text = temp.itemDescription;
+    }
+      public void ToolTipRemover()
+    {
+        inventoryText.text = "";
+    }
+
+    public void SetEquipmentButton()
+    {
+         for(int i = 0; i<inventoryButtons.Count; i++)
+        {
+            foreach(KeyValuePair<Equipment, int> pair in InventoryManager.Instance.inventoryEquipment)
+            {
+                inventoryButtons[i].GetComponentInChildren<TextMeshProUGUI>().text = pair.Key.itemName;
+                inventoryButtons[i].GetComponent<EquipmentToolTip>().equipment = pair.Key ;
+            }
+        }
+    }
+
+    public void ShowInventory()
+    {
+        statScreen.SetActive(false);
+        inventoryScreen.SetActive(true);
+
+        inventoryButtons.Clear();
+
+        foreach (Transform child in buttonParentInv.transform) 
+        {
+            GameObject.Destroy(child.gameObject);
+        }
+
+        foreach(KeyValuePair<Equipment, int> pair in InventoryManager.Instance.inventoryEquipment)
+        {
+             GameObject newButton = Instantiate(equipmentButtonPrefab, buttonParentInv.transform);
+             inventoryButtons.Add(newButton);
+        }
+
+         for(int i = 0; i<inventoryButtons.Count; i++)
+        {
+            if(inventoryButtons[i].GetComponent<EquipmentToolTip>() != null)
+            {
+                inventoryButtons[i].GetComponent<EquipmentToolTip>().hoverEvent.AddListener(ToolTipAdder);
+                inventoryButtons[i].GetComponent<EquipmentToolTip>().unHoverEvent.AddListener(ToolTipRemover);
+            }
+            
+        }
+        SetEquipmentButton();
     }
 }
