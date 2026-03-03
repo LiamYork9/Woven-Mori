@@ -193,7 +193,8 @@ public class StatScreenScript : MonoBehaviour
         {
             foreach(KeyValuePair<Equipment, int> pair in InventoryManager.Instance.inventoryEquipment)
             {
-                inventoryButtons[i].GetComponentInChildren<TextMeshProUGUI>().text = pair.Key.itemName;
+                inventoryButtons[i].GetComponentInChildren<TextMeshProUGUI>().text = pair.Key.itemName +" X"+ pair.Value;
+                inventoryButtons[i].GetComponentInChildren<Image>().sprite = pair.Key.itemSprite;
                 inventoryButtons[i].GetComponent<EquipmentToolTip>().equipment = pair.Key ;
             }
         }

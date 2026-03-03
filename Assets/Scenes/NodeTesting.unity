@@ -5401,6 +5401,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   currentParty: {fileID: 1921724837}
   statText: {fileID: 169120127}
+  inventoryText: {fileID: 462130763}
   statScreen: {fileID: 1192752369}
   inventoryScreen: {fileID: 294705122}
   screenOn: 0
@@ -5409,6 +5410,7 @@ MonoBehaviour:
   buttonParentInv: {fileID: 1703345241}
   partyMemberButton: []
   inventoryButtons: []
+  equipmentButtonPrefab: {fileID: 8269702595644560011, guid: 640a0ddc701ff954ab5ee9fb9858fe4e, type: 3}
 --- !u!1 &1850503663
 GameObject:
   m_ObjectHideFlags: 0
