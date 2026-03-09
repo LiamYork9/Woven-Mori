@@ -4,6 +4,8 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine.UI;
 using Unity.VisualScripting;
+using System.Linq;
+using NUnit.Framework;
 
 public class StatScreenScript : MonoBehaviour
 {
@@ -41,7 +43,7 @@ public class StatScreenScript : MonoBehaviour
                 inventoryButtons[i].GetComponent<EquipmentToolTip>().unHoverEvent.AddListener(ToolTipRemover);
             }
         }
-        SetEquipmentButton();
+      
     }
 
     // Update is called once per frame
@@ -187,18 +189,7 @@ public class StatScreenScript : MonoBehaviour
         inventoryText.text = "";
     }
 
-    public void SetEquipmentButton()
-    {
-         for(int i = 0; i<inventoryButtons.Count; i++)
-        {
-            foreach(KeyValuePair<Equipment, int> pair in InventoryManager.Instance.inventoryEquipment)
-            {
-                inventoryButtons[i].GetComponentInChildren<TextMeshProUGUI>().text = pair.Key.itemName +" X"+ pair.Value;
-                inventoryButtons[i].GetComponentInChildren<Image>().sprite = pair.Key.itemSprite;
-                inventoryButtons[i].GetComponent<EquipmentToolTip>().equipment = pair.Key ;
-            }
-        }
-    }
+   
 
     public void ShowInventory()
     {
@@ -212,11 +203,24 @@ public class StatScreenScript : MonoBehaviour
             GameObject.Destroy(child.gameObject);
         }
 
-        foreach(KeyValuePair<Equipment, int> pair in InventoryManager.Instance.inventoryEquipment)
-        {
-             GameObject newButton = Instantiate(equipmentButtonPrefab, buttonParentInv.transform);
-             inventoryButtons.Add(newButton);
-        }
+         
+        
+
+            foreach(KeyValuePair<Equipment, int> pair in InventoryManager.Instance.inventoryEquipment)
+            {
+                
+                
+                GameObject newButton = Instantiate(equipmentButtonPrefab, buttonParentInv.transform);
+                inventoryButtons.Add(newButton);
+                 
+                newButton.GetComponentInChildren<TextMeshProUGUI>().text = pair.Key.itemName +" X"+ pair.Value;
+                newButton.GetComponentInChildren<Image>().sprite = pair.Key.itemSprite;
+                newButton.GetComponent<EquipmentToolTip>().equipment = pair.Key ;
+             
+                
+                
+            }
+        
 
          for(int i = 0; i<inventoryButtons.Count; i++)
         {
@@ -225,8 +229,9 @@ public class StatScreenScript : MonoBehaviour
                 inventoryButtons[i].GetComponent<EquipmentToolTip>().hoverEvent.AddListener(ToolTipAdder);
                 inventoryButtons[i].GetComponent<EquipmentToolTip>().unHoverEvent.AddListener(ToolTipRemover);
             }
+             
             
         }
-        SetEquipmentButton();
+        
     }
 }
