@@ -5637,6 +5637,7 @@ MonoBehaviour:
   weaponButton: {fileID: 1796859973}
   armorButton: {fileID: 1079078464}
   accessoryButton: {fileID: 16751109}
+  defaultSprite: {fileID: 10901, guid: 0000000000000000f000000000000000, type: 0}
 --- !u!1 &1796859973
 GameObject:
   m_ObjectHideFlags: 0

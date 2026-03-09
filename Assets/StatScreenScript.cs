@@ -34,6 +34,8 @@ public class StatScreenScript : MonoBehaviour
       public GameObject equipmentButtonPrefab;
 
       public GameObject weaponButton,armorButton,accessoryButton;
+
+      public Sprite defaultSprite;
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
@@ -145,12 +147,14 @@ public class StatScreenScript : MonoBehaviour
             {
                 PartyManager.Instance.party[i].currentHP = PartyManager.Instance.party[i].maxHP;
             }
+            
+
+            
+        }
+        
             weaponButton.SetActive(true);
             armorButton.SetActive(true);
             accessoryButton.SetActive(true);
-        }
-        
-
       for(int i = 0; i < partyMemberButton.Count; i++)
         {
             if(partyMemberButton[i] == button)
@@ -166,26 +170,35 @@ public class StatScreenScript : MonoBehaviour
                 if(PartyManager.Instance.party[i].weapon != null)
                 {
                     statText.text +=  "\nWeapon: " + PartyManager.Instance.party[i].weapon.name;
+                    weaponButton.GetComponentInChildren<TextMeshProUGUI>().text =  PartyManager.Instance.party[i].weapon.name;
+                    weaponButton.GetComponentInChildren<Image>().sprite = PartyManager.Instance.party[i].weapon.itemSprite;
                 }
                 else
                 {
                      statText.text +=  "\nWeapon: None";
+                     weaponButton.GetComponentInChildren<Image>().sprite = defaultSprite;
                 }
                 if(PartyManager.Instance.party[i].armor != null)
                 {
                     statText.text +=  "\nArmor: " + PartyManager.Instance.party[i].armor.name;
+                    armorButton.GetComponentInChildren<TextMeshProUGUI>().text =  PartyManager.Instance.party[i].armor.name;
+                    armorButton.GetComponentInChildren<Image>().sprite = PartyManager.Instance.party[i].armor.itemSprite;
                 }
                 else
                 {
-                     statText.text +=  "\nArmor: None";
+                    statText.text +=  "\nArmor: None";
+                    armorButton.GetComponentInChildren<Image>().sprite = defaultSprite;
                 }
                 if(PartyManager.Instance.party[i].accessory != null)
                 {
                     statText.text +=  "\nAccessory: " + PartyManager.Instance.party[i].accessory.name;
+                    accessoryButton.GetComponentInChildren<TextMeshProUGUI>().text =  PartyManager.Instance.party[i].accessory.name;
+                    accessoryButton.GetComponentInChildren<Image>().sprite = PartyManager.Instance.party[i].accessory.itemSprite;
                 }
                 else
                 {
-                     statText.text +=  "\nAccessory: None";
+                    statText.text +=  "\nAccessory: None";
+                    accessoryButton.GetComponentInChildren<Image>().sprite = defaultSprite;
                 }
             }
             
