@@ -4,8 +4,8 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine.UI;
 using Unity.VisualScripting;
-using System.Linq;
-using NUnit.Framework;
+
+
 
 public class StatScreenScript : MonoBehaviour
 {
@@ -32,6 +32,8 @@ public class StatScreenScript : MonoBehaviour
       public List<GameObject> inventoryButtons;
 
       public GameObject equipmentButtonPrefab;
+
+      public GameObject weaponButton,armorButton,accessoryButton;
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
@@ -72,8 +74,15 @@ public class StatScreenScript : MonoBehaviour
        
     }
 
+     
+    
+       
+
     public void OpenMenu()
     {
+        weaponButton.SetActive(false);
+        armorButton.SetActive(false);
+        accessoryButton.SetActive(false);
          statScreen.SetActive(true);
          statText.text = "";
         screenOn = true;
@@ -94,6 +103,8 @@ public class StatScreenScript : MonoBehaviour
         {
             partyMemberButton[i].GetComponentInChildren<TextMeshProUGUI>().text = PartyManager.Instance.party[i].name;
         }
+        showStats(partyMemberButton[0]);
+    
     }
 
     public void CloseMenu()
@@ -101,6 +112,9 @@ public class StatScreenScript : MonoBehaviour
          statScreen.SetActive(false);
          inventoryScreen.SetActive(false);
         screenOn = false;
+        weaponButton.SetActive(false);
+        armorButton.SetActive(false);
+        accessoryButton.SetActive(false);
     }
 
     public void showStats(GameObject button)
@@ -131,7 +145,9 @@ public class StatScreenScript : MonoBehaviour
             {
                 PartyManager.Instance.party[i].currentHP = PartyManager.Instance.party[i].maxHP;
             }
-            
+            weaponButton.SetActive(true);
+            armorButton.SetActive(true);
+            accessoryButton.SetActive(true);
         }
         
 
