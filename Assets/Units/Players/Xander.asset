@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   unitName: Xander
   partyMember: 1
-  skills: 020000001400000007000000
+  skills: 02000000150000001400000007000000
   resistance: 
   immunity: 
   vulnerability: 

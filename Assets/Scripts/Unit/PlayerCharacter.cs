@@ -145,6 +145,13 @@ public class PlayerCharacter : Unit
         
     }
 
+    public void ResetLevel()
+    {
+        level = 0;
+        skills.Clear();
+        LevelUp();
+    }
+
    
 }
 

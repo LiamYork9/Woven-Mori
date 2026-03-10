@@ -81,6 +81,8 @@ public class SkillMaker : MonoBehaviour
         madeSkills.Add(HolyAbsorption);
         Skill EvenOdd = new Skill(SkillId.EvenOdd, "EvenOdd",10 , Element.None, Target.single, Category.Attack, 100, 1, "On Even turns Heal and buff yourself, on Odd turns hit the enemy and debuff them", 100, -2).Attr(new EvenOddAttr().Odd(new DamageAttr(1,DamageType.Magic)).Odd(new StatBoostConAttr(Stats.Attack, -5)).Even(new HealAttr(1, .2f, true)).Even(new StatBoostConAttr(Stats.Attack, 5,3,true)).Even(new StatBoostConAttr(Stats.Defence,5,3,true)));
         madeSkills.Add(EvenOdd);
+        Skill Focus = new Skill(SkillId.Focus, "Focus",10 , Element.None, Target.self, Category.Attack, 100, 0, "Focus and gain an additional AP", 100, 1).Attr(new APGainAttr(1,true));
+        madeSkills.Add(Focus);
 
         //Enemy Skills
         Skill PoisonBite = new Skill(SkillId.PoisonBite,"Poison Bite",10,Element.Dark,Target.single,Category.Attack,100,2, "A weak Bite that poisons the target",100,1).Attr(new DamageAttr(1,DamageType.Physical,Element.Dark)).Attr(new ApplyPoisonAttr(3,3,10));
