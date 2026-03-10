@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   unitName: Liam
   partyMember: 1
-  skills: 02000000130000000a000000
+  skills: 0200000015000000130000000a000000
   resistance: 
   immunity: 
   vulnerability: 

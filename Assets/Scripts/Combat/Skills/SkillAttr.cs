@@ -364,4 +364,35 @@ namespace MoriSkills
             }
         }
     }
+
+    public class APGainAttr : SkillAttr
+    {
+        public int amount;
+
+
+        public APGainAttr(int APchange = 1, bool targetSelf = false) : base(targetSelf)
+        {
+            name = "APAttr";
+            amount = APchange;
+        }
+        public override void ActivateAttr(UnitBody unitUser, UnitBody unitTarget, int power,Element skillElement)
+        {
+            if (targetSelf == true)
+            {
+                unitUser.AP+=amount;
+                if (unitUser.AP < 0)
+                {
+                    unitUser.AP = 0;
+                }
+            }
+            else
+            {
+                unitTarget.AP+=amount;
+                if (unitTarget.AP < 0)
+                {
+                    unitTarget.AP = 0;
+                }
+            }
+        }
+    }
 }

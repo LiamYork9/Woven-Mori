@@ -13,6 +13,9 @@ public class Turn
     public UnitBody unit;
     public int initiative;
     public int cycle;
+    public int visited;
+    public int exhaustValue = 2;
+    public bool exhausted;
 
     public int turnShift = 1;
 
@@ -24,6 +27,11 @@ public class Turn
         if (unit.partyMember == true)
         {
             BattleManager.Instance.playerTurn = true;
+        }
+        visited ++;
+        if(visited>= exhaustValue)
+        {
+            exhausted = true;
         }
         BattleManager.Instance.StartStartTurnCo(this);
         unit.localTurnCount += 1;

@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   unitName: Valerie
   partyMember: 1
-  skills: 02000000040000000e000000
+  skills: 0200000015000000040000000e000000
   resistance: 
   immunity: 
   vulnerability: 

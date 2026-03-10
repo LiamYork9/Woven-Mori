@@ -116,7 +116,10 @@ public class TurnOrderManager : MonoBehaviour
         {
             for (int i = 0; i < shift; i++)
             {
-                recentTurns.Insert(0, turnOrder[0]);
+                if(turnOrder[0].exhausted != true)
+                {
+                    recentTurns.Insert(0, turnOrder[0]);
+                }
                 turnOrder.Remove(turnOrder[0]);
                 BM.globalTurn += 1;
             }

@@ -40,7 +40,7 @@ MonoBehaviour:
     Speed: 60
   skillUnlocks:
   - Level: 1
-    SkillIds: 0200000014000000
+    SkillIds: 020000001500000014000000
   - Level: 5
     SkillIds: 07000000
   - Level: 10
