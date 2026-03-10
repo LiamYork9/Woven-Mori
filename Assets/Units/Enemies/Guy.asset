@@ -31,7 +31,7 @@ MonoBehaviour:
   APCap: 10
   APGain: 1
   equipmentStats: 000000000000000000000000000000000000000000000000
-  expYield: 130
+  expYield: 230
   references:
     version: 2
     RefIds: []

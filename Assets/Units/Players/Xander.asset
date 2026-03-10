@@ -14,25 +14,25 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   unitName: Xander
   partyMember: 1
-  skills: 02000000150000001400000007000000
+  skills: 02000000150000001400000007000000030000000f00000010000000
   resistance: 
   immunity: 
   vulnerability: 
   conditions: []
   chSprite: {fileID: -2316854331444592169, guid: 2ae8830c3f959ec409a3e5f9c0b93f79, type: 3}
   deathSprite: {fileID: 21300000, guid: 7ef42231652fcda41b73cf85791d6841, type: 3}
-  level: 6
-  maxHP: 29
-  currentHP: 29
-  attack: 10
-  defense: 38
-  mDefense: 9
-  speed: 12
+  level: 30
+  maxHP: 135
+  currentHP: 135
+  attack: 54
+  defense: 36
+  mDefense: 51
+  speed: 60
   APCap: 10
   APGain: 1
-  equipmentStats: 050000000000000000000000000000000000000001000000
+  equipmentStats: 080000000500000005000000000000000000000001000000
   theirClass: 1
-  exp: 195
+  exp: 2649
   weapon: {fileID: 11400000, guid: 907f1ae82da87f04c8b8e905d27e4407, type: 2}
   armor: {fileID: 0}
   accessory: {fileID: 0}
