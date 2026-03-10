@@ -141,7 +141,7 @@ public class DamageOverTimeCondition : Condition
     {
         category = damageCat;
         damageValue = conditionStrength;
-        if(damageCat == 3)
+        if(damageCat == 2)
         {
             attackMult = TurnOrderManager.Instance.turnPlayer.attack;
         }
@@ -171,7 +171,12 @@ public class DamageOverTimeCondition : Condition
                 unit.TakeDamage(damageValue*attackMult, DamageType.Magic, Element.Dark);
                 break;
             case 3: //%HP Damage
-                unit.TakeDamage((damageValue * unit.maxHP)/100, DamageType.Destined, Element.None);
+                int temp =(damageValue * unit.maxHP)/100;
+                if(temp<1)
+                {
+                    temp = 1;
+                }
+                unit.TakeDamage(temp, DamageType.Destined, Element.None);
                 break;
             default:
                 unit.TakeDamage(damageValue, DamageType.Destined, Element.None); 

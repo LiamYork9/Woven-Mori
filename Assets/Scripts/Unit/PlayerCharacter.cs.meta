@@ -1,2 +1,16 @@
 fileFormatVersion: 2
 guid: f0f3fbfbcd255794e9933f4b0c1cf923
+MonoImporter:
+  externalObjects: {}
+  serializedVersion: 2
+  defaultReferences:
+  - chSprite: {instanceID: 0}
+  - deathSprite: {instanceID: 0}
+  - weapon: {instanceID: 0}
+  - armor: {instanceID: 0}
+  - accessory: {instanceID: 0}
+  executionOrder: 0
+  icon: {instanceID: 0}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

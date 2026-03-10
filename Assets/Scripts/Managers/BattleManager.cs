@@ -88,6 +88,10 @@ public class BattleManager : MonoBehaviour
 
     public GameObject damageNumber;
 
+    public bool noRunning = false;
+
+    public int expEarned = 0;
+
 
 
 
@@ -250,12 +254,7 @@ public class BattleManager : MonoBehaviour
 
         }
 
-
-        // Will go into a death function later
-        if (playerSlots.Count == 0)
-        {
-            LoseCondition();
-        }
+        
 
         if (Input.GetKeyDown(KeyCode.Escape))
         {
@@ -317,6 +316,19 @@ public class BattleManager : MonoBehaviour
             playerSlots[i].SetActive(true);
             UnitBody temp = playerSlots[i].GetComponent<UnitBody>();
             temp.SetUnit(PartyManager.Instance.party[i]);
+            if((temp.unit as PlayerCharacter).weapon != null){
+            temp.equipmentAttrs.AddRange((temp.unit as PlayerCharacter).weapon.equipmentAttrs);
+            }
+             if((temp.unit as PlayerCharacter).armor != null){
+            temp.equipmentAttrs.AddRange((temp.unit as PlayerCharacter).armor.equipmentAttrs);
+            }
+             if((temp.unit as PlayerCharacter).accessory != null){
+            temp.equipmentAttrs.AddRange((temp.unit as PlayerCharacter).accessory.equipmentAttrs);
+            }
+            for(int j = 0; j<temp.equipmentAttrs.Count; j++)
+            {
+                temp.equipmentAttrs[j].ActivateAttr(playerSlots[i].GetComponent<UnitBody>());
+            }
             playerSlots[i].GetComponent<Image>().sprite = temp.chSprite;
         }
 
@@ -371,6 +383,19 @@ public class BattleManager : MonoBehaviour
                 PartyManager.Instance.party[i].currentHP = 1;
             }
             temp.SetUnit(PartyManager.Instance.party[i]);
+           if((temp.unit as PlayerCharacter).weapon != null){
+            temp.equipmentAttrs.AddRange((temp.unit as PlayerCharacter).weapon.equipmentAttrs);
+            }
+             if((temp.unit as PlayerCharacter).armor != null){
+            temp.equipmentAttrs.AddRange((temp.unit as PlayerCharacter).armor.equipmentAttrs);
+            }
+             if((temp.unit as PlayerCharacter).accessory != null){
+            temp.equipmentAttrs.AddRange((temp.unit as PlayerCharacter).accessory.equipmentAttrs);
+            }
+             for(int j = 0; j<temp.equipmentAttrs.Count; j++)
+            {
+                temp.equipmentAttrs[j].ActivateAttr(playerSlots[i].GetComponent<UnitBody>());
+            }
             playerSlots[i].GetComponent<Image>().sprite = temp.chSprite;
         }
 
@@ -433,7 +458,12 @@ public class BattleManager : MonoBehaviour
         targetArrow.SetActive(false);
         dialogueText.text = TOM.turnPlayer.name + " has Attacked " + target.GetComponent<UnitBody>().name;
         yield return new WaitForSeconds(2f);
-        SkillMaker.Instance.GetById(SkillId.Attack).ApplyEffects(TurnOrderManager.Instance.turnPlayer,target.GetComponent<UnitBody>());
+        Skill temp = SkillMaker.Instance.GetById(SkillId.Attack);
+        for(int i = 0; i<TurnOrderManager.Instance.turnPlayer.equipmentAttrs.Count; i++)
+        {
+            TurnOrderManager.Instance.turnPlayer.equipmentAttrs[i].ActivateOnSkill(temp);
+        }
+        temp.ApplyEffects(TurnOrderManager.Instance.turnPlayer,target.GetComponent<UnitBody>());
         yield return new WaitForSeconds(2f);
         TOM.EndTurn();
 
@@ -460,6 +490,48 @@ public class BattleManager : MonoBehaviour
         action = false;
         TOM.EndTurn();
     }
+
+    IEnumerator RunAwayCo()
+    {
+        ButtonsOff();
+         int fleeNum = Random.Range(-5,11)+TurnOrderManager.Instance.turnPlayer.speed+TurnOrderManager.Instance.turnPlayer.level;
+       int fastEnemy = 0;
+        dialogueText.text = "You try to run away";
+        yield return new WaitForSeconds(1f);
+        for(int i = 0; i < enemySlots.Count; i++)
+            {
+                if(enemySlots[i].GetComponent<UnitBody>().speed + enemySlots[i].GetComponent<UnitBody>().level > fastEnemy)
+                {
+                    fastEnemy = enemySlots[i].GetComponent<UnitBody>().speed + enemySlots[i].GetComponent<UnitBody>().level;
+                }
+            }
+            if(fleeNum > fastEnemy)
+            {
+                for (int i = 0; i < PartyManager.Instance.party.Count; i++)
+            {
+                PlayerCharacter temp = PartyManager.Instance.party[i];
+
+                for (int j = 0; j < defaultPlayerSlots[i].GetComponent<UnitBody>().conditions.Count; j++)
+                {
+                    defaultPlayerSlots[i].GetComponent<UnitBody>().conditions[j].RemoveCondition();
+                }
+
+                temp.CopyStats(defaultPlayerSlots[i].GetComponent<UnitBody>());
+            }
+                dialogueText.text = "You Escape";
+                yield return new WaitForSeconds(1f);
+                BattleEnd();
+            }
+            else
+            {
+                dialogueText.text = "Escape Failed";
+                yield return new WaitForSeconds(1f);
+                TOM.EndTurn();
+            }
+
+
+
+    }
     
 
     public void EnemyTurn()
@@ -474,6 +546,7 @@ public class BattleManager : MonoBehaviour
     public void WinCondtion()
     {
         fightState = FightState.Won;
+        
         ButtonsOff();
         for (int i = 0; i < PartyManager.Instance.party.Count; i++)
         {
@@ -485,6 +558,12 @@ public class BattleManager : MonoBehaviour
             }
 
             temp.CopyStats(defaultPlayerSlots[i].GetComponent<UnitBody>());
+            temp.exp += expEarned;
+            while (temp.exp >= 100*temp.level)
+            {
+                temp.exp -= temp.level*100;
+                temp.LevelUp();
+            }
         }
         dialogueText.text = "You Win!";
 
@@ -518,12 +597,15 @@ public class BattleManager : MonoBehaviour
 
     public void BattleEnd()
     {
+        Debug.Log("BattleEnd");
+        expEarned = 0;
         StartCoroutine(EndBattle());
     }
     
      IEnumerator EndBattle()
     {
         yield return new WaitForSeconds(1.5f);
+        Debug.Log("EndBattle");
         dialogueText.text = "The Battle is Over";
         yield return new WaitForSeconds(1f);
         SceneManager.LoadScene(sceneName);
@@ -602,6 +684,11 @@ public class BattleManager : MonoBehaviour
     public void EnemyAttack(Skill skill, List<UnitBody> targets)
     {
         StartCoroutine(EnemyAttackCo(skill,targets));
+    }
+
+    public void RunAway()
+    {
+        StartCoroutine(RunAwayCo());
     }
 
 

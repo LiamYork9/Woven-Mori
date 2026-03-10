@@ -4,6 +4,7 @@ using UnityEngine;
 [System.Serializable]
 public class Enemy : Unit
 {
+    public int expYield; 
 
     void Start()
     {
@@ -28,6 +29,11 @@ public class Enemy : Unit
     // Enemy Death Function (Removes them from list)
     public override void Death(UnitBody body)
     {
+        BattleManager.Instance.expEarned += expYield;
+        for(int i = 0; i < PartyManager.Instance.party.Count; i++)
+        {
+            //PartyManager.Instance.party[i].get +=
+        }
         if (body.currentHP <= 0)
         {
             Debug.Log(unitName + " Soul Death");

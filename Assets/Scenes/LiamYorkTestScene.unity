@@ -713,6 +713,18 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 3722604092719107477, guid: dff2bcc460642c3489f19957f6b24001, type: 3}
+      propertyPath: 'encounterTable.Array.data[0]'
+      value: 
+      objectReference: {fileID: 11400000, guid: 89e126f7d00c46a49a7c231e61fa92fd, type: 2}
+    - target: {fileID: 3722604092719107477, guid: dff2bcc460642c3489f19957f6b24001, type: 3}
+      propertyPath: 'encounterTable.Array.data[1]'
+      value: 
+      objectReference: {fileID: 11400000, guid: f6f4a97da73ac2a4385bd6643c4b2122, type: 2}
+    - target: {fileID: 3722604092719107477, guid: dff2bcc460642c3489f19957f6b24001, type: 3}
+      propertyPath: 'encounterTable.Array.data[2]'
+      value: 
+      objectReference: {fileID: 11400000, guid: 05071c4e09cd9f64182f3c2062dbcd2d, type: 2}
     - target: {fileID: 9037386977037729794, guid: dff2bcc460642c3489f19957f6b24001, type: 3}
       propertyPath: m_Name
       value: EnemyPool
@@ -784,7 +796,7 @@ PrefabInstance:
       objectReference: {fileID: 744602751}
     - target: {fileID: 6150715196394293801, guid: 8089a5ef6f4ee464ea9324d77e01a3da, type: 3}
       propertyPath: sceneName
-      value: DemoScene
+      value: NodeTesting
       objectReference: {fileID: 0}
     - target: {fileID: 6150715196394293801, guid: 8089a5ef6f4ee464ea9324d77e01a3da, type: 3}
       propertyPath: skillMenu
@@ -1180,6 +1192,38 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7648609458876619987, guid: c14100d79b2ddbd4c97c369e306032c3, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8194778413587452179, guid: c14100d79b2ddbd4c97c369e306032c3, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8194778413587452179, guid: c14100d79b2ddbd4c97c369e306032c3, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8194778413587452179, guid: c14100d79b2ddbd4c97c369e306032c3, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 645222400}
+    - target: {fileID: 8194778413587452179, guid: c14100d79b2ddbd4c97c369e306032c3, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_CallState
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 8194778413587452179, guid: c14100d79b2ddbd4c97c369e306032c3, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: RunAway
+      objectReference: {fileID: 0}
+    - target: {fileID: 8194778413587452179, guid: c14100d79b2ddbd4c97c369e306032c3, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
+      value: BattleManager, Assembly-CSharp
+      objectReference: {fileID: 0}
+    - target: {fileID: 8194778413587452179, guid: c14100d79b2ddbd4c97c369e306032c3, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
+      value: UnityEngine.Object, UnityEngine
+      objectReference: {fileID: 0}
+    - target: {fileID: 8297365774884848943, guid: c14100d79b2ddbd4c97c369e306032c3, type: 3}
+      propertyPath: vulnerability.Array.size
       value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []

@@ -19,7 +19,7 @@ public class HPTest : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        hpText.text = "HP:" + MaxHealth + "/" + CurrentHealth;
+        hpText.text = "HP:" + CurrentHealth + "/" + MaxHealth;
     }
 
     public void SetHpBar()

@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.AI;
 
 namespace MoriSkills
 {
@@ -31,7 +32,12 @@ namespace MoriSkills
 
         }
 
-        public virtual void ActivateAttr(UnitBody unitUser, UnitBody unitTarget)
+        public virtual SkillAttr ShallowCopy()
+        {
+            return (SkillAttr)this.MemberwiseClone();
+        }
+
+        public virtual void ActivateAttr(UnitBody unitUser, UnitBody unitTarget, int power, Element skillElement)
         {
 
         }
@@ -39,21 +45,36 @@ namespace MoriSkills
 
     public class DamageAttr : SkillAttr
     {
-        public int power;
-        DamageType type;
-        Element element;
+        public float mutiplier;
+        public DamageType type;
+        public Element element;
 
-        public DamageAttr(int skillPower, DamageType damageType, Element damageElement = Element.None, bool targetSelf = false) : base(targetSelf)
+        public bool changeElement;
+
+        public DamageAttr(float skillMult, DamageType damageType, Element damageElement = Element.None,bool elementOverride = false, bool targetSelf = false) : base(targetSelf)
         {
             name = "DamageAttr";
-            power = skillPower;
+            mutiplier = skillMult;
             type = damageType;
             element = damageElement;
+            changeElement = elementOverride;
         }
 
-        public override void ActivateAttr(UnitBody unitUser, UnitBody unitTarget)
+        public override void ActivateAttr(UnitBody unitUser, UnitBody unitTarget, int power,Element skillElement)
         {
-            unitTarget.TakeDamage(power * unitUser.attack, type, element);
+            if(changeElement == false)
+            {
+                element = skillElement;
+            }
+            if(targetSelf)
+            {
+                unitUser.TakeDamage((int)(power * mutiplier * unitUser.attack), type, element);                
+            }
+            else
+            {
+                unitTarget.TakeDamage((int)(power * mutiplier * unitUser.attack), type, element);
+            }
+           
         }
 
     }
@@ -74,7 +95,7 @@ namespace MoriSkills
             boost = boostNum;
         }
 
-        public override void ActivateAttr(UnitBody unitUser, UnitBody unitTarget)
+        public override void ActivateAttr(UnitBody unitUser, UnitBody unitTarget, int power,Element skillElement)
         {
             if (targetSelf == true)
             {
@@ -124,7 +145,7 @@ namespace MoriSkills
     {
         int scaleValue;
         [SerializeReference]
-        List<SkillAttr> scaledAttr = null;
+        public List<SkillAttr> scaledAttr = null;
 
         public LevelScaleAttr Attr(SkillAttr addedAttr)
         {
@@ -143,16 +164,24 @@ namespace MoriSkills
             scaleValue = scaleRate;
         }
 
-        public override void ActivateAttr(UnitBody unitUser, UnitBody unitTarget)
+        public override void ActivateAttr(UnitBody unitUser, UnitBody unitTarget, int power,Element skillElement)
         {
             for(int i = 0; i < scaledAttr.Count; i++)
             {
-                if (scaledAttr[i] is DamageAttr)
-                {
-                    ((DamageAttr)scaledAttr[i]).power = scaleValue * unitUser.level;
-                }
-                scaledAttr[i].ActivateAttr(unitUser, unitTarget);
+                
+                scaledAttr[i].ActivateAttr(unitUser, unitTarget,power+scaleValue*unitUser.level, skillElement);
             }
+        }
+
+        public override SkillAttr ShallowCopy()
+        {
+            LevelScaleAttr temp = (LevelScaleAttr)this.MemberwiseClone();
+            temp.scaledAttr = new List<SkillAttr>();
+            for(int i=0; i<scaledAttr.Count; i++)
+            {
+                temp.scaledAttr.Add(scaledAttr[i].ShallowCopy());
+            }
+            return temp;
         }
     }
 
@@ -171,7 +200,7 @@ namespace MoriSkills
             boost = boostNum;
             
         }
-        public override void ActivateAttr(UnitBody unitUser, UnitBody unitTarget)
+        public override void ActivateAttr(UnitBody unitUser, UnitBody unitTarget, int power,Element skillElement)
         {
             if (targetSelf==true)
             {
@@ -186,20 +215,20 @@ namespace MoriSkills
 
     public class HealAttr : SkillAttr
     {
-        public int healAmount;
+        public float healMultiplier;
         public float statModifier;
         UnitBody target = null;
 
-        public HealAttr(int healNum, float statMod = .2f, bool targetSelf = false) : base(targetSelf)
+        public HealAttr(float healMult, float statMod = .2f, bool targetSelf = false) : base(targetSelf)
 
         {
             name = "HealAttr";
-            healAmount = healNum;
+            healMultiplier = healMult;
             statModifier = statMod;
 
         }
 
-        public override void ActivateAttr(UnitBody unitUser, UnitBody unitTarget)
+        public override void ActivateAttr(UnitBody unitUser, UnitBody unitTarget, int power,Element skillElement)
         {
             
             if (targetSelf == true)
@@ -210,7 +239,7 @@ namespace MoriSkills
             {
                 target = unitTarget;
             }
-            target.currentHP += healAmount + (int)(unitUser.attack*statModifier);
+            target.currentHP += (int)((healMultiplier + (unitUser.attack*statModifier/10))*power);
             if (target.currentHP>target.maxHP)
             {
                 target.currentHP = target.maxHP;
@@ -227,7 +256,7 @@ namespace MoriSkills
             name = "ApplyConditionAttr";
             duration = conditionDuration;
         }
-        public override void ActivateAttr(UnitBody unitUser, UnitBody unitTarget)
+        public override void ActivateAttr(UnitBody unitUser, UnitBody unitTarget, int power,Element skillElement)
         {
             if (targetSelf == true)
             {
@@ -274,22 +303,38 @@ namespace MoriSkills
             name = "EvenOddAttr";
         }
 
-        public override void ActivateAttr(UnitBody unitUser, UnitBody unitTarget)
+        public override void ActivateAttr(UnitBody unitUser, UnitBody unitTarget, int power,Element skillElement)
         {
             if (BattleManager.Instance.globalTurn % 2 == 0)
             {
                 for (int i = 0; i < evenAttr.Count; i++)
                 {
-                    evenAttr[i].ActivateAttr(unitUser, unitTarget);
+                    evenAttr[i].ActivateAttr(unitUser, unitTarget,power,skillElement);
                 }
             }
             else
             {
                 for (int i = 0; i < oddAttr.Count; i++)
                 {
-                    oddAttr[i].ActivateAttr(unitUser, unitTarget);
+                    oddAttr[i].ActivateAttr(unitUser, unitTarget,power,skillElement);
                 }
             }
+        }
+
+        public override SkillAttr ShallowCopy()
+        {
+            EvenOddAttr temp = (EvenOddAttr)this.MemberwiseClone();
+            temp.oddAttr = new List<SkillAttr>();
+            temp.evenAttr = new List<SkillAttr>();
+            for(int i=0; i<oddAttr.Count; i++)
+            {
+                temp.oddAttr.Add(oddAttr[i].ShallowCopy());
+            }
+            for(int i=0; i<evenAttr.Count; i++)
+            {
+                temp.evenAttr.Add(evenAttr[i].ShallowCopy());
+            }
+            return temp;
         }
     }
 
@@ -307,7 +352,7 @@ namespace MoriSkills
             category = poisonCat;
             potency = poisonPower;
         }
-        public override void ActivateAttr(UnitBody unitUser, UnitBody unitTarget)
+        public override void ActivateAttr(UnitBody unitUser, UnitBody unitTarget, int power,Element skillElement)
         {
             if (targetSelf == true)
             {
@@ -316,6 +361,37 @@ namespace MoriSkills
             else
             {
                 unitTarget.ApplyCondition(new DamageOverTimeCondition(category,potency,duration));
+            }
+        }
+    }
+
+    public class APGainAttr : SkillAttr
+    {
+        public int amount;
+
+
+        public APGainAttr(int APchange = 1, bool targetSelf = false) : base(targetSelf)
+        {
+            name = "APAttr";
+            amount = APchange;
+        }
+        public override void ActivateAttr(UnitBody unitUser, UnitBody unitTarget, int power,Element skillElement)
+        {
+            if (targetSelf == true)
+            {
+                unitUser.AP+=amount;
+                if (unitUser.AP < 0)
+                {
+                    unitUser.AP = 0;
+                }
+            }
+            else
+            {
+                unitTarget.AP+=amount;
+                if (unitTarget.AP < 0)
+                {
+                    unitTarget.AP = 0;
+                }
             }
         }
     }

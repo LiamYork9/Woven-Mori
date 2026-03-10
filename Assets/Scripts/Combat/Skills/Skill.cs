@@ -29,7 +29,12 @@ namespace MoriSkills
 
 
         ,//Enemy Skills
-        PoisonBite
+        PoisonBite,
+        
+        MassHeal,
+        PoisonBlade,
+        WindBlade,
+        Focus
     }
 
     public enum Element
@@ -97,10 +102,11 @@ namespace MoriSkills
         public List<Condtion> condtions;
 
 
-        public Skill(SkillId SskillId, string SskillName, Element Selement, Target defualtTarget, Category Scategory, int Saccuracy, int Scost, string StoolTip, int Schance, int SturnShift, List<SkillAttr> Sattr = null, List<Condtion> Scondtions = null)
+        public Skill(SkillId SskillId, string SskillName, int Spower, Element Selement, Target defualtTarget, Category Scategory, int Saccuracy, int Scost, string StoolTip, int Schance, int SturnShift, List<SkillAttr> Sattr = null, List<Condtion> Scondtions = null)
         {
             skillId = SskillId;
             name = SskillName;
+            power = Spower;
             element = Selement;
             target = defualtTarget;
             category = Scategory;
@@ -114,8 +120,11 @@ namespace MoriSkills
                 attrs = new List<SkillAttr> { };
             }
             else
-            {
-                attrs = Sattr;
+            {   attrs = new List<SkillAttr> { };
+                for(int i = 0; i < Sattr.Count; i++)
+                {
+                    Attr(Sattr[i].ShallowCopy());
+                }
             }
             if (Scondtions == null)
             {
@@ -123,7 +132,8 @@ namespace MoriSkills
             }
             else
             {
-                condtions = Scondtions;
+                condtions = new List<Condtion> { };
+                condtions.AddRange(Scondtions);
             }
         }
 
@@ -156,7 +166,7 @@ namespace MoriSkills
             TurnOrderManager.Instance.turnOrder[0].turnShift = turnShift;
             for (int i = 0; i < attrs.Count; i++)
             {
-                attrs[i].ActivateAttr(unitUser,unitTarget);
+                attrs[i].ActivateAttr(unitUser,unitTarget,power,element);
             }
         }
 

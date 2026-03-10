@@ -1,0 +1,37 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 22ff192d681faf34ca12b61a7c65a93d, type: 3}
+  m_Name: Slimeling
+  m_EditorClassIdentifier: 
+  unitName: Slimeling
+  partyMember: 0
+  skills: 05000000
+  resistance: 02000000
+  immunity: 
+  vulnerability: 
+  conditions: []
+  chSprite: {fileID: 21300000, guid: 7ef42231652fcda41b73cf85791d6841, type: 3}
+  deathSprite: {fileID: 21300000, guid: 7ef42231652fcda41b73cf85791d6841, type: 3}
+  level: 1
+  maxHP: 7
+  currentHP: 7
+  attack: 4
+  defense: 6
+  mDefense: 6
+  speed: 3
+  APCap: 10
+  APGain: 1
+  equipmentStats: 000000000000000000000000000000000000000000000000
+  expYield: 20
+  references:
+    version: 2
+    RefIds: []

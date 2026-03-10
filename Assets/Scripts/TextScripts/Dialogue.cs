@@ -23,6 +23,10 @@ public class Dialogue : MonoBehaviour
     public bool textActive = false;
     public UnityEvent EndDialogueEvent;
 
+    public UnityEvent<string> StartNodeEvent;
+
+    public UnityEvent<string> EndNodeEvent;
+
      public string[] dialogText;
 
 
@@ -32,7 +36,17 @@ public class Dialogue : MonoBehaviour
         {
             EndDialogueEvent = new UnityEvent();
         }
-          
+
+        if (EndNodeEvent == null)
+        {
+            EndNodeEvent = new UnityEvent<string>();
+        }
+
+        if (StartNodeEvent == null)
+        {
+            StartNodeEvent = new UnityEvent<string>();
+        }
+       
     }
 
     void Update()
@@ -112,8 +126,12 @@ public class Dialogue : MonoBehaviour
 
     public void NextNode()
     {
+        for(int i = 0; i < activeSegment.endNodeEvent.Count;i++)
+        {
+            EndNodeEvent.Invoke(activeSegment.endNodeEvent[i]);
+        }
         if(activeSegment is DialogAnswerSegments){
-        
+            
             if((activeSegment as DialogAnswerSegments).Answers.Count > 0)
             {
                  int answerIndex = 0;
@@ -187,6 +205,7 @@ public class Dialogue : MonoBehaviour
             }
            
         }
+        
     
            
         
@@ -234,6 +253,10 @@ public class Dialogue : MonoBehaviour
         {
             index = 0;
             activeSegment = newSegment;
+            for(int i = 0; i < activeSegment.startNodeEvent.Count;i++)
+            {
+                StartNodeEvent.Invoke(activeSegment.startNodeEvent[i]);
+            }
             dialogText = newSegment.DialogText;
              TextBoxManager.Instance.nameText.text = activeSegment.speakerName;
              TextBoxManager.Instance.portrait.sprite = activeSegment.portrait;

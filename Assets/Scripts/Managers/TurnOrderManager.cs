@@ -107,12 +107,19 @@ public class TurnOrderManager : MonoBehaviour
 
     public void TurnShift(int shift = 1)
     {
+        if (turnOrder.Count <= 10)
+        {
+            TurnCalulation();
+        }
 
         if (shift >= 0)
         {
             for (int i = 0; i < shift; i++)
             {
-                recentTurns.Insert(0, turnOrder[0]);
+                if(turnOrder[0].exhausted != true)
+                {
+                    recentTurns.Insert(0, turnOrder[0]);
+                }
                 turnOrder.Remove(turnOrder[0]);
                 BM.globalTurn += 1;
             }
@@ -138,7 +145,7 @@ public class TurnOrderManager : MonoBehaviour
         }
        
 
-        if (turnOrder.Count <= 6)
+        if (turnOrder.Count <= 10)
         {
             TurnCalulation();
         }

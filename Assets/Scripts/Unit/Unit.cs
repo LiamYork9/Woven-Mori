@@ -26,7 +26,14 @@ public class Unit : ScriptableObject
 
     public Sprite deathSprite;
 
+    [Header("Stats")]
+
     public int level = 1;
+
+    
+    public int maxHP;
+
+    public int currentHP;
 
     public int attack;
 
@@ -34,48 +41,49 @@ public class Unit : ScriptableObject
 
     public int mDefense = 1;
 
-    public int maxHP;
+     public int speed = 1;
 
-    public int currentHP;
 
-    public int speed = 1;
 
-    public int initiative;
+    
 
-    public int localTurnCount;
-
-    public int localTurnCountCurrentVal;
-
-    public int AP;
 
     public int APCap;
 
     public int APGain = 1;
 
-    public int emergencybutton;
 
+    public List<int> equipmentStats = new List<int> {0,0,0,0,0,0};
 
+    protected int initiative;
+    protected int emergencybutton;
     //Events
 
     public void CopyStats(UnitBody target)
     {
+        for (int j = 0; j < target.conditions.Count; j++)
+            {
+                target.conditions[j].RemoveCondition();
+                j--;
+            }
         unitName = target.name;
         skills = target.skills;
         partyMember = target.partyMember;
         chSprite = target.chSprite;
         deathSprite = target.deathSprite;
         level = target.level;
-        attack = target.attack;
-        defense = target.defense;
-        mDefense = target.mDefense;
-        maxHP = target.maxHP;
+        maxHP = target.maxHP - target.equipmentStats[4];
         currentHP = target.currentHP;
-        speed = target.speed;
+        attack = target.attack - target.equipmentStats[0];
+        defense = target.defense - target.equipmentStats[1];
+        mDefense = target.mDefense - target.equipmentStats[2];
+        speed = target.speed - target.equipmentStats[3];
+        
         APCap = target.APCap;
-        APGain = target.APGain;
-        resistance = target.resistance;
-        immunity = target.immunity;
-        vulnerability = target.vulnerability;
+        APGain = target.APGain - target.equipmentStats[5];
+        // resistance = target.resistance;
+        // immunity = target.immunity;
+        // vulnerability = target.vulnerability;
     }
 
     public virtual void Death(UnitBody body)
@@ -92,7 +100,24 @@ public class Unit : ScriptableObject
 
     public void Restore()
     {
-        currentHP = maxHP;
+        int equipmentBouns  = 0;
+        if(this is PlayerCharacter)
+        {
+            if((this as PlayerCharacter).weapon != null)
+            {
+                equipmentBouns += (this as PlayerCharacter).weapon.stats[4];
+            }
+            if((this as PlayerCharacter).armor != null)
+            {
+                equipmentBouns += (this as PlayerCharacter).armor.stats[4];
+            }
+            if((this as PlayerCharacter).accessory != null)
+            {
+                equipmentBouns += (this as PlayerCharacter).accessory.stats[4];
+            }
+
+        }
+        currentHP = maxHP + equipmentBouns;
         conditions.Clear();
     }
 
