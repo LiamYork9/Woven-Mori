@@ -6401,7 +6401,7 @@ MonoBehaviour:
   statScreen: {fileID: 1192752369}
   inventoryScreen: {fileID: 294705122}
   screenOn: 0
-  buttonPrefab: {fileID: 8269702595644560011, guid: 86995250cef7bf442a0c2244b057e1e7, type: 3}
+  buttonPrefab: {fileID: 8269702595644560011, guid: 662e5dcc167a6d54688111ce96dac5e8, type: 3}
   buttonParent: {fileID: 1980460115}
   buttonParentInv: {fileID: 1703345241}
   partyMemberButton: []
@@ -6412,7 +6412,7 @@ MonoBehaviour:
   accessoryButton: {fileID: 16751109}
   equipMenu: {fileID: 1505613644}
   defaultSprite: {fileID: 10901, guid: 0000000000000000f000000000000000, type: 0}
-  selectedCharchter: {fileID: 0}
+  selectedCharacter: {fileID: 0}
 --- !u!1 &1796859973
 GameObject:
   m_ObjectHideFlags: 0

@@ -37,7 +37,7 @@ public class StatScreenScript : MonoBehaviour
 
       public Sprite defaultSprite;
 
-      public PlayerCharacter selectedCharchter;
+      public PlayerCharacter selectedCharacter;
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
@@ -98,7 +98,8 @@ public class StatScreenScript : MonoBehaviour
         for(int i = 0; i < PartyManager.Instance.party.Count; i++)
         {
             GameObject newButton = Instantiate(buttonPrefab, buttonParent.transform);
-            newButton.GetComponent<Button>().onClick.AddListener(()=> showStats(newButton));
+            newButton.GetComponent<InventoryCharacter>().character = PartyManager.Instance.party[i];
+            newButton.GetComponent<Button>().onClick.AddListener(()=> showStats(newButton.GetComponent<InventoryCharacter>().character));
             partyMemberButton.Add(newButton);
             
             
@@ -107,7 +108,7 @@ public class StatScreenScript : MonoBehaviour
         {
             partyMemberButton[i].GetComponentInChildren<TextMeshProUGUI>().text = PartyManager.Instance.party[i].name;
         }
-        showStats(partyMemberButton[0]);
+        showStats(partyMemberButton[0].GetComponent<InventoryCharacter>().character);
     
     }
 
@@ -122,7 +123,7 @@ public class StatScreenScript : MonoBehaviour
         equipMenu.SetActive(false);
     }
 
-    public void showStats(GameObject button)
+    public void showStats(PlayerCharacter character)
     {
         for (int i = 0; i < PartyManager.Instance.party.Count; i++)
         {
@@ -161,61 +162,54 @@ public class StatScreenScript : MonoBehaviour
             accessoryButton.SetActive(true);
       for(int i = 0; i < partyMemberButton.Count; i++)
         {
-            if(partyMemberButton[i] == button)
+            selectedCharacter = character;
+            statText.text = "" + selectedCharacter.name + " Lv:" + selectedCharacter.level + "\n" +
+            "HP: " + selectedCharacter.currentHP + "/" + (selectedCharacter.maxHP + selectedCharacter.equipmentStats[4] ) + " ("+selectedCharacter.maxHP+"+"+selectedCharacter.equipmentStats[4]+")" + "\n" +
+            "Attack: " + selectedCharacter.attack + " + " + selectedCharacter.equipmentStats[0] +"\n" +
+            "Defense: " + selectedCharacter.defense + " + " + selectedCharacter.equipmentStats[1] + "\n" +
+            "Magic Defense: " + selectedCharacter.mDefense + " + " + selectedCharacter.equipmentStats[2] + "\n" +
+            "Speed: " + selectedCharacter.speed + " + " + selectedCharacter.equipmentStats[3] + "\n" +
+            "AP Gain: " + selectedCharacter.APGain + " + " + selectedCharacter.equipmentStats[5];
+
+            if(selectedCharacter.weapon != null)
             {
-                selectedCharchter = PartyManager.Instance.party[i];
-                statText.text = "" + PartyManager.Instance.party[i].name + " Lv:" + PartyManager.Instance.party[i].level + "\n" +
-                "HP: " + PartyManager.Instance.party[i].currentHP + "/" + (PartyManager.Instance.party[i].maxHP + PartyManager.Instance.party[i].equipmentStats[4] ) + " ("+PartyManager.Instance.party[i].maxHP+"+"+PartyManager.Instance.party[i].equipmentStats[4]+")" + "\n" +
-                "Attack: " + PartyManager.Instance.party[i].attack + " + " + PartyManager.Instance.party[i].equipmentStats[0] +"\n" +
-                "Defense: " + PartyManager.Instance.party[i].defense + " + " + PartyManager.Instance.party[i].equipmentStats[1] + "\n" +
-                "Magic Defense: " + PartyManager.Instance.party[i].mDefense + " + " + PartyManager.Instance.party[i].equipmentStats[2] + "\n" +
-                "Speed: " + PartyManager.Instance.party[i].speed + " + " + PartyManager.Instance.party[i].equipmentStats[3] + "\n" +
-                "AP Gain: " + PartyManager.Instance.party[i].APGain + " + " + PartyManager.Instance.party[i].equipmentStats[5];
-
-                if(PartyManager.Instance.party[i].weapon != null)
-                {
-                    statText.text +=  "\nWeapon: " + PartyManager.Instance.party[i].weapon.name;
-                    weaponButton.GetComponentInChildren<TextMeshProUGUI>().text =  PartyManager.Instance.party[i].weapon.name;
-                    weaponButton.GetComponentInChildren<Image>().sprite = PartyManager.Instance.party[i].weapon.itemSprite;
-                }
-                else
-                {
-                     statText.text +=  "\nWeapon: None";
-                     weaponButton.GetComponentInChildren<TextMeshProUGUI>().text =  "None";
-                     weaponButton.GetComponentInChildren<Image>().sprite = defaultSprite;
-                }
-                if(PartyManager.Instance.party[i].armor != null)
-                {
-                    statText.text +=  "\nArmor: " + PartyManager.Instance.party[i].armor.name;
-                    armorButton.GetComponentInChildren<TextMeshProUGUI>().text =  PartyManager.Instance.party[i].armor.name;
-                    armorButton.GetComponentInChildren<Image>().sprite = PartyManager.Instance.party[i].armor.itemSprite;
-                }
-                else
-                {
-                    statText.text +=  "\nArmor: None";
-                    armorButton.GetComponentInChildren<TextMeshProUGUI>().text =  "None";
-                    armorButton.GetComponentInChildren<Image>().sprite = defaultSprite;
-                }
-                if(PartyManager.Instance.party[i].accessory != null)
-                {
-                    statText.text +=  "\nAccessory: " + PartyManager.Instance.party[i].accessory.name;
-                    accessoryButton.GetComponentInChildren<TextMeshProUGUI>().text =  PartyManager.Instance.party[i].accessory.name;
-                    accessoryButton.GetComponentInChildren<Image>().sprite = PartyManager.Instance.party[i].accessory.itemSprite;
-                }
-                else
-                {
-                    statText.text +=  "\nAccessory: None";
-                    accessoryButton.GetComponentInChildren<TextMeshProUGUI>().text =  "None";
-                    accessoryButton.GetComponentInChildren<Image>().sprite = defaultSprite;
-                }
+                statText.text +=  "\nWeapon: " + selectedCharacter.weapon.name;
+                weaponButton.GetComponentInChildren<TextMeshProUGUI>().text =  selectedCharacter.weapon.name;
+                weaponButton.GetComponentInChildren<Image>().sprite = selectedCharacter.weapon.itemSprite;
             }
-            
-           
-        }
-
-        
-
+            else
+            {
+                    statText.text +=  "\nWeapon: None";
+                    weaponButton.GetComponentInChildren<TextMeshProUGUI>().text =  "None";
+                    weaponButton.GetComponentInChildren<Image>().sprite = defaultSprite;
+            }
+            if(selectedCharacter.armor != null)
+            {
+                statText.text +=  "\nArmor: " + selectedCharacter.armor.name;
+                armorButton.GetComponentInChildren<TextMeshProUGUI>().text =  selectedCharacter.armor.name;
+                armorButton.GetComponentInChildren<Image>().sprite = selectedCharacter.armor.itemSprite;
+            }
+            else
+            {
+                statText.text +=  "\nArmor: None";
+                armorButton.GetComponentInChildren<TextMeshProUGUI>().text =  "None";
+                armorButton.GetComponentInChildren<Image>().sprite = defaultSprite;
+            }
+            if(selectedCharacter.accessory != null)
+            {
+                statText.text +=  "\nAccessory: " + selectedCharacter.accessory.name;
+                accessoryButton.GetComponentInChildren<TextMeshProUGUI>().text =  selectedCharacter.accessory.name;
+                accessoryButton.GetComponentInChildren<Image>().sprite = selectedCharacter.accessory.itemSprite;
+            }
+            else
+            {
+                statText.text +=  "\nAccessory: None";
+                accessoryButton.GetComponentInChildren<TextMeshProUGUI>().text =  "None";
+                accessoryButton.GetComponentInChildren<Image>().sprite = defaultSprite;
+            }
+        }       
     }
+
      public void ToolTipAdder(GameObject button)
     {
         Equipment temp = button.GetComponent<EquipmentToolTip>().equipment;
@@ -289,6 +283,7 @@ public class StatScreenScript : MonoBehaviour
                 newButton.GetComponentInChildren<TextMeshProUGUI>().text = pair.Key.itemName +" X"+ pair.Value;
                 newButton.GetComponentInChildren<Image>().sprite = pair.Key.itemSprite;
                 newButton.GetComponent<EquipmentToolTip>().equipment = pair.Key ;
+                newButton.GetComponent<Button>().onClick.AddListener(()=>showStats(selectedCharacter));
                 
             }
         }
@@ -310,6 +305,7 @@ public class StatScreenScript : MonoBehaviour
                 newButton.GetComponentInChildren<TextMeshProUGUI>().text = pair.Key.itemName +" X"+ pair.Value;
                 newButton.GetComponentInChildren<Image>().sprite = pair.Key.itemSprite;
                 newButton.GetComponent<EquipmentToolTip>().equipment = pair.Key ;
+                newButton.GetComponent<Button>().onClick.AddListener(()=>showStats(selectedCharacter));
                 
             }
         }
@@ -331,6 +327,7 @@ public class StatScreenScript : MonoBehaviour
                 newButton.GetComponentInChildren<TextMeshProUGUI>().text = pair.Key.itemName +" X"+ pair.Value;
                 newButton.GetComponentInChildren<Image>().sprite = pair.Key.itemSprite;
                 newButton.GetComponent<EquipmentToolTip>().equipment = pair.Key ;
+                newButton.GetComponent<Button>().onClick.AddListener(()=>showStats(selectedCharacter));
             }
         }
     }
@@ -340,7 +337,7 @@ public class StatScreenScript : MonoBehaviour
         {
             if(pair.Key is Armor)
             {
-            selectedCharchter.armor = pair.Key as Armor;
+                selectedCharacter.armor = pair.Key as Armor;
             }
         }
     }
@@ -350,7 +347,7 @@ public class StatScreenScript : MonoBehaviour
         {
             if(pair.Key is Weapon)
             {
-            selectedCharchter.weapon = pair.Key as Weapon;
+                selectedCharacter.weapon = pair.Key as Weapon;
             }
         }
     }
@@ -360,7 +357,7 @@ public class StatScreenScript : MonoBehaviour
         {
             if(pair.Key is Accessory)
             {
-            selectedCharchter.accessory = pair.Key as Accessory;
+                selectedCharacter.accessory = pair.Key as Accessory;
             }
         }
     }

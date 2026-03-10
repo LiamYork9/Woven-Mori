@@ -33,7 +33,7 @@ MonoBehaviour:
     Mdefense: 34
     Speed: 40
   - Level: 30
-    MaxHP: 10
+    MaxHP: 135
     Attack: 54
     Defense: 36
     Mdefense: 51
