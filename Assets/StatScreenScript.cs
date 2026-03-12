@@ -4,6 +4,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine.UI;
 using Unity.VisualScripting;
+using UnityEngine.InputSystem;
 
 
 
@@ -27,17 +28,22 @@ public class StatScreenScript : MonoBehaviour
 
       public GameObject buttonParentInv;
 
+      public GameObject equipMenuParent;
+
       public List<GameObject> partyMemberButton;
 
       public List<GameObject> inventoryButtons;
 
       public GameObject equipmentButtonPrefab;
 
-      public GameObject weaponButton,armorButton,accessoryButton,equipMenu;
+
+      public GameObject weaponButton,armorButton,accessoryButton,unequipButton,equipMenu;
 
       public Sprite defaultSprite;
 
       public PlayerCharacter selectedCharacter;
+
+      public int remove = 0;
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
@@ -121,10 +127,12 @@ public class StatScreenScript : MonoBehaviour
         armorButton.SetActive(false);
         accessoryButton.SetActive(false);
         equipMenu.SetActive(false);
+        unequipButton.SetActive(false);
     }
 
     public void showStats(PlayerCharacter character)
     {
+         unequipButton.SetActive(false);
         for (int i = 0; i < PartyManager.Instance.party.Count; i++)
         {
            PlayerCharacter temp = PartyManager.Instance.party[i];
@@ -174,7 +182,7 @@ public class StatScreenScript : MonoBehaviour
             if(selectedCharacter.weapon != null)
             {
                 statText.text +=  "\nWeapon: " + selectedCharacter.weapon.name;
-                weaponButton.GetComponentInChildren<TextMeshProUGUI>().text =  selectedCharacter.weapon.name;
+                weaponButton.GetComponentInChildren<TextMeshProUGUI>().text =  selectedCharacter.weapon.itemName;
                 weaponButton.GetComponentInChildren<Image>().sprite = selectedCharacter.weapon.itemSprite;
             }
             else
@@ -186,7 +194,7 @@ public class StatScreenScript : MonoBehaviour
             if(selectedCharacter.armor != null)
             {
                 statText.text +=  "\nArmor: " + selectedCharacter.armor.name;
-                armorButton.GetComponentInChildren<TextMeshProUGUI>().text =  selectedCharacter.armor.name;
+                armorButton.GetComponentInChildren<TextMeshProUGUI>().text =  selectedCharacter.armor.itemName;
                 armorButton.GetComponentInChildren<Image>().sprite = selectedCharacter.armor.itemSprite;
             }
             else
@@ -198,7 +206,7 @@ public class StatScreenScript : MonoBehaviour
             if(selectedCharacter.accessory != null)
             {
                 statText.text +=  "\nAccessory: " + selectedCharacter.accessory.name;
-                accessoryButton.GetComponentInChildren<TextMeshProUGUI>().text =  selectedCharacter.accessory.name;
+                accessoryButton.GetComponentInChildren<TextMeshProUGUI>().text =  selectedCharacter.accessory.itemName;
                 accessoryButton.GetComponentInChildren<Image>().sprite = selectedCharacter.accessory.itemSprite;
             }
             else
@@ -269,18 +277,28 @@ public class StatScreenScript : MonoBehaviour
     public void EquipMenuWeapon()
     {
         equipMenu.SetActive(true);
-        foreach (Transform child in equipMenu.transform) 
+        remove = 2;
+        if(selectedCharacter.weapon == null)
+        {
+             unequipButton.SetActive(false);
+        }
+        else
+        {
+             unequipButton.SetActive(true);
+        }
+       
+        foreach (Transform child in equipMenuParent.transform) 
         {
             GameObject.Destroy(child.gameObject);
         }
         foreach(KeyValuePair<Equipment, int> pair in InventoryManager.Instance.inventoryEquipment)
         {
-            if(pair.Key is Weapon)
+            if(pair.Key is Weapon && pair.Key.availableNumber > 0)
             {
-                GameObject newButton = Instantiate(equipmentButtonPrefab, equipMenu.transform);
+                GameObject newButton = Instantiate(equipmentButtonPrefab, equipMenuParent.transform);
                 inventoryButtons.Add(newButton);
                 newButton.GetComponent<Button>().onClick.AddListener(()=> EquipWeapon(newButton));
-                newButton.GetComponentInChildren<TextMeshProUGUI>().text = pair.Key.itemName +" X"+ pair.Value;
+                newButton.GetComponentInChildren<TextMeshProUGUI>().text = pair.Key.itemName +" X"+ pair.Key.availableNumber;
                 newButton.GetComponentInChildren<Image>().sprite = pair.Key.itemSprite;
                 newButton.GetComponent<EquipmentToolTip>().equipment = pair.Key ;
                 newButton.GetComponent<Button>().onClick.AddListener(()=>showStats(selectedCharacter));
@@ -290,19 +308,29 @@ public class StatScreenScript : MonoBehaviour
     }
      public void EquipMenuArmor()
     {
+        
         equipMenu.SetActive(true);
-        foreach (Transform child in equipMenu.transform) 
+         remove = 1;
+       if(selectedCharacter.armor == null)
+        {
+             unequipButton.SetActive(false);
+        }
+        else
+        {
+             unequipButton.SetActive(true);
+        }
+        foreach (Transform child in equipMenuParent.transform) 
         {
             GameObject.Destroy(child.gameObject);
         }
         foreach(KeyValuePair<Equipment, int> pair in InventoryManager.Instance.inventoryEquipment)
         {
-            if(pair.Key is Armor)
+            if(pair.Key is Armor && pair.Key.availableNumber > 0)
             {
-                GameObject newButton = Instantiate(equipmentButtonPrefab, equipMenu.transform);
+                GameObject newButton = Instantiate(equipmentButtonPrefab, equipMenuParent.transform);
                 inventoryButtons.Add(newButton);
                 newButton.GetComponent<Button>().onClick.AddListener(()=> EquipArmor(newButton));
-                newButton.GetComponentInChildren<TextMeshProUGUI>().text = pair.Key.itemName +" X"+ pair.Value;
+                newButton.GetComponentInChildren<TextMeshProUGUI>().text = pair.Key.itemName +" X"+ pair.Key.availableNumber;
                 newButton.GetComponentInChildren<Image>().sprite = pair.Key.itemSprite;
                 newButton.GetComponent<EquipmentToolTip>().equipment = pair.Key ;
                 newButton.GetComponent<Button>().onClick.AddListener(()=>showStats(selectedCharacter));
@@ -312,19 +340,28 @@ public class StatScreenScript : MonoBehaviour
     }
      public void EquipMenuAccessory()
     {
-        equipMenu.SetActive(true);
-        foreach (Transform child in equipMenu.transform) 
+        unequipButton.SetActive(true);
+         remove = 3;
+       if(selectedCharacter.accessory == null)
+        {
+             unequipButton.SetActive(false);
+        }
+        else
+        {
+             unequipButton.SetActive(true);
+        }
+        foreach (Transform child in equipMenuParent.transform) 
         {
             GameObject.Destroy(child.gameObject);
         }
         foreach(KeyValuePair<Equipment, int> pair in InventoryManager.Instance.inventoryEquipment)
         {
-            if(pair.Key is Accessory)
+            if(pair.Key is Accessory && pair.Key.availableNumber > 0)
             {
-                GameObject newButton = Instantiate(equipmentButtonPrefab, equipMenu.transform);
+                GameObject newButton = Instantiate(equipmentButtonPrefab, equipMenuParent.transform);
                 inventoryButtons.Add(newButton);
                 newButton.GetComponent<Button>().onClick.AddListener(()=> EquipAccessory(newButton));
-                newButton.GetComponentInChildren<TextMeshProUGUI>().text = pair.Key.itemName +" X"+ pair.Value;
+                newButton.GetComponentInChildren<TextMeshProUGUI>().text = pair.Key.itemName +" X"+ pair.Key.availableNumber;
                 newButton.GetComponentInChildren<Image>().sprite = pair.Key.itemSprite;
                 newButton.GetComponent<EquipmentToolTip>().equipment = pair.Key ;
                 newButton.GetComponent<Button>().onClick.AddListener(()=>showStats(selectedCharacter));
@@ -333,32 +370,79 @@ public class StatScreenScript : MonoBehaviour
     }
     public void EquipArmor(GameObject button)
     {
+        unequipButton.SetActive(false);
+    
          foreach(KeyValuePair<Equipment, int> pair in InventoryManager.Instance.inventoryEquipment)
         {
-            if(pair.Key is Armor)
+            if(pair.Key is Armor && pair.Key.availableNumber > 0)
             {
-                selectedCharacter.armor = pair.Key as Armor;
+                if(selectedCharacter.armor != null)
+                {
+                    selectedCharacter.armor.availableNumber += 1;
+                }
+                selectedCharacter.armor = button.GetComponent<EquipmentToolTip>().equipment as Armor;
+                button.GetComponent<EquipmentToolTip>().equipment.availableNumber -= 1;
+                EquipMenuArmor();
             }
         }
     }
      public void EquipWeapon(GameObject button)
     {
+        unequipButton.SetActive(false);
          foreach(KeyValuePair<Equipment, int> pair in InventoryManager.Instance.inventoryEquipment)
         {
-            if(pair.Key is Weapon)
+            if(pair.Key is Weapon && pair.Key.availableNumber > 0)
             {
-                selectedCharacter.weapon = pair.Key as Weapon;
+                 if(selectedCharacter.weapon != null)
+                {
+                    selectedCharacter.weapon.availableNumber += 1;
+                }
+               selectedCharacter.weapon = button.GetComponent<EquipmentToolTip>().equipment as Weapon;
+               button.GetComponent<EquipmentToolTip>().equipment.availableNumber -= 1;
+                EquipMenuWeapon();
             }
         }
     }
-     public void EquipAccessory(GameObject button)
+     public void EquipAccessory(GameObject button )
     {
+       
+        unequipButton.SetActive(false);
          foreach(KeyValuePair<Equipment, int> pair in InventoryManager.Instance.inventoryEquipment)
         {
-            if(pair.Key is Accessory)
+            if(pair.Key is Accessory && pair.Key.availableNumber > 0)
             {
-                selectedCharacter.accessory = pair.Key as Accessory;
+                 if(selectedCharacter.accessory != null)
+                {
+                    selectedCharacter.accessory.availableNumber += 1;
+                }
+                selectedCharacter.accessory = button.GetComponent<EquipmentToolTip>().equipment as Accessory;
+                button.GetComponent<EquipmentToolTip>().equipment.availableNumber -= 1;
+                EquipMenuAccessory();
             }
         }
+    }
+
+    public void UnEquip()
+    {
+        if(remove == 1)
+        {
+            selectedCharacter.armor.availableNumber += 1;
+             selectedCharacter.armor = null;
+             EquipMenuArmor();
+        }
+        if(remove == 2)
+        {
+            selectedCharacter.weapon.availableNumber += 1;
+             selectedCharacter.weapon = null;
+             EquipMenuWeapon();
+        }
+        if(remove == 3)
+        {
+            selectedCharacter.accessory.availableNumber += 1;
+             selectedCharacter.accessory = null;
+             EquipMenuAccessory();
+        }
+        showStats(selectedCharacter);
+       
     }
 }

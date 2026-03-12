@@ -1,12 +1,15 @@
+using System;
 using System.Collections.Generic;
 using UnityEngine;
-
+using UnityEngine.Rendering;
 public class InventoryManager : MonoBehaviour
 {
     
-    public Dictionary<Item,int> inventoryStandard = new Dictionary<Item, int>();
-    public Dictionary<Equipment,int> inventoryEquipment = new Dictionary<Equipment, int>();
-    public Dictionary<KeyItem,int> inventoryKeyitems = new Dictionary<KeyItem, int>();
+    public  SerializedDictionary<Item,int> inventoryStandard = new  SerializedDictionary<Item, int>();
+    public SerializedDictionary<Equipment,int> inventoryEquipment = new SerializedDictionary<Equipment, int>();
+    public  SerializedDictionary<KeyItem,int> inventoryKeyitems = new  SerializedDictionary<KeyItem, int>();
+
+   
 
     public static InventoryManager Instance;
     public static InventoryManager GetInstance()
@@ -58,20 +61,26 @@ public class InventoryManager : MonoBehaviour
 
         if (inventoryEquipment.ContainsKey(equipment))
         {
+            
             if(equipment.stackable == true)
             {
+                equipment.availableNumber += amount;
                 inventoryEquipment[equipment] += amount;
+               
             }
             if(inventoryEquipment[equipment] > equipment.maxStack)
             {
+                equipment.availableNumber -= inventoryEquipment[equipment] -equipment.maxStack;
                 inventoryEquipment[equipment] = equipment.maxStack;
             }
         }
         else
         {
+            equipment.availableNumber = amount;
             inventoryEquipment.Add(equipment,amount);
             if(inventoryEquipment[equipment] > equipment.maxStack)
             {
+                equipment.availableNumber -= inventoryEquipment[equipment] -equipment.maxStack;
                 inventoryEquipment[equipment] = equipment.maxStack;
             }
         }
@@ -141,3 +150,4 @@ public class InventoryManager : MonoBehaviour
         }
     }
 }
+

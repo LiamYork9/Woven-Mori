@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: ACoolSword
   m_EditorClassIdentifier: 
   itemSprite: {fileID: 5047037500493358118, guid: 196eab54e2c7eb5418064d1d5649ef1b, type: 3}
-  itemName: 
+  itemName: ACoolSword
   itemDescription: 
   value: 0
   sellValue: 0
@@ -23,5 +23,5 @@ MonoBehaviour:
   equipmentAttrs:
   - {fileID: 11400000, guid: b36c52dab67542841aad2122865e1adb, type: 2}
   - {fileID: 11400000, guid: d944f3d2fc31ae6468b53d31af0f8976, type: 2}
-  equipped: 0
+  availableNumber: 1
   stats: 050000000000000000000000000000000000000000000000
