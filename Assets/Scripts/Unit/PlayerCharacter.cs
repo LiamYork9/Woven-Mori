@@ -5,7 +5,7 @@ using UnityEngine;
 public class PlayerCharacter : Unit
 {
     [Header ("Player Specific")]
-    public Classes theirClass;
+    public Classes playerClass;
     public int exp;
     public Weapon weapon; 
 
@@ -100,7 +100,7 @@ public class PlayerCharacter : Unit
     {
         for(int i = 0; i<LevelUpManager.Instance.classGrowths.Count; i++)
         {
-            if(LevelUpManager.Instance.classGrowths[i].playerClass == theirClass)
+            if(LevelUpManager.Instance.classGrowths[i].playerClass == playerClass)
             {
                 int milestoneIndex = -1;
                 for(int j=0; j<LevelUpManager.Instance.classGrowths[i].milestones.Count;j++)

@@ -4,7 +4,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine.UI;
 using Unity.VisualScripting;
-using UnityEngine.InputSystem;
+
 
 
 
@@ -15,6 +15,8 @@ public class StatScreenScript : MonoBehaviour
     public TMP_Text statText;
 
     public TMP_Text inventoryText;
+
+    public TMP_Text equipText;
 
     public GameObject statScreen;
 
@@ -120,6 +122,7 @@ public class StatScreenScript : MonoBehaviour
 
     public void CloseMenu()
     {
+         equipText.text = "";
          statScreen.SetActive(false);
          inventoryScreen.SetActive(false);
         screenOn = false;
@@ -132,6 +135,7 @@ public class StatScreenScript : MonoBehaviour
 
     public void showStats(PlayerCharacter character)
     {
+         
          unequipButton.SetActive(false);
         for (int i = 0; i < PartyManager.Instance.party.Count; i++)
         {
@@ -222,10 +226,12 @@ public class StatScreenScript : MonoBehaviour
     {
         Equipment temp = button.GetComponent<EquipmentToolTip>().equipment;
         inventoryText.text = temp.itemDescription;
+        equipText.text = temp.itemDescription;
     }
       public void ToolTipRemover()
     {
         inventoryText.text = "";
+        equipText.text = "";
     }
 
    
@@ -297,6 +303,8 @@ public class StatScreenScript : MonoBehaviour
             {
                 GameObject newButton = Instantiate(equipmentButtonPrefab, equipMenuParent.transform);
                 inventoryButtons.Add(newButton);
+                newButton.GetComponent<EquipmentToolTip>().hoverEvent.AddListener(ToolTipAdder);
+                newButton.GetComponent<EquipmentToolTip>().unHoverEvent.AddListener(ToolTipRemover);
                 newButton.GetComponent<Button>().onClick.AddListener(()=> EquipWeapon(newButton));
                 newButton.GetComponentInChildren<TextMeshProUGUI>().text = pair.Key.itemName +" X"+ pair.Key.availableNumber;
                 newButton.GetComponentInChildren<Image>().sprite = pair.Key.itemSprite;
@@ -329,6 +337,8 @@ public class StatScreenScript : MonoBehaviour
             {
                 GameObject newButton = Instantiate(equipmentButtonPrefab, equipMenuParent.transform);
                 inventoryButtons.Add(newButton);
+                newButton.GetComponent<EquipmentToolTip>().hoverEvent.AddListener(ToolTipAdder);
+                newButton.GetComponent<EquipmentToolTip>().unHoverEvent.AddListener(ToolTipRemover);
                 newButton.GetComponent<Button>().onClick.AddListener(()=> EquipArmor(newButton));
                 newButton.GetComponentInChildren<TextMeshProUGUI>().text = pair.Key.itemName +" X"+ pair.Key.availableNumber;
                 newButton.GetComponentInChildren<Image>().sprite = pair.Key.itemSprite;
@@ -340,7 +350,7 @@ public class StatScreenScript : MonoBehaviour
     }
      public void EquipMenuAccessory()
     {
-        unequipButton.SetActive(true);
+        equipMenu.SetActive(true);
          remove = 3;
        if(selectedCharacter.accessory == null)
         {
@@ -360,6 +370,8 @@ public class StatScreenScript : MonoBehaviour
             {
                 GameObject newButton = Instantiate(equipmentButtonPrefab, equipMenuParent.transform);
                 inventoryButtons.Add(newButton);
+                newButton.GetComponent<EquipmentToolTip>().hoverEvent.AddListener(ToolTipAdder);
+                newButton.GetComponent<EquipmentToolTip>().unHoverEvent.AddListener(ToolTipRemover);
                 newButton.GetComponent<Button>().onClick.AddListener(()=> EquipAccessory(newButton));
                 newButton.GetComponentInChildren<TextMeshProUGUI>().text = pair.Key.itemName +" X"+ pair.Key.availableNumber;
                 newButton.GetComponentInChildren<Image>().sprite = pair.Key.itemSprite;
@@ -376,14 +388,23 @@ public class StatScreenScript : MonoBehaviour
         {
             if(pair.Key is Armor && pair.Key.availableNumber > 0)
             {
-                if(selectedCharacter.armor != null)
+                if((button.GetComponent<EquipmentToolTip>().equipment.classList & selectedCharacter.playerClass) != 0)
                 {
-                    selectedCharacter.armor.availableNumber += 1;
+                    if(selectedCharacter.armor != null)
+                    {
+                        selectedCharacter.armor.availableNumber += 1;
+                    }
+                    selectedCharacter.armor = button.GetComponent<EquipmentToolTip>().equipment as Armor;
+                    button.GetComponent<EquipmentToolTip>().equipment.availableNumber -= 1;
+                    EquipMenuArmor();
+                    equipText.text = "";
                 }
-                selectedCharacter.armor = button.GetComponent<EquipmentToolTip>().equipment as Armor;
-                button.GetComponent<EquipmentToolTip>().equipment.availableNumber -= 1;
-                EquipMenuArmor();
+                else
+                {
+                    equipText.text = "Can't Equip";
+                }
             }
+            
         }
     }
      public void EquipWeapon(GameObject button)
@@ -393,13 +414,21 @@ public class StatScreenScript : MonoBehaviour
         {
             if(pair.Key is Weapon && pair.Key.availableNumber > 0)
             {
-                 if(selectedCharacter.weapon != null)
+                if((button.GetComponent<EquipmentToolTip>().equipment.classList & selectedCharacter.playerClass) != 0)
                 {
-                    selectedCharacter.weapon.availableNumber += 1;
+                    if(selectedCharacter.weapon != null)
+                    {
+                        selectedCharacter.weapon.availableNumber += 1;
+                    }
+                    selectedCharacter.weapon = button.GetComponent<EquipmentToolTip>().equipment as Weapon;
+                    button.GetComponent<EquipmentToolTip>().equipment.availableNumber -= 1;
+                    EquipMenuWeapon();
+                    equipText.text = "";
                 }
-               selectedCharacter.weapon = button.GetComponent<EquipmentToolTip>().equipment as Weapon;
-               button.GetComponent<EquipmentToolTip>().equipment.availableNumber -= 1;
-                EquipMenuWeapon();
+                else
+                {
+                     equipText.text = "Can't Equip";
+                }
             }
         }
     }
@@ -411,13 +440,21 @@ public class StatScreenScript : MonoBehaviour
         {
             if(pair.Key is Accessory && pair.Key.availableNumber > 0)
             {
-                 if(selectedCharacter.accessory != null)
+                 if((button.GetComponent<EquipmentToolTip>().equipment.classList & selectedCharacter.playerClass) != 0)
                 {
-                    selectedCharacter.accessory.availableNumber += 1;
+                    if(selectedCharacter.accessory != null)
+                    {
+                        selectedCharacter.accessory.availableNumber += 1;
+                    }
+                    selectedCharacter.accessory = button.GetComponent<EquipmentToolTip>().equipment as Accessory;
+                    button.GetComponent<EquipmentToolTip>().equipment.availableNumber -= 1;
+                    EquipMenuAccessory();
+                    equipText.text = "";
                 }
-                selectedCharacter.accessory = button.GetComponent<EquipmentToolTip>().equipment as Accessory;
-                button.GetComponent<EquipmentToolTip>().equipment.availableNumber -= 1;
-                EquipMenuAccessory();
+                else
+                {
+                    equipText.text = "Can't Equip";
+                }
             }
         }
     }
