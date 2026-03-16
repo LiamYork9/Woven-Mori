@@ -38,6 +38,8 @@ public class StatScreenScript : MonoBehaviour
 
       public GameObject equipmentButtonPrefab;
 
+      public GameObject invTabs;
+
 
       public GameObject weaponButton,armorButton,accessoryButton,unequipButton,equipMenu;
 
@@ -242,6 +244,11 @@ public class StatScreenScript : MonoBehaviour
         inventoryScreen.SetActive(true);
 
         inventoryButtons.Clear();
+         partyMemberButton.Clear();
+            foreach (Transform child in invTabs.transform) 
+        {
+            GameObject.Destroy(child.gameObject);
+        }
 
         foreach (Transform child in buttonParentInv.transform) 
         {
@@ -253,14 +260,17 @@ public class StatScreenScript : MonoBehaviour
 
             foreach(KeyValuePair<Equipment, int> pair in InventoryManager.Instance.inventoryEquipment)
             {
+                if( pair.Key.availableNumber > 0){
                 
                 
                 GameObject newButton = Instantiate(equipmentButtonPrefab, buttonParentInv.transform);
                 inventoryButtons.Add(newButton);
-                 
-                newButton.GetComponentInChildren<TextMeshProUGUI>().text = pair.Key.itemName +" X"+ pair.Value;
+                newButton.GetComponent<Button>().onClick.AddListener(()=> WhoCanEquip(newButton));
+                newButton.GetComponentInChildren<TextMeshProUGUI>().text = pair.Key.itemName +" X"+ pair.Key.availableNumber;
                 newButton.GetComponentInChildren<Image>().sprite = pair.Key.itemSprite;
                 newButton.GetComponent<EquipmentToolTip>().equipment = pair.Key ;
+
+                }
              
                 
                 
@@ -280,6 +290,88 @@ public class StatScreenScript : MonoBehaviour
         
     }
 
+    public void UpdateInventory()
+    {
+        partyMemberButton.Clear();
+         foreach (Transform child in invTabs.transform) 
+        {
+            GameObject.Destroy(child.gameObject);
+        }
+       
+       
+                
+                 ShowInventory();
+                 for(int i = 0; i < inventoryButtons.Count; i++)
+                 {
+                
+                    if(inventoryButtons[i].GetComponent<EquipmentToolTip>().equipment.availableNumber > 0)
+                        {
+                            inventoryButtons[i].GetComponentInChildren<TextMeshProUGUI>().text = inventoryButtons[i].GetComponent<EquipmentToolTip>().equipment.itemName + " X" + inventoryButtons[i].GetComponent<EquipmentToolTip>().equipment.availableNumber;
+                           
+                        }
+                   
+                        
+                 
+              
+             
+                
+                
+            }
+    }
+
+    public void WhoCanEquip(GameObject button)
+    {
+        partyMemberButton.Clear();
+         foreach (Transform child in invTabs.transform) 
+        {
+            GameObject.Destroy(child.gameObject);
+        }
+        for(int i = 0; i < PartyManager.Instance.party.Count; i++)
+        {
+            if((button.GetComponent<EquipmentToolTip>().equipment.classList & PartyManager.Instance.party[i].playerClass)!=0)
+            {
+                GameObject newButton = Instantiate(buttonPrefab, invTabs.transform);
+                newButton.GetComponent<InventoryCharacter>().character = PartyManager.Instance.party[i];
+                partyMemberButton.Add(newButton);
+                if(button.GetComponent<EquipmentToolTip>().equipment is Weapon)
+                {
+                   
+                    newButton.GetComponent<Button>().onClick.AddListener(()=> EquipWeapon(button));
+                    newButton.GetComponent<Button>().onClick.AddListener(()=> UpdateInventory());
+                    
+                    
+                     
+                }
+                 if(button.GetComponent<EquipmentToolTip>().equipment is Armor)
+                {
+                   
+                    newButton.GetComponent<Button>().onClick.AddListener(()=> EquipArmor(button));
+                    newButton.GetComponent<Button>().onClick.AddListener(()=> UpdateInventory());
+                    
+                    
+                     
+                }
+                 if(button.GetComponent<EquipmentToolTip>().equipment is Accessory)
+                {
+                   
+                    newButton.GetComponent<Button>().onClick.AddListener(()=> EquipAccessory(button));
+                    newButton.GetComponent<Button>().onClick.AddListener(()=> UpdateInventory());
+                    
+                     
+                }
+                 
+                
+            }
+        }
+         for(int i = 0; i < partyMemberButton.Count; i++)
+        {
+            partyMemberButton[i].GetComponentInChildren<TextMeshProUGUI>().text =  partyMemberButton[i].GetComponent<InventoryCharacter>().character.unitName ;
+        }
+        
+        
+      
+    }
+
     public void EquipMenuWeapon()
     {
         equipMenu.SetActive(true);
@@ -292,7 +384,7 @@ public class StatScreenScript : MonoBehaviour
         {
              unequipButton.SetActive(true);
         }
-       
+        inventoryButtons.Clear();
         foreach (Transform child in equipMenuParent.transform) 
         {
             GameObject.Destroy(child.gameObject);
@@ -327,6 +419,7 @@ public class StatScreenScript : MonoBehaviour
         {
              unequipButton.SetActive(true);
         }
+        inventoryButtons.Clear();
         foreach (Transform child in equipMenuParent.transform) 
         {
             GameObject.Destroy(child.gameObject);
@@ -360,6 +453,7 @@ public class StatScreenScript : MonoBehaviour
         {
              unequipButton.SetActive(true);
         }
+        inventoryButtons.Clear();
         foreach (Transform child in equipMenuParent.transform) 
         {
             GameObject.Destroy(child.gameObject);
@@ -431,6 +525,7 @@ public class StatScreenScript : MonoBehaviour
                 }
             }
         }
+        
     }
      public void EquipAccessory(GameObject button )
     {
