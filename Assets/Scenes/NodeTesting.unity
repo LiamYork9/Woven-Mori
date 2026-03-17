@@ -401,7 +401,7 @@ GameObject:
   - component: {fileID: 77402444}
   - component: {fileID: 77402443}
   m_Layer: 0
-  m_Name: Button
+  m_Name: Inventory
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -473,7 +473,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 1785302488}
         m_TargetAssemblyTypeName: StatScreenScript, Assembly-CSharp
-        m_MethodName: ShowInventory
+        m_MethodName: ShowInventoryI
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -1172,7 +1172,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   item:
   - {fileID: 11400000, guid: 05a4881bbeb364b49923a2507d5ce8b1, type: 2}
-  amount: 01000000
+  - {fileID: 11400000, guid: 0a8f38adc6b060549aa1e4aabc6d27c8, type: 2}
+  amount: 010000000a000000
 --- !u!114 &254600547
 MonoBehaviour:
   m_ObjectHideFlags: 0

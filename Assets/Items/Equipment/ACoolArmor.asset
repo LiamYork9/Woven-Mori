@@ -19,9 +19,9 @@ MonoBehaviour:
   sellValue: 0
   stackable: 0
   maxStack: 1
-  classList: 0
+  classList: -1
   equipmentAttrs:
   - {fileID: 11400000, guid: 108ba873f87035b4fb264866b970d911, type: 2}
   - {fileID: 11400000, guid: d860e6c0133400d47aa4c2fa8cfbdc6a, type: 2}
-  equipped: 0
+  availableNumber: 1
   stats: 000000000500000005000000000000000000000000000000

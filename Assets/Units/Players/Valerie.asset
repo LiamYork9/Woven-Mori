@@ -31,7 +31,7 @@ MonoBehaviour:
   APCap: 10
   APGain: 1
   equipmentStats: 020000000000000000000000000000000000000000000000
-  theirClass: 2
+  playerClass: 2
   exp: 1665
   weapon: {fileID: 11400000, guid: 907f1ae82da87f04c8b8e905d27e4407, type: 2}
   armor: {fileID: 0}

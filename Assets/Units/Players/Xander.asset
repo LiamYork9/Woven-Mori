@@ -30,10 +30,10 @@ MonoBehaviour:
   speed: 60
   APCap: 10
   APGain: 1
-  equipmentStats: 080000000500000005000000000000000000000001000000
-  theirClass: 1
+  equipmentStats: 000000000000000000000000000000000000000000000000
+  playerClass: 1
   exp: 2649
-  weapon: {fileID: 11400000, guid: 907f1ae82da87f04c8b8e905d27e4407, type: 2}
+  weapon: {fileID: 0}
   armor: {fileID: 0}
   accessory: {fileID: 0}
   references:

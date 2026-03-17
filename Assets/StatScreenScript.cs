@@ -162,9 +162,9 @@ public class StatScreenScript : MonoBehaviour
 
             }
             
-             if(PartyManager.Instance.party[i].currentHP > PartyManager.Instance.party[i].maxHP)
+             if(PartyManager.Instance.party[i].currentHP > PartyManager.Instance.party[i].maxHP + temp.equipmentStats[4])
             {
-                PartyManager.Instance.party[i].currentHP = PartyManager.Instance.party[i].maxHP;
+                PartyManager.Instance.party[i].currentHP = PartyManager.Instance.party[i].maxHP + temp.equipmentStats[4];
             }
             
 
@@ -238,7 +238,7 @@ public class StatScreenScript : MonoBehaviour
 
    
 
-    public void ShowInventory()
+    public void ShowInventoryE()
     {
         statScreen.SetActive(false);
         inventoryScreen.SetActive(true);
@@ -290,6 +290,44 @@ public class StatScreenScript : MonoBehaviour
         
     }
 
+    public void ShowInventoryI()
+    {
+        statScreen.SetActive(false);
+        inventoryScreen.SetActive(true);
+
+        inventoryButtons.Clear();
+        partyMemberButton.Clear();
+            foreach (Transform child in invTabs.transform) 
+        {
+            GameObject.Destroy(child.gameObject);
+        }
+
+        foreach (Transform child in buttonParentInv.transform) 
+        {
+            GameObject.Destroy(child.gameObject);
+        }
+
+         
+        
+
+            foreach(KeyValuePair<Item, int> pair in InventoryManager.Instance.inventoryStandard)
+            {
+                if( pair.Value > 0){
+                
+                
+                GameObject newButton = Instantiate(equipmentButtonPrefab, buttonParentInv.transform);
+                inventoryButtons.Add(newButton);
+                newButton.GetComponentInChildren<TextMeshProUGUI>().text = pair.Key.itemName +" X"+ pair.Value;
+                newButton.GetComponentInChildren<Image>().sprite = pair.Key.itemSprite;
+                
+
+                }
+             
+                
+                
+            }
+    }
+
     public void UpdateInventory()
     {
         partyMemberButton.Clear();
@@ -300,7 +338,7 @@ public class StatScreenScript : MonoBehaviour
        
        
                 
-                 ShowInventory();
+                 ShowInventoryE();
                  for(int i = 0; i < inventoryButtons.Count; i++)
                  {
                 
