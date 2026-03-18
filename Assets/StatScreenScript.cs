@@ -3,8 +3,8 @@ using TMPro;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine.UI;
-using Unity.VisualScripting;
-
+using System;
+using MoriSkills;
 
 
 
@@ -36,7 +36,7 @@ public class StatScreenScript : MonoBehaviour
 
       public List<GameObject> inventoryButtons;
 
-      public GameObject equipmentButtonPrefab;
+      public GameObject equipmentButtonPrefab, itemButtonPrefab;
 
       public GameObject invTabs;
 
@@ -48,6 +48,8 @@ public class StatScreenScript : MonoBehaviour
       public PlayerCharacter selectedCharacter;
 
       public int remove = 0;
+
+      public int whichInv = 0;
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
@@ -226,9 +228,19 @@ public class StatScreenScript : MonoBehaviour
 
      public void ToolTipAdder(GameObject button)
     {
-        Equipment temp = button.GetComponent<EquipmentToolTip>().equipment;
-        inventoryText.text = temp.itemDescription;
-        equipText.text = temp.itemDescription;
+        if(whichInv == 1)
+        {
+            Equipment Etemp = button.GetComponent<EquipmentToolTip>().equipment;
+            inventoryText.text = Etemp.itemDescription;
+            equipText.text = Etemp.itemDescription;
+        }
+        if(whichInv == 2)
+        {
+            
+            Item Itemp = button.GetComponent<ItemToolTipScript>().item;
+            inventoryText.text = Itemp.itemDescription;
+            equipText.text = Itemp.itemDescription;
+        }
     }
       public void ToolTipRemover()
     {
@@ -240,6 +252,7 @@ public class StatScreenScript : MonoBehaviour
 
     public void ShowInventoryE()
     {
+        whichInv = 1;
         statScreen.SetActive(false);
         inventoryScreen.SetActive(true);
 
@@ -292,6 +305,7 @@ public class StatScreenScript : MonoBehaviour
 
     public void ShowInventoryI()
     {
+        whichInv = 2;
         statScreen.SetActive(false);
         inventoryScreen.SetActive(true);
 
@@ -315,10 +329,12 @@ public class StatScreenScript : MonoBehaviour
                 if( pair.Value > 0){
                 
                 
-                GameObject newButton = Instantiate(equipmentButtonPrefab, buttonParentInv.transform);
+                GameObject newButton = Instantiate(itemButtonPrefab, buttonParentInv.transform);
                 inventoryButtons.Add(newButton);
+                newButton.GetComponent<Button>().onClick.AddListener(()=> WhoConsumesTheItem(newButton));
                 newButton.GetComponentInChildren<TextMeshProUGUI>().text = pair.Key.itemName +" X"+ pair.Value;
                 newButton.GetComponentInChildren<Image>().sprite = pair.Key.itemSprite;
+                newButton.GetComponent<ItemToolTipScript>().item = pair.Key ;
                 
 
                 }
@@ -326,6 +342,16 @@ public class StatScreenScript : MonoBehaviour
                 
                 
             }
+            for(int i = 0; i<inventoryButtons.Count; i++)
+        {
+            if(inventoryButtons[i].GetComponent<ItemToolTipScript>() != null)
+            {
+                inventoryButtons[i].GetComponent<ItemToolTipScript>().hoverEvent.AddListener(ToolTipAdder);
+                inventoryButtons[i].GetComponent<ItemToolTipScript>().unHoverEvent.AddListener(ToolTipRemover);
+            }
+             
+            
+        }
     }
 
     public void UpdateInventory()
@@ -615,4 +641,34 @@ public class StatScreenScript : MonoBehaviour
         showStats(selectedCharacter);
        
     }
+
+    public void WhoConsumesTheItem(GameObject button)
+    {
+         partyMemberButton.Clear();
+         foreach (Transform child in invTabs.transform) 
+        {
+            GameObject.Destroy(child.gameObject);
+        }
+        if((button.GetComponent<ItemToolTipScript>().item as ConsumableItem).itemTarget == Target.single )
+        {
+             for(int i = 0; i < PartyManager.Instance.party.Count; i++)
+            {
+                 GameObject newButton = Instantiate(buttonPrefab, invTabs.transform);
+                newButton.GetComponent<InventoryCharacter>().character = PartyManager.Instance.party[i];
+                partyMemberButton.Add(newButton);
+                newButton.GetComponent<Button>().onClick.AddListener(()=> ApplyItem(newButton,button.GetComponent<ItemToolTipScript>().item as ConsumableItem));
+            }
+        }
+        for(int i = 0; i < partyMemberButton.Count; i++)
+        {
+            partyMemberButton[i].GetComponentInChildren<TextMeshProUGUI>().text =  partyMemberButton[i].GetComponent<InventoryCharacter>().character.unitName ;
+        }
+    }
+
+    public void ApplyItem(GameObject button, ConsumableItem item)
+    {
+        item.ApplyItemAttrOFB(button.GetComponent<InventoryCharacter>().character);
+         ShowInventoryI();
+    }
+
 }

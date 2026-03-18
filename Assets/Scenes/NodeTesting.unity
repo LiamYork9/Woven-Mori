@@ -6828,6 +6828,7 @@ MonoBehaviour:
   partyMemberButton: []
   inventoryButtons: []
   equipmentButtonPrefab: {fileID: 8269702595644560011, guid: 640a0ddc701ff954ab5ee9fb9858fe4e, type: 3}
+  itemButtonPrefab: {fileID: 8269702595644560011, guid: d19bb4ec853880740a1a3c66e9327e83, type: 3}
   invTabs: {fileID: 1802335236}
   weaponButton: {fileID: 1796859973}
   armorButton: {fileID: 1079078464}
@@ -6837,6 +6838,7 @@ MonoBehaviour:
   defaultSprite: {fileID: 10901, guid: 0000000000000000f000000000000000, type: 0}
   selectedCharacter: {fileID: 0}
   remove: 0
+  whichInv: 0
 --- !u!1 &1796859973
 GameObject:
   m_ObjectHideFlags: 0

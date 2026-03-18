@@ -10,4 +10,13 @@ public class ConsumableItem : Item
      public List<ItemAttr> itemAttrs;
     
     public bool usableOFB;
+
+    public void ApplyItemAttrOFB(PlayerCharacter character)
+    {
+        foreach(ItemAttr attr in itemAttrs)
+        {
+            attr.ActivateItemAttrOFB(character);
+        }
+        InventoryManager.Instance.inventoryStandard[this] -= 1;
+    }
 }
