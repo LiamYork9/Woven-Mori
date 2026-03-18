@@ -41,7 +41,7 @@ public class StatScreenScript : MonoBehaviour
       public GameObject invTabs;
 
 
-      public GameObject weaponButton,armorButton,accessoryButton,unequipButton,equipMenu;
+      public GameObject weaponButton,armorButton,accessoryButton,unequipButton,yesButton,noButton,equipMenu;
 
       public Sprite defaultSprite;
 
@@ -135,6 +135,8 @@ public class StatScreenScript : MonoBehaviour
         accessoryButton.SetActive(false);
         equipMenu.SetActive(false);
         unequipButton.SetActive(false);
+         yesButton.SetActive(false);
+        noButton.SetActive(false);
     }
 
     public void showStats(PlayerCharacter character)
@@ -644,6 +646,8 @@ public class StatScreenScript : MonoBehaviour
 
     public void WhoConsumesTheItem(GameObject button)
     {
+        yesButton.GetComponent<Button>().onClick.RemoveAllListeners();
+         noButton.GetComponent<Button>().onClick.RemoveAllListeners();
          partyMemberButton.Clear();
          foreach (Transform child in invTabs.transform) 
         {
@@ -656,7 +660,9 @@ public class StatScreenScript : MonoBehaviour
                  GameObject newButton = Instantiate(buttonPrefab, invTabs.transform);
                 newButton.GetComponent<InventoryCharacter>().character = PartyManager.Instance.party[i];
                 partyMemberButton.Add(newButton);
-                newButton.GetComponent<Button>().onClick.AddListener(()=> ApplyItem(newButton,button.GetComponent<ItemToolTipScript>().item as ConsumableItem));
+                newButton.GetComponent<Button>().onClick.AddListener(()=> YesOrNoButtons());
+                yesButton.GetComponent<Button>().onClick.AddListener(()=> ApplyItem(newButton,button.GetComponent<ItemToolTipScript>().item as ConsumableItem));
+                noButton.GetComponent<Button>().onClick.AddListener(()=> YesOrNoButtonsOff());
             }
         }
         for(int i = 0; i < partyMemberButton.Count; i++)
@@ -668,7 +674,22 @@ public class StatScreenScript : MonoBehaviour
     public void ApplyItem(GameObject button, ConsumableItem item)
     {
         item.ApplyItemAttrOFB(button.GetComponent<InventoryCharacter>().character);
-         ShowInventoryI();
+        ShowInventoryI();
+        YesOrNoButtonsOff();
+    }
+
+    public void YesOrNoButtons()
+    {
+        yesButton.SetActive(true);
+        noButton.SetActive(true);
+    }
+    public void YesOrNoButtonsOff()
+    {
+         yesButton.SetActive(false);
+        noButton.SetActive(false);
+        ShowInventoryI();
+        Debug.Log("Yes No off");
+        
     }
 
 }
