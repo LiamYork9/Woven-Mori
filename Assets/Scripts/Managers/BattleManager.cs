@@ -503,14 +503,19 @@ public class BattleManager : MonoBehaviour
     {
         
         item.ApplyItemAttrWIB(target.GetComponent<UnitBody>());
-        ShowInventory();
+       
+       
+       
        
     }
     public void ItemTarget( ConsumableItem item)
     {
+         itemMenu.SetActive(false);
+        actionMenu.SetActive(true);
         if(item.itemTarget == Target.single)
         {
             playerSelecting = true;
+            dialogueText.text = "Who will you use the item on?";
         }
         else
         {

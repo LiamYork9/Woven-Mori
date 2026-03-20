@@ -109,6 +109,7 @@ public class Turn
         TurnOrderManager.Instance.TurnShift(turnShift);
         BattleManager.Instance.dialogueText.text = " ";
         BattleManager.Instance.attacking = false;
+         BattleManager.Instance.useItem = false;
         BattleManager.Instance.playerTurn = false;
         BattleManager.Instance.enemyTurn = false;
         yield return new WaitForSeconds(1f);
