@@ -330,6 +330,7 @@ public class StatScreenScript : MonoBehaviour
             {
                 GameObject newButton = Instantiate(itemButtonPrefab, buttonParentInv.transform);
                 inventoryButtons.Add(newButton);
+                newButton.GetComponent<Button>().onClick.AddListener(()=> YesOrNoButtonsOff());
                 newButton.GetComponent<Button>().onClick.AddListener(()=> WhoConsumesTheItem(newButton.GetComponent<ItemToolTipScript>().item as ConsumableItem));
                 newButton.GetComponentInChildren<TextMeshProUGUI>().text = pair.Key.itemName +" X"+ pair.Value;
                 newButton.GetComponentInChildren<Image>().sprite = pair.Key.itemSprite;
@@ -463,9 +464,22 @@ public class StatScreenScript : MonoBehaviour
                 partyMemberButton.Add(newButton);
                 newButton.GetComponent<Button>().onClick.AddListener(()=> YesOrNoButtons());
                 newButton.GetComponent<Button>().onClick.AddListener(()=> PopulateYesButton(newButton.GetComponent<InventoryCharacter>().character,item));
-                noButton.GetComponent<Button>().onClick.AddListener(()=> YesOrNoButtonsOff());
             }
+            noButton.GetComponent<Button>().onClick.AddListener(()=> YesOrNoButtonsOff());
         }
+        else if(item.itemTarget == Target.party)
+        {
+            for(int i = 0; i < PartyManager.Instance.party.Count; i++)
+            {
+                GameObject newButton = Instantiate(buttonPrefab, invTabs.transform);
+                newButton.GetComponent<InventoryCharacter>().character = PartyManager.Instance.party[i];
+                partyMemberButton.Add(newButton);
+            }
+            noButton.GetComponent<Button>().onClick.AddListener(()=> YesOrNoButtonsOff());
+            PopulateYesButtonParty(item);
+            YesOrNoButtons();
+        }
+
         for(int i = 0; i < partyMemberButton.Count; i++)
         {
             partyMemberButton[i].GetComponentInChildren<TextMeshProUGUI>().text =  partyMemberButton[i].GetComponent<InventoryCharacter>().character.unitName ;
@@ -475,6 +489,13 @@ public class StatScreenScript : MonoBehaviour
     public void ApplyItem(PlayerCharacter character, ConsumableItem item)
     {
         item.ApplyItemAttrOFB(character);
+        ShowInventoryI();
+        YesOrNoButtonsOff();
+    }
+
+    public void ApplyItemParty(ConsumableItem item)
+    {
+        item.ApplyItemAttrOFB(PartyManager.Instance.party);
         ShowInventoryI();
         YesOrNoButtonsOff();
     }
@@ -495,6 +516,10 @@ public class StatScreenScript : MonoBehaviour
     public void PopulateYesButton(PlayerCharacter character, ConsumableItem item)
     {
         yesButton.GetComponent<Button>().onClick.AddListener(()=> ApplyItem(character,item));
+    }
+    public void PopulateYesButtonParty(ConsumableItem item)
+    {
+        yesButton.GetComponent<Button>().onClick.AddListener(()=> ApplyItemParty(item));
     }
 
     public void SetTargetSlot(int slot)

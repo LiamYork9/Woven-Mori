@@ -1321,7 +1321,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   item:
   - {fileID: 11400000, guid: 08abe7bc70b149144827e568aa2164fb, type: 2}
-  amount: 02000000
+  - {fileID: 11400000, guid: 689fc32010b9930459d133f1c2962c54, type: 2}
+  amount: 0200000004000000
 --- !u!114 &254600548
 MonoBehaviour:
   m_ObjectHideFlags: 0
