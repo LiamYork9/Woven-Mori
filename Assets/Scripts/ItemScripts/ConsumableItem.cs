@@ -19,4 +19,13 @@ public class ConsumableItem : Item
         }
         InventoryManager.Instance.inventoryStandard[this] -= 1;
     }
+
+     public void ApplyItemAttrWIB(UnitBody target)
+    {
+        foreach(ItemAttr attr in itemAttrs)
+        {
+            attr.ActivateItemAttrWIB(target);
+        }
+        InventoryManager.Instance.inventoryStandard[this] -= 1;
+    }
 }

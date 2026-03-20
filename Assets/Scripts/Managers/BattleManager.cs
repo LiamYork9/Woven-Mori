@@ -63,9 +63,13 @@ public class BattleManager : MonoBehaviour
 
     public bool attacking;
 
+    public bool useItem;
+
     public TextMeshProUGUI dialogueText;
 
     public List<GameObject> buttons;
+
+    public List<GameObject> invButtons;
 
     public bool enemyTurn;
 
@@ -91,6 +95,12 @@ public class BattleManager : MonoBehaviour
     public bool noRunning = false;
 
     public int expEarned = 0;
+
+    public GameObject itemMenu;
+
+    public GameObject itemScreen;
+
+    public GameObject itemButton;
 
 
 
@@ -234,30 +244,22 @@ public class BattleManager : MonoBehaviour
 
             }
         }
-
-
-        //For testing will be reomved later
-        if (Input.GetKeyDown(KeyCode.R))
+        if (Input.GetKeyDown(KeyCode.Space))
         {
-            enemySlots.Clear();
-            playerSlots.Clear();
-            for (int i = 0; i < defaultSlots.Count; i++)
+            if(useItem == true)
             {
-                enemySlots.Add(defaultSlots[i]);
+              StartCoroutine(UsingItem());
             }
-            for (int i = 0; i < defaultPlayerSlots.Count; i++)
-            {
-                playerSlots.Add(defaultPlayerSlots[i]);
-            }
-            BattleStart();
-            TOM.downedPlayers.Clear();
-
         }
+
+
+       
 
         
 
         if (Input.GetKeyDown(KeyCode.Escape))
         {
+            //itemMenu.SetActive(false);
             if (usingSkill == true)
             {
                 skillMenu.SetActive(false);
@@ -284,6 +286,20 @@ public class BattleManager : MonoBehaviour
                 selecting = false;
                 attacking = false;
                 dialogueText.text = "";
+            }
+            if(useItem == true)
+            {
+               
+                itemMenu.SetActive(false);
+                 useItem = false;
+                usingSkill = false;
+                multiTarget = false;
+                targetSelf = false;
+                playerSelecting = false;
+                actionMenu.SetActive(true);
+                ButtonsOn();
+                targetArrow.SetActive(false);
+
             }
         }
 
@@ -449,6 +465,73 @@ public class BattleManager : MonoBehaviour
         SBS.dialogueText.text = " ";
 
     }
+     public void ItemMenu()
+    {
+        targetIndex = 0;
+        actionMenu.SetActive(false);
+        ButtonsOff();
+        itemMenu.SetActive(true);
+        ShowInventory();
+        useItem = true;
+        
+    }
+
+     public void ShowInventory()
+    {
+        invButtons.Clear();
+        foreach (Transform child in itemScreen.transform) 
+        {
+            GameObject.Destroy(child.gameObject);
+        }
+        foreach(KeyValuePair<Item, int> pair in InventoryManager.Instance.inventoryStandard)
+            {
+                if( pair.Value > 0)
+                {
+                    GameObject newButton = Instantiate(itemButton, itemScreen.transform);
+                    invButtons.Add(newButton);
+                    newButton.GetComponent<Button>().onClick.AddListener(()=> ItemTarget(newButton.GetComponent<ItemToolTipScript>().item as ConsumableItem));
+                    newButton.GetComponentInChildren<TextMeshProUGUI>().text = pair.Key.itemName +" X"+ pair.Value;
+                    newButton.GetComponentInChildren<Image>().sprite = pair.Key.itemSprite;
+                    newButton.GetComponent<ItemToolTipScript>().item = pair.Key ;
+                }
+            }
+    }
+
+   
+    
+        public void ApplyItem( ConsumableItem item)
+    {
+        
+        item.ApplyItemAttrWIB(target.GetComponent<UnitBody>());
+        ShowInventory();
+       
+    }
+    public void ItemTarget( ConsumableItem item)
+    {
+        if(item.itemTarget == Target.single)
+        {
+            playerSelecting = true;
+        }
+        else
+        {
+            Debug.Log("Huh");
+        }
+    }
+
+    IEnumerator UsingItem()
+    {
+        playerSelecting = false;
+        targetArrow.SetActive(false);
+        dialogueText.text = TOM.turnPlayer.name + " Used Item On " + target.GetComponent<UnitBody>().name;
+        useItem = false;
+        for(int i = 0; i < invButtons.Count; i++)
+        {
+            ApplyItem(invButtons[i].GetComponent<ItemToolTipScript>().item as ConsumableItem);
+        }
+        yield return new WaitForSeconds(1f);
+        TOM.EndTurn();
+    }
+    
 
 
 
