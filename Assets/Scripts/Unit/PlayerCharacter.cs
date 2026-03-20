@@ -80,20 +80,65 @@ public class PlayerCharacter : Unit
         base.Death(body);
     }
 
-    public void EquipGear(Equipment equipment)
+    public bool EquipGear(Equipment equipment)
     {
-        if(equipment is Weapon)
+        if((equipment.classList & playerClass) != 0)
         {
-            weapon = equipment as Weapon;
+            if(equipment is Weapon)
+            {
+                if(weapon != null)
+                {
+                    weapon.availableNumber += 1;
+                }
+                weapon = equipment as Weapon;
+                weapon.availableNumber -= 1;
+            }
+            else if (equipment is Armor)
+            {
+                if(armor != null)
+                {
+                    armor.availableNumber += 1;
+                }
+                armor = equipment as Armor;
+                armor.availableNumber -= 1;
+            }
+            else if(equipment is Accessory)
+            {
+                if(accessory != null)
+                {
+                    accessory.availableNumber += 1;
+                }
+                accessory = equipment as Accessory;
+                accessory.availableNumber -= 1;
+            }
+            return true;
         }
-        else if (equipment is Armor)
+        else 
         {
-            armor = equipment as Armor;
+            return false;
         }
-        else if(equipment is Accessory)
+
+    }
+
+    public void UnEquip(int remove)
+    {
+        if(remove == 1)
         {
-            accessory = equipment as Accessory;
+            if(weapon!=null)
+            weapon.availableNumber += 1;
+            weapon = null;
         }
+        if(remove == 2)
+        {
+            armor.availableNumber += 1;
+            armor = null;
+        }
+        if(remove == 3)
+        {
+            accessory.availableNumber += 1;
+            accessory = null;
+        }
+       
     }
 
     public void LevelUp()

@@ -19,6 +19,17 @@ public class ConsumableItem : Item
         }
         InventoryManager.Instance.inventoryStandard[this] -= 1;
     }
+    public void ApplyItemAttrOFB(List<PlayerCharacter> characters)
+    {
+        foreach(PlayerCharacter character in characters)
+        {
+            foreach(ItemAttr attr in itemAttrs)
+            {
+                attr.ActivateItemAttrOFB(character);
+            }
+        }
+        InventoryManager.Instance.inventoryStandard[this] -= 1;
+    }
 
      public void ApplyItemAttrWIB(UnitBody target)
     {

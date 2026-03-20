@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using UnityEngine.UI;
 using System;
 using MoriSkills;
+using UnityEditor.Tilemaps;
 
 
 
@@ -47,7 +48,7 @@ public class StatScreenScript : MonoBehaviour
 
       public PlayerCharacter selectedCharacter;
 
-      public int remove = 0;
+      public int targetSlot = 0;
 
       public int whichInv = 0;
     // Start is called once before the first execution of Update after the MonoBehaviour is created
@@ -96,6 +97,7 @@ public class StatScreenScript : MonoBehaviour
 
     public void OpenMenu()
     {
+        whichInv = 1;
         weaponButton.SetActive(false);
         armorButton.SetActive(false);
         accessoryButton.SetActive(false);
@@ -280,11 +282,10 @@ public class StatScreenScript : MonoBehaviour
                 
                 GameObject newButton = Instantiate(equipmentButtonPrefab, buttonParentInv.transform);
                 inventoryButtons.Add(newButton);
-                newButton.GetComponent<Button>().onClick.AddListener(()=> WhoCanEquip(newButton));
+                newButton.GetComponent<Button>().onClick.AddListener(()=> WhoCanEquip(newButton.GetComponent<EquipmentToolTip>().equipment));
                 newButton.GetComponentInChildren<TextMeshProUGUI>().text = pair.Key.itemName +" X"+ pair.Key.availableNumber;
                 newButton.GetComponentInChildren<Image>().sprite = pair.Key.itemSprite;
                 newButton.GetComponent<EquipmentToolTip>().equipment = pair.Key ;
-
                 }
              
                 
@@ -310,10 +311,10 @@ public class StatScreenScript : MonoBehaviour
         whichInv = 2;
         statScreen.SetActive(false);
         inventoryScreen.SetActive(true);
-
         inventoryButtons.Clear();
         partyMemberButton.Clear();
-            foreach (Transform child in invTabs.transform) 
+
+        foreach (Transform child in invTabs.transform) 
         {
             GameObject.Destroy(child.gameObject);
         }
@@ -323,36 +324,27 @@ public class StatScreenScript : MonoBehaviour
             GameObject.Destroy(child.gameObject);
         }
 
-         
-        
-
-            foreach(KeyValuePair<Item, int> pair in InventoryManager.Instance.inventoryStandard)
+        foreach(KeyValuePair<Item, int> pair in InventoryManager.Instance.inventoryStandard)
+        {
+            if( pair.Value > 0)
             {
-                if( pair.Value > 0){
-                
-                
                 GameObject newButton = Instantiate(itemButtonPrefab, buttonParentInv.transform);
                 inventoryButtons.Add(newButton);
-                newButton.GetComponent<Button>().onClick.AddListener(()=> WhoConsumesTheItem(newButton));
+                newButton.GetComponent<Button>().onClick.AddListener(()=> YesOrNoButtonsOff());
+                newButton.GetComponent<Button>().onClick.AddListener(()=> WhoConsumesTheItem(newButton.GetComponent<ItemToolTipScript>().item as ConsumableItem));
                 newButton.GetComponentInChildren<TextMeshProUGUI>().text = pair.Key.itemName +" X"+ pair.Value;
                 newButton.GetComponentInChildren<Image>().sprite = pair.Key.itemSprite;
                 newButton.GetComponent<ItemToolTipScript>().item = pair.Key ;
-                
-
-                }
-             
-                
-                
             }
-            for(int i = 0; i<inventoryButtons.Count; i++)
+        }
+
+        for(int i = 0; i<inventoryButtons.Count; i++)
         {
             if(inventoryButtons[i].GetComponent<ItemToolTipScript>() != null)
             {
                 inventoryButtons[i].GetComponent<ItemToolTipScript>().hoverEvent.AddListener(ToolTipAdder);
                 inventoryButtons[i].GetComponent<ItemToolTipScript>().unHoverEvent.AddListener(ToolTipRemover);
             }
-             
-            
         }
     }
 
@@ -362,307 +354,34 @@ public class StatScreenScript : MonoBehaviour
          foreach (Transform child in invTabs.transform) 
         {
             GameObject.Destroy(child.gameObject);
-        }
-       
-       
-                
-                 ShowInventoryE();
-                 for(int i = 0; i < inventoryButtons.Count; i++)
-                 {
-                
-                    if(inventoryButtons[i].GetComponent<EquipmentToolTip>().equipment.availableNumber > 0)
-                        {
-                            inventoryButtons[i].GetComponentInChildren<TextMeshProUGUI>().text = inventoryButtons[i].GetComponent<EquipmentToolTip>().equipment.itemName + " X" + inventoryButtons[i].GetComponent<EquipmentToolTip>().equipment.availableNumber;
-                           
-                        }
-                   
-                        
-                 
-              
-             
-                
-                
+        }  
+        ShowInventoryE();
+        for(int i = 0; i < inventoryButtons.Count; i++)
+        {
+            if(inventoryButtons[i].GetComponent<EquipmentToolTip>().equipment.availableNumber > 0)
+            {
+                inventoryButtons[i].GetComponentInChildren<TextMeshProUGUI>().text = inventoryButtons[i].GetComponent<EquipmentToolTip>().equipment.itemName + " X" + inventoryButtons[i].GetComponent<EquipmentToolTip>().equipment.availableNumber;
             }
+        }
     }
 
-    public void WhoCanEquip(GameObject button)
+    public void WhoCanEquip(Equipment equipment)
     {
         partyMemberButton.Clear();
-         foreach (Transform child in invTabs.transform) 
+        foreach (Transform child in invTabs.transform) 
         {
             GameObject.Destroy(child.gameObject);
         }
         for(int i = 0; i < PartyManager.Instance.party.Count; i++)
         {
-            if((button.GetComponent<EquipmentToolTip>().equipment.classList & PartyManager.Instance.party[i].playerClass)!=0)
+            if((equipment.classList & PartyManager.Instance.party[i].playerClass)!=0)
             {
                 GameObject newButton = Instantiate(buttonPrefab, invTabs.transform);
                 newButton.GetComponent<InventoryCharacter>().character = PartyManager.Instance.party[i];
                 partyMemberButton.Add(newButton);
-                if(button.GetComponent<EquipmentToolTip>().equipment is Weapon)
-                {
                    
-                    newButton.GetComponent<Button>().onClick.AddListener(()=> EquipWeapon(button));
-                    newButton.GetComponent<Button>().onClick.AddListener(()=> UpdateInventory());
-                    
-                    
-                     
-                }
-                 if(button.GetComponent<EquipmentToolTip>().equipment is Armor)
-                {
-                   
-                    newButton.GetComponent<Button>().onClick.AddListener(()=> EquipArmor(button));
-                    newButton.GetComponent<Button>().onClick.AddListener(()=> UpdateInventory());
-                    
-                    
-                     
-                }
-                 if(button.GetComponent<EquipmentToolTip>().equipment is Accessory)
-                {
-                   
-                    newButton.GetComponent<Button>().onClick.AddListener(()=> EquipAccessory(button));
-                    newButton.GetComponent<Button>().onClick.AddListener(()=> UpdateInventory());
-                    
-                     
-                }
-                 
-                
-            }
-        }
-         for(int i = 0; i < partyMemberButton.Count; i++)
-        {
-            partyMemberButton[i].GetComponentInChildren<TextMeshProUGUI>().text =  partyMemberButton[i].GetComponent<InventoryCharacter>().character.unitName ;
-        }
-        
-        
-      
-    }
-
-    public void EquipMenuWeapon()
-    {
-        equipMenu.SetActive(true);
-        remove = 2;
-        if(selectedCharacter.weapon == null)
-        {
-             unequipButton.SetActive(false);
-        }
-        else
-        {
-             unequipButton.SetActive(true);
-        }
-        inventoryButtons.Clear();
-        foreach (Transform child in equipMenuParent.transform) 
-        {
-            GameObject.Destroy(child.gameObject);
-        }
-        foreach(KeyValuePair<Equipment, int> pair in InventoryManager.Instance.inventoryEquipment)
-        {
-            if(pair.Key is Weapon && pair.Key.availableNumber > 0)
-            {
-                GameObject newButton = Instantiate(equipmentButtonPrefab, equipMenuParent.transform);
-                inventoryButtons.Add(newButton);
-                newButton.GetComponent<EquipmentToolTip>().hoverEvent.AddListener(ToolTipAdder);
-                newButton.GetComponent<EquipmentToolTip>().unHoverEvent.AddListener(ToolTipRemover);
-                newButton.GetComponent<Button>().onClick.AddListener(()=> EquipWeapon(newButton));
-                newButton.GetComponentInChildren<TextMeshProUGUI>().text = pair.Key.itemName +" X"+ pair.Key.availableNumber;
-                newButton.GetComponentInChildren<Image>().sprite = pair.Key.itemSprite;
-                newButton.GetComponent<EquipmentToolTip>().equipment = pair.Key ;
-                newButton.GetComponent<Button>().onClick.AddListener(()=>showStats(selectedCharacter));
-                
-            }
-        }
-    }
-     public void EquipMenuArmor()
-    {
-        
-        equipMenu.SetActive(true);
-         remove = 1;
-       if(selectedCharacter.armor == null)
-        {
-             unequipButton.SetActive(false);
-        }
-        else
-        {
-             unequipButton.SetActive(true);
-        }
-        inventoryButtons.Clear();
-        foreach (Transform child in equipMenuParent.transform) 
-        {
-            GameObject.Destroy(child.gameObject);
-        }
-        foreach(KeyValuePair<Equipment, int> pair in InventoryManager.Instance.inventoryEquipment)
-        {
-            if(pair.Key is Armor && pair.Key.availableNumber > 0)
-            {
-                GameObject newButton = Instantiate(equipmentButtonPrefab, equipMenuParent.transform);
-                inventoryButtons.Add(newButton);
-                newButton.GetComponent<EquipmentToolTip>().hoverEvent.AddListener(ToolTipAdder);
-                newButton.GetComponent<EquipmentToolTip>().unHoverEvent.AddListener(ToolTipRemover);
-                newButton.GetComponent<Button>().onClick.AddListener(()=> EquipArmor(newButton));
-                newButton.GetComponentInChildren<TextMeshProUGUI>().text = pair.Key.itemName +" X"+ pair.Key.availableNumber;
-                newButton.GetComponentInChildren<Image>().sprite = pair.Key.itemSprite;
-                newButton.GetComponent<EquipmentToolTip>().equipment = pair.Key ;
-                newButton.GetComponent<Button>().onClick.AddListener(()=>showStats(selectedCharacter));
-                
-            }
-        }
-    }
-     public void EquipMenuAccessory()
-    {
-        equipMenu.SetActive(true);
-         remove = 3;
-       if(selectedCharacter.accessory == null)
-        {
-             unequipButton.SetActive(false);
-        }
-        else
-        {
-             unequipButton.SetActive(true);
-        }
-        inventoryButtons.Clear();
-        foreach (Transform child in equipMenuParent.transform) 
-        {
-            GameObject.Destroy(child.gameObject);
-        }
-        foreach(KeyValuePair<Equipment, int> pair in InventoryManager.Instance.inventoryEquipment)
-        {
-            if(pair.Key is Accessory && pair.Key.availableNumber > 0)
-            {
-                GameObject newButton = Instantiate(equipmentButtonPrefab, equipMenuParent.transform);
-                inventoryButtons.Add(newButton);
-                newButton.GetComponent<EquipmentToolTip>().hoverEvent.AddListener(ToolTipAdder);
-                newButton.GetComponent<EquipmentToolTip>().unHoverEvent.AddListener(ToolTipRemover);
-                newButton.GetComponent<Button>().onClick.AddListener(()=> EquipAccessory(newButton));
-                newButton.GetComponentInChildren<TextMeshProUGUI>().text = pair.Key.itemName +" X"+ pair.Key.availableNumber;
-                newButton.GetComponentInChildren<Image>().sprite = pair.Key.itemSprite;
-                newButton.GetComponent<EquipmentToolTip>().equipment = pair.Key ;
-                newButton.GetComponent<Button>().onClick.AddListener(()=>showStats(selectedCharacter));
-            }
-        }
-    }
-    public void EquipArmor(GameObject button)
-    {
-        unequipButton.SetActive(false);
-    
-         foreach(KeyValuePair<Equipment, int> pair in InventoryManager.Instance.inventoryEquipment)
-        {
-            if(pair.Key is Armor && pair.Key.availableNumber > 0)
-            {
-                if((button.GetComponent<EquipmentToolTip>().equipment.classList & selectedCharacter.playerClass) != 0)
-                {
-                    if(selectedCharacter.armor != null)
-                    {
-                        selectedCharacter.armor.availableNumber += 1;
-                    }
-                    selectedCharacter.armor = button.GetComponent<EquipmentToolTip>().equipment as Armor;
-                    button.GetComponent<EquipmentToolTip>().equipment.availableNumber -= 1;
-                    EquipMenuArmor();
-                    equipText.text = "";
-                }
-                else
-                {
-                    equipText.text = "Can't Equip";
-                }
-            }
-            
-        }
-    }
-     public void EquipWeapon(GameObject button)
-    {
-        unequipButton.SetActive(false);
-         foreach(KeyValuePair<Equipment, int> pair in InventoryManager.Instance.inventoryEquipment)
-        {
-            if(pair.Key is Weapon && pair.Key.availableNumber > 0)
-            {
-                if((button.GetComponent<EquipmentToolTip>().equipment.classList & selectedCharacter.playerClass) != 0)
-                {
-                    if(selectedCharacter.weapon != null)
-                    {
-                        selectedCharacter.weapon.availableNumber += 1;
-                    }
-                    selectedCharacter.weapon = button.GetComponent<EquipmentToolTip>().equipment as Weapon;
-                    button.GetComponent<EquipmentToolTip>().equipment.availableNumber -= 1;
-                    EquipMenuWeapon();
-                    equipText.text = "";
-                }
-                else
-                {
-                     equipText.text = "Can't Equip";
-                }
-            }
-        }
-        
-    }
-     public void EquipAccessory(GameObject button )
-    {
-       
-        unequipButton.SetActive(false);
-         foreach(KeyValuePair<Equipment, int> pair in InventoryManager.Instance.inventoryEquipment)
-        {
-            if(pair.Key is Accessory && pair.Key.availableNumber > 0)
-            {
-                 if((button.GetComponent<EquipmentToolTip>().equipment.classList & selectedCharacter.playerClass) != 0)
-                {
-                    if(selectedCharacter.accessory != null)
-                    {
-                        selectedCharacter.accessory.availableNumber += 1;
-                    }
-                    selectedCharacter.accessory = button.GetComponent<EquipmentToolTip>().equipment as Accessory;
-                    button.GetComponent<EquipmentToolTip>().equipment.availableNumber -= 1;
-                    EquipMenuAccessory();
-                    equipText.text = "";
-                }
-                else
-                {
-                    equipText.text = "Can't Equip";
-                }
-            }
-        }
-    }
-
-    public void UnEquip()
-    {
-        if(remove == 1)
-        {
-            selectedCharacter.armor.availableNumber += 1;
-             selectedCharacter.armor = null;
-             EquipMenuArmor();
-        }
-        if(remove == 2)
-        {
-            selectedCharacter.weapon.availableNumber += 1;
-             selectedCharacter.weapon = null;
-             EquipMenuWeapon();
-        }
-        if(remove == 3)
-        {
-            selectedCharacter.accessory.availableNumber += 1;
-             selectedCharacter.accessory = null;
-             EquipMenuAccessory();
-        }
-        showStats(selectedCharacter);
-       
-    }
-
-    public void WhoConsumesTheItem(GameObject button)
-    {
-        yesButton.GetComponent<Button>().onClick.RemoveAllListeners();
-         noButton.GetComponent<Button>().onClick.RemoveAllListeners();
-         partyMemberButton.Clear();
-         foreach (Transform child in invTabs.transform) 
-        {
-            GameObject.Destroy(child.gameObject);
-        }
-        if((button.GetComponent<ItemToolTipScript>().item as ConsumableItem).itemTarget == Target.single )
-        {
-             for(int i = 0; i < PartyManager.Instance.party.Count; i++)
-            {
-                 GameObject newButton = Instantiate(buttonPrefab, invTabs.transform);
-                newButton.GetComponent<InventoryCharacter>().character = PartyManager.Instance.party[i];
-                partyMemberButton.Add(newButton);
-                newButton.GetComponent<Button>().onClick.AddListener(()=> YesOrNoButtons());
-                yesButton.GetComponent<Button>().onClick.AddListener(()=> ApplyItem(newButton,button.GetComponent<ItemToolTipScript>().item as ConsumableItem));
-                noButton.GetComponent<Button>().onClick.AddListener(()=> YesOrNoButtonsOff());
+                newButton.GetComponent<Button>().onClick.AddListener(()=> Equip(equipment));
+                newButton.GetComponent<Button>().onClick.AddListener(()=> UpdateInventory());
             }
         }
         for(int i = 0; i < partyMemberButton.Count; i++)
@@ -671,9 +390,112 @@ public class StatScreenScript : MonoBehaviour
         }
     }
 
-    public void ApplyItem(GameObject button, ConsumableItem item)
+    
+     public void EquipMenu()
     {
-        item.ApplyItemAttrOFB(button.GetComponent<InventoryCharacter>().character);
+        equipMenu.SetActive(true);
+
+        if((targetSlot == 1 && selectedCharacter.weapon == null) || (targetSlot == 2 && selectedCharacter.armor == null) || (targetSlot == 3 && selectedCharacter.accessory == null))
+        {
+            unequipButton.SetActive(false);
+        }
+        else
+        {
+            unequipButton.SetActive(true);
+        }
+        inventoryButtons.Clear();
+        foreach (Transform child in equipMenuParent.transform) 
+        {
+            GameObject.Destroy(child.gameObject);
+        }
+        foreach(KeyValuePair<Equipment, int> pair in InventoryManager.Instance.inventoryEquipment)
+        {
+            if(((targetSlot == 1 && pair.Key is Weapon) || (targetSlot == 2 && pair.Key is Armor) || (targetSlot == 3 && pair.Key is Accessory)) && pair.Key.availableNumber > 0)
+            {
+                GameObject newButton = Instantiate(equipmentButtonPrefab, equipMenuParent.transform);
+                inventoryButtons.Add(newButton);
+                newButton.GetComponent<EquipmentToolTip>().hoverEvent.AddListener(ToolTipAdder);
+                newButton.GetComponent<EquipmentToolTip>().unHoverEvent.AddListener(ToolTipRemover);
+                newButton.GetComponent<Button>().onClick.AddListener(()=> Equip(newButton.GetComponent<EquipmentToolTip>().equipment));
+                newButton.GetComponentInChildren<TextMeshProUGUI>().text = pair.Key.itemName +" X"+ pair.Key.availableNumber;
+                newButton.GetComponentInChildren<Image>().sprite = pair.Key.itemSprite;
+                newButton.GetComponent<EquipmentToolTip>().equipment = pair.Key ;
+                newButton.GetComponent<Button>().onClick.AddListener(()=>showStats(selectedCharacter));
+                
+            }
+        }
+    }
+    
+    public void Equip(Equipment equipment)
+    {
+        unequipButton.SetActive(false);
+        if(selectedCharacter.EquipGear(equipment))
+        {
+            EquipMenu();
+        }
+        else
+        {
+            equipText.text = "Can't Equip";
+        }
+    }
+
+    public void UnEquip()
+    {
+        selectedCharacter.UnEquip(targetSlot);
+        EquipMenu();
+        showStats(selectedCharacter);
+    }
+
+    public void WhoConsumesTheItem(ConsumableItem item)
+    {
+        yesButton.GetComponent<Button>().onClick.RemoveAllListeners();
+        noButton.GetComponent<Button>().onClick.RemoveAllListeners();
+        partyMemberButton.Clear();
+        foreach (Transform child in invTabs.transform) 
+        {
+            GameObject.Destroy(child.gameObject);
+        }
+        if(item.itemTarget == Target.single )
+        {
+            for(int i = 0; i < PartyManager.Instance.party.Count; i++)
+            {
+                GameObject newButton = Instantiate(buttonPrefab, invTabs.transform);
+                newButton.GetComponent<InventoryCharacter>().character = PartyManager.Instance.party[i];
+                partyMemberButton.Add(newButton);
+                newButton.GetComponent<Button>().onClick.AddListener(()=> YesOrNoButtons());
+                newButton.GetComponent<Button>().onClick.AddListener(()=> PopulateYesButton(newButton.GetComponent<InventoryCharacter>().character,item));
+            }
+            noButton.GetComponent<Button>().onClick.AddListener(()=> YesOrNoButtonsOff());
+        }
+        else if(item.itemTarget == Target.party)
+        {
+            for(int i = 0; i < PartyManager.Instance.party.Count; i++)
+            {
+                GameObject newButton = Instantiate(buttonPrefab, invTabs.transform);
+                newButton.GetComponent<InventoryCharacter>().character = PartyManager.Instance.party[i];
+                partyMemberButton.Add(newButton);
+            }
+            noButton.GetComponent<Button>().onClick.AddListener(()=> YesOrNoButtonsOff());
+            PopulateYesButtonParty(item);
+            YesOrNoButtons();
+        }
+
+        for(int i = 0; i < partyMemberButton.Count; i++)
+        {
+            partyMemberButton[i].GetComponentInChildren<TextMeshProUGUI>().text =  partyMemberButton[i].GetComponent<InventoryCharacter>().character.unitName ;
+        }
+    }
+
+    public void ApplyItem(PlayerCharacter character, ConsumableItem item)
+    {
+        item.ApplyItemAttrOFB(character);
+        ShowInventoryI();
+        YesOrNoButtonsOff();
+    }
+
+    public void ApplyItemParty(ConsumableItem item)
+    {
+        item.ApplyItemAttrOFB(PartyManager.Instance.party);
         ShowInventoryI();
         YesOrNoButtonsOff();
     }
@@ -685,11 +507,23 @@ public class StatScreenScript : MonoBehaviour
     }
     public void YesOrNoButtonsOff()
     {
-         yesButton.SetActive(false);
+        yesButton.SetActive(false);
         noButton.SetActive(false);
         ShowInventoryI();
         Debug.Log("Yes No off");
-        
     }
 
+    public void PopulateYesButton(PlayerCharacter character, ConsumableItem item)
+    {
+        yesButton.GetComponent<Button>().onClick.AddListener(()=> ApplyItem(character,item));
+    }
+    public void PopulateYesButtonParty(ConsumableItem item)
+    {
+        yesButton.GetComponent<Button>().onClick.AddListener(()=> ApplyItemParty(item));
+    }
+
+    public void SetTargetSlot(int slot)
+    {
+        targetSlot = slot;
+    }
 }
