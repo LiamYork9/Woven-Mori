@@ -320,7 +320,19 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 1785302488}
         m_TargetAssemblyTypeName: StatScreenScript, Assembly-CSharp
-        m_MethodName: EquipMenuAccessory
+        m_MethodName: SetTargetSlot
+        m_Mode: 3
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 3
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 1785302488}
+        m_TargetAssemblyTypeName: StatScreenScript, Assembly-CSharp
+        m_MethodName: EquipMenu
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -4405,7 +4417,19 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 1785302488}
         m_TargetAssemblyTypeName: StatScreenScript, Assembly-CSharp
-        m_MethodName: EquipMenuArmor
+        m_MethodName: SetTargetSlot
+        m_Mode: 3
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 2
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 1785302488}
+        m_TargetAssemblyTypeName: StatScreenScript, Assembly-CSharp
+        m_MethodName: EquipMenu
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -7326,7 +7350,7 @@ MonoBehaviour:
   equipMenu: {fileID: 1505613644}
   defaultSprite: {fileID: 10901, guid: 0000000000000000f000000000000000, type: 0}
   selectedCharacter: {fileID: 0}
-  remove: 0
+  targetSlot: 0
   whichInv: 0
 --- !u!1 &1796859973
 GameObject:
@@ -7413,7 +7437,19 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 1785302488}
         m_TargetAssemblyTypeName: StatScreenScript, Assembly-CSharp
-        m_MethodName: EquipMenuWeapon
+        m_MethodName: SetTargetSlot
+        m_Mode: 3
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 1
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 1785302488}
+        m_TargetAssemblyTypeName: StatScreenScript, Assembly-CSharp
+        m_MethodName: EquipMenu
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}

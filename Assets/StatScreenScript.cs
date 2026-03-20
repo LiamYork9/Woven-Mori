@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using UnityEngine.UI;
 using System;
 using MoriSkills;
+using UnityEditor.Tilemaps;
 
 
 
@@ -461,7 +462,7 @@ public class StatScreenScript : MonoBehaviour
                 newButton.GetComponent<InventoryCharacter>().character = PartyManager.Instance.party[i];
                 partyMemberButton.Add(newButton);
                 newButton.GetComponent<Button>().onClick.AddListener(()=> YesOrNoButtons());
-                yesButton.GetComponent<Button>().onClick.AddListener(()=> ApplyItem(newButton.GetComponent<InventoryCharacter>().character,item));
+                newButton.GetComponent<Button>().onClick.AddListener(()=> PopulateYesButton(newButton.GetComponent<InventoryCharacter>().character,item));
                 noButton.GetComponent<Button>().onClick.AddListener(()=> YesOrNoButtonsOff());
             }
         }
@@ -489,6 +490,11 @@ public class StatScreenScript : MonoBehaviour
         noButton.SetActive(false);
         ShowInventoryI();
         Debug.Log("Yes No off");
+    }
+
+    public void PopulateYesButton(PlayerCharacter character, ConsumableItem item)
+    {
+        yesButton.GetComponent<Button>().onClick.AddListener(()=> ApplyItem(character,item));
     }
 
     public void SetTargetSlot(int slot)
