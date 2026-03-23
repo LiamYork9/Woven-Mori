@@ -42,7 +42,7 @@ public class StatScreenScript : MonoBehaviour
       public GameObject invTabs;
 
 
-      public GameObject weaponButton,armorButton,accessoryButton,unequipButton,yesButton,noButton,equipMenu;
+      public GameObject weaponButton,armorButton,accessoryButton,unequipButton,yesButton,noButton,itemInvButton,equipInvButton,keyInvButton,equipMenu;
 
       public Sprite defaultSprite;
 
@@ -97,7 +97,7 @@ public class StatScreenScript : MonoBehaviour
 
     public void OpenMenu()
     {
-        whichInv = 1;
+       
         weaponButton.SetActive(false);
         armorButton.SetActive(false);
         accessoryButton.SetActive(false);
@@ -139,6 +139,8 @@ public class StatScreenScript : MonoBehaviour
         unequipButton.SetActive(false);
          yesButton.SetActive(false);
         noButton.SetActive(false);
+        itemInvButton.SetActive(false);
+        equipInvButton.SetActive(false);
     }
 
     public void showStats(PlayerCharacter character)
@@ -257,6 +259,8 @@ public class StatScreenScript : MonoBehaviour
     public void ShowInventoryE()
     {
         whichInv = 1;
+        yesButton.SetActive(false);
+        noButton.SetActive(false);
         statScreen.SetActive(false);
         inventoryScreen.SetActive(true);
 
@@ -346,6 +350,13 @@ public class StatScreenScript : MonoBehaviour
                 inventoryButtons[i].GetComponent<ItemToolTipScript>().unHoverEvent.AddListener(ToolTipRemover);
             }
         }
+    }
+
+    public void InventoryNavigation()
+    {
+        ShowInventoryI();
+        itemInvButton.SetActive(true);
+        equipInvButton.SetActive(true);
     }
 
     public void UpdateInventory()
@@ -457,7 +468,7 @@ public class StatScreenScript : MonoBehaviour
         }
         if(item.usableOFB == true)
         {
-            if(item.itemTarget == Target.single )
+            if(item.itemTarget == Target.ally )
             {
                 for(int i = 0; i < PartyManager.Instance.party.Count; i++)
                 {
