@@ -10,16 +10,16 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 13193e4b6e394ec4fa0a6f52edf13338, type: 3}
-  m_Name: basicHeal
+  m_Name: BigRock
   m_EditorClassIdentifier: 
-  itemSprite: {fileID: 1770515669, guid: 891589fc4e6a1ab419264f6b18766149, type: 3}
-  itemName: Potion
-  itemDescription: It heals 100 HP
+  itemSprite: {fileID: 3083056432361977351, guid: d438fa7d32b443748ac553562935a065, type: 3}
+  itemName: Big Rock
+  itemDescription: 'Its a pretty big rock '
   value: 0
   sellValue: 0
   stackable: 1
-  maxStack: 99
-  itemTarget: 3
+  maxStack: 5
+  itemTarget: 4
   itemAttrs:
-  - {fileID: 11400000, guid: 625eb444a163ad840b3f18204556c3da, type: 2}
-  usableOFB: 1
+  - {fileID: 11400000, guid: 7a51e8e4714418f45b219c3f74beb735, type: 2}
+  usableOFB: 0

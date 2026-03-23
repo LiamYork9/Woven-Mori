@@ -6,6 +6,9 @@ using UnityEngine.UI;
 using MoriSkills;
 using UnityEngine.SceneManagement;
 
+
+
+
 public enum FightState
 {
     Active,
@@ -102,6 +105,8 @@ public class BattleManager : MonoBehaviour
 
     public GameObject itemButton;
 
+    public ConsumableItem selectedItem;
+
 
 
 
@@ -155,7 +160,7 @@ public class BattleManager : MonoBehaviour
 
         if (selecting == true)
         {
-
+             targetArrow.SetActive(true);
             target = enemySlots[targetIndex];
             targetArrow.transform.position = target.transform.position;
             if (Input.GetKeyDown(KeyCode.S))
@@ -193,6 +198,12 @@ public class BattleManager : MonoBehaviour
                 {
                     selecting = false;
                     StartCoroutine(PlayerAttack());
+                }
+
+                if(useItem == true)
+                {
+                    selecting = false;
+                    StartCoroutine(UsingItem(selectedItem));
                 }
                
               
@@ -246,9 +257,28 @@ public class BattleManager : MonoBehaviour
         }
         if (Input.GetKeyDown(KeyCode.Space))
         {
-            if(useItem == true)
+            if(useItem == true && playerSelecting == true)
             {
-              StartCoroutine(UsingItem());
+              StartCoroutine(UsingItem(selectedItem));
+            }
+        }
+
+       
+        
+        if (Input.GetKeyDown(KeyCode.Space))
+        {
+            if(useItem == true && targetParty == true)
+            {
+                StartCoroutine(UsingItem(selectedItem));
+            }
+        }
+        
+
+        if (Input.GetKeyDown(KeyCode.Space))
+        {
+            if(useItem == true && multiTarget == true)
+            {
+                StartCoroutine(UsingItem(selectedItem));
             }
         }
 
@@ -299,6 +329,7 @@ public class BattleManager : MonoBehaviour
                 actionMenu.SetActive(true);
                 ButtonsOn();
                 targetArrow.SetActive(false);
+                dialogueText.text = "";
 
             }
         }
@@ -501,8 +532,34 @@ public class BattleManager : MonoBehaviour
     
         public void ApplyItem( ConsumableItem item)
     {
+        if(item.itemTarget == Target.ally || item.itemTarget == Target.single)
+        {
+             item.ApplyItemAttrWIB(target.GetComponent<UnitBody>());
+        }
+
+       
         
-        item.ApplyItemAttrWIB(target.GetComponent<UnitBody>());
+       if(item.itemTarget == Target.party)
+        {
+            List <UnitBody> temp = new List<UnitBody>();
+            for (int i = 0; i < playerSlots.Count; i++)
+            {
+               temp.Add(playerSlots[i].GetComponent<UnitBody>());
+            }
+             item.ApplyItemAttrWIB(temp);
+             
+        }
+
+        if(item.itemTarget == Target.mutipleEnemy)
+        {
+            List <UnitBody> temp = new List<UnitBody>();
+             for (int i = 0; i < enemySlots.Count; i++)
+            {
+                temp.Add(enemySlots[i].GetComponent<UnitBody>());
+               
+            }
+             item.ApplyItemAttrWIB(temp);
+        }
        
        
        
@@ -510,30 +567,51 @@ public class BattleManager : MonoBehaviour
     }
     public void ItemTarget( ConsumableItem item)
     {
+        selectedItem = item;
          itemMenu.SetActive(false);
         actionMenu.SetActive(true);
-        if(item.itemTarget == Target.single)
+        if(item.itemTarget == Target.ally)
         {
             playerSelecting = true;
             dialogueText.text = "Who will you use the item on?";
         }
-        else
+        if(item.itemTarget == Target.single)
         {
-            Debug.Log("Huh");
+            selecting = true;
+            dialogueText.text = "Who will you use the item on?";
+        }
+        if(item.itemTarget == Target.party)
+        {
+            targetParty = true; 
+            dialogueText.text = "Item will be used on the whole party";
+        }
+         if(item.itemTarget == Target.mutipleEnemy)
+        {
+            multiTarget = true;
+            dialogueText.text = "Item will be used on the whole enemy group";
         }
     }
 
-    IEnumerator UsingItem()
+    IEnumerator UsingItem(ConsumableItem item)
     {
         playerSelecting = false;
+        targetParty = false;
+        multiTarget = false;
         targetArrow.SetActive(false);
-        dialogueText.text = TOM.turnPlayer.name + " Used Item On " + target.GetComponent<UnitBody>().name;
-        useItem = false;
-        for(int i = 0; i < invButtons.Count; i++)
+        dialogueText.text = TOM.turnPlayer.name + " Used " + item.itemName + " On ";
+        if(item.itemTarget == Target.ally || item.itemTarget == Target.single)
         {
-            ApplyItem(invButtons[i].GetComponent<ItemToolTipScript>().item as ConsumableItem);
+            dialogueText.text += "" + target.GetComponent<UnitBody>().unit.unitName;
         }
+        if(item.itemTarget == Target.party)
+        {
+             for (int i = 0; i < playerSlots.Count; i++)
+             dialogueText.text += "Party";
+        }
+        useItem = false;
+        ApplyItem(item);
         yield return new WaitForSeconds(1f);
+         selectedItem = null;
         TOM.EndTurn();
     }
     

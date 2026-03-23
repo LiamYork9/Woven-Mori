@@ -455,34 +455,37 @@ public class StatScreenScript : MonoBehaviour
         {
             GameObject.Destroy(child.gameObject);
         }
-        if(item.itemTarget == Target.single )
+        if(item.usableOFB == true)
         {
-            for(int i = 0; i < PartyManager.Instance.party.Count; i++)
+            if(item.itemTarget == Target.single )
             {
-                GameObject newButton = Instantiate(buttonPrefab, invTabs.transform);
-                newButton.GetComponent<InventoryCharacter>().character = PartyManager.Instance.party[i];
-                partyMemberButton.Add(newButton);
-                newButton.GetComponent<Button>().onClick.AddListener(()=> YesOrNoButtons());
-                newButton.GetComponent<Button>().onClick.AddListener(()=> PopulateYesButton(newButton.GetComponent<InventoryCharacter>().character,item));
+                for(int i = 0; i < PartyManager.Instance.party.Count; i++)
+                {
+                    GameObject newButton = Instantiate(buttonPrefab, invTabs.transform);
+                    newButton.GetComponent<InventoryCharacter>().character = PartyManager.Instance.party[i];
+                    partyMemberButton.Add(newButton);
+                    newButton.GetComponent<Button>().onClick.AddListener(()=> YesOrNoButtons());
+                    newButton.GetComponent<Button>().onClick.AddListener(()=> PopulateYesButton(newButton.GetComponent<InventoryCharacter>().character,item));
+                }
+                noButton.GetComponent<Button>().onClick.AddListener(()=> YesOrNoButtonsOff());
             }
-            noButton.GetComponent<Button>().onClick.AddListener(()=> YesOrNoButtonsOff());
-        }
-        else if(item.itemTarget == Target.party)
-        {
-            for(int i = 0; i < PartyManager.Instance.party.Count; i++)
+            else if(item.itemTarget == Target.party)
             {
-                GameObject newButton = Instantiate(buttonPrefab, invTabs.transform);
-                newButton.GetComponent<InventoryCharacter>().character = PartyManager.Instance.party[i];
-                partyMemberButton.Add(newButton);
+                for(int i = 0; i < PartyManager.Instance.party.Count; i++)
+                {
+                    GameObject newButton = Instantiate(buttonPrefab, invTabs.transform);
+                    newButton.GetComponent<InventoryCharacter>().character = PartyManager.Instance.party[i];
+                    partyMemberButton.Add(newButton);
+                }
+                noButton.GetComponent<Button>().onClick.AddListener(()=> YesOrNoButtonsOff());
+                PopulateYesButtonParty(item);
+                YesOrNoButtons();
             }
-            noButton.GetComponent<Button>().onClick.AddListener(()=> YesOrNoButtonsOff());
-            PopulateYesButtonParty(item);
-            YesOrNoButtons();
-        }
 
-        for(int i = 0; i < partyMemberButton.Count; i++)
-        {
-            partyMemberButton[i].GetComponentInChildren<TextMeshProUGUI>().text =  partyMemberButton[i].GetComponent<InventoryCharacter>().character.unitName ;
+            for(int i = 0; i < partyMemberButton.Count; i++)
+            {
+                partyMemberButton[i].GetComponentInChildren<TextMeshProUGUI>().text =  partyMemberButton[i].GetComponent<InventoryCharacter>().character.unitName ;
+            }
         }
     }
 
@@ -515,11 +518,27 @@ public class StatScreenScript : MonoBehaviour
 
     public void PopulateYesButton(PlayerCharacter character, ConsumableItem item)
     {
-        yesButton.GetComponent<Button>().onClick.AddListener(()=> ApplyItem(character,item));
+        if(item.usableOFB == true)
+        {
+             yesButton.GetComponent<Button>().onClick.AddListener(()=> ApplyItem(character,item));
+        }
+        else
+        {
+            YesOrNoButtonsOff();
+        }
+
     }
     public void PopulateYesButtonParty(ConsumableItem item)
     {
-        yesButton.GetComponent<Button>().onClick.AddListener(()=> ApplyItemParty(item));
+        if(item.usableOFB == true)
+        {
+             yesButton.GetComponent<Button>().onClick.AddListener(()=> ApplyItemParty(item));
+        }
+        else
+        {
+            YesOrNoButtonsOff();
+        }
+      
     }
 
     public void SetTargetSlot(int slot)
