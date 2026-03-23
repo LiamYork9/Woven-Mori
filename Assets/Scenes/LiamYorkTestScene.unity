@@ -938,7 +938,7 @@ RectTransform:
   m_Father: {fileID: 284466545}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0.99881154, y: 1}
+  m_AnchorMax: {x: 1, y: 1}
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 20, y: 20}
   m_Pivot: {x: 0.5, y: 0.5}
@@ -1082,7 +1082,7 @@ GameObject:
   - component: {fileID: 1759194071}
   - component: {fileID: 1759194070}
   m_Layer: 5
-  m_Name: BattleText (1)
+  m_Name: Item Text
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1372,7 +1372,7 @@ MonoBehaviour:
   m_HandleRect: {fileID: 1669596129}
   m_Direction: 0
   m_Value: 0
-  m_Size: 0.99881154
+  m_Size: 1
   m_NumberOfSteps: 0
   m_OnValueChanged:
     m_PersistentCalls:
@@ -1933,6 +1933,10 @@ PrefabInstance:
       propertyPath: dialogueText
       value: 
       objectReference: {fileID: 130623155}
+    - target: {fileID: 6150715196394293801, guid: 8089a5ef6f4ee464ea9324d77e01a3da, type: 3}
+      propertyPath: itemToolTipText
+      value: 
+      objectReference: {fileID: 1759194070}
     - target: {fileID: 6150715196394293801, guid: 8089a5ef6f4ee464ea9324d77e01a3da, type: 3}
       propertyPath: 'buttons.Array.data[0]'
       value: 

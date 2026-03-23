@@ -107,6 +107,8 @@ public class BattleManager : MonoBehaviour
 
     public ConsumableItem selectedItem;
 
+    public TMP_Text itemToolTipText;
+
 
 
 
@@ -526,6 +528,24 @@ public class BattleManager : MonoBehaviour
                     newButton.GetComponent<ItemToolTipScript>().item = pair.Key ;
                 }
             }
+              for (int i = 0; i < invButtons.Count; i++)
+        {
+            if (invButtons[i].GetComponent<ItemToolTipScript>() != null)
+            {
+               invButtons[i].GetComponent<ItemToolTipScript>().hoverEvent.AddListener(ToolTipAdder);
+               invButtons[i].GetComponent<ItemToolTipScript>().unHoverEvent.AddListener(ToolTipRemover);
+            }
+        }
+    }
+    public void ToolTipAdder(GameObject button)
+    {
+        Item temp = button.GetComponent<ItemToolTipScript>().item;
+        itemToolTipText.text = temp.itemDescription;
+        
+    }
+    public void ToolTipRemover()
+    {
+       itemToolTipText.text = " ";
     }
 
    
