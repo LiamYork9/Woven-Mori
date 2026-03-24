@@ -32,6 +32,9 @@ MonoBehaviour:
   APGain: 1
   equipmentStats: 000000000000000000000000000000000000000000000000
   expYield: 25
+  money: 0
+  lootTable: []
+  dropChance: 100
   references:
     version: 2
     RefIds: []

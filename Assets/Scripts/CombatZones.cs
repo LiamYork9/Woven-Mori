@@ -5,6 +5,8 @@ public class CombatZones : MonoBehaviour
 {
     public List<Enemy> encounterTable;
 
+    public int maxEnemies;
+
      public bool battleZone = false;
 
    
@@ -22,6 +24,8 @@ public class CombatZones : MonoBehaviour
     void UsePool()
     {
         EncounterManager.Instance.encounterPool = encounterTable;
+        EncounterManager.Instance.maxEnemies = maxEnemies;
+        
     }
 
     private void OnTriggerEnter2D(Collider2D collison)

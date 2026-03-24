@@ -109,6 +109,8 @@ public class BattleManager : MonoBehaviour
 
     public TMP_Text itemToolTipText;
 
+    public List<Loot> loot;
+
 
 
 
@@ -750,6 +752,10 @@ public class BattleManager : MonoBehaviour
                 temp.exp -= temp.level*100;
                 temp.LevelUp();
             }
+        }
+        for (int i = 0; i < loot.Count; i++)
+        {
+            InventoryManager.Instance.PickUp(loot[i].item, loot[i].amount);
         }
         dialogueText.text = "You Win!";
 

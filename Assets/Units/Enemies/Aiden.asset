@@ -32,6 +32,25 @@ MonoBehaviour:
   APGain: 1
   equipmentStats: 000000000000000000000000000000000000000000000000
   expYield: 300
+  money: 0
+  lootTable:
+  - item: {fileID: 11400000, guid: 0a8f38adc6b060549aa1e4aabc6d27c8, type: 2}
+    amount: 1
+    chance: 100
+    rarity: 2
+  - item: {fileID: 11400000, guid: 0a8f38adc6b060549aa1e4aabc6d27c8, type: 2}
+    amount: 1
+    chance: 100
+    rarity: 2
+  - item: {fileID: 11400000, guid: 0a8f38adc6b060549aa1e4aabc6d27c8, type: 2}
+    amount: 1
+    chance: 100
+    rarity: 2
+  - item: {fileID: 11400000, guid: 689fc32010b9930459d133f1c2962c54, type: 2}
+    amount: 1
+    chance: 100
+    rarity: 0
+  dropChance: 20
   references:
     version: 2
     RefIds: []
