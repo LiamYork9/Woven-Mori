@@ -1032,6 +1032,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   encounterTable: []
+  maxEnemies: 0
   battleZone: 0
 --- !u!1 &254600538
 GameObject:
@@ -6657,6 +6658,7 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 319564360a40d3945a4b4654397d85db, type: 2}
   - {fileID: 11400000, guid: f3ad838d526acd4428cc7bc2249f2b66, type: 2}
   - {fileID: 11400000, guid: dfe9c6ec2678f1d4fb4d21753df47e7f, type: 2}
+  maxEnemies: 3
   battleZone: 1
 --- !u!1 &1658606938
 GameObject:

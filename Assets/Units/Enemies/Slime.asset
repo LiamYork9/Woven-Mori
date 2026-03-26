@@ -39,18 +39,18 @@ MonoBehaviour:
     chance: 100
     rarity: 2
   - item: {fileID: 11400000, guid: 0a8f38adc6b060549aa1e4aabc6d27c8, type: 2}
-    amount: 1
+    amount: 5
     chance: 100
-    rarity: 2
-  - item: {fileID: 11400000, guid: 0a8f38adc6b060549aa1e4aabc6d27c8, type: 2}
-    amount: 1
-    chance: 100
-    rarity: 2
+    rarity: 1
   - item: {fileID: 11400000, guid: 689fc32010b9930459d133f1c2962c54, type: 2}
     amount: 1
-    chance: 100
+    chance: 50
+    rarity: 1
+  - item: {fileID: 11400000, guid: 689fc32010b9930459d133f1c2962c54, type: 2}
+    amount: 5
+    chance: 50
     rarity: 0
-  dropChance: 20
+  dropChance: 40
   references:
     version: 2
     RefIds: []

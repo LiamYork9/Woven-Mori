@@ -34,23 +34,15 @@ MonoBehaviour:
   expYield: 300
   money: 0
   lootTable:
-  - item: {fileID: 11400000, guid: 0a8f38adc6b060549aa1e4aabc6d27c8, type: 2}
+  - item: {fileID: 11400000, guid: 8a0af1d3b0a59924b9a0baebf1cd3e13, type: 2}
     amount: 1
     chance: 100
     rarity: 2
-  - item: {fileID: 11400000, guid: 0a8f38adc6b060549aa1e4aabc6d27c8, type: 2}
+  - item: {fileID: 11400000, guid: 907f1ae82da87f04c8b8e905d27e4407, type: 2}
     amount: 1
     chance: 100
-    rarity: 2
-  - item: {fileID: 11400000, guid: 0a8f38adc6b060549aa1e4aabc6d27c8, type: 2}
-    amount: 1
-    chance: 100
-    rarity: 2
-  - item: {fileID: 11400000, guid: 689fc32010b9930459d133f1c2962c54, type: 2}
-    amount: 1
-    chance: 100
-    rarity: 0
-  dropChance: 20
+    rarity: 1
+  dropChance: 40
   references:
     version: 2
     RefIds: []
