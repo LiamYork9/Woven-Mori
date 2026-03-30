@@ -3,12 +3,7 @@ using MoriSkills;
 using Unity.Mathematics;
 using UnityEngine;
 
-
-
-[CreateAssetMenu(fileName = "ClassGrowth", menuName = "ScriptableObjects/ClassGrowth")]
-public class ClassGrowth : ScriptableObject
-{
-    [System.Serializable]
+ [System.Serializable]
     public struct Milestones
     {
         public int Level ;
@@ -29,6 +24,11 @@ public class ClassGrowth : ScriptableObject
             MaxHP = HP;
         }   
     }
+
+[CreateAssetMenu(fileName = "ClassGrowth", menuName = "ScriptableObjects/ClassGrowth")]
+public class ClassGrowth : ScriptableObject
+{
+   
 
     [System.Serializable]
     public struct SkillUnlocks
