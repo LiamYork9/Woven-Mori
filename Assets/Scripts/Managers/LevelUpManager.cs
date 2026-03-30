@@ -1,5 +1,24 @@
 using System.Collections.Generic;
 using UnityEngine;
+using System;
+
+public enum GrowthTarget
+{
+    All,
+    Next,
+    Last
+}
+
+[Flags]
+public enum StatTarget
+{
+    MaxHP = 1<<0,
+    Attack = 1<<1,
+    Defense = 1<<2,
+    MDefense = 1<<3,
+    Speed = 1<<4,
+    All =~0,
+}
 
 public class LevelUpManager : MonoBehaviour
 {

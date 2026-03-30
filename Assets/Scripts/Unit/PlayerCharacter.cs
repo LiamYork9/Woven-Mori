@@ -1,3 +1,5 @@
+using System.Collections.Generic;
+using MoriSkills;
 using UnityEngine;
 
 [CreateAssetMenu(fileName = "unit", menuName = "ScriptableObjects/Unit/Player", order = 1)]
@@ -159,7 +161,7 @@ public class PlayerCharacter : Unit
 
                 if(milestoneIndex != -1)
                 {
-                    ClassGrowth.Milestones goal = LevelUpManager.Instance.classGrowths[i].milestones[milestoneIndex];
+                    Milestones goal = LevelUpManager.Instance.classGrowths[i].milestones[milestoneIndex];
                     int levelgap = goal.Level-level;
                     level ++;
                     currentHP += (goal.MaxHP-maxHP)/levelgap;
@@ -193,11 +195,140 @@ public class PlayerCharacter : Unit
     public void ResetLevel()
     {
         level = 0;
+        exp = 0;
         skills.Clear();
         LevelUp();
     }
 
-   
+
+    
+    public void ChangeGrowth(StatTarget targetStats, GrowthTarget growthTarget, int change, bool applyInstant = false)
+    {
+        List<Milestones> milestones = null;
+        for (int i=0; i<LevelUpManager.Instance.classGrowths.Count;i++)
+        {
+            if(LevelUpManager.Instance.classGrowths[i].playerClass == playerClass)
+            {
+                milestones = LevelUpManager.Instance.classGrowths[i].milestones;
+            }
+        }
+        if(applyInstant)
+        {
+            if(targetStats.HasFlag(StatTarget.MaxHP))
+            {
+                maxHP += change;
+                currentHP += change;
+            }
+            if(targetStats.HasFlag(StatTarget.Attack))
+            {
+                
+                attack += change;
+            }
+            if(targetStats.HasFlag(StatTarget.Defense))
+            {
+                defense += change;
+            }
+            if(targetStats.HasFlag(StatTarget.MDefense))
+            {
+                mDefense += change;
+            }
+            if(targetStats.HasFlag(StatTarget.Speed))
+            {
+                speed += change;
+            }
+        }
+        if(growthTarget == GrowthTarget.All)
+        {
+            for (int i=0; i<milestones.Count;i++)
+            {
+                Milestones temp = milestones[i];
+                if(targetStats.HasFlag(StatTarget.MaxHP))
+                {
+                    temp.MaxHP += change;
+                }
+                if(targetStats.HasFlag(StatTarget.Attack))
+                {
+                    temp.Attack += change;
+                }
+                if(targetStats.HasFlag(StatTarget.Defense))
+                {
+                    temp.Defense += change;
+                }
+                if(targetStats.HasFlag(StatTarget.MDefense))
+                {
+                    temp.Mdefense+= change;
+                }
+                if(targetStats.HasFlag(StatTarget.Speed))
+                {
+                    temp.Speed += change;
+                }
+                milestones[i] = temp;
+            }
+        }
+        else if(growthTarget == GrowthTarget.Next)
+        {
+            int milestoneIndex = -1;
+            for(int i=0; i<milestones.Count;i++)
+            {
+                if(milestones[i].Level > level)
+                {
+                    milestoneIndex = i;
+                    break;
+                }
+            }
+
+            if(milestoneIndex != -1)
+            {
+                Milestones temp = milestones[milestoneIndex];
+                if(targetStats.HasFlag(StatTarget.MaxHP))
+                {
+                    temp.MaxHP += change;
+                }
+                if(targetStats.HasFlag(StatTarget.Attack))
+                {
+                    temp.Attack += change;
+                }
+                if(targetStats.HasFlag(StatTarget.Defense))
+                {
+                    temp.Defense += change;
+                }
+                if(targetStats.HasFlag(StatTarget.MDefense))
+                {
+                    temp.Mdefense+= change;
+                }
+                if(targetStats.HasFlag(StatTarget.Speed))
+                {
+                    temp.Speed += change;
+                }
+                milestones[milestoneIndex] = temp;
+            }
+        }
+        else if(growthTarget == GrowthTarget.Last)
+        {
+            Milestones temp = milestones[milestones.Count-1];
+            if(targetStats.HasFlag(StatTarget.MaxHP))
+            {
+                temp.MaxHP += change;
+            }
+            if(targetStats.HasFlag(StatTarget.Attack))
+            {
+                temp.Attack += change;
+            }
+            if(targetStats.HasFlag(StatTarget.Defense))
+            {
+                temp.Defense += change;
+            }
+            if(targetStats.HasFlag(StatTarget.MDefense))
+            {
+                temp.Mdefense+= change;
+            }
+            if(targetStats.HasFlag(StatTarget.Speed))
+            {
+                temp.Speed += change;
+            }
+            milestones[milestones.Count-1] = temp;
+        }
+    }
 }
 
 
