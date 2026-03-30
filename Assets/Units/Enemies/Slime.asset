@@ -32,7 +32,7 @@ MonoBehaviour:
   APGain: 1
   equipmentStats: 000000000000000000000000000000000000000000000000
   expYield: 250
-  money: 0
+  money: 100
   lootTable:
   - item: {fileID: 11400000, guid: 0a8f38adc6b060549aa1e4aabc6d27c8, type: 2}
     amount: 1

@@ -13,6 +13,8 @@ public class PartyManager : MonoBehaviour
 
     public bool PM1,PM2,PM3;
 
+    public int funds;
+
     public static PartyManager GetInstance()
     {
         return Instance;
@@ -41,7 +43,10 @@ public class PartyManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-
+        if(funds < 99999)
+        {
+            funds = 99999;
+        }
     }
 
     public void AddPartyMemeber(PlayerCharacter playerCharacter)
