@@ -43,7 +43,7 @@ public class PartyManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if(funds < 99999)
+        if(funds > 99999)
         {
             funds = 99999;
         }
