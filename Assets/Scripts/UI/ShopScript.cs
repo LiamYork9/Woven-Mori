@@ -5,7 +5,7 @@ using System.Collections.Generic;
 using UnityEngine.UI;
 using System;
 using MoriSkills;
-using System.Linq;
+
 
 public class ShopScript : MonoBehaviour
 {
