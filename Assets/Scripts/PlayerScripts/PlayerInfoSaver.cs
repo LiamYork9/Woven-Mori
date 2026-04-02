@@ -12,6 +12,7 @@ public GameObject player;
     
     void Start()
     {
+        //transform.position = PartyManager.Instance.SpawnLocation;
        
         if (PlayerPrefs.HasKey("PlayerPosX"))
         {

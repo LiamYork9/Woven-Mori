@@ -6,6 +6,7 @@ using UnityEngine.SceneManagement;
 
 public class SendToInterior : MonoBehaviour
 {
+    public  Vector3 TargetSpawnPosition;
     public string sceneName;
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
@@ -21,6 +22,7 @@ public class SendToInterior : MonoBehaviour
 
     void OnTriggerEnter2D(Collider2D other)
     {
+        PartyManager.Instance.SpawnLocation = TargetSpawnPosition;
          SceneManager.LoadScene(sceneName);
     }
 }

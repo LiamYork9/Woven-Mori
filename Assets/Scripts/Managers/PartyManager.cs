@@ -15,6 +15,8 @@ public class PartyManager : MonoBehaviour
 
     public int funds;
 
+    public Vector3 SpawnLocation;
+
     public static PartyManager GetInstance()
     {
         return Instance;

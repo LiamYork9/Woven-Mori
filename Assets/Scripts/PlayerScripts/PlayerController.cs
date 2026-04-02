@@ -32,6 +32,8 @@ public class PlayerController : MonoBehaviour
             Step = new UnityEvent();
         }
         Step.AddListener(TakeStep);
+        movePoint.position = PartyManager.Instance.SpawnLocation;
+        transform.position = PartyManager.Instance.SpawnLocation;
     }
 
     // Update is called once per frame

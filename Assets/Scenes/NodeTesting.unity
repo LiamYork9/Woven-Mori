@@ -1693,6 +1693,14 @@ PrefabInstance:
       value: 1000
       objectReference: {fileID: 0}
     - target: {fileID: 4757034985748211624, guid: 9be9c3a6200bc05409c5c20538f16e36, type: 3}
+      propertyPath: SpawnLocation.x
+      value: 15.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 4757034985748211624, guid: 9be9c3a6200bc05409c5c20538f16e36, type: 3}
+      propertyPath: SpawnLocation.y
+      value: -11.4
+      objectReference: {fileID: 0}
+    - target: {fileID: 4757034985748211624, guid: 9be9c3a6200bc05409c5c20538f16e36, type: 3}
       propertyPath: party.Array.size
       value: 1
       objectReference: {fileID: 0}
@@ -4122,6 +4130,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 96251e1f055b6eb4bac65367911978de, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  TargetSpawnPosition: {x: 10, y: 10, z: 10}
   sceneName: Interiors
 --- !u!61 &1358252899
 BoxCollider2D:
