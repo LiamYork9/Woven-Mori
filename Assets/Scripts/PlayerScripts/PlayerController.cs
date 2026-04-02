@@ -32,6 +32,7 @@ public class PlayerController : MonoBehaviour
             Step = new UnityEvent();
         }
         Step.AddListener(TakeStep);
+        EncounterManager.Instance.startEncounter.AddListener(SetSpawnLocation);
         movePoint.position = PartyManager.Instance.SpawnLocation;
         transform.position = PartyManager.Instance.SpawnLocation;
     }
@@ -115,6 +116,12 @@ public class PlayerController : MonoBehaviour
             follower.transform.position = transform.position;
             follower.SetPosition();
         }
+    }
+
+    public void SetSpawnLocation()
+    {
+        PartyManager.Instance.SpawnLocation = movePoint.position;
+        
     }
 
     public virtual void SpawnFollowers()

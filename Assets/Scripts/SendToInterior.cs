@@ -23,6 +23,7 @@ public class SendToInterior : MonoBehaviour
     void OnTriggerEnter2D(Collider2D other)
     {
         PartyManager.Instance.SpawnLocation = TargetSpawnPosition;
+        PlayerPrefs.DeleteAll();
          SceneManager.LoadScene(sceneName);
     }
 }

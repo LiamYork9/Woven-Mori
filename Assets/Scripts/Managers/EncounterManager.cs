@@ -28,6 +28,8 @@ public class EncounterManager : MonoBehaviour
 
     public bool fightArea = false;
 
+    public UnityEvent startEncounter;
+
     public static EncounterManager GetInstance()
     {
         return Instance;
@@ -78,6 +80,7 @@ public class EncounterManager : MonoBehaviour
     {
 
         Debug.Log("FIGHT!");
+        startEncounter.Invoke();
         RollEncounter();
         if (fightText != null)
         {

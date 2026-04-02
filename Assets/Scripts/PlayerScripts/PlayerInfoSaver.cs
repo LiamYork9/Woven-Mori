@@ -14,14 +14,14 @@ public GameObject player;
     {
         //transform.position = PartyManager.Instance.SpawnLocation;
        
-        if (PlayerPrefs.HasKey("PlayerPosX"))
-        {
-            float x = PlayerPrefs.GetFloat("PlayerPosX");
-            float y = PlayerPrefs.GetFloat("PlayerPosY");
-            float z = PlayerPrefs.GetFloat("PlayerPosZ");
-            player.transform.position = new Vector3(x, y, z);
-            player.GetComponent<PlayerController>().SetPosition();
-        }
+        // if (PlayerPrefs.HasKey("PlayerPosX"))
+        // {
+        //     float x = PlayerPrefs.GetFloat("PlayerPosX");
+        //     float y = PlayerPrefs.GetFloat("PlayerPosY");
+        //     float z = PlayerPrefs.GetFloat("PlayerPosZ");
+        //     player.transform.position = new Vector3(x, y, z);
+        //     player.GetComponent<PlayerController>().SetPosition();
+        // }
     }
 
     
@@ -36,7 +36,7 @@ public GameObject player;
         PlayerPrefs.SetFloat("PlayerPosY", transform.position.y);
         PlayerPrefs.SetFloat("PlayerPosZ", transform.position.z);
         
-        PlayerPrefs.Save();
+        //PlayerPrefs.Save();
     }
 
 
