@@ -15,7 +15,7 @@ MonoBehaviour:
   itemSprite: {fileID: 1770515669, guid: 891589fc4e6a1ab419264f6b18766149, type: 3}
   itemName: Healing Mist
   itemDescription: It heals 100 HP to your whole party
-  value: 0
+  value: 20
   sellValue: 0
   stackable: 1
   maxStack: 99

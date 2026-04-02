@@ -60,6 +60,7 @@ public class Enemy : Unit
     public override void Death(UnitBody body)
     {
         BattleManager.Instance.expEarned += expYield;
+        BattleManager.Instance.cashEarned += money;
         BattleManager.Instance.loot.AddRange(RollLoot());
         for(int i = 0; i < PartyManager.Instance.party.Count; i++)
         {

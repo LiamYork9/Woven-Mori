@@ -15,7 +15,7 @@ MonoBehaviour:
   itemSprite: {fileID: 3083056432361977351, guid: d438fa7d32b443748ac553562935a065, type: 3}
   itemName: Rock
   itemDescription: 'Its a rock '
-  value: 0
+  value: 10
   sellValue: 0
   stackable: 1
   maxStack: 10

@@ -99,6 +99,8 @@ public class BattleManager : MonoBehaviour
 
     public int expEarned = 0;
 
+    public int cashEarned = 0;
+
     public GameObject itemMenu;
 
     public GameObject itemScreen;
@@ -107,9 +109,12 @@ public class BattleManager : MonoBehaviour
 
     public ConsumableItem selectedItem;
 
+    public GameObject winScreen;
+
     public TMP_Text itemToolTipText;
 
     public List<Loot> loot;
+
 
 
 
@@ -708,7 +713,7 @@ public class BattleManager : MonoBehaviour
             }
                 dialogueText.text = "You Escape";
                 yield return new WaitForSeconds(1f);
-                BattleEnd();
+                BattleEndLose();
             }
             else
             {
@@ -734,7 +739,7 @@ public class BattleManager : MonoBehaviour
     public void WinCondtion()
     {
         fightState = FightState.Won;
-        
+        PartyManager.Instance.funds += cashEarned;
         ButtonsOff();
         for (int i = 0; i < PartyManager.Instance.party.Count; i++)
         {
@@ -760,7 +765,7 @@ public class BattleManager : MonoBehaviour
         dialogueText.text = "You Win!";
 
         win = true;
-        BattleEnd();
+        BattleEndWin();
     }
 
     // What happens when you lose
@@ -784,23 +789,40 @@ public class BattleManager : MonoBehaviour
         dialogueText.text = "You Lose";
         PlayerPrefs.DeleteAll();
         EncounterManager.Instance.fightArea = false;
-        BattleEnd();
+        BattleEndLose();
     }
 
-    public void BattleEnd()
+    public void BattleEndLose()
     {
         Debug.Log("BattleEnd");
         expEarned = 0;
-        StartCoroutine(EndBattle());
+        cashEarned = 0;
+        StartCoroutine(EndBattleLose());
+    }
+
+     public void BattleEndWin()
+    {
+        Debug.Log("BattleEnd");
+        StartCoroutine(EndBattleWin());
     }
     
-     IEnumerator EndBattle()
+     IEnumerator EndBattleLose()
     {
         yield return new WaitForSeconds(1.5f);
         Debug.Log("EndBattle");
         dialogueText.text = "The Battle is Over";
         yield return new WaitForSeconds(1f);
-        SceneManager.LoadScene(sceneName);
+         SceneManager.LoadScene(sceneName);
+         
+    }
+
+    IEnumerator EndBattleWin()
+    {
+        yield return new WaitForSeconds(1.5f);
+        Debug.Log("EndBattle");
+        dialogueText.text = "The Battle is Over";
+        yield return new WaitForSeconds(1f);
+        winScreen.SetActive(true);
          
     }
 
