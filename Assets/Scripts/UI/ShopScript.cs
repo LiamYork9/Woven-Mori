@@ -46,6 +46,7 @@ public class ShopScript : MonoBehaviour
 
     public void OpenShop()
     {
+        
          foreach (Transform child in shopButtonParent.transform) 
         {
             GameObject.Destroy(child.gameObject);
@@ -60,6 +61,12 @@ public class ShopScript : MonoBehaviour
              newButton.GetComponent<Button>().onClick.AddListener(()=> AddToOrder(newButton.GetComponent<ItemToolTipScript>().item));
             
         }
+    }
+
+    public void CloseShop()
+    {
+        Cancel();
+         shopScreen.SetActive(false);
     }
 
     public void AddToOrder(Item item)
