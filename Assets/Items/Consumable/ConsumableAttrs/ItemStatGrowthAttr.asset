@@ -13,4 +13,7 @@ MonoBehaviour:
   m_Name: ItemStatGrowthAttr
   m_EditorClassIdentifier: 
   attrName: StatGrowth
-  changeAmount: -100
+  statTarget: -1
+  growthTarget: 2
+  changeAmount: 0
+  applyInstant: 0
