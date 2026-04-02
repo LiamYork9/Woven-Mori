@@ -13,12 +13,13 @@ MonoBehaviour:
   m_Name: Consumable
   m_EditorClassIdentifier: 
   itemSprite: {fileID: 0}
-  itemName: 
-  itemDescription: 
+  itemName: Seed of Potential
+  itemDescription: An Item that increases your stat potential
   value: 0
   sellValue: 0
-  stackable: 0
-  maxStack: 1
+  stackable: 1
+  maxStack: 15
   itemTarget: 0
-  itemAttrs: []
-  usableOFB: 0
+  itemAttrs:
+  - {fileID: 11400000, guid: 5723e9ceba893e944807da44aed50907, type: 2}
+  usableOFB: 1
