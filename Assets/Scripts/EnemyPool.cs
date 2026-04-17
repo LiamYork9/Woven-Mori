@@ -24,8 +24,6 @@ public class EnemyPool : MonoBehaviour
         {
             Instance = this;
         }
-        DontDestroyOnLoad(this);
-
     }
 
     void UsePool()
@@ -35,7 +33,10 @@ public class EnemyPool : MonoBehaviour
     
     void Start()
     {
-        UsePool();
+        if(EncounterManager.Instance.encounterPool.Count == 0)
+        {
+            UsePool();
+        }
     }
 
     // Update is called once per frame

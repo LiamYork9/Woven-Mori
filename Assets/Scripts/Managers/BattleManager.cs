@@ -713,7 +713,8 @@ public class BattleManager : MonoBehaviour
             }
                 dialogueText.text = "You Escape";
                 yield return new WaitForSeconds(1f);
-                BattleEndLose();
+                SceneManager.LoadScene(PartyManager.Instance.sceneName);
+                
             }
             else
             {
@@ -812,7 +813,8 @@ public class BattleManager : MonoBehaviour
         Debug.Log("EndBattle");
         dialogueText.text = "The Battle is Over";
         yield return new WaitForSeconds(1f);
-         SceneManager.LoadScene(sceneName);
+        PartyManager.Instance.rest = true;
+        SceneManager.LoadScene(PartyManager.Instance.bonfire);
          
     }
 

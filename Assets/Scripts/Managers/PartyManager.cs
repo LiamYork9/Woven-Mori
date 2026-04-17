@@ -11,11 +11,19 @@ public class PartyManager : MonoBehaviour
 
     public List<GameObject> followers; 
 
+    public string sceneName;
+
+     public string bonfire;
+
     public bool PM1,PM2,PM3;
+
+    public bool rest;
 
     public int funds;
 
     public Vector3 SpawnLocation;
+
+    public Vector3 restLocation;
 
     public static PartyManager GetInstance()
     {

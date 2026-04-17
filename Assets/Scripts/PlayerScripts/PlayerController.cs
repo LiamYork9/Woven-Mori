@@ -2,6 +2,7 @@ using System;
 using System.Reflection;
 using UnityEngine;
 using UnityEngine.Events;
+using UnityEngine.SceneManagement;
 
 
 public class PlayerController : MonoBehaviour
@@ -33,8 +34,18 @@ public class PlayerController : MonoBehaviour
         }
         Step.AddListener(TakeStep);
         EncounterManager.Instance.startEncounter.AddListener(SetSpawnLocation);
-        movePoint.position = PartyManager.Instance.SpawnLocation;
-        transform.position = PartyManager.Instance.SpawnLocation;
+        if(PartyManager.Instance.rest == false)
+        {
+            movePoint.position = PartyManager.Instance.SpawnLocation;
+            transform.position = PartyManager.Instance.SpawnLocation;
+        }
+        else
+        {
+            movePoint.position = PartyManager.Instance.restLocation;
+            transform.position = PartyManager.Instance.restLocation;
+            PartyManager.Instance.rest = false;
+        }
+       
     }
 
     // Update is called once per frame
@@ -120,6 +131,7 @@ public class PlayerController : MonoBehaviour
 
     public void SetSpawnLocation()
     {
+        PartyManager.Instance.sceneName = SceneManager.GetActiveScene().name;
         PartyManager.Instance.SpawnLocation = movePoint.position;
         
     }

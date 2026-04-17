@@ -119,6 +119,26 @@ NavMeshSettings:
     debug:
       m_Flags: 0
   m_NavMeshData: {fileID: 0}
+--- !u!1 &19757292 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: -5627506376048015764, guid: c1f518cba0be73b448f374cc686346f8, type: 3}
+  m_PrefabInstance: {fileID: 1562698265}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &19757296
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 19757292}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: adae5e4fb1764f54f93b17fea8c1934f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  encounterTable: []
+  maxEnemies: 0
+  battleZone: 0
 --- !u!1 &52472838
 GameObject:
   m_ObjectHideFlags: 0
@@ -1693,12 +1713,28 @@ PrefabInstance:
       value: 1000
       objectReference: {fileID: 0}
     - target: {fileID: 4757034985748211624, guid: 9be9c3a6200bc05409c5c20538f16e36, type: 3}
+      propertyPath: bonfire
+      value: NodeTesting
+      objectReference: {fileID: 0}
+    - target: {fileID: 4757034985748211624, guid: 9be9c3a6200bc05409c5c20538f16e36, type: 3}
+      propertyPath: sceneName
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 4757034985748211624, guid: 9be9c3a6200bc05409c5c20538f16e36, type: 3}
+      propertyPath: restLocation.x
+      value: 15.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 4757034985748211624, guid: 9be9c3a6200bc05409c5c20538f16e36, type: 3}
+      propertyPath: restLocation.y
+      value: -11.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 4757034985748211624, guid: 9be9c3a6200bc05409c5c20538f16e36, type: 3}
       propertyPath: SpawnLocation.x
       value: 15.5
       objectReference: {fileID: 0}
     - target: {fileID: 4757034985748211624, guid: 9be9c3a6200bc05409c5c20538f16e36, type: 3}
       propertyPath: SpawnLocation.y
-      value: -11.4
+      value: -11.5
       objectReference: {fileID: 0}
     - target: {fileID: 4757034985748211624, guid: 9be9c3a6200bc05409c5c20538f16e36, type: 3}
       propertyPath: party.Array.size
@@ -2763,7 +2799,7 @@ Transform:
   m_GameObject: {fileID: 805652335}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 15.5, y: -11.4, z: -10}
+  m_LocalPosition: {x: 14.5, y: -11.5, z: -10}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -4765,6 +4801,26 @@ Canvas:
   m_SortingLayerID: 0
   m_SortingOrder: 0
   m_TargetDisplay: 0
+--- !u!1 &1544063297 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 3428821881555156060, guid: c1f518cba0be73b448f374cc686346f8, type: 3}
+  m_PrefabInstance: {fileID: 1562698265}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &1544063301
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1544063297}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: adae5e4fb1764f54f93b17fea8c1934f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  encounterTable: []
+  maxEnemies: 0
+  battleZone: 0
 --- !u!1 &1555291636
 GameObject:
   m_ObjectHideFlags: 0
@@ -4935,6 +4991,12 @@ PrefabInstance:
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
     m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 3428821881555156060, guid: c1f518cba0be73b448f374cc686346f8, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1544063301}
+    - targetCorrespondingSourceObject: {fileID: -5627506376048015764, guid: c1f518cba0be73b448f374cc686346f8, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 19757296}
     - targetCorrespondingSourceObject: {fileID: -2884697910563740506, guid: c1f518cba0be73b448f374cc686346f8, type: 3}
       insertIndex: -1
       addedObject: {fileID: 1562698267}
@@ -4956,6 +5018,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 315ccb0003921494ba005c40cc41509b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  restLocation: {x: 22.5, y: -9.5, z: 0}
 --- !u!1 &1606989932 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 4804208185963868090, guid: 0a6ab318addeef344a614e4a33f3cfd8, type: 3}
@@ -5437,11 +5500,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8460145041180676655, guid: e0d9f2013a92d3642842fd57ee8b0fe8, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 15.5
+      value: 14.5
       objectReference: {fileID: 0}
     - target: {fileID: 8460145041180676655, guid: e0d9f2013a92d3642842fd57ee8b0fe8, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -11.4
+      value: -11.5
       objectReference: {fileID: 0}
     - target: {fileID: 8460145041180676655, guid: e0d9f2013a92d3642842fd57ee8b0fe8, type: 3}
       propertyPath: m_LocalPosition.z
@@ -7149,11 +7212,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6737559606722332047, guid: 2c9f3b1f5bfb6d649adfd1426d512008, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 15.5
+      value: 14.5
       objectReference: {fileID: 0}
     - target: {fileID: 6737559606722332047, guid: 2c9f3b1f5bfb6d649adfd1426d512008, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -11.4
+      value: -11.5
       objectReference: {fileID: 0}
     - target: {fileID: 6737559606722332047, guid: 2c9f3b1f5bfb6d649adfd1426d512008, type: 3}
       propertyPath: m_LocalPosition.z

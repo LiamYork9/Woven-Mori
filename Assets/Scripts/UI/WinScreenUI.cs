@@ -15,7 +15,6 @@ public class WinScreenUI : MonoBehaviour
 
     public TMP_Text lootText;
 
-    public string sceneName;
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
@@ -56,6 +55,6 @@ public class WinScreenUI : MonoBehaviour
     {
         BattleManager.Instance.cashEarned = 0;
         BattleManager.Instance.expEarned = 0;
-         SceneManager.LoadScene(sceneName);
+         SceneManager.LoadScene(PartyManager.Instance.sceneName);
     }
 }
