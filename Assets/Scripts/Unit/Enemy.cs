@@ -51,9 +51,9 @@ public class Enemy : Unit
     {
         unitName = "";
         chSprite = null;
-        attack = 0;
-        currentHP = maxHP;
-        speed = 0;
+        stats.Attack = 0;
+        stats.CurrentHP = stats.MaxHP;
+        stats.Speed = 0;
     }
 
     // Enemy Death Function (Removes them from list)
@@ -66,7 +66,7 @@ public class Enemy : Unit
         {
             //PartyManager.Instance.party[i].get +=
         }
-        if (body.currentHP <= 0)
+        if (body.activeStats.CurrentHP <= 0)
         {
             Debug.Log(unitName + " Soul Death");
             body.gameObject.SetActive(false);

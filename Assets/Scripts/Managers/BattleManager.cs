@@ -434,9 +434,9 @@ public class BattleManager : MonoBehaviour
             playerSlots.Add(defaultPlayerSlots[i]);
             playerSlots[i].SetActive(true);
             UnitBody temp = playerSlots[i].GetComponent<UnitBody>();
-            if(PartyManager.Instance.party[i].currentHP <= 0)
+            if(PartyManager.Instance.party[i].stats.CurrentHP <= 0)
             {
-                PartyManager.Instance.party[i].currentHP = 1;
+                PartyManager.Instance.party[i].stats.CurrentHP = 1;
             }
             temp.SetUnit(PartyManager.Instance.party[i]);
            if((temp.unit as PlayerCharacter).weapon != null){
@@ -687,15 +687,15 @@ public class BattleManager : MonoBehaviour
     IEnumerator RunAwayCo()
     {
         ButtonsOff();
-         int fleeNum = Random.Range(-5,11)+TurnOrderManager.Instance.turnPlayer.speed+TurnOrderManager.Instance.turnPlayer.level;
+         int fleeNum = Random.Range(-5,11)+TurnOrderManager.Instance.turnPlayer.activeStats.Speed+TurnOrderManager.Instance.turnPlayer.activeStats.Level;
        int fastEnemy = 0;
         dialogueText.text = "You try to run away";
         yield return new WaitForSeconds(1f);
         for(int i = 0; i < enemySlots.Count; i++)
             {
-                if(enemySlots[i].GetComponent<UnitBody>().speed + enemySlots[i].GetComponent<UnitBody>().level > fastEnemy)
+                if(enemySlots[i].GetComponent<UnitBody>().activeStats.Speed + enemySlots[i].GetComponent<UnitBody>().activeStats.Level > fastEnemy)
                 {
-                    fastEnemy = enemySlots[i].GetComponent<UnitBody>().speed + enemySlots[i].GetComponent<UnitBody>().level;
+                    fastEnemy = enemySlots[i].GetComponent<UnitBody>().activeStats.Speed + enemySlots[i].GetComponent<UnitBody>().activeStats.Level;
                 }
             }
             if(fleeNum > fastEnemy)
@@ -708,6 +708,7 @@ public class BattleManager : MonoBehaviour
                 {
                     defaultPlayerSlots[i].GetComponent<UnitBody>().conditions[j].RemoveCondition();
                 }
+            defaultPlayerSlots[i].GetComponent<UnitBody>().baseStats.CurrentHP = defaultPlayerSlots[i].GetComponent<UnitBody>().activeStats.CurrentHP;
 
                 temp.CopyStats(defaultPlayerSlots[i].GetComponent<UnitBody>());
             }
@@ -750,12 +751,13 @@ public class BattleManager : MonoBehaviour
             {
                 defaultPlayerSlots[i].GetComponent<UnitBody>().conditions[j].RemoveCondition();
             }
+            defaultPlayerSlots[i].GetComponent<UnitBody>().baseStats.CurrentHP = defaultPlayerSlots[i].GetComponent<UnitBody>().activeStats.CurrentHP;
 
             temp.CopyStats(defaultPlayerSlots[i].GetComponent<UnitBody>());
             temp.exp += expEarned;
-            while (temp.exp >= 100*temp.level)
+            while (temp.exp >= 100*temp.stats.Level)
             {
-                temp.exp -= temp.level*100;
+                temp.exp -= temp.stats.Level*100;
                 temp.LevelUp();
             }
         }
@@ -783,9 +785,10 @@ public class BattleManager : MonoBehaviour
             {
                 defaultPlayerSlots[i].GetComponent<UnitBody>().conditions[j].RemoveCondition();
             }
+            defaultPlayerSlots[i].GetComponent<UnitBody>().baseStats.CurrentHP = defaultPlayerSlots[i].GetComponent<UnitBody>().activeStats.CurrentHP;
           
             temp.CopyStats(defaultPlayerSlots[i].GetComponent<UnitBody>());
-            temp.currentHP = temp.maxHP;
+            temp.stats.CurrentHP = temp.stats.MaxHP+defaultPlayerSlots[i].GetComponent<UnitBody>().equipmentStats[4];
         }
         dialogueText.text = "You Lose";
         PlayerPrefs.DeleteAll();
@@ -864,15 +867,15 @@ public class BattleManager : MonoBehaviour
         
     }
 
-    public void DamagePlayer()
-    {
-        enemyTarget.GetComponent<UnitBody>().currentHP -= TOM.turnPlayer.attack;
+    // public void DamagePlayer()
+    // {
+    //     enemyTarget.GetComponent<UnitBody>().activeStats.CurrentHP -= TOM.turnPlayer.activeStats.Attack;
 
-        if (enemyTarget.GetComponent<UnitBody>().currentHP <= 0)
-        {
-            enemyTarget.GetComponent<UnitBody>().Death();
-        }
-    }
+    //     if (enemyTarget.GetComponent<UnitBody>().activeStats.CurrentHP <= 0)
+    //     {
+    //         enemyTarget.GetComponent<UnitBody>().Death();
+    //     }
+    // }
 
     public void StartStartTurnCo(Turn turn)
     {

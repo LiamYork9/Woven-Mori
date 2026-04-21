@@ -15,7 +15,7 @@ public class ItemHealingAttr : ItemAttr
 
     public override void ActivateItemAttrOFB(PlayerCharacter target)
     {
-        target.currentHP += healAmount;
+        target.stats.CurrentHP += healAmount;
         PlayerCharacter temp = target;
        
            temp.equipmentStats = new List<int>(){0,0,0,0,0,0};
@@ -37,19 +37,19 @@ public class ItemHealingAttr : ItemAttr
 
             }
             
-             if(target.currentHP > target.maxHP + target.equipmentStats[4])
+             if(target.stats.CurrentHP > target.stats.MaxHP + target.equipmentStats[4])
             {
-                target.currentHP = target.maxHP + target.equipmentStats[4];
+                target.stats.CurrentHP = target.stats.MaxHP + target.equipmentStats[4];
             }
     }
 
      public override void ActivateItemAttrWIB(UnitBody target)
     {
-        target.currentHP += healAmount;
+        target.activeStats.CurrentHP += healAmount;
 
-        if (target.currentHP>target.maxHP)
+        if (target.activeStats.CurrentHP>target.activeStats.MaxHP)
             {
-                target.currentHP = target.maxHP;
+                target.activeStats.CurrentHP = target.activeStats.MaxHP;
             }
     }
 }

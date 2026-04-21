@@ -21,15 +21,16 @@ MonoBehaviour:
   conditions: []
   chSprite: {fileID: 21300000, guid: beab9b7c72a3261428d76581f1dff51c, type: 3}
   deathSprite: {fileID: 21300000, guid: beab9b7c72a3261428d76581f1dff51c, type: 3}
-  level: 10
-  maxHP: 60
-  currentHP: 60
-  attack: 20
-  defense: 22
-  mDefense: 13
-  speed: 18
-  APCap: 10
-  APGain: 1
+  stats:
+    Level: 10
+    MaxHP: 80
+    CurrentHP: 80
+    Attack: 40
+    Defense: 20
+    Mdefense: 15
+    Speed: 20
+    APCap: 10
+    APGain: 1
   equipmentStats: 000000000000000000000000000000000000000000000000
   expYield: 300
   money: 100

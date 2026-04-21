@@ -35,7 +35,7 @@ public class Turn
         }
         BattleManager.Instance.StartStartTurnCo(this);
         unit.localTurnCount += 1;
-        unit.AP += unit.APGain;
+        unit.AP += unit.activeStats.APGain;
 
     }
 
@@ -178,9 +178,9 @@ public class Turn
                     for( int i = 0; i<BattleManager.Instance.enemySlots.Count; i++)
                     {   
                         UnitBody temp = BattleManager.Instance.enemySlots[i].GetComponent<UnitBody>();
-                        if(temp.maxHP-temp.currentHP>missingHP)
+                        if(temp.activeStats.MaxHP-temp.activeStats.CurrentHP>missingHP)
                         {
-                            missingHP=temp.maxHP-temp.currentHP;
+                            missingHP=temp.activeStats.MaxHP-temp.activeStats.CurrentHP;
                             temptarget = i;
                         }
                     }

@@ -9,6 +9,7 @@ public class PlayerController : MonoBehaviour
 {
     public float moveSpeed = 3.5f;
     public Transform movePoint;
+    public Transform lookPoint;
     public LayerMask stopsMovement;
 
     public bool inText;
@@ -61,6 +62,14 @@ public class PlayerController : MonoBehaviour
                 {
                     tempDist = Input.GetAxisRaw("Horizontal");
                     tempDist /= Math.Abs(tempDist);
+                    if(tempDist>0)
+                    {
+                        lookPoint.localPosition = new Vector3(1,0,0);
+                    }
+                    else
+                    {
+                        lookPoint.localPosition = new Vector3(-1,0,0);
+                    }
                     if (!Physics2D.OverlapCircle(movePoint.position + new Vector3(tempDist, 0f, 0f), 0.2f, stopsMovement))
                     {
                         if (follower != null&&!stepCheck)
@@ -76,6 +85,14 @@ public class PlayerController : MonoBehaviour
                 {
                     tempDist = Input.GetAxisRaw("Vertical");
                     tempDist /= Math.Abs(tempDist);
+                    if(tempDist>0)
+                    {
+                        lookPoint.localPosition = new Vector3(0,1,0);
+                    }
+                    else
+                    {
+                        lookPoint.localPosition = new Vector3(0,-1,0);
+                    }
                     if (!Physics2D.OverlapCircle(movePoint.position + new Vector3(0f, tempDist, 0f), 0.2f, stopsMovement))
                     {
                         if (follower != null&&!stepCheck)

@@ -11,7 +11,7 @@ using MoriSkills;
 
 public class StatScreenScript : MonoBehaviour
 {
-    public TMP_Text currentParty;
+    public TMP_Text CurrentParty;
 
     public TMP_Text statText;
 
@@ -44,7 +44,7 @@ public class StatScreenScript : MonoBehaviour
 
       public GameObject weaponButton,armorButton,accessoryButton,unequipButton,yesButton,noButton,itemInvButton,equipInvButton,keyInvButton,equipMenu;
 
-      public Sprite defaultSprite;
+      public Sprite DefaultSprite;
 
       public PlayerCharacter selectedCharacter;
 
@@ -79,10 +79,10 @@ public class StatScreenScript : MonoBehaviour
                 CloseMenu();
             }
         }
-        currentParty.text = "Current Party: ";
+        CurrentParty.text = "Current Party: ";
         for(int i = 0; i<PartyManager.Instance.party.Count; i++)
         {
-            currentParty.text += PartyManager.Instance.party[i].name + ", ";
+            CurrentParty.text += PartyManager.Instance.party[i].name + ", ";
         }
 
         
@@ -170,9 +170,9 @@ public class StatScreenScript : MonoBehaviour
 
             }
             
-             if(PartyManager.Instance.party[i].currentHP > PartyManager.Instance.party[i].maxHP + temp.equipmentStats[4])
+             if(PartyManager.Instance.party[i].stats.CurrentHP > PartyManager.Instance.party[i].stats.MaxHP + temp.equipmentStats[4])
             {
-                PartyManager.Instance.party[i].currentHP = PartyManager.Instance.party[i].maxHP + temp.equipmentStats[4];
+                PartyManager.Instance.party[i].stats.CurrentHP = PartyManager.Instance.party[i].stats.MaxHP + temp.equipmentStats[4];
             }
             
 
@@ -185,13 +185,13 @@ public class StatScreenScript : MonoBehaviour
       for(int i = 0; i < partyMemberButton.Count; i++)
         {
             selectedCharacter = character;
-            statText.text = "" + selectedCharacter.name + " Lv:" + selectedCharacter.level + "\n" +
-            "HP: " + selectedCharacter.currentHP + "/" + (selectedCharacter.maxHP + selectedCharacter.equipmentStats[4] ) + " ("+selectedCharacter.maxHP+"+"+selectedCharacter.equipmentStats[4]+")" + "\n" +
-            "Attack: " + selectedCharacter.attack + " + " + selectedCharacter.equipmentStats[0] +"\n" +
-            "Defense: " + selectedCharacter.defense + " + " + selectedCharacter.equipmentStats[1] + "\n" +
-            "Magic Defense: " + selectedCharacter.mDefense + " + " + selectedCharacter.equipmentStats[2] + "\n" +
-            "Speed: " + selectedCharacter.speed + " + " + selectedCharacter.equipmentStats[3] + "\n" +
-            "AP Gain: " + selectedCharacter.APGain + " + " + selectedCharacter.equipmentStats[5];
+            statText.text = "" + selectedCharacter.name + " Lv:" + selectedCharacter.stats.Level + "\n" +
+            "HP: " + selectedCharacter.stats.CurrentHP + "/" + (selectedCharacter.stats.MaxHP + selectedCharacter.equipmentStats[4] ) + " ("+selectedCharacter.stats.MaxHP+"+"+selectedCharacter.equipmentStats[4]+")" + "\n" +
+            "Attack: " + selectedCharacter.stats.Attack + " + " + selectedCharacter.equipmentStats[0] +"\n" +
+            "Defense: " + selectedCharacter.stats.Defense + " + " + selectedCharacter.equipmentStats[1] + "\n" +
+            "Magic Defense: " + selectedCharacter.stats.Mdefense + " + " + selectedCharacter.equipmentStats[2] + "\n" +
+            "Speed: " + selectedCharacter.stats.Speed + " + " + selectedCharacter.equipmentStats[3] + "\n" +
+            "AP Gain: " + selectedCharacter.stats.APGain + " + " + selectedCharacter.equipmentStats[5];
 
             if(selectedCharacter.weapon != null)
             {
@@ -203,7 +203,7 @@ public class StatScreenScript : MonoBehaviour
             {
                     statText.text +=  "\nWeapon: None";
                     weaponButton.GetComponentInChildren<TextMeshProUGUI>().text =  "None";
-                    weaponButton.GetComponentInChildren<Image>().sprite = defaultSprite;
+                    weaponButton.GetComponentInChildren<Image>().sprite = DefaultSprite;
             }
             if(selectedCharacter.armor != null)
             {
@@ -215,7 +215,7 @@ public class StatScreenScript : MonoBehaviour
             {
                 statText.text +=  "\nArmor: None";
                 armorButton.GetComponentInChildren<TextMeshProUGUI>().text =  "None";
-                armorButton.GetComponentInChildren<Image>().sprite = defaultSprite;
+                armorButton.GetComponentInChildren<Image>().sprite = DefaultSprite;
             }
             if(selectedCharacter.accessory != null)
             {
@@ -227,7 +227,7 @@ public class StatScreenScript : MonoBehaviour
             {
                 statText.text +=  "\nAccessory: None";
                 accessoryButton.GetComponentInChildren<TextMeshProUGUI>().text =  "None";
-                accessoryButton.GetComponentInChildren<Image>().sprite = defaultSprite;
+                accessoryButton.GetComponentInChildren<Image>().sprite = DefaultSprite;
             }
         }       
     }

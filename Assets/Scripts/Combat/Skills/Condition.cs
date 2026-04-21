@@ -87,19 +87,19 @@ public class StatBoostCondition : Condition
         unit = appliedUnit;
         if (boostStat == Stats.Attack)
         {
-            unit.attack += boostValue;
+            unit.activeStats.Attack += boostValue;
         }
         if (boostStat == Stats.Defence)
         {
-            unit.defense += boostValue;
+            unit.activeStats.Defense += boostValue;
         }
         if (boostStat == Stats.mDefense)
         {
-            unit.mDefense += boostValue;
+            unit.activeStats.Mdefense += boostValue;
         }
         if (boostStat == Stats.Speed)
         {
-            unit.speed += boostValue;
+            unit.activeStats.Speed += boostValue;
         }
         unit.EndOfTurn.AddListener(CountDown);
     }
@@ -108,19 +108,19 @@ public class StatBoostCondition : Condition
     {
         if (boostStat == Stats.Attack)
         {
-            unit.attack -= boostValue;
+            unit.activeStats.Attack -= boostValue;
         }
         if (boostStat == Stats.Defence)
         {
-            unit.defense -= boostValue;
+            unit.activeStats.Defense -= boostValue;
         }
         if (boostStat == Stats.mDefense)
         {
-            unit.mDefense -= boostValue;
+            unit.activeStats.Mdefense -= boostValue;
         }
         if (boostStat == Stats.Speed)
         {
-            unit.speed -= boostValue;
+            unit.activeStats.Speed -= boostValue;
         }
     }
 
@@ -143,7 +143,7 @@ public class DamageOverTimeCondition : Condition
         damageValue = conditionStrength;
         if(damageCat == 2)
         {
-            attackMult = TurnOrderManager.Instance.turnPlayer.attack;
+            attackMult = TurnOrderManager.Instance.turnPlayer.activeStats.Attack;
         }
         name = "Poison Condition";
     }
@@ -171,7 +171,7 @@ public class DamageOverTimeCondition : Condition
                 unit.TakeDamage(damageValue*attackMult, DamageType.Magic, Element.Dark);
                 break;
             case 3: //%HP Damage
-                int temp =(damageValue * unit.maxHP)/100;
+                int temp =(damageValue * unit.activeStats.MaxHP)/100;
                 if(temp<1)
                 {
                     temp = 1;

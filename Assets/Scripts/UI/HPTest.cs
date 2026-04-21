@@ -24,7 +24,7 @@ public class HPTest : MonoBehaviour
 
     public void SetHpBar()
     {
-        MaxHealth = unitBody.maxHP;
-        CurrentHealth = unitBody.currentHP;
+        MaxHealth = unitBody.activeStats.MaxHP;
+        CurrentHealth = unitBody.activeStats.CurrentHP;
     }
 }

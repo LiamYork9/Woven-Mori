@@ -1,6 +1,7 @@
 using UnityEngine;
 using System.Collections.Generic;
 using System.Collections;
+using UnityEngine.InputSystem;
 
 public class PartyManager : MonoBehaviour
 {
@@ -56,6 +57,13 @@ public class PartyManager : MonoBehaviour
         if(funds > 99999)
         {
             funds = 99999;
+        }
+        if(Input.GetKeyDown(KeyCode.T))
+        {
+            for (int i = 0; i < PartyManager.Instance.party.Count; i++)
+            {
+                PartyManager.Instance.party[i].ResetLevel();
+            }
         }
     }
 

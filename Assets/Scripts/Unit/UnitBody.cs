@@ -1,11 +1,9 @@
 using System;
 using System.Collections.Generic;
-using System.Linq;
 using MoriSkills;
 using UnityEngine;
 using UnityEngine.Events;
-using UnityEngine.Rendering;
-using UnityEngine.UI;
+
 
 public class UnitBody : MonoBehaviour
 {
@@ -30,21 +28,9 @@ public class UnitBody : MonoBehaviour
 
     public Sprite deathSprite;
 
-    public int level;
+    public BaseStats baseStats;
 
-
-    public int attack;
-
-    public int defense = 1;
-
-    public int mDefense = 1;
-
-    public int speed = 1;
-
-    public int maxHP;
-
-    public int currentHP;
-
+    public BaseStats activeStats;
 
     public int initiative;
 
@@ -55,10 +41,6 @@ public class UnitBody : MonoBehaviour
     public int localTurnCountCurrentVal;
 
     public int AP;
-
-    public int APCap;
-
-    public int APGain = 1;
 
     public int emergencybutton;
 
@@ -105,7 +87,7 @@ public class UnitBody : MonoBehaviour
     public void Death()
     {
         Debug.Log(name + " Body Death");
-        if (currentHP <= 0)
+        if (activeStats.CurrentHP <= 0)
         {
             if (partyMember)
             {
@@ -130,19 +112,9 @@ public class UnitBody : MonoBehaviour
         partyMember = target.partyMember;
         chSprite = target.chSprite;
         deathSprite = target.deathSprite;
-        level = target.level;
-        attack = target.attack + equipmentStats[0];
-        defense = target.defense + equipmentStats[1];
-        mDefense = target.mDefense + equipmentStats[2];
-        speed = target.speed + equipmentStats[3];
-        maxHP = target.maxHP + equipmentStats[4];
-        currentHP = target.currentHP;
-        if(currentHP > maxHP)
-        {
-            currentHP = maxHP;
-        }
-        APCap = target.APCap;
-        APGain = target.APGain + equipmentStats[5];
+        baseStats.CopyStatsWithEquipment(target.stats, equipmentStats);
+        activeStats.CopyStats(baseStats);
+        
         resistance = new List<Element>();
         for(int i = 0; i < target.resistance.Count; i++)
         {
@@ -168,12 +140,12 @@ public class UnitBody : MonoBehaviour
         partyMember = false;
         chSprite = null;
         deathSprite = null;
-        attack = 0;
-        defense = 0;
-        mDefense = 0;
-        maxHP = 0;
-        currentHP = 0;
-        speed = 0;
+        activeStats.Attack = 0;
+        activeStats.Defense = 0;
+        activeStats.Mdefense = 0;
+        activeStats.MaxHP = 0;
+        activeStats.CurrentHP = 0;
+        activeStats.Speed = 0;
     }
 
     public void CheckEquipment(PlayerCharacter target)
@@ -203,13 +175,13 @@ public class UnitBody : MonoBehaviour
         int damageMod = 0;
         if (damageType == DamageType.Physical)
         {
-            damageMod = damageValue / defense;
+            damageMod = damageValue / activeStats.Defense;
 
         }
 
         if (damageType == DamageType.Magic)
         {
-            damageMod = damageValue / mDefense;
+            damageMod = damageValue / activeStats.Mdefense;
         }
 
         if(damageType == DamageType.Destined)
@@ -237,12 +209,12 @@ public class UnitBody : MonoBehaviour
             damageMod = 0;
         }
 
-        currentHP -= damageMod;
+        activeStats.CurrentHP -= damageMod;
         PopUpManager.Instance.DamageDone(damageMod,this.transform.position,false);
 
         
 
-        if (currentHP <= 0)
+        if (activeStats.CurrentHP <= 0)
         {
             Death();
         }
