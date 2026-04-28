@@ -2,12 +2,14 @@ using System;
 using System.Reflection;
 using UnityEngine;
 using UnityEngine.Events;
+using UnityEngine.SceneManagement;
 
 
 public class PlayerController : MonoBehaviour
 {
     public float moveSpeed = 3.5f;
     public Transform movePoint;
+    public Transform lookPoint;
     public LayerMask stopsMovement;
 
     public bool inText;
@@ -33,8 +35,18 @@ public class PlayerController : MonoBehaviour
         }
         Step.AddListener(TakeStep);
         EncounterManager.Instance.startEncounter.AddListener(SetSpawnLocation);
-        movePoint.position = PartyManager.Instance.SpawnLocation;
-        transform.position = PartyManager.Instance.SpawnLocation;
+        if(PartyManager.Instance.rest == false)
+        {
+            movePoint.position = PartyManager.Instance.SpawnLocation;
+            transform.position = PartyManager.Instance.SpawnLocation;
+        }
+        else
+        {
+            movePoint.position = PartyManager.Instance.restLocation;
+            transform.position = PartyManager.Instance.restLocation;
+            PartyManager.Instance.rest = false;
+        }
+       
     }
 
     // Update is called once per frame
@@ -50,6 +62,14 @@ public class PlayerController : MonoBehaviour
                 {
                     tempDist = Input.GetAxisRaw("Horizontal");
                     tempDist /= Math.Abs(tempDist);
+                    if(tempDist>0)
+                    {
+                        lookPoint.localPosition = new Vector3(1,0,0);
+                    }
+                    else
+                    {
+                        lookPoint.localPosition = new Vector3(-1,0,0);
+                    }
                     if (!Physics2D.OverlapCircle(movePoint.position + new Vector3(tempDist, 0f, 0f), 0.2f, stopsMovement))
                     {
                         if (follower != null&&!stepCheck)
@@ -65,6 +85,14 @@ public class PlayerController : MonoBehaviour
                 {
                     tempDist = Input.GetAxisRaw("Vertical");
                     tempDist /= Math.Abs(tempDist);
+                    if(tempDist>0)
+                    {
+                        lookPoint.localPosition = new Vector3(0,1,0);
+                    }
+                    else
+                    {
+                        lookPoint.localPosition = new Vector3(0,-1,0);
+                    }
                     if (!Physics2D.OverlapCircle(movePoint.position + new Vector3(0f, tempDist, 0f), 0.2f, stopsMovement))
                     {
                         if (follower != null&&!stepCheck)
@@ -120,6 +148,7 @@ public class PlayerController : MonoBehaviour
 
     public void SetSpawnLocation()
     {
+        PartyManager.Instance.sceneName = SceneManager.GetActiveScene().name;
         PartyManager.Instance.SpawnLocation = movePoint.position;
         
     }

@@ -68,11 +68,11 @@ namespace MoriSkills
             }
             if(targetSelf)
             {
-                unitUser.TakeDamage((int)(power * mutiplier * unitUser.attack), type, element);                
+                unitUser.TakeDamage((int)(power * mutiplier * unitUser.activeStats.Attack), type, element);                
             }
             else
             {
-                unitTarget.TakeDamage((int)(power * mutiplier * unitUser.attack), type, element);
+                unitTarget.TakeDamage((int)(power * mutiplier * unitUser.activeStats.Attack), type, element);
             }
            
         }
@@ -101,19 +101,19 @@ namespace MoriSkills
             {
                 if (stat == Stats.Attack)
                 {
-                    unitUser.attack += boost;
+                    unitUser.activeStats.Attack += boost;
                 }
                 if (stat == Stats.Defence)
                 {
-                    unitUser.defense += boost;
+                    unitUser.activeStats.Defense += boost;
                 }
                 if (stat == Stats.mDefense)
                 {
-                    unitUser.mDefense += boost;
+                    unitUser.activeStats.Mdefense += boost;
                 }
                 if (stat == Stats.Speed)
                 {
-                    unitUser.speed += boost;
+                    unitUser.activeStats.Speed += boost;
                 }
 
             }
@@ -121,19 +121,19 @@ namespace MoriSkills
             {
                 if (stat == Stats.Attack)
                 {
-                    unitTarget.attack += boost;
+                    unitTarget.activeStats.Attack += boost;
                 }
                 if (stat == Stats.Defence)
                 {
-                    unitTarget.defense += boost;
+                    unitTarget.activeStats.Defense += boost;
                 }
                 if (stat == Stats.mDefense)
                 {
-                    unitTarget.mDefense += boost;
+                    unitTarget.activeStats.Mdefense += boost;
                 }
                 if (stat == Stats.Speed)
                 {
-                    unitTarget.speed += boost;
+                    unitTarget.activeStats.Speed += boost;
                 }
             }
         }
@@ -169,7 +169,7 @@ namespace MoriSkills
             for(int i = 0; i < scaledAttr.Count; i++)
             {
                 
-                scaledAttr[i].ActivateAttr(unitUser, unitTarget,power+scaleValue*unitUser.level, skillElement);
+                scaledAttr[i].ActivateAttr(unitUser, unitTarget,power+scaleValue*unitUser.activeStats.Level, skillElement);
             }
         }
 
@@ -239,10 +239,10 @@ namespace MoriSkills
             {
                 target = unitTarget;
             }
-            target.currentHP += (int)((healMultiplier + (unitUser.attack*statModifier/10))*power);
-            if (target.currentHP>target.maxHP)
+            target.activeStats.CurrentHP += (int)((healMultiplier + (unitUser.activeStats.Attack*statModifier/10))*power);
+            if (target.activeStats.CurrentHP>target.activeStats.MaxHP)
             {
-                target.currentHP = target.maxHP;
+                target.activeStats.CurrentHP = target.activeStats.MaxHP;
             }
 
         }

@@ -18,7 +18,7 @@ public class PlayerCharacter : Unit
 
     void Start()
     {
-        APCap = 10;
+        stats.APCap = 10;
     }
 
    
@@ -28,7 +28,7 @@ public class PlayerCharacter : Unit
     public override void Death(UnitBody body)
     {
 
-        if (body.currentHP <= 0)
+        if (body.activeStats.CurrentHP <= 0)
         {
             body.gameObject.SetActive(false);
             for (int i = 0; i < TurnOrderManager.Instance.turnOrder.Count; i++)
@@ -152,7 +152,7 @@ public class PlayerCharacter : Unit
                 int milestoneIndex = -1;
                 for(int j=0; j<LevelUpManager.Instance.classGrowths[i].milestones.Count;j++)
                 {
-                    if(LevelUpManager.Instance.classGrowths[i].milestones[j].Level > level)
+                    if(LevelUpManager.Instance.classGrowths[i].milestones[j].Level > stats.Level)
                     {
                         milestoneIndex = j;
                         break;
@@ -162,19 +162,19 @@ public class PlayerCharacter : Unit
                 if(milestoneIndex != -1)
                 {
                     Milestones goal = LevelUpManager.Instance.classGrowths[i].milestones[milestoneIndex];
-                    int levelgap = goal.Level-level;
-                    level ++;
-                    currentHP += (goal.MaxHP-maxHP)/levelgap;
-                    maxHP += (goal.MaxHP-maxHP)/levelgap;
-                    attack += (goal.Attack-attack)/levelgap;
-                    defense += (goal.Defense-defense)/levelgap;
-                    mDefense += (goal.Mdefense-mDefense)/levelgap;
-                    speed += (goal.Speed-speed)/levelgap;
+                    int levelgap = goal.Level-stats.Level;
+                    stats.Level ++;
+                    stats.CurrentHP += (goal.MaxHP-stats.MaxHP)/levelgap;
+                    stats.MaxHP += (goal.MaxHP-stats.MaxHP)/levelgap;
+                    stats.Attack += (goal.Attack-stats.Attack)/levelgap;
+                    stats.Defense += (goal.Defense-stats.Defense)/levelgap;
+                    stats.Mdefense += (goal.Mdefense-stats.Mdefense)/levelgap;
+                    stats.Speed += (goal.Speed-stats.Speed)/levelgap;
                 }
 
                 for(int j=0; j<LevelUpManager.Instance.classGrowths[i].skillUnlocks.Count;j++)
                 {
-                    if(LevelUpManager.Instance.classGrowths[i].skillUnlocks[j].Level == level)
+                    if(LevelUpManager.Instance.classGrowths[i].skillUnlocks[j].Level == stats.Level)
                     {
                         ClassGrowth.SkillUnlocks newSkills = LevelUpManager.Instance.classGrowths[i].skillUnlocks[j];
                         for(int k=0; k<newSkills.SkillIds.Count;k++)
@@ -194,7 +194,7 @@ public class PlayerCharacter : Unit
 
     public void ResetLevel()
     {
-        level = 0;
+        stats.Level = 0;
         exp = 0;
         skills.Clear();
         LevelUp();
@@ -216,25 +216,25 @@ public class PlayerCharacter : Unit
         {
             if(targetStats.HasFlag(StatTarget.MaxHP))
             {
-                maxHP += change;
-                currentHP += change;
+                stats.MaxHP += change;
+                stats.CurrentHP += change;
             }
             if(targetStats.HasFlag(StatTarget.Attack))
             {
                 
-                attack += change;
+                stats.Attack += change;
             }
             if(targetStats.HasFlag(StatTarget.Defense))
             {
-                defense += change;
+                stats.Defense += change;
             }
             if(targetStats.HasFlag(StatTarget.MDefense))
             {
-                mDefense += change;
+                stats.Mdefense += change;
             }
             if(targetStats.HasFlag(StatTarget.Speed))
             {
-                speed += change;
+                stats.Speed += change;
             }
         }
         if(growthTarget == GrowthTarget.All)
@@ -270,7 +270,7 @@ public class PlayerCharacter : Unit
             int milestoneIndex = -1;
             for(int i=0; i<milestones.Count;i++)
             {
-                if(milestones[i].Level > level)
+                if(milestones[i].Level > stats.Level)
                 {
                     milestoneIndex = i;
                     break;

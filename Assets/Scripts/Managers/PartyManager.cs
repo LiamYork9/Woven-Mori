@@ -1,6 +1,7 @@
 using UnityEngine;
 using System.Collections.Generic;
 using System.Collections;
+using UnityEngine.InputSystem;
 
 public class PartyManager : MonoBehaviour
 {
@@ -11,11 +12,19 @@ public class PartyManager : MonoBehaviour
 
     public List<GameObject> followers; 
 
+    public string sceneName;
+
+     public string bonfire;
+
     public bool PM1,PM2,PM3;
+
+    public bool rest;
 
     public int funds;
 
     public Vector3 SpawnLocation;
+
+    public Vector3 restLocation;
 
     public static PartyManager GetInstance()
     {
@@ -48,6 +57,13 @@ public class PartyManager : MonoBehaviour
         if(funds > 99999)
         {
             funds = 99999;
+        }
+        if(Input.GetKeyDown(KeyCode.T))
+        {
+            for (int i = 0; i < PartyManager.Instance.party.Count; i++)
+            {
+                PartyManager.Instance.party[i].ResetLevel();
+            }
         }
     }
 

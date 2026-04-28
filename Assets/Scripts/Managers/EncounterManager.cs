@@ -130,6 +130,14 @@ public class EncounterManager : MonoBehaviour
         return encounterPool[Random.Range(0, encounterPool.Count)];
 
     }
+
+    public void Clear()
+    {
+        encounteredEnemies.Clear();
+        encounterPool.Clear();
+        fightArea = false;
+        
+    }
     
     
 }

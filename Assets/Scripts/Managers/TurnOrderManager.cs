@@ -76,6 +76,7 @@ public class TurnOrderManager : MonoBehaviour
     // How turn order is calculated
     public void TurnCalulation()
     {
+        emergencybutton = 0;
         while (turnOrder.Count < 11 && emergencybutton < 100)
         {
             emergencybutton++;
@@ -83,7 +84,7 @@ public class TurnOrderManager : MonoBehaviour
             {
                 Turn tempTurn = new Turn();
                 UnitBody tempUnit = allFighters[i].GetComponent<UnitBody>();
-                tempUnit.initiative += Mathf.Max(1,tempUnit.speed + Random.Range(-5, 6));
+                tempUnit.initiative += Mathf.Max(1,tempUnit.activeStats.Speed + Random.Range(-5, 6));
 
                 if (tempUnit.initiative >= 100)
                 {

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Collections;
 using UnityEngine.Events;
 using UnityEngine.SceneManagement;
+using Unity.VisualScripting;
 
 public class SendToInterior : MonoBehaviour
 {
@@ -22,8 +23,10 @@ public class SendToInterior : MonoBehaviour
 
     void OnTriggerEnter2D(Collider2D other)
     {
+        EncounterManager.Instance.Clear();
+        PartyManager.Instance.sceneName = sceneName;
         PartyManager.Instance.SpawnLocation = TargetSpawnPosition;
         PlayerPrefs.DeleteAll();
-         SceneManager.LoadScene(sceneName);
+        SceneManager.LoadScene(sceneName);
     }
 }

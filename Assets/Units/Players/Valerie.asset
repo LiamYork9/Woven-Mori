@@ -14,25 +14,26 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   unitName: Valerie
   partyMember: 1
-  skills: 0200000015000000040000000e0000000d00000001000000
+  skills: 020000001500000004000000
   resistance: 
   immunity: 
   vulnerability: 
   conditions: []
   chSprite: {fileID: 4175320429086864182, guid: 2ae8830c3f959ec409a3e5f9c0b93f79, type: 3}
   deathSprite: {fileID: 21300000, guid: 7ef42231652fcda41b73cf85791d6841, type: 3}
-  level: 30
-  maxHP: 180
-  currentHP: 180
-  attack: 75
-  defense: 51
-  mDefense: 30
-  speed: 48
-  APCap: 10
-  APGain: 1
+  stats:
+    Level: 1
+    MaxHP: 12
+    CurrentHP: 12
+    Attack: 5
+    Defense: 3
+    Mdefense: 2
+    Speed: 3
+    APCap: 10
+    APGain: 1
   equipmentStats: 020000000000000000000000000000000000000000000000
   playerClass: 2
-  exp: 1665
+  exp: 0
   weapon: {fileID: 11400000, guid: 907f1ae82da87f04c8b8e905d27e4407, type: 2}
   armor: {fileID: 0}
   accessory: {fileID: 0}
