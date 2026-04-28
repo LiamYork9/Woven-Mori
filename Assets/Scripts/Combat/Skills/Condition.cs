@@ -131,6 +131,21 @@ public class StatBoostCondition : Condition
 }
 
 [System.Serializable]
+public class AttackBoostCondition : Condition
+{
+    public int multiplier;
+
+    public AttackBoostCondition(int conditionStrength, int effectDuration,int conditionPriority = 0): base(effectDuration, conditionPriority)
+    {
+        multiplier = conditionStrength;
+    }
+    public override void OnApply(UnitBody appliedUnit)
+    {
+        appliedUnit.attack
+    }
+}
+
+[System.Serializable]
 public class DamageOverTimeCondition : Condition
 {
     public int category;
