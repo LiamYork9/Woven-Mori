@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using JetBrains.Annotations;
 using MoriSkills;
@@ -47,6 +48,25 @@ public class Condition
 
     }
 
+    public virtual void ApplyCondition(UnitBody appliedUnit)
+    {
+        
+        foreach(Condition condition in appliedUnit.conditions)
+        {
+            if(condition.GetType() == this.GetType())
+            {
+                if(condition.duration < this.duration)
+                {
+                    condition.duration = duration;
+                }
+
+                return;
+            }
+        }
+        appliedUnit.conditions.Add(this);
+        OnApply(appliedUnit);
+    }
+
     public void RemoveCondition()
     {
         // THESE STILL EXIST SOMEWHERE IN MEMORY SOMEHOW
@@ -70,70 +90,9 @@ public class Condition
 }
 
 [System.Serializable]
-public class StatBoostCondition : Condition
-{
-    public Stats boostStat;
-    public int boostValue;
-    
-    public StatBoostCondition(Stats boostedStat, int boost, int effectDuration,int conditionPriority = 0): base(effectDuration, conditionPriority)
-    {
-        boostStat = boostedStat;
-        boostValue = boost;
-        name = boostStat + " Boost Condition";
-    }
-
-    public override void OnApply(UnitBody appliedUnit)
-    {
-        unit = appliedUnit;
-        if (boostStat == Stats.Attack)
-        {
-            unit.activeStats.Attack += boostValue;
-        }
-        if (boostStat == Stats.Defence)
-        {
-            unit.activeStats.Defense += boostValue;
-        }
-        if (boostStat == Stats.mDefense)
-        {
-            unit.activeStats.Mdefense += boostValue;
-        }
-        if (boostStat == Stats.Speed)
-        {
-            unit.activeStats.Speed += boostValue;
-        }
-        unit.EndOfTurn.AddListener(CountDown);
-    }
-
-    public override void OnRemove()
-    {
-        if (boostStat == Stats.Attack)
-        {
-            unit.activeStats.Attack -= boostValue;
-        }
-        if (boostStat == Stats.Defence)
-        {
-            unit.activeStats.Defense -= boostValue;
-        }
-        if (boostStat == Stats.mDefense)
-        {
-            unit.activeStats.Mdefense -= boostValue;
-        }
-        if (boostStat == Stats.Speed)
-        {
-            unit.activeStats.Speed -= boostValue;
-        }
-    }
-
-    public override void Activate()
-    {
-
-    }
-}
-
-[System.Serializable]
 public class AttackBoostCondition : Condition
 {
-    public int multiplier;
+    public float multiplier; //Percent increase
 
     public AttackBoostCondition(int conditionStrength, int effectDuration,int conditionPriority = 0): base(effectDuration, conditionPriority)
     {
@@ -141,9 +100,123 @@ public class AttackBoostCondition : Condition
     }
     public override void OnApply(UnitBody appliedUnit)
     {
-        appliedUnit.attack
+        unit = appliedUnit;
+        appliedUnit.activeStats.Attack += (int)(appliedUnit.baseStats.Attack*(multiplier/100));
+        unit.EndOfTurn.AddListener(CountDown);
     }
+    public override void OnRemove()
+    {
+        unit.activeStats.Attack -= (int)(unit.baseStats.Attack*(multiplier/100));
+    }
+
 }
+[System.Serializable]
+public class AttackDropCondition : Condition
+{
+    public float multiplier; //Percent increase
+
+    public AttackDropCondition(int conditionStrength, int effectDuration,int conditionPriority = 0): base(effectDuration, conditionPriority)
+    {
+        multiplier = conditionStrength;
+    }
+    public override void OnApply(UnitBody appliedUnit)
+    {
+        unit = appliedUnit;
+        appliedUnit.activeStats.Attack -= (int)(appliedUnit.baseStats.Attack*(multiplier/100));
+        unit.EndOfTurn.AddListener(CountDown);
+    }
+    public override void OnRemove()
+    {
+        unit.activeStats.Attack += (int)(unit.baseStats.Attack*(multiplier/100));
+    }
+
+}
+
+[System.Serializable]
+public class MagicDefenseBoostCondition : Condition
+{
+    public float multiplier; //Percent increase
+
+    public MagicDefenseBoostCondition(int conditionStrength, int effectDuration,int conditionPriority = 0): base(effectDuration, conditionPriority)
+    {
+        multiplier = conditionStrength;
+    }
+    public override void OnApply(UnitBody appliedUnit)
+    {
+        unit = appliedUnit;
+        appliedUnit.activeStats.Defense += (int)(appliedUnit.baseStats.Defense*(multiplier/100));
+        unit.EndOfTurn.AddListener(CountDown);
+    }
+    public override void OnRemove()
+    {
+        unit.activeStats.Defense -= (int)(unit.baseStats.Defense*(multiplier/100));
+    }
+
+}
+[System.Serializable]
+public class DefenseDropCondition : Condition
+{
+    public float multiplier; //Percent increase
+
+    public DefenseDropCondition(int conditionStrength, int effectDuration,int conditionPriority = 0): base(effectDuration, conditionPriority)
+    {
+        multiplier = conditionStrength;
+    }
+    public override void OnApply(UnitBody appliedUnit)
+    {
+        unit = appliedUnit;
+        appliedUnit.activeStats.Defense -= (int)(appliedUnit.baseStats.Defense*(multiplier/100));
+        unit.EndOfTurn.AddListener(CountDown);
+    }
+    public override void OnRemove()
+    {
+        unit.activeStats.Defense += (int)(unit.baseStats.Defense*(multiplier/100));
+    }
+
+}
+[System.Serializable]
+public class DefenseBoostCondition : Condition
+{
+    public float multiplier; //Percent increase
+
+    public DefenseBoostCondition(int conditionStrength, int effectDuration,int conditionPriority = 0): base(effectDuration, conditionPriority)
+    {
+        multiplier = conditionStrength;
+    }
+    public override void OnApply(UnitBody appliedUnit)
+    {
+        unit = appliedUnit;
+        appliedUnit.activeStats.Mdefense += (int)(appliedUnit.baseStats.Mdefense*(multiplier/100));
+        unit.EndOfTurn.AddListener(CountDown);
+    }
+    public override void OnRemove()
+    {
+        unit.activeStats.Mdefense -= (int)(unit.baseStats.Mdefense*(multiplier/100));
+    }
+
+}
+[System.Serializable]
+public class MagicDefenseDropCondition : Condition
+{
+    public float multiplier; //Percent increase
+
+    public MagicDefenseDropCondition(int conditionStrength, int effectDuration,int conditionPriority = 0): base(effectDuration, conditionPriority)
+    {
+        multiplier = conditionStrength;
+    }
+    public override void OnApply(UnitBody appliedUnit)
+    {
+        unit = appliedUnit;
+        appliedUnit.activeStats.Mdefense -= (int)(appliedUnit.baseStats.Mdefense*(multiplier/100));
+        unit.EndOfTurn.AddListener(CountDown);
+    }
+    public override void OnRemove()
+    {
+        unit.activeStats.Mdefense += (int)(unit.baseStats.Mdefense*(multiplier/100));
+    }
+
+}
+
 
 [System.Serializable]
 public class DamageOverTimeCondition : Condition

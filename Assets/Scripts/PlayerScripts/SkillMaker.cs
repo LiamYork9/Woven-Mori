@@ -7,6 +7,7 @@ using UnityEngine.Rendering;
 public class SkillMaker : MonoBehaviour
 {
      public static SkillMaker Instance;
+     public int standardBoost = 20;
 
     public static SkillMaker GetInstance()
     {
@@ -53,33 +54,33 @@ public class SkillMaker : MonoBehaviour
         madeSkills.Add(StaticShock);
         Skill WindBlade = new Skill(SkillId.WindBlade, "Wind Blade",20, Element.Air, Target.single, Category.Attack, 70, 1, "Power: 20 \nTargets: One Enemy \nElement: Air" , 0, 1).Attr(new DamageAttr(1,DamageType.Magic,Element.Air));
         madeSkills.Add(WindBlade);
-        Skill Flex = new Skill(SkillId.Flex, "Flex",0 , Element.None, Target.self, Category.Buff, 0, 1, "Get Ripped", 0, 1).Attr(new StatBoostConAttr(Stats.Attack, 10, 3, true)).Attr(new StatBoostConAttr(Stats.Defence, 2));
+        Skill Flex = new Skill(SkillId.Flex, "Flex",0 , Element.None, Target.self, Category.Buff, 0, 1, "Get Ripped", 0, 1).Attr(new StatBoostConAttr(Stats.Attack, standardBoost, 3, true)).Attr(new StatBoostConAttr(Stats.Defence, standardBoost));
         madeSkills.Add(Flex);
         Skill Heal = new Skill(SkillId.Heal, "Heal",10, Element.None, Target.ally, Category.Support, 0, 2, "Restore some HP to an Ally", 0, -1).Attr(new HealAttr(1, .5f, false));
         madeSkills.Add(Heal);
         Skill MassHeal = new Skill(SkillId.MassHeal, "Mass Heal",10, Element.None, Target.party, Category.Support, 0, 3, "Restore some HP to all Allies", 0, -2).Attr(new HealAttr(1, .5f, false));
         madeSkills.Add(MassHeal);
-        Skill Fortifiy = new Skill(SkillId.Fortifiy, "Fortifiy",0 , Element.None, Target.party, Category.Buff, 0, 3,"Boosts the parties Defense",0,1).Attr(new StatBoostConAttr(Stats.Defence, 5));
+        Skill Fortifiy = new Skill(SkillId.Fortifiy, "Fortifiy",0 , Element.None, Target.party, Category.Buff, 0, 3,"Boosts the parties Defense",0,1).Attr(new StatBoostConAttr(Stats.Defence, standardBoost));
         madeSkills.Add(Fortifiy);
-        Skill PowerUp = new Skill(SkillId.PowerUp, "PowerUp",0 ,Element.None,Target.ally, Category.Buff,0,2,"Raise one allies Attack",0,2).Attr(new StatBoostConAttr(Stats.Attack, 5));
+        Skill PowerUp = new Skill(SkillId.PowerUp, "PowerUp",0 ,Element.None,Target.ally, Category.Buff,0,2,"Raise one allies Attack",0,2).Attr(new StatBoostConAttr(Stats.Attack, standardBoost));
         madeSkills.Add(PowerUp);
-        Skill BurnAway = new Skill(SkillId.BurnAway, "Burn Away",15 ,Element.Fire, Target.single,Category.Attack,0,2, "Power: 15 \nTargets: One Enemies \nElement: Fire \nLower targets Defense",0,1).Attr(new StatBoostConAttr(Stats.Defence, -5)).Attr(new DamageAttr(1,DamageType.Physical,Element.Fire));
+        Skill BurnAway = new Skill(SkillId.BurnAway, "Burn Away",15 ,Element.Fire, Target.single,Category.Attack,0,2, "Power: 15 \nTargets: One Enemies \nElement: Fire \nLower targets Defense",0,1).Attr(new StatDropConAttr(Stats.Defence, standardBoost)).Attr(new DamageAttr(1,DamageType.Physical,Element.Fire));
         madeSkills.Add(BurnAway);
         Skill TriSlash = new Skill(SkillId.TriSlash, "Tri-Slash",10 ,Element.Fate,Target.single,Category.Attack,0,3, "Power: 10 \nTargets: One Enemie \nElement: Fire,Water,Earth \nThis attack hits 3 times each with a uniqe element",0,3).Attr(new DamageAttr(1,DamageType.Physical,Element.Fire,true)).Attr(new DamageAttr(1,DamageType.Physical,Element.Water,true)).Attr(new DamageAttr(1.5f,DamageType.Physical,Element.Earth,true));
         madeSkills.Add(TriSlash);
-        Skill FiredUp = new Skill(SkillId.FiredUp, "Fired Up",0 , Element.Fire, Target.self, Category.Buff,0,3,"Targets: Self \nElement: Fire \nGreatly boost attack For 1 strike",0,0).Attr(new StatBoostConAttr(Stats.Attack, 20,2));
+        Skill FiredUp = new Skill(SkillId.FiredUp, "Fired Up",0 , Element.Fire, Target.self, Category.Buff,0,3,"Targets: Self \nElement: Fire \nGreatly boost attack For 1 strike",0,0).Attr(new StatBoostConAttr(Stats.Attack, standardBoost,2));
         madeSkills.Add(FiredUp);
         Skill PoisonBlade = new Skill(SkillId.PoisonBlade,"Poison Blade",10,Element.Dark,Target.single,Category.Attack,100,1, "You Coat your blade in poison and stab the target",100,1).Attr(new DamageAttr(1,DamageType.Physical,Element.Dark)).Attr(new ApplyPoisonAttr(3,2,10));
         madeSkills.Add(PoisonBlade);
-        Skill Berserk = new Skill(SkillId.Berserk, "Berserk",20 , Element.None, Target.single, Category.Attack,0,2,"Go wild and strike twice",0,2).Attr(new DamageAttr(1,DamageType.Physical)).Attr(new DamageAttr(1,DamageType.Physical)).Attr(new StatBoostConAttr(Stats.Defence, -5,3,true));
+        Skill Berserk = new Skill(SkillId.Berserk, "Berserk",20 , Element.None, Target.single, Category.Attack,0,2,"Go wild and strike twice",0,2).Attr(new DamageAttr(1,DamageType.Physical)).Attr(new DamageAttr(1,DamageType.Physical)).Attr(new StatDropConAttr(Stats.Defence, standardBoost,3,true));
         madeSkills.Add(Berserk);
         Skill Rampage = new Skill(SkillId.Rampage, "Rampage",10 , Element.None, Target.mutipleEnemy,Category.Attack,0,2,"Strike Mutiple Foes",0,2).Attr(new DamageAttr(1,DamageType.Physical));
         madeSkills.Add(Rampage);
-        Skill CutLine = new Skill(SkillId.CutLine, "Cut Line",0 , Element.Fate, Target.mutipleEnemy,Category.Debuff,0,3,"Targets: All Enemies \nElement: Fate \nLower all enimes Attack",0,-2).Attr(new StatBoostConAttr(Stats.Attack, -5));
+        Skill CutLine = new Skill(SkillId.CutLine, "Cut Line",0 , Element.Fate, Target.mutipleEnemy,Category.Debuff,0,3,"Targets: All Enemies \nElement: Fate \nLower all enimes Attack",0,-2).Attr(new StatDropConAttr(Stats.Attack, standardBoost));
         madeSkills.Add(CutLine);
         Skill HolyAbsorption = new Skill(SkillId.HolyAbsorption,"Holy Absorption",25 ,Element.Light,Target.single,Category.Attack,0,2,"Power: 25 \nTargets: One Enemie \nElement: Light \nAbsorb HP from the enemy",0,-1).Attr(new DamageAttr(1,DamageType.Magic,Element.Light)).Attr( new HealAttr(0.4f,.2f,true));
         madeSkills.Add(HolyAbsorption);
-        Skill EvenOdd = new Skill(SkillId.EvenOdd, "EvenOdd",10 , Element.None, Target.single, Category.Attack, 100, 1, "On Even turns Heal and buff yourself, on Odd turns hit the enemy and debuff them", 100, -2).Attr(new EvenOddAttr().Odd(new DamageAttr(1,DamageType.Magic)).Odd(new StatBoostConAttr(Stats.Attack, -5)).Even(new HealAttr(1, .2f, true)).Even(new StatBoostConAttr(Stats.Attack, 5,3,true)).Even(new StatBoostConAttr(Stats.Defence,5,3,true)));
+        Skill EvenOdd = new Skill(SkillId.EvenOdd, "EvenOdd",10 , Element.None, Target.single, Category.Attack, 100, 1, "On Even turns Heal and buff yourself, on Odd turns hit the enemy and debuff them", 100, -2).Attr(new EvenOddAttr().Odd(new DamageAttr(1,DamageType.Magic)).Odd(new StatDropConAttr(Stats.Attack, standardBoost)).Even(new HealAttr(1, .2f, true)).Even(new StatBoostConAttr(Stats.Attack, standardBoost,3,true)).Even(new StatBoostConAttr(Stats.Defence,standardBoost,3,true)));
         madeSkills.Add(EvenOdd);
         Skill Focus = new Skill(SkillId.Focus, "Focus",10 , Element.None, Target.self, Category.Attack, 100, 0, "Focus and gain an additional AP", 100, 1).Attr(new APGainAttr(1,true));
         madeSkills.Add(Focus);

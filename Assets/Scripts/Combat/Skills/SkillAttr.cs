@@ -204,11 +204,39 @@ namespace MoriSkills
         {
             if (targetSelf==true)
             {
-                unitUser.ApplyCondition(new StatBoostCondition(stat, boost, duration));
+                unitUser.ApplyCondition(new AttackBoostCondition(boost, duration));
             }
             else
             {
-                unitTarget.ApplyCondition(new StatBoostCondition(stat, boost, duration));
+                unitTarget.ApplyCondition(new AttackBoostCondition(boost, duration));
+            }
+        }
+    }
+
+    public class StatDropConAttr : SkillAttr
+    {
+        public Stats stat;
+
+        public int boost;
+
+        public int duration;
+        public StatDropConAttr(Stats boostedStat, int boostNum, int conDuration = 3, bool targetSelf = false) : base(targetSelf)
+        {
+            name = "StatDropAttr";
+            stat = boostedStat;
+            duration = conDuration;
+            boost = boostNum;
+            
+        }
+        public override void ActivateAttr(UnitBody unitUser, UnitBody unitTarget, int power,Element skillElement)
+        {
+            if (targetSelf==true)
+            {
+                unitUser.ApplyCondition(new AttackDropCondition(boost, duration));
+            }
+            else
+            {
+                unitTarget.ApplyCondition(new AttackDropCondition(boost, duration));
             }
         }
     }

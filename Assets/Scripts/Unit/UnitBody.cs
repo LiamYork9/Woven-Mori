@@ -223,8 +223,7 @@ public class UnitBody : MonoBehaviour
     
     public UnitBody ApplyCondition(Condition addedCondition)
     {
-        conditions.Add(addedCondition);
-        addedCondition.OnApply(this);
+        addedCondition.ApplyCondition(this);
         return this;
     }
 
