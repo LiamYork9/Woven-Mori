@@ -1,15 +1,18 @@
+using System;
 using System.Collections.Generic;
+using UnityEditor.Rendering;
 using UnityEngine;
 using UnityEngine.AI;
 
 namespace MoriSkills
 {
+    [Flags]
     public enum Stats
     {
-        Attack,
-        Defence,
-        mDefense,
-        Speed
+        Attack = 0,
+        Defence = 1,
+        mDefense = 2,
+        Speed = 3
     }
 
     public enum DamageType
@@ -82,65 +85,6 @@ namespace MoriSkills
 
 
 
-
-    public class StatBoostAttr : SkillAttr
-    {
-        public Stats stat;
-
-        public int boost;
-        public StatBoostAttr(Stats boostedStat, int boostNum, bool targetSelf = false) : base(targetSelf)
-        {
-            name = "StatBoostAttr";
-            stat = boostedStat;
-            boost = boostNum;
-        }
-
-        public override void ActivateAttr(UnitBody unitUser, UnitBody unitTarget, int power,Element skillElement)
-        {
-            if (targetSelf == true)
-            {
-                if (stat == Stats.Attack)
-                {
-                    unitUser.activeStats.Attack += boost;
-                }
-                if (stat == Stats.Defence)
-                {
-                    unitUser.activeStats.Defense += boost;
-                }
-                if (stat == Stats.mDefense)
-                {
-                    unitUser.activeStats.Mdefense += boost;
-                }
-                if (stat == Stats.Speed)
-                {
-                    unitUser.activeStats.Speed += boost;
-                }
-
-            }
-            else
-            {
-                if (stat == Stats.Attack)
-                {
-                    unitTarget.activeStats.Attack += boost;
-                }
-                if (stat == Stats.Defence)
-                {
-                    unitTarget.activeStats.Defense += boost;
-                }
-                if (stat == Stats.mDefense)
-                {
-                    unitTarget.activeStats.Mdefense += boost;
-                }
-                if (stat == Stats.Speed)
-                {
-                    unitTarget.activeStats.Speed += boost;
-                }
-            }
-        }
-
-
-    }
-
     public class LevelScaleAttr : SkillAttr
     {
         int scaleValue;
@@ -198,17 +142,30 @@ namespace MoriSkills
             stat = boostedStat;
             duration = conDuration;
             boost = boostNum;
-            
         }
         public override void ActivateAttr(UnitBody unitUser, UnitBody unitTarget, int power,Element skillElement)
         {
+            UnitBody temp;
             if (targetSelf==true)
             {
-                unitUser.ApplyCondition(new AttackBoostCondition(boost, duration));
+                temp = unitUser;
             }
             else
             {
-                unitTarget.ApplyCondition(new AttackBoostCondition(boost, duration));
+                temp = unitTarget;
+            }
+
+            if((stat & Stats.Attack) == Stats.Attack)
+            {
+             temp.ApplyCondition(new AttackBoostCondition(boost, duration));
+            }
+            if((stat & Stats.Defence) == Stats.Defence)
+            {
+             temp.ApplyCondition(new DefenseBoostCondition(boost, duration));
+            }
+            if((stat & Stats.mDefense) == Stats.mDefense)
+            {
+             temp.ApplyCondition(new MagicDefenseBoostCondition(boost, duration));
             }
         }
     }
@@ -230,13 +187,27 @@ namespace MoriSkills
         }
         public override void ActivateAttr(UnitBody unitUser, UnitBody unitTarget, int power,Element skillElement)
         {
+            UnitBody temp;
             if (targetSelf==true)
             {
-                unitUser.ApplyCondition(new AttackDropCondition(boost, duration));
+                temp = unitUser;
             }
             else
             {
-                unitTarget.ApplyCondition(new AttackDropCondition(boost, duration));
+                temp = unitTarget;
+            }
+
+            if((stat & Stats.Attack) == Stats.Attack)
+            {
+             temp.ApplyCondition(new AttackDropCondition(boost, duration));
+            }
+            if((stat & Stats.Defence) == Stats.Defence)
+            {
+             temp.ApplyCondition(new DefenseDropCondition(boost, duration));
+            }
+            if((stat & Stats.mDefense) == Stats.mDefense)
+            {
+             temp.ApplyCondition(new MagicDefenseDropCondition(boost, duration));
             }
         }
     }
