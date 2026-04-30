@@ -217,6 +217,81 @@ public class MagicDefenseDropCondition : Condition
 
 }
 
+[System.Serializable]
+public class SpeedBoostCondition : Condition
+{
+    public float multiplier; //Percent increase
+
+    public SpeedBoostCondition(int conditionStrength, int effectDuration,int conditionPriority = 0): base(effectDuration, conditionPriority)
+    {
+        multiplier = conditionStrength;
+    }
+    public override void OnApply(UnitBody appliedUnit)
+    {
+        unit = appliedUnit;
+        appliedUnit.activeStats.Speed += (int)(appliedUnit.baseStats.Speed*(multiplier/100));
+        foreach(Turn turn in TurnOrderManager.Instance.turnOrder)
+        {
+            if(turn.unit == unit)
+            {
+                turn.initiative += unit.baseStats.Speed;
+            }
+        }
+        TurnOrderManager.Instance.InitiativeSort();
+        unit.EndOfTurn.AddListener(CountDown);
+    }
+    public override void OnRemove()
+    {
+        unit.activeStats.Speed -= (int)(unit.baseStats.Speed*(multiplier/100));
+        foreach(Turn turn in TurnOrderManager.Instance.turnOrder)
+        {
+            if(turn.unit == unit)
+            {
+                turn.initiative -= unit.baseStats.Speed;
+            }
+        }
+        TurnOrderManager.Instance.InitiativeSort();
+    }
+
+}
+[System.Serializable]
+public class SpeedDropCondition : Condition
+{
+    public float multiplier; //Percent increase
+
+    public SpeedDropCondition(int conditionStrength, int effectDuration,int conditionPriority = 0): base(effectDuration, conditionPriority)
+    {
+        multiplier = conditionStrength;
+    }
+    public override void OnApply(UnitBody appliedUnit)
+    {
+        unit = appliedUnit;
+        appliedUnit.activeStats.Speed -= (int)(appliedUnit.baseStats.Speed*(multiplier/100));
+        foreach(Turn turn in TurnOrderManager.Instance.turnOrder)
+        {
+            if(turn.unit == unit)
+            {
+                turn.initiative -= unit.baseStats.Speed;
+            }
+        }
+        TurnOrderManager.Instance.InitiativeSort();
+        unit.EndOfTurn.AddListener(CountDown);
+    }
+    public override void OnRemove()
+    {
+        unit.activeStats.Speed += (int)(unit.baseStats.Speed*(multiplier/100));
+        foreach(Turn turn in TurnOrderManager.Instance.turnOrder)
+        {
+            if(turn.unit == unit)
+            {
+                turn.initiative += unit.baseStats.Speed;
+            }
+        }
+        TurnOrderManager.Instance.InitiativeSort();
+    }
+
+}
+
 
 [System.Serializable]
 public class DamageOverTimeCondition : Condition

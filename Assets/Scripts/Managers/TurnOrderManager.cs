@@ -1,6 +1,8 @@
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.Rendering;
+using System.Linq;
 
 public class TurnOrderManager : MonoBehaviour
 {
@@ -82,12 +84,13 @@ public class TurnOrderManager : MonoBehaviour
             emergencybutton++;
             for (int i = 0; i < allFighters.Count; i++)
             {
-                Turn tempTurn = new Turn();
+                
                 UnitBody tempUnit = allFighters[i].GetComponent<UnitBody>();
                 tempUnit.initiative += Mathf.Max(1,tempUnit.activeStats.Speed + Random.Range(-5, 6));
 
                 if (tempUnit.initiative >= 100)
                 {
+                    Turn tempTurn = new Turn();
                     tempUnit.initiative -= 100;
                     tempTurn.PopulateTurn(tempUnit);
                     turnOrder.Add(tempTurn);
@@ -95,15 +98,7 @@ public class TurnOrderManager : MonoBehaviour
             }
             cycle++;
         }
-    }
-
-
-    public void SpeedUp()
-    {
-        //turnPlayer.speed += 10;
-        emergencybutton = 0;
-        turnOrder.Clear();
-        TurnCalulation();
+        InitiativeSort();
     }
 
     public void TurnShift(int shift = 1)
@@ -151,6 +146,29 @@ public class TurnOrderManager : MonoBehaviour
             TurnCalulation();
         }
         BM.gTurnText.text = "Turn: " + BM.globalTurn;
+    }
+
+    public void InitiativeSort()
+    {
+        CheckInitiatives();
+        turnOrder.OrderBy(x => x.cycle).ThenByDescending(x=>x.initiative);
+    }
+
+    public void CheckInitiatives()
+    {
+        foreach(Turn turn in turnOrder)
+        {
+            while(turn.initiative>=100)
+            {
+                turn.initiative -= 100;
+                turn.cycle -=1;
+            }
+            while(turn.initiative<0)
+            {
+                turn.initiative += 100;
+                turn.cycle +=1;
+            }
+        }
     }
 
     public void EndTurn()
