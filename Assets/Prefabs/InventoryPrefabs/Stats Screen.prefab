@@ -3113,7 +3113,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b10bbe312e40ca446bac354838acba4f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  currentParty: {fileID: 2516322161605073219}
+  CurrentParty: {fileID: 2516322161605073219}
   statText: {fileID: 1355885621949442515}
   inventoryText: {fileID: 2023478245780414279}
   equipText: {fileID: 4204940791423027600}
@@ -3139,7 +3139,7 @@ MonoBehaviour:
   equipInvButton: {fileID: 8361731994364785678}
   keyInvButton: {fileID: 0}
   equipMenu: {fileID: 1183370449949210012}
-  defaultSprite: {fileID: 10901, guid: 0000000000000000f000000000000000, type: 0}
+  DefaultSprite: {fileID: 0}
   selectedCharacter: {fileID: 0}
   targetSlot: 0
   whichInv: 0
@@ -3288,7 +3288,7 @@ GameObject:
   - component: {fileID: 2737807196572580597}
   - component: {fileID: 2516322161605073219}
   m_Layer: 0
-  m_Name: Text (TMP)
+  m_Name: CurrentPartyText
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
