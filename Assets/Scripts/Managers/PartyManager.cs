@@ -18,6 +18,8 @@ public class PartyManager : MonoBehaviour
 
     public bool PM1,PM2,PM3;
 
+    public bool staticEncounter;
+
     public bool rest;
 
     public int funds;

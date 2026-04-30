@@ -801,6 +801,7 @@ public class BattleManager : MonoBehaviour
         Debug.Log("BattleEnd");
         expEarned = 0;
         cashEarned = 0;
+         PartyManager.Instance.staticEncounter = false;
         StartCoroutine(EndBattleLose());
     }
 
