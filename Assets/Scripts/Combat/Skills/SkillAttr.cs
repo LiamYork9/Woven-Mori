@@ -10,7 +10,7 @@ namespace MoriSkills
     public enum Stats
     {
         Attack = 0,
-        Defence = 1,
+        Defense = 1,
         mDefense = 2,
         Speed = 3
     }
@@ -159,7 +159,7 @@ namespace MoriSkills
             {
              temp.ApplyCondition(new AttackBoostCondition(boost, duration));
             }
-            if((stat & Stats.Defence) == Stats.Defence)
+            if((stat & Stats.Defense) == Stats.Defense)
             {
              temp.ApplyCondition(new DefenseBoostCondition(boost, duration));
             }
@@ -201,7 +201,7 @@ namespace MoriSkills
             {
              temp.ApplyCondition(new AttackDropCondition(boost, duration));
             }
-            if((stat & Stats.Defence) == Stats.Defence)
+            if((stat & Stats.Defense) == Stats.Defense)
             {
              temp.ApplyCondition(new DefenseDropCondition(boost, duration));
             }
