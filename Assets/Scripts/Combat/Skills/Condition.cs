@@ -96,6 +96,7 @@ public class AttackBoostCondition : Condition
 
     public AttackBoostCondition(int conditionStrength, int effectDuration,int conditionPriority = 0): base(effectDuration, conditionPriority)
     {
+        name = "Attack Boost";
         multiplier = conditionStrength;
     }
     public override void OnApply(UnitBody appliedUnit)
@@ -117,6 +118,7 @@ public class AttackDropCondition : Condition
 
     public AttackDropCondition(int conditionStrength, int effectDuration,int conditionPriority = 0): base(effectDuration, conditionPriority)
     {
+        name = "Attack Down";
         multiplier = conditionStrength;
     }
     public override void OnApply(UnitBody appliedUnit)
@@ -133,54 +135,13 @@ public class AttackDropCondition : Condition
 }
 
 [System.Serializable]
-public class MagicDefenseBoostCondition : Condition
-{
-    public float multiplier; //Percent increase
-
-    public MagicDefenseBoostCondition(int conditionStrength, int effectDuration,int conditionPriority = 0): base(effectDuration, conditionPriority)
-    {
-        multiplier = conditionStrength;
-    }
-    public override void OnApply(UnitBody appliedUnit)
-    {
-        unit = appliedUnit;
-        appliedUnit.activeStats.Defense += (int)(appliedUnit.baseStats.Defense*(multiplier/100));
-        unit.EndOfTurn.AddListener(CountDown);
-    }
-    public override void OnRemove()
-    {
-        unit.activeStats.Defense -= (int)(unit.baseStats.Defense*(multiplier/100));
-    }
-
-}
-[System.Serializable]
-public class DefenseDropCondition : Condition
-{
-    public float multiplier; //Percent increase
-
-    public DefenseDropCondition(int conditionStrength, int effectDuration,int conditionPriority = 0): base(effectDuration, conditionPriority)
-    {
-        multiplier = conditionStrength;
-    }
-    public override void OnApply(UnitBody appliedUnit)
-    {
-        unit = appliedUnit;
-        appliedUnit.activeStats.Defense -= (int)(appliedUnit.baseStats.Defense*(multiplier/100));
-        unit.EndOfTurn.AddListener(CountDown);
-    }
-    public override void OnRemove()
-    {
-        unit.activeStats.Defense += (int)(unit.baseStats.Defense*(multiplier/100));
-    }
-
-}
-[System.Serializable]
 public class DefenseBoostCondition : Condition
 {
     public float multiplier; //Percent increase
 
     public DefenseBoostCondition(int conditionStrength, int effectDuration,int conditionPriority = 0): base(effectDuration, conditionPriority)
     {
+        name = "Defense Boost";
         multiplier = conditionStrength;
     }
     public override void OnApply(UnitBody appliedUnit)
@@ -196,12 +157,57 @@ public class DefenseBoostCondition : Condition
 
 }
 [System.Serializable]
+public class DefenseDropCondition : Condition
+{
+    public float multiplier; //Percent increase
+
+    public DefenseDropCondition(int conditionStrength, int effectDuration,int conditionPriority = 0): base(effectDuration, conditionPriority)
+    {
+        name = "Defense Down";
+        multiplier = conditionStrength;
+    }
+    public override void OnApply(UnitBody appliedUnit)
+    {
+        unit = appliedUnit;
+        appliedUnit.activeStats.Defense -= (int)(appliedUnit.baseStats.Defense*(multiplier/100));
+        unit.EndOfTurn.AddListener(CountDown);
+    }
+    public override void OnRemove()
+    {
+        unit.activeStats.Defense += (int)(unit.baseStats.Defense*(multiplier/100));
+    }
+
+}
+[System.Serializable]
+public class MagicDefenseBoostCondition : Condition
+{
+    public float multiplier; //Percent increase
+
+    public MagicDefenseBoostCondition(int conditionStrength, int effectDuration,int conditionPriority = 0): base(effectDuration, conditionPriority)
+    {
+        name = "Magic Defense Boost";
+        multiplier = conditionStrength;
+    }
+    public override void OnApply(UnitBody appliedUnit)
+    {
+        unit = appliedUnit;
+        appliedUnit.activeStats.Defense += (int)(appliedUnit.baseStats.Defense*(multiplier/100));
+        unit.EndOfTurn.AddListener(CountDown);
+    }
+    public override void OnRemove()
+    {
+        unit.activeStats.Defense -= (int)(unit.baseStats.Defense*(multiplier/100));
+    }
+
+}
+[System.Serializable]
 public class MagicDefenseDropCondition : Condition
 {
     public float multiplier; //Percent increase
 
     public MagicDefenseDropCondition(int conditionStrength, int effectDuration,int conditionPriority = 0): base(effectDuration, conditionPriority)
     {
+        name = "Magic Defense Down";
         multiplier = conditionStrength;
     }
     public override void OnApply(UnitBody appliedUnit)
@@ -221,20 +227,23 @@ public class MagicDefenseDropCondition : Condition
 public class SpeedBoostCondition : Condition
 {
     public float multiplier; //Percent increase
+    public int currentCycle = 0;
 
     public SpeedBoostCondition(int conditionStrength, int effectDuration,int conditionPriority = 0): base(effectDuration, conditionPriority)
     {
+        name = "Speed Boost";
         multiplier = conditionStrength;
     }
     public override void OnApply(UnitBody appliedUnit)
     {
         unit = appliedUnit;
+        currentCycle = TurnOrderManager.Instance.turnOrder[0].cycle;
         appliedUnit.activeStats.Speed += (int)(appliedUnit.baseStats.Speed*(multiplier/100));
         foreach(Turn turn in TurnOrderManager.Instance.turnOrder)
         {
             if(turn.unit == unit)
             {
-                turn.initiative += unit.baseStats.Speed;
+                turn.initiative += unit.baseStats.Speed*(turn.cycle-currentCycle);
             }
         }
         TurnOrderManager.Instance.InitiativeSort();
@@ -247,7 +256,7 @@ public class SpeedBoostCondition : Condition
         {
             if(turn.unit == unit)
             {
-                turn.initiative -= unit.baseStats.Speed;
+                turn.initiative -= unit.baseStats.Speed*(turn.cycle-currentCycle);
             }
         }
         TurnOrderManager.Instance.InitiativeSort();
@@ -258,20 +267,23 @@ public class SpeedBoostCondition : Condition
 public class SpeedDropCondition : Condition
 {
     public float multiplier; //Percent increase
+    public int currentCycle = 0;
 
     public SpeedDropCondition(int conditionStrength, int effectDuration,int conditionPriority = 0): base(effectDuration, conditionPriority)
     {
+        name = "Speed Down";
         multiplier = conditionStrength;
     }
     public override void OnApply(UnitBody appliedUnit)
     {
         unit = appliedUnit;
+        currentCycle = TurnOrderManager.Instance.turnOrder[0].cycle;
         appliedUnit.activeStats.Speed -= (int)(appliedUnit.baseStats.Speed*(multiplier/100));
         foreach(Turn turn in TurnOrderManager.Instance.turnOrder)
         {
             if(turn.unit == unit)
             {
-                turn.initiative -= unit.baseStats.Speed;
+                turn.initiative -= unit.baseStats.Speed*(turn.cycle-currentCycle);
             }
         }
         TurnOrderManager.Instance.InitiativeSort();
@@ -284,7 +296,7 @@ public class SpeedDropCondition : Condition
         {
             if(turn.unit == unit)
             {
-                turn.initiative += unit.baseStats.Speed;
+                turn.initiative += unit.baseStats.Speed*(turn.cycle-currentCycle)*5;
             }
         }
         TurnOrderManager.Instance.InitiativeSort();

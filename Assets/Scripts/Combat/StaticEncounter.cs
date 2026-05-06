@@ -23,6 +23,8 @@ public class StaticEncounter : MonoBehaviour
         yield return new WaitForSeconds(waitTime);
         currentlog.text = postBattle;
         currentlog.StartDialogue();
+        PartyManager.Instance.staticEncounter = false;
+        
     }
 
     // Update is called once per frame

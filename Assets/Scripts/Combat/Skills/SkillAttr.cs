@@ -9,10 +9,10 @@ namespace MoriSkills
     [Flags]
     public enum Stats
     {
-        Attack = 0,
-        Defense = 1,
-        mDefense = 2,
-        Speed = 3
+        Attack = 1 << 0,
+        Defense = 1 << 1,
+        mDefense = 1 << 2,
+        Speed = 1 << 3
     }
 
     public enum DamageType
@@ -167,6 +167,10 @@ namespace MoriSkills
             {
              temp.ApplyCondition(new MagicDefenseBoostCondition(boost, duration));
             }
+            if((stat & Stats.Speed) == Stats.Speed)
+            {
+             temp.ApplyCondition(new SpeedBoostCondition(boost, duration));
+            }
         }
     }
 
@@ -208,6 +212,10 @@ namespace MoriSkills
             if((stat & Stats.mDefense) == Stats.mDefense)
             {
              temp.ApplyCondition(new MagicDefenseDropCondition(boost, duration));
+            }
+             if((stat & Stats.Speed) == Stats.Speed)
+            {
+             temp.ApplyCondition(new SpeedDropCondition(boost, duration));
             }
         }
     }

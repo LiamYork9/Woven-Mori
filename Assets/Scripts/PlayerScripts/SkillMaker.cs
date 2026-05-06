@@ -84,6 +84,8 @@ public class SkillMaker : MonoBehaviour
         madeSkills.Add(EvenOdd);
         Skill Focus = new Skill(SkillId.Focus, "Focus",10 , Element.None, Target.self, Category.Attack, 100, 0, "Focus and gain an additional AP", 100, 1).Attr(new APGainAttr(1,true));
         madeSkills.Add(Focus);
+        Skill SpeedUp = new Skill(SkillId.SpeedUp,"Speed Up",0,Element.None,Target.self,Category.Buff,100,1,"Speed yourself up",1,1).Attr(new StatBoostConAttr(Stats.Speed,standardBoost,3));
+         madeSkills.Add(SpeedUp);
 
         //Enemy Skills
         Skill PoisonBite = new Skill(SkillId.PoisonBite,"Poison Bite",10,Element.Dark,Target.single,Category.Attack,100,2, "A weak Bite that poisons the target",100,1).Attr(new DamageAttr(1,DamageType.Physical,Element.Dark)).Attr(new ApplyPoisonAttr(3,3,10));

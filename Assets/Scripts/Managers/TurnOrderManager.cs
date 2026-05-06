@@ -151,7 +151,7 @@ public class TurnOrderManager : MonoBehaviour
     public void InitiativeSort()
     {
         CheckInitiatives();
-        turnOrder.OrderBy(x => x.cycle).ThenByDescending(x=>x.initiative);
+        SortExcludingFirst();
     }
 
     public void CheckInitiatives()
@@ -169,6 +169,16 @@ public class TurnOrderManager : MonoBehaviour
                 turn.cycle +=1;
             }
         }
+    }
+    public void SortExcludingFirst()
+    {
+        Turn first = turnOrder[0];
+        List<Turn> temp = new List<Turn>();
+        temp.AddRange(turnOrder);
+        temp.RemoveAt(0);
+        turnOrder.Clear();
+        turnOrder.Add(first);
+        turnOrder.AddRange(temp.OrderBy(x => x.cycle).ThenByDescending(x=>x.initiative).ToList<Turn>());
     }
 
     public void EndTurn()
