@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using Unity.IO.LowLevel.Unsafe;
 using UnityEditor.Rendering;
 using UnityEngine;
 using UnityEngine.AI;
@@ -167,10 +168,6 @@ namespace MoriSkills
             {
              temp.ApplyCondition(new MagicDefenseBoostCondition(boost, duration));
             }
-            if((stat & Stats.Speed) == Stats.Speed)
-            {
-             temp.ApplyCondition(new SpeedBoostCondition(boost, duration));
-            }
         }
     }
 
@@ -213,9 +210,41 @@ namespace MoriSkills
             {
              temp.ApplyCondition(new MagicDefenseDropCondition(boost, duration));
             }
-             if((stat & Stats.Speed) == Stats.Speed)
+        }
+    }
+
+    public class PriorityAttr : SkillAttr
+    {
+        public int priority;
+        public int duration;
+        public PriorityAttr(int conPriority, int conDuration = 3, bool targetSelf = false) : base(targetSelf)
+        {
+            priority = conPriority;
+            duration = conDuration;
+            if(priority < 0)
             {
-             temp.ApplyCondition(new SpeedDropCondition(boost, duration));
+                name = "Priority Down";
+            }
+            else
+            {
+                name = "priority Up";
+            }
+        }
+        public override void ActivateAttr(UnitBody unitUser, UnitBody unitTarget, int power, Element skillElement)
+        {
+            UnitBody temp = unitTarget;
+            if(targetSelf)
+            {
+                temp = unitUser;
+            }
+            if(priority>=0)
+            {
+                temp.ApplyCondition(new PriorityBoostCondition(priority,duration));
+            }
+            else
+            {
+                
+                temp.ApplyCondition(new PriorityDropCondition(-priority,duration));
             }
         }
     }

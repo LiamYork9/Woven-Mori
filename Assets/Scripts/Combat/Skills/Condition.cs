@@ -21,7 +21,7 @@ public class Condition
     public int duration;
 
     //Higher = earlier
-    public int priority;
+    public int activationPriority;
 
     public Condition(int effectDuration, int conditionPriority = 0)
     {
@@ -29,7 +29,7 @@ public class Condition
 
         //-1 is a permanent effect, -2 is unclearable effect (maybe)
         duration = effectDuration;
-        priority = conditionPriority;
+        activationPriority = conditionPriority;
     }
 
     public virtual void OnApply(UnitBody appliedUnit)
@@ -224,86 +224,50 @@ public class MagicDefenseDropCondition : Condition
 }
 
 [System.Serializable]
-public class SpeedBoostCondition : Condition
+public class PriorityBoostCondition : Condition
 {
-    public float multiplier; //Percent increase
-    public int currentCycle = 0;
+    public int priority = 0;
 
-    public SpeedBoostCondition(int conditionStrength, int effectDuration,int conditionPriority = 0): base(effectDuration, conditionPriority)
+    public PriorityBoostCondition(int conditionStrength, int effectDuration,int conditionPriority = 0): base(effectDuration, conditionPriority)
     {
-        name = "Speed Boost";
-        multiplier = conditionStrength;
+        name = "Priority Up";
+        priority = conditionStrength;
     }
     public override void OnApply(UnitBody appliedUnit)
     {
         unit = appliedUnit;
-        currentCycle = TurnOrderManager.Instance.turnOrder[0].cycle;
-        appliedUnit.activeStats.Speed += (int)(appliedUnit.baseStats.Speed*(multiplier/100));
-        foreach(Turn turn in TurnOrderManager.Instance.turnOrder)
-        {
-            if(turn.unit == unit)
-            {
-                turn.initiative += unit.baseStats.Speed*(turn.cycle-currentCycle);
-            }
-        }
-        TurnOrderManager.Instance.InitiativeSort();
+        TurnOrderManager.Instance.Prioritize(unit, priority);
         unit.EndOfTurn.AddListener(CountDown);
     }
     public override void OnRemove()
     {
-        unit.activeStats.Speed -= (int)(unit.baseStats.Speed*(multiplier/100));
-        foreach(Turn turn in TurnOrderManager.Instance.turnOrder)
-        {
-            if(turn.unit == unit)
-            {
-                turn.initiative -= unit.baseStats.Speed*(turn.cycle-currentCycle);
-            }
-        }
-        TurnOrderManager.Instance.InitiativeSort();
+        TurnOrderManager.Instance.Prioritize(unit, -priority);
     }
 
 }
+
 [System.Serializable]
-public class SpeedDropCondition : Condition
+public class PriorityDropCondition : Condition
 {
-    public float multiplier; //Percent increase
-    public int currentCycle = 0;
+    public int priority = 0;
 
-    public SpeedDropCondition(int conditionStrength, int effectDuration,int conditionPriority = 0): base(effectDuration, conditionPriority)
+    public PriorityDropCondition(int conditionStrength, int effectDuration,int conditionPriority = 0): base(effectDuration, conditionPriority)
     {
-        name = "Speed Down";
-        multiplier = conditionStrength;
+        name = "Priority Up";
+        priority = conditionStrength;
     }
     public override void OnApply(UnitBody appliedUnit)
     {
         unit = appliedUnit;
-        currentCycle = TurnOrderManager.Instance.turnOrder[0].cycle;
-        appliedUnit.activeStats.Speed -= (int)(appliedUnit.baseStats.Speed*(multiplier/100));
-        foreach(Turn turn in TurnOrderManager.Instance.turnOrder)
-        {
-            if(turn.unit == unit)
-            {
-                turn.initiative -= unit.baseStats.Speed*(turn.cycle-currentCycle);
-            }
-        }
-        TurnOrderManager.Instance.InitiativeSort();
+        TurnOrderManager.Instance.Prioritize(unit, -priority);
         unit.EndOfTurn.AddListener(CountDown);
     }
     public override void OnRemove()
     {
-        unit.activeStats.Speed += (int)(unit.baseStats.Speed*(multiplier/100));
-        foreach(Turn turn in TurnOrderManager.Instance.turnOrder)
-        {
-            if(turn.unit == unit)
-            {
-                turn.initiative += unit.baseStats.Speed*(turn.cycle-currentCycle)*5;
-            }
-        }
-        TurnOrderManager.Instance.InitiativeSort();
+        TurnOrderManager.Instance.Prioritize(unit, priority);
     }
 
 }
-
 
 [System.Serializable]
 public class DamageOverTimeCondition : Condition
