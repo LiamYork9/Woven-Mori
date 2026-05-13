@@ -10,6 +10,8 @@ public class PartyManager : MonoBehaviour, IDataPersistence
     public List<PlayerCharacter> party;
     public static PartyManager Instance;
 
+    public  List<PlayerCharacter> starter;
+
     public List<GameObject> followers; 
 
     public string sceneName;
@@ -51,11 +53,12 @@ public class PartyManager : MonoBehaviour, IDataPersistence
     }
     void Start()
     {
-
+        
     }
 
     public void LoadData(GameData data)
     {
+        
         this.party = data.party;
     }
 
@@ -86,6 +89,8 @@ public class PartyManager : MonoBehaviour, IDataPersistence
         {
             party.Add(playerCharacter);
         }
+
+       
         
 
         

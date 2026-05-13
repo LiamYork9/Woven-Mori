@@ -9,7 +9,7 @@ public class DataPersistenceManager : MonoBehaviour
     [SerializeField] private string fileName;
     [SerializeField] private bool useEncryption;
 
-    private GameData gameData;
+    [SerializeField] private GameData gameData;
     private List<IDataPersistence> dataPersistenceObjects;
     private FileDataHandler dataHandler;
 
@@ -28,6 +28,7 @@ public class DataPersistenceManager : MonoBehaviour
     {
         this.dataHandler = new FileDataHandler(Application.persistentDataPath, fileName, useEncryption);
         this.dataPersistenceObjects = FindAllDataPersistenceObjects();
+        //gameData.party.Add( Resources.Load<PlayerCharacter>("Units/Players/Xander"));
         LoadGame();
     }
 
@@ -39,7 +40,7 @@ public class DataPersistenceManager : MonoBehaviour
     public void LoadGame()
     {
         // load any saved data from a file using the data handler
-       // this.gameData = dataHandler.Load();
+       this.gameData = dataHandler.Load();
         
         // if no data can be loaded, initialize to a new game
         if (this.gameData == null) 
@@ -65,6 +66,8 @@ public class DataPersistenceManager : MonoBehaviour
 
         // save that data to a file using the data handler
         dataHandler.Save(gameData);
+
+        Debug.Log("saved Game");
     }
 
     private void OnApplicationQuit() 
@@ -74,7 +77,7 @@ public class DataPersistenceManager : MonoBehaviour
 
     private List<IDataPersistence> FindAllDataPersistenceObjects() 
     {
-        IEnumerable<IDataPersistence> dataPersistenceObjects = FindObjectsOfType<MonoBehaviour>()
+        IEnumerable<IDataPersistence> dataPersistenceObjects = FindObjectsByType<MonoBehaviour>(FindObjectsSortMode.None)
             .OfType<IDataPersistence>();
 
         return new List<IDataPersistence>(dataPersistenceObjects);

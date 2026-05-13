@@ -35,6 +35,7 @@ public class PlayerController : MonoBehaviour
         }
         Step.AddListener(TakeStep);
         EncounterManager.Instance.startEncounter.AddListener(SetSpawnLocation);
+        
         if(PartyManager.Instance.rest == false)
         {
             movePoint.position = PartyManager.Instance.SpawnLocation;
