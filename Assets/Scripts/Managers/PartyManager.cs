@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Collections;
 using UnityEngine.InputSystem;
 
-public class PartyManager : MonoBehaviour
+public class PartyManager : MonoBehaviour, IDataPersistence
 {
 
     [SerializeReference]
@@ -32,6 +32,7 @@ public class PartyManager : MonoBehaviour
     {
         return Instance;
     }
+    
 
 
 
@@ -51,6 +52,16 @@ public class PartyManager : MonoBehaviour
     void Start()
     {
 
+    }
+
+    public void LoadData(GameData data)
+    {
+        this.party = data.party;
+    }
+
+     public void SaveData( GameData data)
+    {
+        data.party = this.party;
     }
 
     // Update is called once per frame
