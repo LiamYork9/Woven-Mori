@@ -5,6 +5,7 @@ using TMPro;
 using UnityEngine.UI;
 using MoriSkills;
 using System.Reflection;
+using NUnit.Framework;
 
 [System.Serializable]
 public class Turn
@@ -14,12 +15,14 @@ public class Turn
     public int visited;
     public int exhaustValue = 2;
     public bool exhausted;
+    public bool fated;
+    public string fate;
 
     public int turnShift = 1;
 
     
 
-    public void StartTurn()
+    public virtual void StartTurn()
     {
         // Checking Buff and Debuff timers, start of turn effects 
         if (unit.partyMember == true)
@@ -37,12 +40,12 @@ public class Turn
 
     }
 
-    public void SelectAction()
+    public virtual void SelectAction()
     {
         BattleManager.Instance.StartSelectActionCo(this);
     }
 
-    public void EndTurn()
+    public virtual void EndTurn()
     {
         if (BattleManager.Instance.fightState == FightState.Active)
         {
@@ -54,14 +57,16 @@ public class Turn
        
     }
 
-    public void PopulateTurn(UnitBody tempUnit)
+    public void PopulateTurn(UnitBody tempUnit, bool isFated = false, string fateCode = "")
     {
         unit = tempUnit;
         name = unit.name;
+        fated = isFated;
+        fate = fateCode;
     }
 
     // Its just shootout dumbass 
-    public IEnumerator StartTurnCo()
+    public virtual IEnumerator StartTurnCo()
     {
         BattleManager.Instance.ButtonsOff();
         BattleManager.Instance.dialogueText.text = "Start " + unit.name + "'s Turn!";
@@ -98,14 +103,15 @@ public class Turn
         BattleManager.Instance.EnemyAttack(Temp,tempTargets);
     }
 
-    public IEnumerator EndTurnCo()
+    public virtual IEnumerator EndTurnCo()
     {
         unit.EndOfTurn.Invoke();
+        fated = false;
         // Removing Timed out Buff and Debuffs, end of turn effects 
         TurnOrderManager.Instance.TurnShift(turnShift);
         BattleManager.Instance.dialogueText.text = " ";
         BattleManager.Instance.attacking = false;
-         BattleManager.Instance.useItem = false;
+        BattleManager.Instance.useItem = false;
         BattleManager.Instance.playerTurn = false;
         BattleManager.Instance.enemyTurn = false;
         yield return new WaitForSeconds(1f);

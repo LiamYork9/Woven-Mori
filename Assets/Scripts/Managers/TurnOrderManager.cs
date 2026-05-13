@@ -9,6 +9,7 @@ public class TurnOrderManager : MonoBehaviour
 
     public List<UnitBody> downedPlayers = new List<UnitBody> { };
 
+    [SerializeReference]
     public List<Turn> turnOrder = new List<Turn> { };
 
     public List<Turn> recentTurns = new List<Turn> { };
