@@ -11,8 +11,6 @@ public class Turn
 {
     public string name;
     public UnitBody unit;
-    public int initiative;
-    public int cycle;
     public int visited;
     public int exhaustValue = 2;
     public bool exhausted;
@@ -60,8 +58,6 @@ public class Turn
     {
         unit = tempUnit;
         name = unit.name;
-        initiative = unit.initiative;
-        cycle = TurnOrderManager.Instance.cycle;
     }
 
     // Its just shootout dumbass 

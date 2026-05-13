@@ -1,8 +1,5 @@
 using System.Collections.Generic;
-using Unity.VisualScripting;
 using UnityEngine;
-using UnityEngine.Rendering;
-using System.Linq;
 
 public class TurnOrderManager : MonoBehaviour
 {
@@ -98,7 +95,6 @@ public class TurnOrderManager : MonoBehaviour
             }
             cycle++;
         }
-        InitiativeSort();
     }
 
     public void TurnShift(int shift = 1)
@@ -148,37 +144,55 @@ public class TurnOrderManager : MonoBehaviour
         BM.gTurnText.text = "Turn: " + BM.globalTurn;
     }
 
-    public void InitiativeSort()
+    public void Prioritize(UnitBody unit, int priority)
     {
-        CheckInitiatives();
-        SortExcludingFirst();
-    }
-
-    public void CheckInitiatives()
-    {
-        foreach(Turn turn in turnOrder)
+        int buffer = 0;
+        if(priority > 0)
         {
-            while(turn.initiative>=100)
+            for(int i = 1; i < turnOrder.Count; i++)
             {
-                turn.initiative -= 100;
-                turn.cycle -=1;
-            }
-            while(turn.initiative<0)
-            {
-                turn.initiative += 100;
-                turn.cycle +=1;
+                if(turnOrder[i].unit == unit)
+                {
+                    Turn temp = turnOrder[i];
+                    for(int j = 1; j <= priority; j++)
+                    {
+                        if(i-j > buffer)
+                        {
+                            Debug.Log("i=" + i + "   j=" + j + "   " + (i-j) + "th Slot: Buffer " + buffer );
+                            turnOrder[i-(j-1)] = turnOrder[i-j];
+                            turnOrder[i-j] = temp;
+                        }
+                    }
+                    if(i-priority <= buffer)
+                    {
+                        buffer++;
+                    }
+                }
             }
         }
-    }
-    public void SortExcludingFirst()
-    {
-        Turn first = turnOrder[0];
-        List<Turn> temp = new List<Turn>();
-        temp.AddRange(turnOrder);
-        temp.RemoveAt(0);
-        turnOrder.Clear();
-        turnOrder.Add(first);
-        turnOrder.AddRange(temp.OrderBy(x => x.cycle).ThenByDescending(x=>x.initiative).ToList<Turn>());
+        else if(priority < 0)
+        {
+            buffer = 1;
+            for(int i = turnOrder.Count-1; i > 0; i--)
+            {
+                if(turnOrder[i].unit==unit)
+                {
+                    Turn temp = turnOrder[i];
+                    for(int j = 1; j <= priority; j++)
+                    {
+                        if(i+j <= turnOrder.Count - buffer)
+                        {
+                            turnOrder[i+(j-1)] = turnOrder[i+j];
+                            turnOrder[i+j] = temp;
+                        }
+                    }
+                    if(i+priority >= turnOrder.Count-buffer)
+                    {
+                        buffer++;
+                    }
+                }
+            }
+        }
     }
 
     public void EndTurn()
