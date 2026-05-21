@@ -28,7 +28,7 @@ public class DataPersistenceManager : MonoBehaviour
     {
         this.dataHandler = new FileDataHandler(Application.persistentDataPath, fileName, useEncryption);
         this.dataPersistenceObjects = FindAllDataPersistenceObjects();
-        //gameData.party.Add( Resources.Load<PlayerCharacter>("Units/Players/Xander"));
+        gameData.party.Add( Resources.Load<PlayerCharacter>("Units/Players/Xander"));
         LoadGame();
     }
 

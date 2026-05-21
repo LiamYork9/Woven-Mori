@@ -1488,8 +1488,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 325237f3ce663df408a170c20444cba8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  fileName: 
+  fileName: MoriGameData.game
   useEncryption: 0
+  gameData:
+    playerPosition: {x: 0, y: 0, z: 0}
+    party:
+    - {fileID: 11400000, guid: 157fd6b32db3e6d4e8d578ae2ddd1c76, type: 2}
 --- !u!4 &459448697
 Transform:
   m_ObjectHideFlags: 0
@@ -1686,9 +1690,17 @@ PrefabInstance:
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 4757034985748211624, guid: 9be9c3a6200bc05409c5c20538f16e36, type: 3}
+      propertyPath: starter.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4757034985748211624, guid: 9be9c3a6200bc05409c5c20538f16e36, type: 3}
       propertyPath: followers.Array.size
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 4757034985748211624, guid: 9be9c3a6200bc05409c5c20538f16e36, type: 3}
+      propertyPath: 'starter.Array.data[0]'
+      value: 
+      objectReference: {fileID: 11400000, guid: 157fd6b32db3e6d4e8d578ae2ddd1c76, type: 2}
     - target: {fileID: 4757034985748211624, guid: 9be9c3a6200bc05409c5c20538f16e36, type: 3}
       propertyPath: 'followers.Array.data[0]'
       value: 
