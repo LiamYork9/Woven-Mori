@@ -1,8 +1,57 @@
 using System;
 using System.Collections.Generic;
+using System.Drawing;
+using JetBrains.Annotations;
 using MoriSkills;
 using UnityEngine;
 using UnityEngine.Events;
+
+[System.Serializable] 
+    public struct FatedTurn
+    {   
+        public int startTurn;
+        public bool repeating;
+        public int frequency;
+        public int endTurn;
+        public string fate;
+
+        public FatedTurn(int start, bool repeat, int rate, int end, string fateCode)
+        {
+            startTurn = start;
+            repeating = repeat;
+            frequency = rate;
+            endTurn = end;
+            fate = fateCode;
+        }
+
+        // public FatedTurn CopyFate()
+        // {
+        //     FatedTurn temp = new FatedTurn(startTurn, repeating, frequency, endTurn, fate);
+        //     return temp;
+        // }
+    }
+
+    [System.Serializable] 
+    public struct FatedPoint
+    {   
+        public int point;
+        public UnitBody unit;
+
+        public string fate;
+
+        public FatedPoint(int targetTurn, string fateCode, UnitBody fatedUnit = null)
+        {
+            point = targetTurn;
+            fate = fateCode;
+            unit = fatedUnit;
+        }
+
+        // public FatedPoint CopyFate()
+        // {
+        //     FatedPoint temp = new FatedPoint(point, fate);
+        //     return temp;
+        // }
+    }
 
 [System.Serializable]
     public struct BaseStats
@@ -97,6 +146,9 @@ public class Unit : ScriptableObject
     [Header("Stats")]
 
     public BaseStats stats;
+
+    public List<FatedTurn> fatedTurns;
+    public List<FatedPoint> fatedPoints;
 
 
     public List<int> equipmentStats = new List<int> {0,0,0,0,0,0};
