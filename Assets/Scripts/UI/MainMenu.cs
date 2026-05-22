@@ -12,7 +12,15 @@ public class MainMenu : MonoBehaviour
 
     public void OnContinue()
     {
-        DataPersistenceManager.instance.LoadGame();
-        SceneManager.LoadSceneAsync("NodeTesting");
+        if(DataPersistenceManager.instance.gameData != null)
+        {
+            DataPersistenceManager.instance.LoadGame();
+            SceneManager.LoadSceneAsync("NodeTesting");
+        }
+        else
+        {
+            Debug.Log("No Data to load");
+        }
+       
     }
 }
