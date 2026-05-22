@@ -20,6 +20,8 @@ public class TurnOrderManager : MonoBehaviour
 
     public BattleManager BM;
 
+    public List<FatedPoint> fatedPoints;
+
 
 
 
@@ -60,12 +62,14 @@ public class TurnOrderManager : MonoBehaviour
         {
             BM.playerSlots[i].name = BM.playerSlots[i].GetComponent<UnitBody>().name;
             allFighters.Add(BM.playerSlots[i]);
+            fatedPoints.AddRange(BM.playerSlots[i].GetComponent<UnitBody>().fatedPoints);
         }
 
         for (int i = 0; i < BM.enemySlots.Count; i++)
         {
             BM.enemySlots[i].name = BM.enemySlots[i].GetComponent<UnitBody>().name;
             allFighters.Add(BM.enemySlots[i]);
+            fatedPoints.AddRange(BM.enemySlots[i].GetComponent<UnitBody>().fatedPoints);
         }
         TurnCalulation();
 

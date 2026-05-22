@@ -32,6 +32,11 @@ public class UnitBody : MonoBehaviour
 
     public BaseStats activeStats;
 
+    public List<FatedTurn> fatedTurns;
+    public List<FatedPoint> fatedPoints;
+
+    public int turnsAdded = 0;
+
     public int initiative;
 
     public int slotNumber;
@@ -53,7 +58,7 @@ public class UnitBody : MonoBehaviour
     public UnityEvent EndOfAction;
     public UnityEvent EndOfTurn;
 
-     public HPTest hPTest;
+    public HPTest hPTest;
 
     public List<int> equipmentStats = new List<int> {0,0,0,0,0,0};
 
@@ -114,6 +119,15 @@ public class UnitBody : MonoBehaviour
         deathSprite = target.deathSprite;
         baseStats.CopyStatsWithEquipment(target.stats, equipmentStats);
         activeStats.CopyStats(baseStats);
+
+        fatedTurns.AddRange(target.fatedTurns);
+        fatedPoints.AddRange(target.fatedPoints);
+        for(int i = 0; i < fatedPoints.Count;i++)
+        {
+            FatedPoint temp = fatedPoints[i];
+            temp.unit = this;
+            fatedPoints[i]= temp;
+        }
         
         resistance = new List<Element>();
         for(int i = 0; i < target.resistance.Count; i++)

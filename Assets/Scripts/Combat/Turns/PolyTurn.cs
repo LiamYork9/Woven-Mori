@@ -17,11 +17,12 @@ public class PolyTurn : Turn
     {
         Turn temp = new Turn();
         temp.PopulateTurn(innerTurns[0].unit);
+        temp.visited ++;
         TurnOrderManager.Instance.recentTurns.Insert(0, temp);
         innerTurns.Remove(innerTurns[0]);
         if(innerTurns.Count >= 1)
         {
-            innerTurns[0].StartTurn();
+            //innerTurns[0].StartTurn();
         }
         else
         {

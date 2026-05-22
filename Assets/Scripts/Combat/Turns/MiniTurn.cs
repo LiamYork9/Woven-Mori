@@ -5,18 +5,26 @@ using UnityEngine.Events;
 
 public class MiniTurn : Turn
 {
+    
+    public override IEnumerator StartTurnCo()
+    {
+        BattleManager.Instance.ButtonsOff();
+        BattleManager.Instance.dialogueText.text = "Start " + unit.name + "'s Turn!";
+        yield return new WaitForSeconds(1f);
+        unit.StartOfTurn.Invoke();
 
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
+        SelectAction();
+      
+    
+       
+    }
     public override IEnumerator EndTurnCo()
     {
         unit.EndOfTurn.Invoke();
         // Removing Timed out Buff and Debuffs, end of turn effects 
         Turn temp = TurnOrderManager.Instance.turnOrder[0];
         temp.turnShift = turnShift;
-        if(temp is PolyTurn)
-        {
-            (temp as PolyTurn).NextTurn();
-        }
+        
 
         BattleManager.Instance.dialogueText.text = " ";
         BattleManager.Instance.attacking = false;
@@ -24,6 +32,10 @@ public class MiniTurn : Turn
         BattleManager.Instance.playerTurn = false;
         BattleManager.Instance.enemyTurn = false;
         yield return new WaitForSeconds(1f);
+        if(temp is PolyTurn)
+        {
+            (temp as PolyTurn).NextTurn();
+        }
         BattleManager.Instance.TurnTransiton();
     }
     
