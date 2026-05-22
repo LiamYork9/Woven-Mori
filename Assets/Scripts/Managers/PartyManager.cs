@@ -50,10 +50,16 @@ public class PartyManager : MonoBehaviour, IDataPersistence
         }
         DontDestroyOnLoad(this);
 
+       
+
     }
     void Start()
     {
-        
+         if(party.Count == 0)
+        {
+           party = starter;
+           Debug.Log("emptey");
+        }
     }
 
     public void LoadData(GameData data)
