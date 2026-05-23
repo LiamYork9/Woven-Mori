@@ -34,6 +34,19 @@ public class TurnOrderPastTurnsDisplay : MonoBehaviour
             {
                 gameObject.GetComponent<Image>().color = new Color32(200, 0, 0, 190);
             }
+
+            if (TurnOrderManager.Instance.recentTurns[turnPostion].fated == true)
+            {
+                displayName.color = Color.yellow;
+            }
+            else if (TurnOrderManager.Instance.recentTurns[turnPostion].visited>0)
+            {
+                displayName.color = Color.red;
+            }
+            else
+            {
+                displayName.color = Color.black;
+            }
         }
         else
         {

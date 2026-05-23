@@ -94,8 +94,9 @@ public class TurnOrderManager : MonoBehaviour
                 {
                     Turn tempTurn = new Turn();
                     tempUnit.initiative -= 100;
-                    tempTurn.PopulateTurn(tempUnit);
+                    tempTurn.PopulateTurn(tempUnit,tempUnit.CheckFate(),tempUnit.GetFate());
                     turnOrder.Add(tempTurn);
+                    tempUnit.turnsAdded++;
                 }
             }
             cycle++;
@@ -119,6 +120,10 @@ public class TurnOrderManager : MonoBehaviour
                 }
                 turnOrder.Remove(turnOrder[0]);
                 BM.globalTurn += 1;
+                if (turnOrder[0].fated)
+                {
+                    break;
+                }
             }
             //BM.TurnTransiton();
         }

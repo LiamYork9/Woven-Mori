@@ -33,5 +33,18 @@ public class TurnOrderDisplay : MonoBehaviour
         {
             gameObject.GetComponent<Image>().color = new Color32(255, 0, 0, 255);
         }
+
+         if (TurnOrderManager.Instance.turnOrder[turnPostion].fated == true)
+        {
+            displayName.color = Color.yellow;
+        }
+        else if (TurnOrderManager.Instance.turnOrder[turnPostion].visited>0)
+        {
+            displayName.color = Color.red;
+        }
+        else
+        {
+            displayName.color = Color.black;
+        }
     }
 }
