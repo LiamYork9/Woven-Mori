@@ -49,6 +49,11 @@ public class PartyManager : MonoBehaviour, IDataPersistence
             Destroy(this.gameObject);
         }
         DontDestroyOnLoad(this);
+         if(party.Count == 0)
+        {
+           party = starter;
+          
+        }
 
        
 
@@ -58,18 +63,19 @@ public class PartyManager : MonoBehaviour, IDataPersistence
          if(party.Count == 0)
         {
            party = starter;
-           Debug.Log("emptey");
+          
         }
     }
 
     public void LoadData(GameData data)
     {
-        
+        sceneName = data.sceneNameData;
         this.party = data.party;
     }
 
      public void SaveData( GameData data)
     {
+        data.sceneNameData = sceneName;
         data.party = this.party;
     }
 
