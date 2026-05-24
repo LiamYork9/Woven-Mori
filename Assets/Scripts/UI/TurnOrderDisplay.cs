@@ -24,8 +24,11 @@ public class TurnOrderDisplay : MonoBehaviour
         }
         
      
-       
-        if (TurnOrderManager.Instance.turnOrder[turnPostion].unit.partyMember == true)
+        if (TurnOrderManager.Instance.turnOrder[turnPostion] is PolyTurn)
+        {
+            gameObject.GetComponent<Image>().color = new Color32(0, 255, 0, 255);
+        }
+        else if (TurnOrderManager.Instance.turnOrder[turnPostion].unit.partyMember == true)
         {
             gameObject.GetComponent<Image>().color = new Color32(0, 0, 255, 255);
         }
