@@ -42,11 +42,19 @@ public class PolyTurn : Turn
         Turn temp = new Turn();
         temp.PopulateTurn(innerTurns[0].unit, innerTurns[0].fated, innerTurns[0].fate);
         temp.visited ++;
-        TurnOrderManager.Instance.recentTurns.Insert(0, temp);
+        if(innerTurns.Count == 1)
+        {
+            TurnOrderManager.Instance.turnOrder[0] = temp;
+        }
+        else
+        {
+            TurnOrderManager.Instance.recentTurns.Insert(0, temp);
+        }
         innerTurns.Remove(innerTurns[0]);
         if(innerTurns.Count >= 1)
         {
             PopulateTurn(innerTurns[0].unit, innerTurns[0].fated, innerTurns[0].fate);
+            BattleManager.Instance.TurnTransiton();
         }
         else
         {

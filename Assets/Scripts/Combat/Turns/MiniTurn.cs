@@ -42,8 +42,8 @@ public class MiniTurn : Turn
         else
         {
             Debug.Log("NotPoly");
+            BattleManager.Instance.TurnTransiton();
         }
-        BattleManager.Instance.TurnTransiton();
     }
     
 }
