@@ -3,6 +3,7 @@ using UnityEditor.Rendering;
 using UnityEngine;
 using UnityEngine.Events;
 
+[System.Serializable]
 public class MiniTurn : Turn
 {
     
@@ -20,23 +21,29 @@ public class MiniTurn : Turn
     }
     public override IEnumerator EndTurnCo()
     {
+        fated = false;
+
         unit.EndOfTurn.Invoke();
         // Removing Timed out Buff and Debuffs, end of turn effects 
         Turn temp = TurnOrderManager.Instance.turnOrder[0];
         temp.turnShift = turnShift;
         
 
-        BattleManager.Instance.dialogueText.text = " ";
+        BattleManager.Instance.dialogueText.text = "";
         BattleManager.Instance.attacking = false;
         BattleManager.Instance.useItem = false;
         BattleManager.Instance.playerTurn = false;
         BattleManager.Instance.enemyTurn = false;
         yield return new WaitForSeconds(1f);
-        if(temp is PolyTurn)
+        if(TurnOrderManager.Instance.turnOrder[0] is PolyTurn)
         {
             (temp as PolyTurn).NextTurn();
         }
-        BattleManager.Instance.TurnTransiton();
+        else
+        {
+            Debug.Log("NotPoly");
+            BattleManager.Instance.TurnTransiton();
+        }
     }
     
 }

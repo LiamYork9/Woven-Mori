@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using UnityEngine;
+using System.Linq;
 
 public class TurnOrderManager : MonoBehaviour
 {
@@ -20,8 +21,8 @@ public class TurnOrderManager : MonoBehaviour
 
     public BattleManager BM;
 
-    public List<FatedPoint> fatedPoints;
-
+    public List<FatedPoint> fatedPoints = new List<FatedPoint>();
+    public List<PolyTurn> compressedPoints = new List<PolyTurn> ();
 
 
 
@@ -72,16 +73,52 @@ public class TurnOrderManager : MonoBehaviour
             fatedPoints.AddRange(BM.enemySlots[i].GetComponent<UnitBody>().fatedPoints);
         }
         TurnCalulation();
+        fatedPoints  = fatedPoints.OrderBy(p => p.point).ToList<FatedPoint>();
+        PolyTurn temp = new PolyTurn();
+        bool addPoly = false;
 
-
+        foreach(FatedPoint fate in fatedPoints)
+        {
+            if(temp.point == fate.point)
+            {
+                temp.AddMiniTurn(fate);
+                addPoly = true;
+            }
+            else
+            {
+                if(addPoly)
+                {
+                    compressedPoints.Add(temp);
+                    temp = new PolyTurn();
+                } 
+                temp.point = fate.point;
+                temp.AddMiniTurn(fate);
+                addPoly = true;
+            }
+        }
+        if(addPoly)
+        {
+            compressedPoints.Add(temp);
+        }
+        
+        compressedPoints = compressedPoints.OrderBy(p => p.point).ToList<PolyTurn>();
+        foreach(PolyTurn turn in compressedPoints)
+        {
+            if(turnOrder.Count<turn.point)
+            {
+                TurnCalulation(turn.point-turnOrder.Count);
+            }
+            turnOrder.Insert(turn.point, turn.GetPolyturn());
+        }
 
     }
 
     // How turn order is calculated
-    public void TurnCalulation()
+    public void TurnCalulation(int minturns = 0)
     {
+        int added = 0;
         emergencybutton = 0;
-        while (turnOrder.Count < 11 && emergencybutton < 100)
+        while ((turnOrder.Count < 11 || added<= minturns) && emergencybutton < 100)
         {
             emergencybutton++;
             for (int i = 0; i < allFighters.Count; i++)
@@ -133,6 +170,10 @@ public class TurnOrderManager : MonoBehaviour
             {
                 for (int i = 0; i + shift < 0; i++)
                 {
+                    if(turnOrder[0].exhausted == true)
+                    {
+                        turnOrder.Remove(turnOrder[0]);
+                    }
 
                     turnOrder.Insert(0, recentTurns[0]);
                     recentTurns.Remove(recentTurns[0]);
