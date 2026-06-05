@@ -147,6 +147,7 @@ public class Unit : ScriptableObject
 
     public BaseStats stats;
 
+    [Header("FatedActions")]
     public List<FatedTurn> fatedTurns;
     public List<FatedPoint> fatedPoints;
 
