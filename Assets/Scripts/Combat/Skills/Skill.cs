@@ -162,12 +162,12 @@ namespace MoriSkills
 
         }
 
-        public void ApplyEffects(UnitBody unitUser, UnitBody unitTarget)
+        public void ApplyEffects(UnitBody unitUser, List<UnitBody> unitTargets)
         {
             TurnOrderManager.Instance.turnOrder[0].turnShift = turnShift;
             for (int i = 0; i < attrs.Count; i++)
             {
-                attrs[i].ActivateAttr(unitUser,unitTarget,power,element);
+                attrs[i].ActivateAttr(unitUser,unitTargets,power,element);
             }
         }
 

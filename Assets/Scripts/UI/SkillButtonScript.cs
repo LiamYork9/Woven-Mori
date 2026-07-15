@@ -268,7 +268,7 @@ public class SkillButtonScript : MonoBehaviour
     IEnumerator PlayerSkill(Skill skill)
     {
         BattleManager.Instance.usingSkill = false;
-        skill.ApplyEffects(TurnOrderManager.Instance.turnPlayer,BattleManager.Instance.target.GetComponent<UnitBody>());
+        skill.ApplyEffects(TurnOrderManager.Instance.turnPlayer, new List<UnitBody>(){BattleManager.Instance.target.GetComponent<UnitBody>()});
         dialogueText.text =  TurnOrderManager.Instance.turnPlayer.name + " used " + skill.name + " On " + BattleManager.Instance.target.name;
         yield return new WaitForSeconds(2f);
         dialogueText.text = "";
@@ -283,7 +283,7 @@ public class SkillButtonScript : MonoBehaviour
     IEnumerator PlayerSkillAlly(Skill skill)
     {
         BattleManager.Instance.usingSkill = false;
-        skill.ApplyEffects(TurnOrderManager.Instance.turnPlayer,BattleManager.Instance.target.GetComponent<UnitBody>());
+        skill.ApplyEffects(TurnOrderManager.Instance.turnPlayer, new List<UnitBody>(){BattleManager.Instance.target.GetComponent<UnitBody>()});
         dialogueText.text =  TurnOrderManager.Instance.turnPlayer.name + " used " + skill.name + " On " + BattleManager.Instance.target.name;
         yield return new WaitForSeconds(2f);
         dialogueText.text = "";
@@ -302,10 +302,9 @@ public class SkillButtonScript : MonoBehaviour
         for (int i = 0; i < targets.Count; i++)
         {
             dialogueText.text += " " + targets[i].name;
-           
-            // Remeber to cross this bridge (self buff multiple times)
-            skill.ApplyEffects(TurnOrderManager.Instance.turnPlayer,targets[i]);
         }
+        skill.ApplyEffects(TurnOrderManager.Instance.turnPlayer,targets);
+        
         yield return new WaitForSeconds(2f);
         dialogueText.text = "";
         BattleManager.Instance.actionMenu.SetActive(true);
@@ -322,10 +321,8 @@ public class SkillButtonScript : MonoBehaviour
         for (int i = 0; i < targets.Count; i++)
         {
             dialogueText.text += " " + targets[i].name;
-           
-            // Remeber to cross this bridge (self buff multiple times)
-            skill.ApplyEffects(TurnOrderManager.Instance.turnPlayer,targets[i]);
         }
+        skill.ApplyEffects(TurnOrderManager.Instance.turnPlayer,targets);
         yield return new WaitForSeconds(2f);
         dialogueText.text = "";
         BattleManager.Instance.actionMenu.SetActive(true);
@@ -339,7 +336,7 @@ public class SkillButtonScript : MonoBehaviour
     IEnumerator PlayerSkillSelf(Skill skill)
     {
         BattleManager.Instance.usingSkill = false;
-        skill.ApplyEffects(TurnOrderManager.Instance.turnPlayer, TurnOrderManager.Instance.turnPlayer);
+        skill.ApplyEffects(TurnOrderManager.Instance.turnPlayer, new List<UnitBody>(){TurnOrderManager.Instance.turnPlayer});
         dialogueText.text = TurnOrderManager.Instance.turnPlayer.name + " used " + skill.name;
         yield return new WaitForSeconds(2f);
         dialogueText.text = "";
