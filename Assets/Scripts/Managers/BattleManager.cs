@@ -656,7 +656,7 @@ public class BattleManager : MonoBehaviour
         {
             TurnOrderManager.Instance.turnPlayer.equipmentAttrs[i].ActivateOnSkill(temp);
         }
-        temp.ApplyEffects(TurnOrderManager.Instance.turnPlayer,target.GetComponent<UnitBody>());
+        temp.ApplyEffects(TurnOrderManager.Instance.turnPlayer,new List<UnitBody>{target.GetComponent<UnitBody>()});
         yield return new WaitForSeconds(2f);
         TOM.EndTurn();
 
@@ -673,10 +673,9 @@ public class BattleManager : MonoBehaviour
         for (int i = 0; i < targets.Count; i++)
         {
             dialogueText.text += " " + targets[i].name;
-           
-            // Remeber to cross this bridge (self buff multiple times)
-            skill.ApplyEffects(TurnOrderManager.Instance.turnPlayer,targets[i]);
         }
+        skill.ApplyEffects(TurnOrderManager.Instance.turnPlayer,targets);
+        
         yield return new WaitForSeconds(2f);
         dialogueText.text = " ";
         enemyTurn = false;

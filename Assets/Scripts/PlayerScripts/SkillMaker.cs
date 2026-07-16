@@ -47,7 +47,7 @@ public class SkillMaker : MonoBehaviour
     {
         Skill Attack = new Skill(SkillId.Attack, "Attack",1, Element.None, Target.single, Category.Attack, 100, 0, "Your basic attack", 0, 1).Attr(new LevelScaleAttr(1).Attr(new DamageAttr(1,DamageType.Physical)));
         madeSkills.Add(Attack);
-        Skill EndBringer = new Skill(SkillId.EndBringer, "End Bringer",100 , Element.Fate, Target.single, Category.Attack, 100, 4, "This shit kills people", 0, 2).Attr(new DamageAttr(1,DamageType.Magic,Element.Fate)).Attr(new DamageAttr(0.1f,DamageType.Magic,Element.Fate,true,true));
+        Skill EndBringer = new Skill(SkillId.EndBringer, "End Bringer",100 , Element.Fate, Target.single, Category.Attack, 100, 4, "This shit kills people", 0, 2).Attr(new DamageAttr(1,DamageType.Magic,Element.Fate,false,DamageAfterEffect.Recoil, 0.1f));
         madeSkills.Add(EndBringer);
         Skill SmallPunch = new Skill(SkillId.SmallPunch, "Small Punch",5 , Element.None, Target.single, Category.Attack, 100, 1, "You punch them", 100, 2).Attr(new DamageAttr(1,DamageType.Magic));
         madeSkills.Add(SmallPunch);

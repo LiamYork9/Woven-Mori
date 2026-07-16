@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using Unity.IO.LowLevel.Unsafe;
+using Unity.VisualScripting;
 using UnityEditor.Rendering;
 using UnityEngine;
 using UnityEngine.AI;
@@ -22,6 +23,12 @@ namespace MoriSkills
         Magic,
         Destined
     }
+    public enum DamageAfterEffect
+    {
+        None,
+        Recoil,
+        Lifesteal
+    };
 
     [System.Serializable]
     public class SkillAttr
@@ -41,7 +48,7 @@ namespace MoriSkills
             return (SkillAttr)this.MemberwiseClone();
         }
 
-        public virtual void ActivateAttr(UnitBody unitUser, UnitBody unitTarget, int power, Element skillElement)
+        public virtual void ActivateAttr(UnitBody unitUser, List<UnitBody> unitTargets, int power, Element skillElement)
         {
 
         }
@@ -49,34 +56,54 @@ namespace MoriSkills
 
     public class DamageAttr : SkillAttr
     {
+        
         public float mutiplier;
         public DamageType type;
         public Element element;
 
         public bool changeElement;
+        public DamageAfterEffect afterEff;
+        public float afterEffMult;
 
-        public DamageAttr(float skillMult, DamageType damageType, Element damageElement = Element.None,bool elementOverride = false, bool targetSelf = false) : base(targetSelf)
+        public DamageAttr(float skillMult, DamageType damageType, Element damageElement = Element.None, bool elementOverride = false, DamageAfterEffect afterEffect = DamageAfterEffect.None, float afterEffectMultiplier = 0.5f, bool targetSelf = false) : base(targetSelf)
         {
             name = "DamageAttr";
             mutiplier = skillMult;
             type = damageType;
             element = damageElement;
             changeElement = elementOverride;
+            afterEff = afterEffect;
+            afterEffMult = afterEffectMultiplier;
+
         }
 
-        public override void ActivateAttr(UnitBody unitUser, UnitBody unitTarget, int power,Element skillElement)
+        public override void ActivateAttr(UnitBody unitUser, List<UnitBody> unitTargets, int power,Element skillElement)
         {
+            int damageDealt = 0;
             if(changeElement == false)
             {
                 element = skillElement;
             }
             if(targetSelf)
             {
-                unitUser.TakeDamage((int)(power * mutiplier * unitUser.activeStats.Attack), type, element);                
+                damageDealt = unitUser.TakeDamage((int)(power * mutiplier * unitUser.activeStats.Attack), type, element);                
             }
             else
+            { 
+                for(int i=0; i<unitTargets.Count; i++)
+                {
+                    damageDealt+=unitTargets[i].TakeDamage((int)(power * mutiplier * unitUser.activeStats.Attack), type, element);
+                }
+            }
+
+            if(afterEff == DamageAfterEffect.Recoil)
             {
-                unitTarget.TakeDamage((int)(power * mutiplier * unitUser.activeStats.Attack), type, element);
+                unitUser.activeStats.CurrentHP -= (int)(damageDealt*afterEffMult);
+                PopUpManager.Instance.DamageDone((int)(damageDealt*afterEffMult),unitUser.transform.position,false);
+            }
+            else if(afterEff == DamageAfterEffect.Lifesteal)
+            {
+                unitUser.activeStats.CurrentHP += (int)(damageDealt*afterEffMult);
             }
            
         }
@@ -109,12 +136,12 @@ namespace MoriSkills
             scaleValue = scaleRate;
         }
 
-        public override void ActivateAttr(UnitBody unitUser, UnitBody unitTarget, int power,Element skillElement)
+        public override void ActivateAttr(UnitBody unitUser, List<UnitBody> unitTargets, int power,Element skillElement)
         {
             for(int i = 0; i < scaledAttr.Count; i++)
             {
                 
-                scaledAttr[i].ActivateAttr(unitUser, unitTarget,power+scaleValue*unitUser.activeStats.Level, skillElement);
+                scaledAttr[i].ActivateAttr(unitUser, unitTargets,power+scaleValue*unitUser.activeStats.Level, skillElement);
             }
         }
 
@@ -144,29 +171,32 @@ namespace MoriSkills
             duration = conDuration;
             boost = boostNum;
         }
-        public override void ActivateAttr(UnitBody unitUser, UnitBody unitTarget, int power,Element skillElement)
+        public override void ActivateAttr(UnitBody unitUser, List<UnitBody> unitTargets, int power,Element skillElement)
         {
-            UnitBody temp;
+            List<UnitBody> temp = new List<UnitBody>();
             if (targetSelf==true)
             {
-                temp = unitUser;
+                temp.Add(unitUser);
             }
             else
             {
-                temp = unitTarget;
+                temp.AddRange(unitTargets);
             }
 
-            if((stat & Stats.Attack) == Stats.Attack)
+            for(int i =0; i<temp.Count; i++)
             {
-             temp.ApplyCondition(new AttackBoostCondition(boost, duration));
-            }
-            if((stat & Stats.Defense) == Stats.Defense)
-            {
-             temp.ApplyCondition(new DefenseBoostCondition(boost, duration));
-            }
-            if((stat & Stats.mDefense) == Stats.mDefense)
-            {
-             temp.ApplyCondition(new MagicDefenseBoostCondition(boost, duration));
+                if((stat & Stats.Attack) == Stats.Attack)
+                {
+                temp[i].ApplyCondition(new AttackBoostCondition(boost, duration));
+                }
+                if((stat & Stats.Defense) == Stats.Defense)
+                {
+                temp[i].ApplyCondition(new DefenseBoostCondition(boost, duration));
+                }
+                if((stat & Stats.mDefense) == Stats.mDefense)
+                {
+                temp[i].ApplyCondition(new MagicDefenseBoostCondition(boost, duration));
+                }
             }
         }
     }
@@ -186,29 +216,32 @@ namespace MoriSkills
             boost = boostNum;
             
         }
-        public override void ActivateAttr(UnitBody unitUser, UnitBody unitTarget, int power,Element skillElement)
+        public override void ActivateAttr(UnitBody unitUser, List<UnitBody> unitTargets, int power,Element skillElement)
         {
-            UnitBody temp;
+            List<UnitBody> temp = new List<UnitBody>();
             if (targetSelf==true)
             {
-                temp = unitUser;
+                temp.Add(unitUser);
             }
             else
             {
-                temp = unitTarget;
+                temp.AddRange(unitTargets);
             }
 
-            if((stat & Stats.Attack) == Stats.Attack)
+            for(int i =0; i<temp.Count; i++)
             {
-             temp.ApplyCondition(new AttackDropCondition(boost, duration));
-            }
-            if((stat & Stats.Defense) == Stats.Defense)
-            {
-             temp.ApplyCondition(new DefenseDropCondition(boost, duration));
-            }
-            if((stat & Stats.mDefense) == Stats.mDefense)
-            {
-             temp.ApplyCondition(new MagicDefenseDropCondition(boost, duration));
+                if((stat & Stats.Attack) == Stats.Attack)
+                {
+                temp[i].ApplyCondition(new AttackDropCondition(boost, duration));
+                }
+                if((stat & Stats.Defense) == Stats.Defense)
+                {
+                temp[i].ApplyCondition(new DefenseDropCondition(boost, duration));
+                }
+                if((stat & Stats.mDefense) == Stats.mDefense)
+                {
+                temp[i].ApplyCondition(new MagicDefenseDropCondition(boost, duration));
+                }
             }
         }
     }
@@ -230,21 +263,29 @@ namespace MoriSkills
                 name = "priority Up";
             }
         }
-        public override void ActivateAttr(UnitBody unitUser, UnitBody unitTarget, int power, Element skillElement)
+        public override void ActivateAttr(UnitBody unitUser, List<UnitBody> unitTargets, int power, Element skillElement)
         {
-            UnitBody temp = unitTarget;
+            List<UnitBody> temp = new List<UnitBody>(); 
+            
             if(targetSelf)
             {
-                temp = unitUser;
-            }
-            if(priority>=0)
-            {
-                temp.ApplyCondition(new PriorityBoostCondition(priority,duration));
+                temp.Add(unitUser);
             }
             else
             {
-                
-                temp.ApplyCondition(new PriorityDropCondition(-priority,duration));
+               temp.AddRange(unitTargets);
+            }
+            for(int i =0; i<temp.Count; i++)
+            {
+                if(priority>=0)
+                {
+                    temp[i].ApplyCondition(new PriorityBoostCondition(priority,duration));
+                }
+                else
+                {
+                    
+                    temp[i].ApplyCondition(new PriorityDropCondition(-priority,duration));
+                }
             }
         }
     }
@@ -253,7 +294,7 @@ namespace MoriSkills
     {
         public float healMultiplier;
         public float statModifier;
-        UnitBody target = null;
+        List<UnitBody> target = new List<UnitBody>();
 
         public HealAttr(float healMult, float statMod = .2f, bool targetSelf = false) : base(targetSelf)
 
@@ -264,21 +305,25 @@ namespace MoriSkills
 
         }
 
-        public override void ActivateAttr(UnitBody unitUser, UnitBody unitTarget, int power,Element skillElement)
+        public override void ActivateAttr(UnitBody unitUser, List<UnitBody> unitTargets, int power,Element skillElement)
         {
             
             if (targetSelf == true)
             {
-                target = unitUser;
+                target.Add(unitUser);
             }
             else
             {
-                target = unitTarget;
+                target.AddRange(unitTargets);
             }
-            target.activeStats.CurrentHP += (int)((healMultiplier + (unitUser.activeStats.Attack*statModifier/10))*power);
-            if (target.activeStats.CurrentHP>target.activeStats.MaxHP)
+            int healVal = (int)((healMultiplier + (unitUser.activeStats.Attack*statModifier/10))*power);
+            for(int i =0; i<target.Count; i++)
             {
-                target.activeStats.CurrentHP = target.activeStats.MaxHP;
+                target[i].activeStats.CurrentHP += healVal;
+                if (target[i].activeStats.CurrentHP>target[i].activeStats.MaxHP)
+                {
+                    target[i].activeStats.CurrentHP = target[i].activeStats.MaxHP;
+                }
             }
 
         }
@@ -292,7 +337,7 @@ namespace MoriSkills
             name = "ApplyConditionAttr";
             duration = conditionDuration;
         }
-        public override void ActivateAttr(UnitBody unitUser, UnitBody unitTarget, int power,Element skillElement)
+        public override void ActivateAttr(UnitBody unitUser, List<UnitBody> unitTargets, int power,Element skillElement)
         {
             if (targetSelf == true)
             {
@@ -300,7 +345,10 @@ namespace MoriSkills
             }
             else
             {
-                unitTarget.ApplyCondition(new Condition(duration));
+                for(int i =0; i<unitTargets.Count; i++)
+                {
+                    unitTargets[i].ApplyCondition(new Condition(duration));
+                }
             }
         }
     }
@@ -339,20 +387,20 @@ namespace MoriSkills
             name = "EvenOddAttr";
         }
 
-        public override void ActivateAttr(UnitBody unitUser, UnitBody unitTarget, int power,Element skillElement)
+        public override void ActivateAttr(UnitBody unitUser, List<UnitBody> unitTargets, int power,Element skillElement)
         {
             if (BattleManager.Instance.globalTurn % 2 == 0)
             {
                 for (int i = 0; i < evenAttr.Count; i++)
                 {
-                    evenAttr[i].ActivateAttr(unitUser, unitTarget,power,skillElement);
+                    evenAttr[i].ActivateAttr(unitUser, unitTargets,power,skillElement);
                 }
             }
             else
             {
                 for (int i = 0; i < oddAttr.Count; i++)
                 {
-                    oddAttr[i].ActivateAttr(unitUser, unitTarget,power,skillElement);
+                    oddAttr[i].ActivateAttr(unitUser, unitTargets,power,skillElement);
                 }
             }
         }
@@ -388,7 +436,7 @@ namespace MoriSkills
             category = poisonCat;
             potency = poisonPower;
         }
-        public override void ActivateAttr(UnitBody unitUser, UnitBody unitTarget, int power,Element skillElement)
+        public override void ActivateAttr(UnitBody unitUser, List<UnitBody> unitTargets, int power,Element skillElement)
         {
             if (targetSelf == true)
             {
@@ -396,7 +444,10 @@ namespace MoriSkills
             }
             else
             {
-                unitTarget.ApplyCondition(new DamageOverTimeCondition(category,potency,duration));
+                for(int i =0; i<unitTargets.Count; i++)
+                {
+                    unitTargets[i].ApplyCondition(new DamageOverTimeCondition(category,potency,duration));
+                }
             }
         }
     }
@@ -411,7 +462,7 @@ namespace MoriSkills
             name = "APAttr";
             amount = APchange;
         }
-        public override void ActivateAttr(UnitBody unitUser, UnitBody unitTarget, int power,Element skillElement)
+        public override void ActivateAttr(UnitBody unitUser, List<UnitBody> unitTargets, int power,Element skillElement)
         {
             if (targetSelf == true)
             {
@@ -423,10 +474,13 @@ namespace MoriSkills
             }
             else
             {
-                unitTarget.AP+=amount;
-                if (unitTarget.AP < 0)
+                for(int i =0; i<unitTargets.Count; i++)
                 {
-                    unitTarget.AP = 0;
+                    unitTargets[i].AP+=amount;
+                    if (unitTargets[i].AP < 0)
+                    {
+                        unitTargets[i].AP = 0;
+                    }
                 }
             }
         }

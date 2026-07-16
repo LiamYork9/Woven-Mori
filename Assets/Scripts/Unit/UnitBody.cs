@@ -184,7 +184,7 @@ public class UnitBody : MonoBehaviour
         }
     }
 
-    public void TakeDamage(int damageValue, DamageType damageType = DamageType.Physical, Element element = Element.None)
+    public int TakeDamage(int damageValue, DamageType damageType = DamageType.Physical, Element element = Element.None)
     {
         int damageMod = 0;
         if (damageType == DamageType.Physical)
@@ -222,6 +222,17 @@ public class UnitBody : MonoBehaviour
         {
             damageMod = 0;
         }
+        
+        int returnDamage = 0;
+        if(damageMod>activeStats.CurrentHP)
+        {
+            returnDamage = activeStats.CurrentHP;
+        }
+        else
+        {
+            returnDamage=damageMod;
+        }
+
 
         activeStats.CurrentHP -= damageMod;
         PopUpManager.Instance.DamageDone(damageMod,this.transform.position,false);
@@ -232,7 +243,8 @@ public class UnitBody : MonoBehaviour
         {
             Death();
         }
-        
+
+        return returnDamage;
     }
     
     public UnitBody ApplyCondition(Condition addedCondition)
