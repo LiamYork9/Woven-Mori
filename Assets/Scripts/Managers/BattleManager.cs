@@ -740,59 +740,73 @@ public class BattleManager : MonoBehaviour
     public void WinCondtion()
     {
         fightState = FightState.Won;
-        PartyManager.Instance.funds += cashEarned;
-        ButtonsOff();
-        for (int i = 0; i < PartyManager.Instance.party.Count; i++)
-        {
-            PlayerCharacter temp = PartyManager.Instance.party[i];
-
-            for (int j = 0; j < defaultPlayerSlots[i].GetComponent<UnitBody>().conditions.Count; j++)
-            {
-                defaultPlayerSlots[i].GetComponent<UnitBody>().conditions[j].RemoveCondition();
-            }
-            defaultPlayerSlots[i].GetComponent<UnitBody>().baseStats.CurrentHP = defaultPlayerSlots[i].GetComponent<UnitBody>().activeStats.CurrentHP;
-
-            temp.CopyStats(defaultPlayerSlots[i].GetComponent<UnitBody>());
-            temp.exp += expEarned;
-            while (temp.exp >= 100*temp.stats.Level)
-            {
-                temp.exp -= temp.stats.Level*100;
-                temp.LevelUp();
-            }
-        }
-        for (int i = 0; i < loot.Count; i++)
-        {
-            InventoryManager.Instance.PickUp(loot[i].item, loot[i].amount);
-        }
-        dialogueText.text = "You Win!";
-
-        win = true;
-        BattleEndWin();
     }
-
-    // What happens when you lose
-
+    
     public void LoseCondition()
     {
         fightState = FightState.Lost;
-        ButtonsOff();
-        for (int i = 0; i < PartyManager.Instance.party.Count; i++)
+    }
+    
+    
+    
+    
+    public void CheckFightCondition()
+    {
+        if (fightState ==  FightState.Won)
         {
-            PlayerCharacter temp = PartyManager.Instance.party[i];
-
-            for (int j = 0; j < defaultPlayerSlots[i].GetComponent<UnitBody>().conditions.Count; j++)
+            PartyManager.Instance.funds += cashEarned;
+            ButtonsOff();
+            for (int i = 0; i < PartyManager.Instance.party.Count; i++)
             {
-                defaultPlayerSlots[i].GetComponent<UnitBody>().conditions[j].RemoveCondition();
+                PlayerCharacter temp = PartyManager.Instance.party[i];
+
+                for (int j = 0; j < defaultPlayerSlots[i].GetComponent<UnitBody>().conditions.Count; j++)
+                {
+                    defaultPlayerSlots[i].GetComponent<UnitBody>().conditions[j].RemoveCondition();
+                }
+                defaultPlayerSlots[i].GetComponent<UnitBody>().baseStats.CurrentHP = defaultPlayerSlots[i].GetComponent<UnitBody>().activeStats.CurrentHP;
+
+                temp.CopyStats(defaultPlayerSlots[i].GetComponent<UnitBody>());
+                temp.exp += expEarned;
+                while (temp.exp >= 100*temp.stats.Level)
+                {
+                    temp.exp -= temp.stats.Level*100;
+                    temp.LevelUp();
+                }
             }
-            defaultPlayerSlots[i].GetComponent<UnitBody>().baseStats.CurrentHP = defaultPlayerSlots[i].GetComponent<UnitBody>().activeStats.CurrentHP;
-          
-            temp.CopyStats(defaultPlayerSlots[i].GetComponent<UnitBody>());
-            temp.stats.CurrentHP = temp.stats.MaxHP+defaultPlayerSlots[i].GetComponent<UnitBody>().equipmentStats[4];
+            for (int i = 0; i < loot.Count; i++)
+            {
+                InventoryManager.Instance.PickUp(loot[i].item, loot[i].amount);
+            }
+            dialogueText.text = "You Win!";
+
+            win = true;
+            BattleEndWin();
         }
-        dialogueText.text = "You Lose";
-        PlayerPrefs.DeleteAll();
-        EncounterManager.Instance.fightArea = false;
-        BattleEndLose();
+    
+
+    // What happens when you lose
+        if (fightState ==  FightState.Lost)
+        {    
+            ButtonsOff();
+            for (int i = 0; i < PartyManager.Instance.party.Count; i++)
+            {
+                PlayerCharacter temp = PartyManager.Instance.party[i];
+
+                for (int j = 0; j < defaultPlayerSlots[i].GetComponent<UnitBody>().conditions.Count; j++)
+                {
+                    defaultPlayerSlots[i].GetComponent<UnitBody>().conditions[j].RemoveCondition();
+                }
+                defaultPlayerSlots[i].GetComponent<UnitBody>().baseStats.CurrentHP = defaultPlayerSlots[i].GetComponent<UnitBody>().activeStats.CurrentHP;
+            
+                temp.CopyStats(defaultPlayerSlots[i].GetComponent<UnitBody>());
+                temp.stats.CurrentHP = temp.stats.MaxHP+defaultPlayerSlots[i].GetComponent<UnitBody>().equipmentStats[4];
+            }
+            dialogueText.text = "You Lose";
+            PlayerPrefs.DeleteAll();
+            EncounterManager.Instance.fightArea = false;
+            BattleEndLose();
+        }
     }
 
     public void BattleEndLose()

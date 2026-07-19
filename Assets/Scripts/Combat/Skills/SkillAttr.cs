@@ -104,6 +104,10 @@ namespace MoriSkills
             else if(afterEff == DamageAfterEffect.Lifesteal)
             {
                 unitUser.activeStats.CurrentHP += (int)(damageDealt*afterEffMult);
+                if(unitUser.activeStats.CurrentHP > unitUser.activeStats.MaxHP)
+                {
+                    unitUser.activeStats.CurrentHP = unitUser.activeStats.MaxHP;
+                }
             }
            
         }
