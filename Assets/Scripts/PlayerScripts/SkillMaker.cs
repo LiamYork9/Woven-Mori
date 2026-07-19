@@ -79,7 +79,7 @@ public class SkillMaker : MonoBehaviour
         madeSkills.Add(Rampage);
         Skill CutLine = new Skill(SkillId.CutLine, "Cut Line",0 , Element.Fate, Target.mutipleEnemy,Category.Debuff,0,3,"Targets: All Enemies \nElement: Fate \nLower all enimes Attack",0,-2).Attr(new StatDropConAttr(Stats.Attack, standardBoost));
         madeSkills.Add(CutLine);
-        Skill HolyAbsorption = new Skill(SkillId.HolyAbsorption,"Holy Absorption",25 ,Element.Light,Target.single,Category.Attack,0,2,"Power: 25 \nTargets: One Enemie \nElement: Light \nAbsorb HP from the enemy",0,-1).Attr(new DamageAttr(1,DamageType.Magic,Element.Light)).Attr( new HealAttr(0.4f,.2f,true));
+        Skill HolyAbsorption = new Skill(SkillId.HolyAbsorption,"Holy Absorption",25 ,Element.Light,Target.single,Category.Attack,0,2,"Power: 25 \nTargets: One Enemie \nElement: Light \nAbsorb HP from the enemy",0,-1).Attr(new DamageAttr(1,DamageType.Magic,Element.Light,false,DamageAfterEffect.Lifesteal,0.25f));
         madeSkills.Add(HolyAbsorption);
         Skill EvenOdd = new Skill(SkillId.EvenOdd, "EvenOdd",10 , Element.None, Target.single, Category.Attack, 100, 1, "On Even turns Heal and buff yourself, on Odd turns hit the enemy and debuff them", 100, -2).Attr(new EvenOddAttr().Odd(new DamageAttr(1,DamageType.Magic)).Odd(new StatDropConAttr(Stats.Attack, standardBoost)).Even(new HealAttr(1, .2f, true)).Even(new StatBoostConAttr(Stats.Attack|Stats.Defense, standardBoost,3,true)));
         madeSkills.Add(EvenOdd);

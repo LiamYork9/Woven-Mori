@@ -104,6 +104,11 @@ namespace MoriSkills
             else if(afterEff == DamageAfterEffect.Lifesteal)
             {
                 unitUser.activeStats.CurrentHP += (int)(damageDealt*afterEffMult);
+                if(unitUser.activeStats.CurrentHP > unitUser.activeStats.MaxHP)
+                {
+                    unitUser.activeStats.CurrentHP = unitUser.activeStats.MaxHP;
+                }
+                PopUpManager.Instance.HealingDone((int)(damageDealt*afterEffMult),unitUser.transform.position,false);
             }
            
         }
@@ -324,6 +329,8 @@ namespace MoriSkills
                 {
                     target[i].activeStats.CurrentHP = target[i].activeStats.MaxHP;
                 }
+                
+                PopUpManager.Instance.HealingDone(healVal,target[i].transform.position,false);
             }
 
         }

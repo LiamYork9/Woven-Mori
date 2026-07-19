@@ -248,6 +248,13 @@ public class TurnOrderManager : MonoBehaviour
 
     public void EndTurn()
     {
-        turnOrder[0].EndTurn();
+        if(BM.fightState!=FightState.Active)
+        {
+            BM.CheckFightCondition();
+        }
+        else
+        {
+            turnOrder[0].EndTurn();
+        }
     }
 }
