@@ -110,6 +110,11 @@ public class EncounterManager : MonoBehaviour
     {
         SceneManager.LoadScene(sceneName);
     }
+
+    public void StartTutorial()
+    {
+        SceneManager.LoadScene("Tutorial");
+    }
     
     public void RollEncounter(int count = -1)
     {

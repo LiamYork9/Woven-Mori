@@ -24,6 +24,9 @@ public class DialogueInteraction : MonoBehaviour
 
     public bool canTalk = true;
 
+    public bool tutorial = false;
+
+
     
 
 
@@ -31,11 +34,14 @@ public class DialogueInteraction : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        if( tutorial == false){
         
         TextBoxManager.Instance.DiologueBox.SetActive(false);
         TextBoxManager.Instance.topBox.SetActive(false);
         TextBoxManager.Instance.skip.SetActive(false);
         TextBoxManager.Instance.nameTextObj.SetActive(false);
+
+        }
     }
  
 
@@ -136,6 +142,15 @@ public class DialogueInteraction : MonoBehaviour
         TextBoxManager.Instance.skip.SetActive(true);
         TextBoxManager.Instance.nameTextObj.SetActive(true);
         text.StartDiolague();
+    }
+
+     public void StartDialogueCombat()
+    {
+         TextBoxManager.Instance.DiologueBox.SetActive(true);
+        TextBoxManager.Instance.topBox.SetActive(true);
+        TextBoxManager.Instance.skip.SetActive(true);
+        TextBoxManager.Instance.nameTextObj.SetActive(true);
+        text.StartDiolagueCombat();
     }
 
 

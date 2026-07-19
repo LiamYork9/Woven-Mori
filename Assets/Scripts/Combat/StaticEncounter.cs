@@ -41,6 +41,14 @@ public class StaticEncounter : MonoBehaviour
        EncounterManager.Instance.StartEncounter();
     }
 
+    public void StartStaticTutorial()
+    {
+        PartyManager.Instance.staticEncounter = true;
+        EncounterManager.Instance.encounteredEnemies = staticEnemy;
+         EncounterManager.Instance.startEncounter.Invoke();
+         EncounterManager.Instance.StartTutorial();
+    }
+
     public void BossDeath()
     {
         //PartyManager.Instance.staticEncounter = false;
