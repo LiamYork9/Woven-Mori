@@ -108,6 +108,7 @@ namespace MoriSkills
                 {
                     unitUser.activeStats.CurrentHP = unitUser.activeStats.MaxHP;
                 }
+                PopUpManager.Instance.HealingDone((int)(damageDealt*afterEffMult),unitUser.transform.position,false);
             }
            
         }
@@ -328,6 +329,8 @@ namespace MoriSkills
                 {
                     target[i].activeStats.CurrentHP = target[i].activeStats.MaxHP;
                 }
+                
+                PopUpManager.Instance.HealingDone(healVal,target[i].transform.position,false);
             }
 
         }

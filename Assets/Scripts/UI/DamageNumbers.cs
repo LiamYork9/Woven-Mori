@@ -101,8 +101,16 @@ public class DamageNumbers : MonoBehaviour
             OrientCurveBasedOnDirection();
         }
 
-        public void Display(int damage, Vector3 objPosition, bool direction, bool isCrit)
+        public void Display(int damage, Vector3 objPosition, bool direction, bool isCrit, bool isHeal = false)
         {
+            if(isHeal)
+            {
+                normalFontColor = Color.green;
+            }
+            else
+            {
+                normalFontColor = Color.red;
+            }
             transform.position = objPosition;
             _startingPositionForVisualization = objPosition;
             _direction = direction;
