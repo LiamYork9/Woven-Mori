@@ -10,8 +10,12 @@ public class GameData
   
     public Vector3 playerPosition;
 
+    public long lastUpdated;
+
    
     public List<PlayerCharacter> party;
+
+    public string sceneNameData;
     
 
     // the values defined in this constructor will be the default values
@@ -19,6 +23,7 @@ public class GameData
     public GameData() 
     {
         
+        sceneNameData = "NodeTesting";
       
         playerPosition = Vector3.zero;
        
