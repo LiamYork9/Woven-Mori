@@ -1,10 +1,7 @@
 using System;
 using System.Collections.Generic;
-using Unity.IO.LowLevel.Unsafe;
-using Unity.VisualScripting;
-using UnityEditor.Rendering;
+using UnityEditor;
 using UnityEngine;
-using UnityEngine.AI;
 
 namespace MoriSkills
 {
@@ -34,11 +31,13 @@ namespace MoriSkills
     public class SkillAttr
     {
         public string name;
+        public int chance;
         public bool targetSelf;
 
-        public SkillAttr(bool doTargetSelf = false)
+        public SkillAttr(bool doTargetSelf = false, int effChance = 100)
         {
             name = "Generic Attr";
+            
             this.targetSelf = doTargetSelf;
 
         }
@@ -65,7 +64,7 @@ namespace MoriSkills
         public DamageAfterEffect afterEff;
         public float afterEffMult;
 
-        public DamageAttr(float skillMult, DamageType damageType, Element damageElement = Element.None, bool elementOverride = false, DamageAfterEffect afterEffect = DamageAfterEffect.None, float afterEffectMultiplier = 0.5f, bool targetSelf = false) : base(targetSelf)
+        public DamageAttr(float skillMult, DamageType damageType, Element damageElement = Element.None, bool elementOverride = false, DamageAfterEffect afterEffect = DamageAfterEffect.None, float afterEffectMultiplier = 0.5f, bool targetSelf = false, int effChance = 100) : base(targetSelf, effChance)
         {
             name = "DamageAttr";
             mutiplier = skillMult;
@@ -169,7 +168,7 @@ namespace MoriSkills
         public int boost;
 
         public int duration;
-        public StatBoostConAttr(Stats boostedStat, int boostNum, int conDuration = 3, bool targetSelf = false) : base(targetSelf)
+        public StatBoostConAttr(Stats boostedStat, int boostNum, int conDuration = 3, bool targetSelf = false,int effChance = 100) : base(targetSelf,effChance)
         {
             name = "StatBoostAttr";
             stat = boostedStat;
@@ -213,7 +212,7 @@ namespace MoriSkills
         public int boost;
 
         public int duration;
-        public StatDropConAttr(Stats boostedStat, int boostNum, int conDuration = 3, bool targetSelf = false) : base(targetSelf)
+        public StatDropConAttr(Stats boostedStat, int boostNum, int conDuration = 3, bool targetSelf = false, int effChance = 100) : base(targetSelf, effChance)
         {
             name = "StatDropAttr";
             stat = boostedStat;
@@ -255,7 +254,7 @@ namespace MoriSkills
     {
         public int priority;
         public int duration;
-        public PriorityAttr(int conPriority, int conDuration = 3, bool targetSelf = false) : base(targetSelf)
+        public PriorityAttr(int conPriority, int conDuration = 3, bool targetSelf = false, int effChance = 100) : base(targetSelf, effChance)
         {
             priority = conPriority;
             duration = conDuration;
@@ -301,7 +300,7 @@ namespace MoriSkills
         public float statModifier;
         List<UnitBody> target = new List<UnitBody>();
 
-        public HealAttr(float healMult, float statMod = .2f, bool targetSelf = false) : base(targetSelf)
+        public HealAttr(float healMult, float statMod = .2f, bool targetSelf = false,int effChance = 100) : base(targetSelf, effChance)
 
         {
             name = "HealAttr";
@@ -339,7 +338,7 @@ namespace MoriSkills
     public class ApplyConditionAttr : SkillAttr
     {
         public int duration;
-        public ApplyConditionAttr(int conditionDuration = 2, bool targetSelf = false) : base(targetSelf)
+        public ApplyConditionAttr(int conditionDuration = 2, bool targetSelf = false, int effChance = 100) : base(targetSelf,effChance)
         {
             name = "ApplyConditionAttr";
             duration = conditionDuration;
@@ -436,7 +435,7 @@ namespace MoriSkills
         public int potency;
 
 
-        public ApplyPoisonAttr(int conditionDuration = 2, int poisonCat = 1, int poisonPower = 5, bool targetSelf = false) : base(targetSelf)
+        public ApplyPoisonAttr(int conditionDuration = 2, int poisonCat = 1, int poisonPower = 5, bool targetSelf = false, int effChance = 100) : base(targetSelf, effChance)
         {
             name = "ApplyConditionAttr";
             duration = conditionDuration;
@@ -464,7 +463,7 @@ namespace MoriSkills
         public int amount;
 
 
-        public APGainAttr(int APchange = 1, bool targetSelf = false) : base(targetSelf)
+        public APGainAttr(int APchange = 1, bool targetSelf = false, int effChance = 100) : base(targetSelf, effChance)
         {
             name = "APAttr";
             amount = APchange;

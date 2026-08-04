@@ -67,12 +67,6 @@ namespace MoriSkills
         Support
     }
 
-
-    public class Condtion
-    {
-
-    }
-
     [System.Serializable]
     public class Skill
     {
@@ -87,23 +81,19 @@ namespace MoriSkills
 
         public int power;
 
-        public int accurcy;
-
         public int cost;
 
         public string toolTip;
-
-        public int chance;
 
         public int turnShift;
 
         [SerializeReference]
         public List<SkillAttr> attrs;
 
-        public List<Condtion> condtions;
+        public List<SkillCondition> conditions;
 
 
-        public Skill(SkillId SskillId, string SskillName, int Spower, Element Selement, Target defualtTarget, Category Scategory, int Saccuracy, int Scost, string StoolTip, int Schance, int SturnShift, List<SkillAttr> Sattr = null, List<Condtion> Scondtions = null)
+        public Skill(SkillId SskillId, string SskillName, int Spower, Element Selement, Target defualtTarget, Category Scategory, int Scost, string StoolTip, int SturnShift, List<SkillAttr> Sattr = null, List<SkillCondition> Sconditions = null)
         {
             skillId = SskillId;
             name = SskillName;
@@ -111,10 +101,8 @@ namespace MoriSkills
             element = Selement;
             target = defualtTarget;
             category = Scategory;
-            accurcy = Saccuracy;
             cost = Scost;
             toolTip = StoolTip;
-            chance = Schance;
             turnShift = SturnShift;
             if (Sattr == null)
             {
@@ -127,14 +115,14 @@ namespace MoriSkills
                     Attr(Sattr[i].ShallowCopy());
                 }
             }
-            if (Scondtions == null)
+            if (Sconditions == null)
             {
-                condtions = new List<Condtion> { };
+                conditions = new List<SkillCondition> { };
             }
             else
             {
-                condtions = new List<Condtion> { };
-                condtions.AddRange(Scondtions);
+                conditions = new List<SkillCondition> { };
+                conditions.AddRange(Sconditions);
             }
         }
 
@@ -145,8 +133,23 @@ namespace MoriSkills
             return this;
         }
 
+        public Skill Condition(SkillCondition condition)
+        {
+            conditions.Add(condition);
+            return this;
+        }
 
 
+        public void CheckSkillModConditions()
+        {
+            foreach (SkillCondition condition in conditions)
+            {
+                if (condition.conditionMod == ConditionModifiers.Skill)
+                {
+                    condition.CheckConditionSkillMod(this);
+                }
+            }
+        }
 
 
 
