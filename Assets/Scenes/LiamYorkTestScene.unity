@@ -2305,7 +2305,6 @@ MonoBehaviour:
   moneyText: {fileID: 386546943}
   expText: {fileID: 1562653438}
   lootText: {fileID: 896386489}
-  sceneName: NodeTesting
 --- !u!4 &2018643523
 Transform:
   m_ObjectHideFlags: 0
@@ -3126,23 +3125,31 @@ PrefabInstance:
       objectReference: {fileID: 645222400}
     - target: {fileID: 685510101808790038, guid: c14100d79b2ddbd4c97c369e306032c3, type: 3}
       propertyPath: m_AnchorMax.x
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 685510101808790038, guid: c14100d79b2ddbd4c97c369e306032c3, type: 3}
       propertyPath: m_AnchorMax.y
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1403658369209146238, guid: c14100d79b2ddbd4c97c369e306032c3, type: 3}
       propertyPath: m_SizeDelta.y
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 1403658369209146238, guid: c14100d79b2ddbd4c97c369e306032c3, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 0.000011444092
+      objectReference: {fileID: 0}
+    - target: {fileID: 1403658369209146238, guid: c14100d79b2ddbd4c97c369e306032c3, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 0.000022888184
+      objectReference: {fileID: 0}
     - target: {fileID: 1775994395159503079, guid: c14100d79b2ddbd4c97c369e306032c3, type: 3}
       propertyPath: m_AnchorMax.x
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1775994395159503079, guid: c14100d79b2ddbd4c97c369e306032c3, type: 3}
       propertyPath: m_AnchorMax.y
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1775994395159503079, guid: c14100d79b2ddbd4c97c369e306032c3, type: 3}
       propertyPath: m_SizeDelta.x
@@ -3186,11 +3193,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6222668050941477996, guid: c14100d79b2ddbd4c97c369e306032c3, type: 3}
       propertyPath: m_AnchorMax.y
-      value: 1
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6222668050941477996, guid: c14100d79b2ddbd4c97c369e306032c3, type: 3}
+      propertyPath: m_SizeDelta.x
+      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 6222668050941477996, guid: c14100d79b2ddbd4c97c369e306032c3, type: 3}
       propertyPath: m_SizeDelta.y
-      value: -17
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7192238102396079605, guid: c14100d79b2ddbd4c97c369e306032c3, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.size
@@ -3222,11 +3233,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7581537570745009126, guid: c14100d79b2ddbd4c97c369e306032c3, type: 3}
       propertyPath: m_AnchorMax.x
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7581537570745009126, guid: c14100d79b2ddbd4c97c369e306032c3, type: 3}
       propertyPath: m_AnchorMax.y
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7648609458876619987, guid: c14100d79b2ddbd4c97c369e306032c3, type: 3}
       propertyPath: m_Pivot.x
@@ -3338,11 +3349,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8209830019115173641, guid: c14100d79b2ddbd4c97c369e306032c3, type: 3}
       propertyPath: m_AnchorMax.x
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8209830019115173641, guid: c14100d79b2ddbd4c97c369e306032c3, type: 3}
       propertyPath: m_SizeDelta.x
-      value: -17
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8297365774884848943, guid: c14100d79b2ddbd4c97c369e306032c3, type: 3}
       propertyPath: vulnerability.Array.size
