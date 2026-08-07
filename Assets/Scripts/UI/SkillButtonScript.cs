@@ -172,7 +172,7 @@ public class SkillButtonScript : MonoBehaviour
                 if ((i + page) < TurnOrderManager.Instance.turnPlayer.skills.Count && TurnOrderManager.Instance.turnPlayer.skills[i + page] != SkillId.None)
                 {
                     skillButtons[i].GetComponent<ToolTipSkill>().skill = SkillMaker.Instance.GetById(TurnOrderManager.Instance.turnPlayer.skills[i + page]);
-                    skillButtons[i].GetComponent<ToolTipSkill>().skill.CheckSkillModConditions();
+                    skillButtons[i].GetComponent<ToolTipSkill>().skill.CheckSkillModConditions(TurnOrderManager.Instance.turnPlayer);
                     skillButtons[i].GetComponent<ToolTipSkill>().skillId = skillButtons[i].GetComponent<ToolTipSkill>().skill.skillId;
                     skillButtons[i].GetComponentInChildren<TextMeshProUGUI>().text = TurnOrderManager.Instance.turnPlayer.skills[i + page].ToString();
                     for( int j = 0; j < TurnOrderManager.Instance.turnPlayer.equipmentAttrs.Count; j++)
