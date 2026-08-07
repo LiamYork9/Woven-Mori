@@ -12,6 +12,7 @@ namespace MoriSkills
         Buff,
         Healing,
     }
+    [System.Serializable]
     public class SkillCondition
     {
         public string name;
@@ -163,7 +164,7 @@ namespace MoriSkills
             int highThreshold, bool useLocal = false
             ):base(ConditionModifiers.Skill)
         {
-            name = "Even Odd Condition";
+            name = "High Low Condition";
 
             highPower = hPower;
             lowPower = lPower;
@@ -199,7 +200,7 @@ namespace MoriSkills
         }
 
         
-        public HighLowCondition Odd(SkillAttr addedAttr)
+        public HighLowCondition Low(SkillAttr addedAttr)
         {
             if(lowAttrs == null)
             {

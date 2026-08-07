@@ -164,7 +164,7 @@ public class SkillMaker : MonoBehaviour
         Skill SwordShield = new Skill(SkillId.SwordShield, "Sword&Shield",10 , Element.None, Target.single, Category.Attack, 1, "On Even turns Heal and buff yourself, on Odd turns hit the enemy and debuff them", -2)
         .Condition(new EvenOddCondition(
             /*Even Stats*/ 
-                20 , Element.None, Target.single, Category.Buff, 1, 1, 
+                20 , Element.None, Target.self, Category.Buff, 1, 1, 
                 
             /*Odd Stats*/
                 10 , Element.None, Target.single, Category.Attack, 1, 1)
@@ -177,7 +177,7 @@ public class SkillMaker : MonoBehaviour
                 .Odd(new StatDropConAttr(Stats.Attack, standardBoost)));
         madeSkills.Add(SwordShield);
 
-        Skill HopeDespair = new Skill(SkillId.SwordShield, "Hope&Despair",10 , Element.None, Target.single, Category.Buff, 1, "On Even turns lower all enemies Atk, Def, MDef for 3 turns, on Odd turns Raise all parties Atk, Def, MDef for 3 turns", -2)
+        Skill HopeDespair = new Skill(SkillId.HopeDespair, "Hope&Despair",10 , Element.None, Target.single, Category.Buff, 1, "On Even turns lower all enemies Atk, Def, MDef for 3 turns, on Odd turns Raise all parties Atk, Def, MDef for 3 turns", -2)
         .Condition(new EvenOddCondition(
             /*Even Stats*/ 
                 20 , Element.None, Target.party, Category.Buff, 3, 2, 
@@ -195,7 +195,7 @@ public class SkillMaker : MonoBehaviour
                 .Odd(new StatBoostConAttr(Stats.mDefense, standardBoost,3)));
         madeSkills.Add(HopeDespair);
 
-        Skill FlameFlood = new Skill(SkillId.SwordShield, "Flame&Flood",10 , Element.None, Target.single, Category.Buff, 1, "On Even turns Deal  Water Damage to all enemies, on Odd turns Deal Fire Damage to one enemy chance to burn", -2)
+        Skill FlameFlood = new Skill(SkillId.FlameFlood, "Flame&Flood",10 , Element.None, Target.single, Category.Buff, 1, "On Even turns Deal  Water Damage to all enemies, on Odd turns Deal Fire Damage to one enemy chance to burn", -2)
         .Condition(new EvenOddCondition(
             /*Even Stats*/ 
                 10 , Element.Water, Target.mutipleEnemy, Category.Attack, 2, 2, 
@@ -204,14 +204,29 @@ public class SkillMaker : MonoBehaviour
                 20 , Element.Fire, Target.single, Category.Attack, 2, 1)
             
             /*Even Attrs*/
-            .Odd(new DamageAttr(1,DamageType.Magic))
+            .Even(new DamageAttr(1,DamageType.Magic))
                
             /*Odd Attrs*/
             //Add burn status chance here
             .Odd(new DamageAttr(1,DamageType.Magic)));
                
         madeSkills.Add(FlameFlood);
-        
+
+        Skill HighLow = new Skill(SkillId.HighLow, "HighLow",10,Element.None,Target.single,Category.Buff,1,"",2)
+        .Condition(new HighLowCondition(
+            /*High Stats */
+            10 , Element.Air, Target.mutipleEnemy, Category.Attack, 1, 2, 
+
+            /*Low Stats */
+            20 , Element.Earth, Target.single, Category.Attack, 1, 1,5)
+
+            /*High Attrs*/
+            .High(new DamageAttr(1,DamageType.Magic))
+
+            /*Low Attrs*/
+            .Low(new DamageAttr(1,DamageType.Magic)));
+
+         madeSkills.Add(HighLow);
         
         Skill Focus = new Skill(SkillId.Focus, "Focus",10 , Element.None, Target.self, Category.Attack, 0,  "Focus and gain an additional AP",  1)
         .Attr(new APGainAttr(1,true));
