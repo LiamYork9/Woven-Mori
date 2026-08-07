@@ -24,7 +24,7 @@ namespace MoriSkills
             name = "Generic condition";
         }
 
-        public virtual Skill CheckConditionSkillMod(Skill checkedSkill)
+        public virtual Skill CheckConditionSkillMod(Skill checkedSkill, UnitBody user)
         {
             skill = checkedSkill;
             return skill;
@@ -103,7 +103,7 @@ namespace MoriSkills
             return this;
         }
 
-        public override Skill CheckConditionSkillMod(Skill CheckedSkill)
+        public override Skill CheckConditionSkillMod(Skill CheckedSkill, UnitBody user)
         {
             skill = CheckedSkill;
             if(BattleManager.Instance.globalTurn%2 == 0)
@@ -125,6 +125,122 @@ namespace MoriSkills
                 skill.cost = oddCost;
                 skill.turnShift = oddTurnShift;
                 skill.attrs = oddAttrs;
+            }
+
+
+            return skill;
+        }
+
+    }
+
+
+    public class HighLowCondition : SkillCondition
+    {
+        [SerializeReference]
+        public List<SkillAttr> highAttrs = new List<SkillAttr>();
+        [SerializeReference]
+        public List<SkillAttr> lowAttrs = new List<SkillAttr>();
+
+        public int highPower;
+        public int lowPower;
+        public Element highElement;
+        public Element lowElement;
+        public Target highTarget;
+        public Target lowTarget;
+        public Category highCategory;
+        public Category lowCategory;
+        public int highCost;
+        public int lowCost;
+        public int highTurnShift;
+        public int lowTurnShift;
+
+        public int threshold;
+        public bool local;
+
+        public HighLowCondition(
+            int hPower,Element hElem, Target hTarget, Category hCat, int hCost, int hShift,
+            int lPower,Element lElem, Target lTarget, Category lCat, int lCost, int lShift,
+            int highThreshold, bool useLocal = false
+            ):base(ConditionModifiers.Skill)
+        {
+            name = "Even Odd Condition";
+
+            highPower = hPower;
+            lowPower = lPower;
+            
+            highElement = hElem;
+            lowElement = lElem;
+            
+            highTarget = hTarget;
+            lowTarget = lTarget;
+            
+            highCategory = hCat;
+            lowCategory = lCat;
+            
+            highCost = hCost;
+            lowCost = lCost;
+            
+            highTurnShift = hShift;
+            lowTurnShift = lShift;
+
+            threshold = highThreshold;
+            local = useLocal;
+            
+        }
+
+        public HighLowCondition High(SkillAttr addedAttr)
+        {
+            if(highAttrs == null)
+            {
+                highAttrs = new List<SkillAttr> { };
+            }
+            highAttrs.Add(addedAttr);
+            return this;
+        }
+
+        
+        public HighLowCondition Odd(SkillAttr addedAttr)
+        {
+            if(lowAttrs == null)
+            {
+                lowAttrs = new List<SkillAttr> { };
+            }
+            lowAttrs.Add(addedAttr);
+            return this;
+        }
+
+        public override Skill CheckConditionSkillMod(Skill CheckedSkill, UnitBody user)
+        {
+
+            skill = CheckedSkill;
+            int temp = 0;
+            if(local)
+            {
+                temp = user.localTurnCount;
+            }
+            else
+            {
+                temp = BattleManager.Instance.globalTurn;
+            }
+            if(temp >= threshold)
+            {
+                skill.power = highPower;
+                skill.element = highElement;
+                skill.target = highTarget;
+                skill.category = highCategory;
+                skill.cost = highCost;
+                skill.turnShift = highTurnShift;
+                skill.attrs = highAttrs;
+            }
+            else
+            {
+                skill.power = lowPower;
+                skill.element = lowElement;
+                skill.target = lowTarget;
+                skill.category = lowCategory;
+                skill.cost = lowCost;
+                skill.turnShift = lowTurnShift;
+                skill.attrs = lowAttrs;
             }
 
 

@@ -140,13 +140,13 @@ namespace MoriSkills
         }
 
 
-        public void CheckSkillModConditions()
+        public void CheckSkillModConditions(UnitBody user)
         {
             foreach (SkillCondition condition in conditions)
             {
                 if (condition.conditionMod == ConditionModifiers.Skill)
                 {
-                    condition.CheckConditionSkillMod(this);
+                    condition.CheckConditionSkillMod(this,user);
                 }
             }
         }

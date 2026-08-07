@@ -43,8 +43,6 @@ public class UnitBody : MonoBehaviour
 
     public int localTurnCount;
 
-    public int localTurnCountCurrentVal;
-
     public int AP;
 
     public int emergencybutton;
