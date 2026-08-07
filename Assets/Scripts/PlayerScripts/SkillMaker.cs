@@ -161,13 +161,13 @@ public class SkillMaker : MonoBehaviour
         madeSkills.Add(HolyAbsorption);
         
         
-        Skill EvenOdd = new Skill(SkillId.EvenOdd, "EvenOdd",10 , Element.None, Target.single, Category.Attack, 1, "On Even turns Heal and buff yourself, on Odd turns hit the enemy and debuff them", -2)
+        Skill SwordShield = new Skill(SkillId.SwordShield, "Sword&Shield",10 , Element.None, Target.single, Category.Attack, 1, "On Even turns Heal and buff yourself, on Odd turns hit the enemy and debuff them", -2)
         .Condition(new EvenOddCondition(
             /*Even Stats*/ 
-                20 , Element.None, Target.party, Category.Buff, 1, -2, 
+                20 , Element.None, Target.single, Category.Buff, 1, 1, 
                 
             /*Odd Stats*/
-                10 , Element.None, Target.single, Category.Attack, 1, 2)
+                10 , Element.None, Target.single, Category.Attack, 1, 1)
             
             /*Even Attrs*/
                 .Even(new HealAttr(1, .2f))
@@ -175,7 +175,42 @@ public class SkillMaker : MonoBehaviour
             /*Odd Attrs*/
                 .Odd(new DamageAttr(1,DamageType.Magic))
                 .Odd(new StatDropConAttr(Stats.Attack, standardBoost)));
-        madeSkills.Add(EvenOdd);
+        madeSkills.Add(SwordShield);
+
+        Skill HopeDespair = new Skill(SkillId.SwordShield, "Hope&Despair",10 , Element.None, Target.single, Category.Buff, 1, "On Even turns lower all enemies Atk, Def, MDef for 3 turns, on Odd turns Raise all parties Atk, Def, MDef for 3 turns", -2)
+        .Condition(new EvenOddCondition(
+            /*Even Stats*/ 
+                20 , Element.None, Target.party, Category.Buff, 3, 2, 
+                
+            /*Odd Stats*/
+                10 , Element.None, Target.mutipleEnemy, Category.Buff, 3, -2)
+            
+            /*Even Attrs*/
+                .Even(new StatDropConAttr(Stats.Attack, standardBoost,3))
+                .Even(new StatDropConAttr(Stats.Defense, standardBoost,3))
+                .Even(new StatDropConAttr(Stats.mDefense, standardBoost,3))
+            /*Odd Attrs*/
+                .Odd(new StatBoostConAttr(Stats.Attack, standardBoost,3))
+                .Odd(new StatBoostConAttr(Stats.Defense, standardBoost,3))
+                .Odd(new StatBoostConAttr(Stats.mDefense, standardBoost,3)));
+        madeSkills.Add(HopeDespair);
+
+        Skill FlameFlood = new Skill(SkillId.SwordShield, "Flame&Flood",10 , Element.None, Target.single, Category.Buff, 1, "On Even turns Deal  Water Damage to all enemies, on Odd turns Deal Fire Damage to one enemy chance to burn", -2)
+        .Condition(new EvenOddCondition(
+            /*Even Stats*/ 
+                10 , Element.Water, Target.mutipleEnemy, Category.Attack, 2, 2, 
+                
+            /*Odd Stats*/
+                20 , Element.Fire, Target.single, Category.Attack, 2, 1)
+            
+            /*Even Attrs*/
+            .Odd(new DamageAttr(1,DamageType.Magic))
+               
+            /*Odd Attrs*/
+            //Add burn status chance here
+            .Odd(new DamageAttr(1,DamageType.Magic)));
+               
+        madeSkills.Add(FlameFlood);
         
         
         Skill Focus = new Skill(SkillId.Focus, "Focus",10 , Element.None, Target.self, Category.Attack, 0,  "Focus and gain an additional AP",  1)
