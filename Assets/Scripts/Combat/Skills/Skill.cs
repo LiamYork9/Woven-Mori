@@ -15,7 +15,9 @@ namespace MoriSkills
         Flex,
         Heal,
         Attack,
-        EvenOdd,
+        SwordShield,
+        HopeDespair,
+        FlameFlood,
         Fortifiy,
         PowerUp,
         BurnAway,
@@ -24,7 +26,8 @@ namespace MoriSkills
         Berserk,
         Rampage,
         CutLine,
-        HolyAbsorption
+        HolyAbsorption,
+        HighLow
 
 
 
@@ -89,7 +92,8 @@ namespace MoriSkills
 
         [SerializeReference]
         public List<SkillAttr> attrs;
-
+        
+        [SerializeReference]
         public List<SkillCondition> conditions;
 
 

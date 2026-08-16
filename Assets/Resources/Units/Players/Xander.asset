@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   unitName: Xander
   partyMember: 1
-  skills: 02000000150000001400000007000000030000000f00000010000000
+  skills: 02000000150000001400000007000000080000000900000013000000
   resistance: 
   immunity: 
   vulnerability: 
@@ -35,7 +35,7 @@ MonoBehaviour:
   fatedPoints: []
   equipmentStats: 000000000000000000000000000000000000000000000000
   playerClass: 1
-  exp: 430
+  exp: 450
   weapon: {fileID: 0}
   armor: {fileID: 0}
   accessory: {fileID: 0}
