@@ -17,19 +17,21 @@ public enum EffectTime
 public class Condition
 {
     public string name;
+    public Sprite conditionSprite;
     public UnitBody unit;
     public int duration;
 
     //Higher = earlier
     public int activationPriority;
 
-    public Condition(int effectDuration, int conditionPriority = 0)
+    public Condition(int effectDuration, int conditionPriority = 0, string conditionName = "DefaultCondition")
     {
-        name = "Blank Condition";
+        name = conditionName;
 
         //-1 is a permanent effect, -2 is unclearable effect (maybe)
         duration = effectDuration;
         activationPriority = conditionPriority;
+        conditionSprite = null /*Change this*/;
     }
 
     public virtual void OnApply(UnitBody appliedUnit)
@@ -323,3 +325,48 @@ public class DamageOverTimeCondition : Condition
         }
     }
 }
+
+
+public class Tremor: Condition
+{
+    public int power;
+    public int stacks;
+
+    public Tremor(int userPower, int addedStacks):base(-1,0)
+    {
+        power = userPower;
+        stacks = addedStacks;
+    }
+
+    public override void ApplyCondition(UnitBody appliedUnit)
+    {
+        foreach(Condition condition in appliedUnit.conditions)
+        {
+            if(condition.GetType() == this.GetType())
+            {
+                (condition as Tremor).stacks += stacks;
+
+                return;
+            }
+        }
+        appliedUnit.conditions.Add(this);
+        OnApply(appliedUnit);
+    }
+
+    public override void OnApply(UnitBody appliedUnit)
+    {
+        unit = appliedUnit;
+        unit.EndOfTurn.AddListener(Activate);
+        unit.EndOfTurn.AddListener(CountDown);
+    }
+    public override void OnRemove()
+    {
+        unit.EndOfTurn.RemoveListener(Activate);
+    }
+
+    public override void Activate()
+    {
+        unit.TakeDamage(power*stacks, DamageType.Destined, Element.None);
+    }
+}
+
