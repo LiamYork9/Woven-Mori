@@ -363,14 +363,14 @@ public class Tremor: Condition
             if(condition.GetType() == this.GetType())
             {
                 (condition as Tremor).stacks += stacks;
-                unit.updateConditions.Invoke();
+                appliedUnit.updateConditions.Invoke();
 
                 return;
             }
         }
         appliedUnit.conditions.Add(this);
         OnApply(appliedUnit);
-        unit.updateConditions.Invoke();
+        appliedUnit.updateConditions.Invoke();
     }
 
     public override void OnApply(UnitBody appliedUnit)
