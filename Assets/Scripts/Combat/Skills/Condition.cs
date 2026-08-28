@@ -351,6 +351,7 @@ public class Tremor: Condition
 
     public Tremor(int userPower, int addedStacks):base(-1,0,"Tremor")
     {
+        description = "the ground shifts dealing earth damage based on stacks. This does not weaken over time";
         power = userPower;
         stacks = addedStacks;
     }
@@ -385,7 +386,7 @@ public class Tremor: Condition
 
     public override void Activate()
     {
-        unit.TakeDamage(power*stacks, DamageType.Destined, Element.None);
+        unit.TakeDamage(power*stacks, DamageType.Physical, Element.Earth);
     }
 }
 
