@@ -243,6 +243,11 @@ public class SkillMaker : MonoBehaviour
         .Attr(new DamageAttr(1,DamageType.Physical,Element.Dark))
         .Attr(new ApplyPoisonAttr(3,3,10));
         madeSkills.Add(PoisonBite);
+
+        Skill Quake = new Skill(SkillId.Quake,"Quake",10,Element.Earth,Target.single,Category.Attack,1, "An attack that locks the target in a tremor",1)
+        .Attr(new DamageAttr(1,DamageType.Physical,Element.Dark))
+        .Attr(new ApplyTremorLTC(false));
+        madeSkills.Add(Quake);
     }
 
     public Skill GetById(SkillId Id)
