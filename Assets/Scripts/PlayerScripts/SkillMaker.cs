@@ -174,6 +174,7 @@ public class SkillMaker : MonoBehaviour
                 .Even(new StatBoostConAttr(Stats.Defense, standardBoost,3))
             /*Odd Attrs*/
                 .Odd(new DamageAttr(1,DamageType.Magic))
+                .Odd(new StatDropConAttr(Stats.Defense, standardBoost))
                 .Odd(new StatDropConAttr(Stats.Attack, standardBoost)));
         madeSkills.Add(SwordShield);
 

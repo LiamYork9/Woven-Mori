@@ -298,7 +298,7 @@ namespace MoriSkills
     {
         public float healMultiplier;
         public float statModifier;
-        List<UnitBody> target = new List<UnitBody>();
+        List<UnitBody> target;
 
         public HealAttr(float healMult, float statMod = .2f, bool targetSelf = false,int effChance = 100) : base(targetSelf, effChance)
 
@@ -306,11 +306,10 @@ namespace MoriSkills
             name = "HealAttr";
             healMultiplier = healMult;
             statModifier = statMod;
-
         }
 
         public override void ActivateAttr(UnitBody unitUser, List<UnitBody> unitTargets, int power,Element skillElement)
-        {
+        {   target = new List<UnitBody>();
             
             if (targetSelf == true)
             {
