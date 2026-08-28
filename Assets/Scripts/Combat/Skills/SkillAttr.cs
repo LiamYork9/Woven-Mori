@@ -491,4 +491,61 @@ namespace MoriSkills
             }
         }
     }
+
+
+    public class ApplyTremorLTC : SkillAttr
+    {
+        public int duration;
+        public bool useEnemyLTC;
+        public int potency;
+
+
+        public ApplyTremorLTC(bool enemyLTC, bool targetSelf = false, int effChance = 100) : base(targetSelf, effChance)
+        {
+            name = "TremorLTC";
+            enemyLTC = useEnemyLTC;
+        }
+        public override void ActivateAttr(UnitBody unitUser, List<UnitBody> unitTargets, int power,Element skillElement)
+        {
+            int temp = 0;
+            if (targetSelf == true)
+            {
+                if (useEnemyLTC)
+                {
+                    for(int i =0; i<unitTargets.Count; i++)
+                    {
+                        temp += unitTargets[i].localTurnCount;
+                    }
+                }
+                else
+                {
+                    temp = unitUser.localTurnCount;
+                }
+                if(temp<1)
+                {
+                    temp = 1;
+                }
+                unitUser.ApplyCondition(new Tremor(unitUser.activeStats.Attack,temp));
+            }
+            else
+            {
+                for(int i =0; i<unitTargets.Count; i++)
+                {
+                    if (useEnemyLTC)
+                    {
+                        temp = unitTargets[i].localTurnCount;
+                    }
+                    else
+                    {
+                        temp = unitUser.localTurnCount;
+                    }
+                    if(temp<1)
+                    {
+                        temp = 1;
+                    }
+                    unitTargets[i].ApplyCondition(new Tremor(unitUser.activeStats.Attack,temp));
+                }
+            }
+        }
+    }
 }
