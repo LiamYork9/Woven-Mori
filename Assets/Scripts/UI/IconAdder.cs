@@ -17,13 +17,13 @@ public class IconAdder : MonoBehaviour
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
-        
+        gameObject.GetComponent<UnitBody>().updateConditions.AddListener(IconPlacer);
     }
 
     // Update is called once per frame
     void Update()
     {
-        IconPlacer();
+        //IconPlacer();
     }
 
     public void IconPlacer()

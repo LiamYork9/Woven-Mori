@@ -73,12 +73,14 @@ public class Condition
                 {
                     condition.duration = duration;
                 }
+                appliedUnit.updateConditions.Invoke();
 
                 return;
             }
         }
         appliedUnit.conditions.Add(this);
         OnApply(appliedUnit);
+        appliedUnit.updateConditions.Invoke();
     }
 
     public void RemoveCondition()
@@ -95,6 +97,7 @@ public class Condition
         if (duration >= 1)
         {
             duration -= 1;
+            unit.updateConditions.Invoke();
         }
         if (duration == 0)
         {
@@ -359,12 +362,14 @@ public class Tremor: Condition
             if(condition.GetType() == this.GetType())
             {
                 (condition as Tremor).stacks += stacks;
+                unit.updateConditions.Invoke();
 
                 return;
             }
         }
         appliedUnit.conditions.Add(this);
         OnApply(appliedUnit);
+        unit.updateConditions.Invoke();
     }
 
     public override void OnApply(UnitBody appliedUnit)

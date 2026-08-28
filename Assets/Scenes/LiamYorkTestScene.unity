@@ -3701,6 +3701,18 @@ PrefabInstance:
       propertyPath: hPTest
       value: 
       objectReference: {fileID: 1009874180}
+    - target: {fileID: 7205776902212263577, guid: c14100d79b2ddbd4c97c369e306032c3, type: 3}
+      propertyPath: updateConditions.m_PersistentCalls.m_Calls.Array.size
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7205776902212263577, guid: c14100d79b2ddbd4c97c369e306032c3, type: 3}
+      propertyPath: updateConditions.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 7205776902212263577, guid: c14100d79b2ddbd4c97c369e306032c3, type: 3}
+      propertyPath: updateConditions.m_PersistentCalls.m_Calls.Array.data[0].m_CallState
+      value: 2
+      objectReference: {fileID: 0}
     - target: {fileID: 7581537570745009126, guid: c14100d79b2ddbd4c97c369e306032c3, type: 3}
       propertyPath: m_AnchorMax.x
       value: 0
