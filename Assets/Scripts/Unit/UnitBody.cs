@@ -56,6 +56,8 @@ public class UnitBody : MonoBehaviour
     public UnityEvent EndOfAction;
     public UnityEvent EndOfTurn;
 
+    public UnityEvent updateConditions;
+
     public HPTest hPTest;
 
     public List<int> equipmentStats = new List<int> {0,0,0,0,0,0};
