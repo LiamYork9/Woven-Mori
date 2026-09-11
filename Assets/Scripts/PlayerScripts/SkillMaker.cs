@@ -196,7 +196,7 @@ public class SkillMaker : MonoBehaviour
                 .Odd(new StatBoostConAttr(Stats.mDefense, standardBoost,3)));
         madeSkills.Add(HopeDespair);
 
-        Skill FlameFlood = new Skill(SkillId.FlameFlood, "Flame&Flood",10 , Element.None, Target.single, Category.Buff, 1, "On Even turns Deal  Water Damage to all enemies, on Odd turns Deal Fire Damage to one enemy chance to burn", -2)
+        Skill FlameFlood = new Skill(SkillId.FlameFlood, "Flame&Flood",10 , Element.None, Target.single, Category.Buff, 1, "On Even turns Deal  Water Damage to all enemies, on Odd turns Deal Fire Damage to one enemy and burn them", -2)
         .Condition(new EvenOddCondition(
             /*Even Stats*/ 
                 10 , Element.Water, Target.mutipleEnemy, Category.Attack, 2, 2, 
@@ -208,8 +208,8 @@ public class SkillMaker : MonoBehaviour
             .Even(new DamageAttr(1,DamageType.Magic))
                
             /*Odd Attrs*/
-            //Add burn status chance here
-            .Odd(new DamageAttr(1,DamageType.Magic)));
+            .Odd(new DamageAttr(1,DamageType.Magic))
+            .Odd(new ApplyBurn(3)));
                
         madeSkills.Add(FlameFlood);
 
@@ -219,7 +219,7 @@ public class SkillMaker : MonoBehaviour
             10 , Element.Air, Target.mutipleEnemy, Category.Attack, 1, 2, 
 
             /*Low Stats */
-            20 , Element.Earth, Target.single, Category.Attack, 1, 1,5)
+            20 , Element.Earth, Target.single, Category.Attack, 1, 1, 5)
 
             /*High Attrs*/
             .High(new DamageAttr(1,DamageType.Magic))
@@ -248,6 +248,11 @@ public class SkillMaker : MonoBehaviour
         .Attr(new DamageAttr(1,DamageType.Physical,Element.Dark))
         .Attr(new ApplyTremorLTC(false));
         madeSkills.Add(Quake);
+
+        Skill Erosion = new Skill(SkillId.Erosion,"Erosion",10,Element.Earth,Target.single,Category.Attack,1, "A spell that accelerates time on the target triggering any end turn effects, counting down all conditions, and dropping their Defense",1)
+        .Attr(new PassageOfTimeAttr(3))
+        .Attr(new StatDropConAttr(Stats.Defense, standardBoost, 3));
+        madeSkills.Add(Erosion);
     }
 
     public Skill GetById(SkillId Id)

@@ -39,7 +39,8 @@ namespace MoriSkills
         WindBlade,
         Focus,
         SpeedUp,
-        Quake
+        Quake,
+        Erosion
     }
 
     public enum Element

@@ -49,7 +49,7 @@ public class Condition
     public virtual void OnApply(UnitBody appliedUnit)
     {
         unit = appliedUnit;
-        unit.EndOfTurn.AddListener(CountDown);
+        unit.ConditionEndTurn.AddListener(CountDown);
     }
 
     public virtual void OnRemove()
@@ -87,7 +87,7 @@ public class Condition
     {
         // THESE STILL EXIST SOMEWHERE IN MEMORY SOMEHOW
         OnRemove();
-        unit.EndOfTurn.RemoveListener(CountDown);
+        unit.ConditionEndTurn.RemoveListener(CountDown);
         unit.conditions.Remove(this);
         unit.updateConditions.Invoke();
     }
@@ -121,7 +121,7 @@ public class AttackBoostCondition : Condition
     {
         unit = appliedUnit;
         appliedUnit.activeStats.Attack += (int)(appliedUnit.baseStats.Attack*(multiplier/100));
-        unit.EndOfTurn.AddListener(CountDown);
+        unit.ConditionEndTurn.AddListener(CountDown);
     }
     public override void OnRemove()
     {
@@ -143,7 +143,7 @@ public class AttackDropCondition : Condition
     {
         unit = appliedUnit;
         appliedUnit.activeStats.Attack -= (int)(appliedUnit.baseStats.Attack*(multiplier/100));
-        unit.EndOfTurn.AddListener(CountDown);
+        unit.ConditionEndTurn.AddListener(CountDown);
     }
     public override void OnRemove()
     {
@@ -167,7 +167,7 @@ public class DefenseBoostCondition : Condition
     {
         unit = appliedUnit;
         appliedUnit.activeStats.Mdefense += (int)(appliedUnit.baseStats.Mdefense*(multiplier/100));
-        unit.EndOfTurn.AddListener(CountDown);
+        unit.ConditionEndTurn.AddListener(CountDown);
     }
     public override void OnRemove()
     {
@@ -190,7 +190,7 @@ public class DefenseDropCondition : Condition
     {
         unit = appliedUnit;
         appliedUnit.activeStats.Defense -= (int)(appliedUnit.baseStats.Defense*(multiplier/100));
-        unit.EndOfTurn.AddListener(CountDown);
+        unit.ConditionEndTurn.AddListener(CountDown);
     }
     public override void OnRemove()
     {
@@ -212,7 +212,7 @@ public class MagicDefenseBoostCondition : Condition
     {
         unit = appliedUnit;
         appliedUnit.activeStats.Defense += (int)(appliedUnit.baseStats.Defense*(multiplier/100));
-        unit.EndOfTurn.AddListener(CountDown);
+        unit.ConditionEndTurn.AddListener(CountDown);
     }
     public override void OnRemove()
     {
@@ -234,7 +234,7 @@ public class MagicDefenseDropCondition : Condition
     {
         unit = appliedUnit;
         appliedUnit.activeStats.Mdefense -= (int)(appliedUnit.baseStats.Mdefense*(multiplier/100));
-        unit.EndOfTurn.AddListener(CountDown);
+        unit.ConditionEndTurn.AddListener(CountDown);
     }
     public override void OnRemove()
     {
@@ -256,7 +256,7 @@ public class PriorityBoostCondition : Condition
     {
         unit = appliedUnit;
         TurnOrderManager.Instance.Prioritize(unit, priority);
-        unit.EndOfTurn.AddListener(CountDown);
+        unit.ConditionEndTurn.AddListener(CountDown);
     }
     public override void OnRemove()
     {
@@ -279,7 +279,7 @@ public class PriorityDropCondition : Condition
     {
         unit = appliedUnit;
         TurnOrderManager.Instance.Prioritize(unit, -priority);
-        unit.EndOfTurn.AddListener(CountDown);
+        unit.ConditionEndTurn.AddListener(CountDown);
     }
     public override void OnRemove()
     {
@@ -309,13 +309,13 @@ public class DamageOverTimeCondition : Condition
     public override void OnApply(UnitBody appliedUnit)
     {
         unit = appliedUnit;
-        unit.EndOfTurn.AddListener(Activate);
-        unit.EndOfTurn.AddListener(CountDown);
+        unit.ConditionEndTurn.AddListener(Activate);
+        unit.ConditionEndTurn.AddListener(CountDown);
     }
 
     public override void OnRemove()
     {
-        unit.EndOfTurn.RemoveListener(Activate);
+        unit.ConditionEndTurn.RemoveListener(Activate);
     }
 
     public override void Activate()
@@ -363,6 +363,10 @@ public class Tremor: Condition
             if(condition.GetType() == this.GetType())
             {
                 (condition as Tremor).stacks += stacks;
+                if((condition as Tremor).power < power)
+                {
+                    (condition as Tremor).power = power;
+                }
                 appliedUnit.updateConditions.Invoke();
 
                 return;
@@ -376,17 +380,68 @@ public class Tremor: Condition
     public override void OnApply(UnitBody appliedUnit)
     {
         unit = appliedUnit;
-        unit.EndOfTurn.AddListener(Activate);
-        unit.EndOfTurn.AddListener(CountDown);
+        unit.ConditionEndTurn.AddListener(Activate);
+        unit.ConditionEndTurn.AddListener(CountDown);
     }
     public override void OnRemove()
     {
-        unit.EndOfTurn.RemoveListener(Activate);
+        unit.ConditionEndTurn.RemoveListener(Activate);
     }
 
     public override void Activate()
     {
         unit.TakeDamage(power*stacks, DamageType.Physical, Element.Earth);
+    }
+}
+
+
+public class Burn: Condition
+{
+    public int power;
+    public int stacks;
+
+    public Burn(int userPower, int duration):base(duration,0,"Burn")
+    {
+        description = "fire rages around the target dealing damage at the end of their turn. Applying more triggers the damage and increases the duration";
+        power = userPower;
+    }
+
+    public override void ApplyCondition(UnitBody appliedUnit)
+    {
+        foreach(Condition condition in appliedUnit.conditions)
+        {
+            if(condition.GetType() == this.GetType())
+            {
+                condition.duration += duration;
+                condition.Activate();
+                if((condition as Burn).power < power)
+                {
+                    (condition as Burn).power = power;
+                }
+                appliedUnit.updateConditions.Invoke();
+
+                return;
+            }
+        }
+        appliedUnit.conditions.Add(this);
+        OnApply(appliedUnit);
+        appliedUnit.updateConditions.Invoke();
+    }
+
+    public override void OnApply(UnitBody appliedUnit)
+    {
+        unit = appliedUnit;
+        unit.ConditionEndTurn.AddListener(Activate);
+        unit.ConditionEndTurn.AddListener(CountDown);
+    }
+    public override void OnRemove()
+    {
+        unit.ConditionEndTurn.RemoveListener(Activate);
+    }
+
+    public override void Activate()
+    {
+        unit.TakeDamage(power*10, DamageType.Magic, Element.Fire);
     }
 }
 
