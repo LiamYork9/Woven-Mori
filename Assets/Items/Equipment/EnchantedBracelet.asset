@@ -10,16 +10,16 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 31aa37704f81cfc45aaca42d462239a4, type: 3}
-  m_Name: SpeedWings
+  m_Name: EnchantedBracelet
   m_EditorClassIdentifier: 
-  itemSprite: {fileID: -8861764386509033412, guid: 196eab54e2c7eb5418064d1d5649ef1b, type: 3}
-  itemName: Speed Wings
-  itemDescription: An accessory used to boost speed
-  value: 0
-  sellValue: 0
+  itemSprite: {fileID: 0}
+  itemName: Enchanted Bracelet
+  itemDescription: 
+  value: 15
+  sellValue: 5
   stackable: 1
   maxStack: 4
   classList: -1
   equipmentAttrs: []
-  availableNumber: 0
-  stats: 0000000000000000000000000f0000000000000000000000
+  availableNumber: 1
+  stats: 000000000000000005000000000000000000000000000000
