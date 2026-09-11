@@ -496,13 +496,12 @@ namespace MoriSkills
     {
         public int duration;
         public bool useEnemyLTC;
-        public int potency;
 
 
         public ApplyTremorLTC(bool enemyLTC, bool targetSelf = false, int effChance = 100) : base(targetSelf, effChance)
         {
             name = "TremorLTC";
-            enemyLTC = useEnemyLTC;
+            useEnemyLTC = enemyLTC;
         }
         public override void ActivateAttr(UnitBody unitUser, List<UnitBody> unitTargets, int power,Element skillElement)
         {
@@ -543,6 +542,70 @@ namespace MoriSkills
                         temp = 1;
                     }
                     unitTargets[i].ApplyCondition(new Tremor(unitUser.activeStats.Attack,temp));
+                }
+            }
+        }
+    }
+
+
+    public class ApplyBurn : SkillAttr
+    {
+        public int duration;
+
+
+        public ApplyBurn(int burnDuration, bool targetSelf = false, int effChance = 100) : base(targetSelf, effChance)
+        {
+            name = "Burn";
+            duration=burnDuration;
+        }
+        public override void ActivateAttr(UnitBody unitUser, List<UnitBody> unitTargets, int power,Element skillElement)
+        {
+            if (targetSelf == true)
+            {
+                
+                unitUser.ApplyCondition(new Tremor(unitUser.activeStats.Attack,duration));
+            }
+            else
+            {
+                for(int i =0; i<unitTargets.Count; i++)
+                {
+                    
+                    unitTargets[i].ApplyCondition(new Burn(unitUser.activeStats.Attack,duration));
+                }
+            }
+        }
+    }
+
+
+
+    public class PassageOfTimeAttr : SkillAttr
+    {
+        public int duration;
+        public PassageOfTimeAttr(int timeDuration = 2, bool targetSelf = false) : base(targetSelf)
+        {
+            name = "PassageOfTime";
+            duration = timeDuration;
+        }
+        public override void ActivateAttr(UnitBody unitUser, List<UnitBody> unitTargets, int power,Element skillElement)
+        {
+            if (targetSelf == true)
+            {
+                for (int i =0; i<duration; i++)
+                {
+                    unitUser.ConditionEndTurn.Invoke();
+                    unitUser.localTurnCount+=1;
+                }
+            }
+            else
+            {
+                
+                for(int i =0; i<unitTargets.Count; i++)
+                {
+                    for (int k =0; k<duration; k++)
+                    {
+                        unitTargets[i].ConditionEndTurn.Invoke();
+                        unitTargets[i].localTurnCount+=1;
+                    }
                 }
             }
         }

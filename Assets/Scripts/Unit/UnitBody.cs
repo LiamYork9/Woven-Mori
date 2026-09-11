@@ -55,6 +55,7 @@ public class UnitBody : MonoBehaviour
 
     public UnityEvent EndOfAction;
     public UnityEvent EndOfTurn;
+    public UnityEvent ConditionEndTurn;
 
     public UnityEvent updateConditions;
 
@@ -74,6 +75,7 @@ public class UnitBody : MonoBehaviour
         if(equipmentAttrs == null){
         equipmentAttrs = new List<EquipmentAttr>();
         }
+        EndOfTurn.AddListener(ConditionEndTurn.Invoke);
     }
 
     // Update is called once per frame

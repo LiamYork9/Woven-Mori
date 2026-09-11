@@ -304,6 +304,7 @@ public class BattleManager : MonoBehaviour
                 skillMenu.SetActive(false);
                 usingSkill = false;
                 multiTarget = false;
+                targetParty = false;
                 targetSelf = false;
                 playerSelecting = false;
                 actionMenu.SetActive(true);
