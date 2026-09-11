@@ -782,6 +782,7 @@ MonoBehaviour:
           m_BoolArgument: 0
         m_CallState: 2
   dialogText: []
+  inCombat: 0
 --- !u!114 &254600542
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -801,6 +802,7 @@ MonoBehaviour:
   notAgain: 0
   scriptedText: 0
   canTalk: 1
+  tutorial: 0
 --- !u!61 &254600543
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -1862,6 +1864,7 @@ MonoBehaviour:
   notAgain: 0
   scriptedText: 0
   canTalk: 1
+  tutorial: 0
 --- !u!114 &526821469
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1913,6 +1916,7 @@ MonoBehaviour:
           m_BoolArgument: 0
         m_CallState: 2
   dialogText: []
+  inCombat: 0
 --- !u!212 &526821470
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -2022,6 +2026,7 @@ MonoBehaviour:
           m_BoolArgument: 0
         m_CallState: 2
   dialogText: []
+  inCombat: 0
 --- !u!1 &575111217
 GameObject:
   m_ObjectHideFlags: 0
@@ -2401,6 +2406,7 @@ MonoBehaviour:
           m_BoolArgument: 0
         m_CallState: 2
   dialogText: []
+  inCombat: 0
 --- !u!114 &647679478
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2524,6 +2530,7 @@ MonoBehaviour:
   notAgain: 0
   scriptedText: 0
   canTalk: 1
+  tutorial: 0
 --- !u!114 &647679482
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2575,6 +2582,7 @@ MonoBehaviour:
           m_BoolArgument: 0
         m_CallState: 2
   dialogText: []
+  inCombat: 0
 --- !u!212 &647679483
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -5298,6 +5306,7 @@ MonoBehaviour:
   notAgain: 0
   scriptedText: 0
   canTalk: 1
+  tutorial: 0
 --- !u!114 &1606989937
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5325,6 +5334,7 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls: []
   dialogText: []
+  inCombat: 0
 --- !u!1 &1613291888 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 3428821881555156060, guid: c1f518cba0be73b448f374cc686346f8, type: 3}
@@ -6842,6 +6852,7 @@ MonoBehaviour:
           m_BoolArgument: 0
         m_CallState: 2
   dialogText: []
+  inCombat: 0
 --- !u!114 &2074930797
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -6861,6 +6872,7 @@ MonoBehaviour:
   notAgain: 0
   scriptedText: 0
   canTalk: 1
+  tutorial: 0
 --- !u!61 &2074930798
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -7134,7 +7146,7 @@ PrefabInstance:
       objectReference: {fileID: 304420810}
     - target: {fileID: 5665040453832564462, guid: 157dd6eb9d49a434db626cd11faaeee6, type: 3}
       propertyPath: merchentList.Array.size
-      value: 4
+      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 5665040453832564462, guid: 157dd6eb9d49a434db626cd11faaeee6, type: 3}
       propertyPath: 'merchentList.Array.data[0]'
@@ -7152,6 +7164,10 @@ PrefabInstance:
       propertyPath: 'merchentList.Array.data[3]'
       value: 
       objectReference: {fileID: 11400000, guid: 0a8f38adc6b060549aa1e4aabc6d27c8, type: 2}
+    - target: {fileID: 5665040453832564462, guid: 157dd6eb9d49a434db626cd11faaeee6, type: 3}
+      propertyPath: 'merchentList.Array.data[4]'
+      value: 
+      objectReference: {fileID: 11400000, guid: 8b8660f58d71e3647a5e833250d8d88b, type: 2}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
