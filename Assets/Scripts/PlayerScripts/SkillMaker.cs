@@ -7,13 +7,7 @@ using UnityEngine.Rendering;
 
 public class SkillMaker : MonoBehaviour
 {
-    string Name;
-    int Power;
-    int Cost;
-    int Shift;
-    string Description;
-
-     public static SkillMaker Instance;
+    public static SkillMaker Instance;
      public int standardBoost = 20;
 
     public static SkillMaker GetInstance()
@@ -55,15 +49,7 @@ public class SkillMaker : MonoBehaviour
         
         Skill Attack = new Skill(
             /*Stats*/
-                SkillId.Attack,
-                Name = "Attack",
-                Power = 1, 
-                Element.None, 
-                Target.single, 
-                Category.Attack,
-                Cost = 0,   
-                Description = "Your basic attack", 
-                Shift = 1
+                SkillId.Attack, "Attack", 1, Element.None, Target.single, Category.Attack, 0, "Your basic attack", 1
             )
             /*Attrs*/
                 .Attr(new LevelScaleAttr(1)
