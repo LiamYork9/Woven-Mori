@@ -90,7 +90,7 @@ public class SkillButtonScript : MonoBehaviour
         {
             dialogueText.text = "Skill will target user";
         }
-         if (BattleManager.Instance.playerSelecting == true)
+         if (BattleManager.Instance.playerSelecting == true || BattleManager.Instance.selecting == true)
         {
             dialogueText.text = "Choose target";
         }
