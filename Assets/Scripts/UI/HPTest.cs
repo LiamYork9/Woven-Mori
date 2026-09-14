@@ -19,7 +19,16 @@ public class HPTest : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        hpText.text = "HP:" + CurrentHealth + "/" + MaxHealth;
+        hpText.text = unitBody.name + "  HP:" + CurrentHealth + "/" + MaxHealth;
+
+        if(TurnOrderManager.Instance.turnPlayer == unitBody)
+        {
+            hpText.color = Color.yellow;
+        }
+        else
+        {
+            hpText.color = Color.white;
+        }
     }
 
     public void SetHpBar()
