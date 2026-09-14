@@ -7,7 +7,6 @@ using UnityEngine.Events;
 
 public class UnitBody : MonoBehaviour
 {
-
     public Unit unit;
     public bool partyMember;
 
@@ -62,14 +61,19 @@ public class UnitBody : MonoBehaviour
     public HPTest hPTest;
 
     public List<int> equipmentStats = new List<int> {0,0,0,0,0,0};
+    private bool set = false;
 
    
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
-        if (unit != null && unit.partyMember == false)
+        if (unit != null && !set &&unit.partyMember == false)
         {
            SetUnit(unit);
+        }
+        else
+        {
+            Debug.Log(unit);
         }
         hPTest.SetHpBar();
         if(equipmentAttrs == null){
@@ -87,6 +91,7 @@ public class UnitBody : MonoBehaviour
     public void SetUnit(Unit newUnit)
     {
         unit = newUnit;
+        set = true;
         CopyStats(newUnit);
         //Debug.Log("Copied Stats" + newUnit.name);
     }
@@ -115,6 +120,7 @@ public class UnitBody : MonoBehaviour
             CheckEquipment(target as PlayerCharacter);
         }
         name = target.unitName;
+        Debug.Log("NameChange");
         skills = target.skills;
         partyMember = target.partyMember;
         chSprite = target.chSprite;

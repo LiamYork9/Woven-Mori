@@ -55,6 +55,7 @@ public class TurnOrderManager : MonoBehaviour
     // Creates a list of all the current fighters in a battle
     public void GatherFighters()
     {
+        List<string> usedNames = new List<string>();
         if (BM == null)
         {
             BM = BattleManager.Instance;
@@ -68,7 +69,25 @@ public class TurnOrderManager : MonoBehaviour
 
         for (int i = 0; i < BM.enemySlots.Count; i++)
         {
+            usedNames.Add(BM.enemySlots[i].GetComponent<UnitBody>().name);
+            int nameCount =0;
+            foreach(string searchName in usedNames)
+            {
+                if(searchName == BM.enemySlots[i].GetComponent<UnitBody>().name)
+                {
+                    nameCount++;
+                }
+            }
+            
+            Debug.Log(nameCount+"");
+            if(nameCount>1)
+            {
+                Debug.Log("new name = "+nameCount+"/n i="+i);
+                BM.enemySlots[i].GetComponent<UnitBody>().name= BM.enemySlots[i].GetComponent<UnitBody>().name+" " + nameCount;
+                Debug.Log(BM.enemySlots[i].GetComponent<UnitBody>().name);
+            }
             BM.enemySlots[i].name = BM.enemySlots[i].GetComponent<UnitBody>().name;
+            Debug.Log("Slot " + i + "name is " + BM.enemySlots[i].name);
             allFighters.Add(BM.enemySlots[i]);
             fatedPoints.AddRange(BM.enemySlots[i].GetComponent<UnitBody>().fatedPoints);
         }
@@ -134,6 +153,7 @@ public class TurnOrderManager : MonoBehaviour
                     tempTurn.PopulateTurn(tempUnit,tempUnit.CheckFate(),tempUnit.GetFate());
                     turnOrder.Add(tempTurn);
                     tempUnit.turnsAdded++;
+                    added ++;
                 }
             }
             cycle++;
