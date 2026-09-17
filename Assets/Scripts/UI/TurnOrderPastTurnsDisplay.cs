@@ -57,7 +57,7 @@ public class TurnOrderPastTurnsDisplay : MonoBehaviour
             gameObject.GetComponent<Image>().color = new Color32(100,100,100,190);
         }
 
-        if(BattleManager.Instance.SBS.selectedSkill.skillId!=SkillId.None && (BattleManager.Instance.SBS.selectedSkill.turnShift*-1)-1==turnPostion)
+        if(BattleManager.Instance.SBS.selectedSkill.skillId!=SkillId.None && (BattleManager.Instance.SBS.selectedSkill.turnShift*-1)-1==turnPostion&&TurnOrderManager.Instance.recentTurns.Count>turnPostion)
         {
             animator.SetBool("TargetShift",true);
         }
