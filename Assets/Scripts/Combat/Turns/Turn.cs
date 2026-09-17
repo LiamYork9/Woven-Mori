@@ -68,6 +68,14 @@ public class Turn
     // Its just shootout dumbass 
     public virtual IEnumerator StartTurnCo()
     {
+        Vector3 temp = new Vector3(100.0f,0,0);
+        if(unit.partyMember == false)
+        {
+            temp*=-1;
+            
+        }
+        unit.gameObject.transform.position += temp;
+        
         BattleManager.Instance.ButtonsOff();
         BattleManager.Instance.dialogueText.text = "Start " + unit.name + "'s Turn!";
         yield return new WaitForSeconds(1f);
@@ -105,6 +113,14 @@ public class Turn
 
     public virtual IEnumerator EndTurnCo()
     {
+        Vector3 temp = new Vector3(100.0f,0,0);
+        if(unit.partyMember == false)
+        {
+            temp*=-1;
+            
+        }
+        unit.gameObject.transform.position -= temp;
+
         unit.EndOfTurn.Invoke();
         fated = false;
         // Removing Timed out Buff and Debuffs, end of turn effects 

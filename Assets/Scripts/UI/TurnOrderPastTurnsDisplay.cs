@@ -1,6 +1,7 @@
 using UnityEngine;
 using TMPro;
 using UnityEngine.UI;
+using MoriSkills;
 
 
 public class TurnOrderPastTurnsDisplay : MonoBehaviour
@@ -10,10 +11,11 @@ public class TurnOrderPastTurnsDisplay : MonoBehaviour
     public int turnPostion;
 
     public Sprite baseSprite;
+    public Animator animator;
   
     void Start()
     {
-        
+        animator = gameObject.GetComponent<Animator>();
     }
 
     // Update is called once per frame
@@ -53,6 +55,15 @@ public class TurnOrderPastTurnsDisplay : MonoBehaviour
             displayName.text = " ";
             gameObject.GetComponent<Image>().sprite = baseSprite;
             gameObject.GetComponent<Image>().color = new Color32(100,100,100,190);
+        }
+
+        if(BattleManager.Instance.SBS.selectedSkill.skillId!=SkillId.None && (BattleManager.Instance.SBS.selectedSkill.turnShift*-1)-1==turnPostion)
+        {
+            animator.SetBool("TargetShift",true);
+        }
+        else
+        {
+            animator.SetBool("TargetShift",false);
         }
     }
 }

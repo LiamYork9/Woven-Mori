@@ -5,6 +5,8 @@ using TMPro;
 using UnityEngine.UI;
 using MoriSkills;
 using UnityEngine.SceneManagement;
+using NUnit.Framework.Constraints;
+using UnityEngine.Assertions.Must;
 
 
 
@@ -310,6 +312,7 @@ public class BattleManager : MonoBehaviour
                 actionMenu.SetActive(true);
                 ButtonsOn();
                 targetArrow.SetActive(false);
+                SBS.selectedSkill.skillId = SkillId.None;
             }
             if (selecting == true)
             {
