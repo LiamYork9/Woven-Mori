@@ -107,6 +107,7 @@ public class Turn
         //Enemy AI Here !!!!!
         yield return new WaitForSeconds(0.5f);
         Skill Temp = EnemySelectSkill();
+        Temp.CheckSkillModConditions(unit);
         List<UnitBody> tempTargets = EnemySkillTarget(Temp);
         BattleManager.Instance.EnemyAttack(Temp,tempTargets);
     }

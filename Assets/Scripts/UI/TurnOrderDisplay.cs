@@ -52,7 +52,7 @@ public class TurnOrderDisplay : MonoBehaviour
             displayName.color = Color.black;
         }
 
-        if(BattleManager.Instance.SBS.selectedSkill.skillId!=SkillId.None && (BattleManager.Instance.SBS.selectedSkill.turnShift==turnPostion|| (turnPostion==1&&BattleManager.Instance.SBS.selectedSkill.turnShift*-1>TurnOrderManager.Instance.recentTurns.Count)) )
+        if(BattleManager.Instance.SBS?.selectedSkill?.skillId!=SkillId.None && (BattleManager.Instance.SBS?.selectedSkill?.turnShift==turnPostion|| (turnPostion==1&&BattleManager.Instance.SBS?.selectedSkill?.turnShift*-1>TurnOrderManager.Instance.recentTurns.Count)) )
         {
             animator.SetBool("TargetShift",true);
         }
