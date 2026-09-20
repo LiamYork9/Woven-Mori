@@ -14,6 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   unitName: Slimeling
   partyMember: 0
+  brain: {fileID: 11400000, guid: 5e0b8a32e710c5d48a4752ca5545bf99, type: 2}
   skills: 05000000
   resistance: 02000000
   immunity: 
@@ -31,6 +32,11 @@ MonoBehaviour:
     Speed: 3
     APCap: 10
     APGain: 1
+  fatedTurns: []
+  fatedPoints:
+  - point: 0
+    unit: {fileID: 0}
+    fate: Heal
   equipmentStats: 000000000000000000000000000000000000000000000000
   expYield: 20
   money: 0
