@@ -14,28 +14,28 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   unitName: Laura
   partyMember: 1
-  skills: 020000001500000005000000080000000900000012000000
+  skills: 020000001500000005000000
   resistance: 
   immunity: 
   vulnerability: 
   conditions: []
   chSprite: {fileID: 972637018, guid: 2ae8830c3f959ec409a3e5f9c0b93f79, type: 3}
-  deathSprite: {fileID: 21300000, guid: 7ef42231652fcda41b73cf85791d6841, type: 3}
+  deathSprite: {fileID: -4910113567136968945, guid: 59c81fd56476e6f418b4ca14d9e2d909, type: 3}
   stats:
-    Level: 30
-    MaxHP: 120
-    CurrentHP: 120
-    Attack: 45
-    Defense: 30
-    Mdefense: 45
-    Speed: 75
+    Level: 1
+    MaxHP: 8
+    CurrentHP: 8
+    Attack: 3
+    Defense: 2
+    Mdefense: 3
+    Speed: 5
     APCap: 10
     APGain: 1
   fatedTurns: []
   fatedPoints: []
   equipmentStats: 020000000000000000000000000000000000000000000000
   playerClass: 4
-  exp: 430
+  exp: 0
   weapon: {fileID: 11400000, guid: 907f1ae82da87f04c8b8e905d27e4407, type: 2}
   armor: {fileID: 0}
   accessory: {fileID: 0}
