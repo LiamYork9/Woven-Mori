@@ -36,7 +36,7 @@ MonoBehaviour:
   fatedPoints: []
   equipmentStats: 000000000000000000000000000000000000000000000000
   playerClass: 1
-  exp: 0
+  exp: 15
   weapon: {fileID: 0}
   armor: {fileID: 0}
   accessory: {fileID: 0}
