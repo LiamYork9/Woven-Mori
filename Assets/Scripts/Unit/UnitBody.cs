@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using MoriSkills;
 using UnityEngine;
 using UnityEngine.Events;
+using UnityEngine.UI;
 
 
 public class UnitBody : MonoBehaviour
@@ -95,18 +96,22 @@ public class UnitBody : MonoBehaviour
         unit = newUnit;
         set = true;
         downed = false;
+        
         CopyStats(newUnit);
         //Debug.Log("Copied Stats" + newUnit.name);
     }
 
     public void Death()
     {
+        gameObject.GetComponent<Image>().sprite = deathSprite;
         Debug.Log(name + " Body Death");
         if (activeStats.CurrentHP <= 0)
         {
+           
             downed = true;
             if (partyMember)
             {
+                
                 BattleManager.Instance.playerSlots.Remove(this.gameObject);
             }
             else
