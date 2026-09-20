@@ -14,6 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   unitName: BabyBatBeast
   partyMember: 0
+  brain: {fileID: 11400000, guid: 5e0b8a32e710c5d48a4752ca5545bf99, type: 2}
   skills: 03000000
   resistance: 
   immunity: 
@@ -31,6 +32,11 @@ MonoBehaviour:
     Speed: 8
     APCap: 10
     APGain: 1
+  fatedTurns: []
+  fatedPoints:
+  - point: 0
+    unit: {fileID: 0}
+    fate: Heal
   equipmentStats: 000000000000000000000000000000000000000000000000
   expYield: 15
   money: 0

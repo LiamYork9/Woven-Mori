@@ -668,12 +668,15 @@ public class BattleManager : MonoBehaviour
     }
     
 
-    IEnumerator EnemyAttackCo(Skill skill, List<UnitBody> targets)
+    IEnumerator EnemyAttackCo(Skill skill, List<UnitBody> targets,bool freeSkill=false)
     {
         action = true;
         yield return new WaitForSeconds(2f);
         dialogueText.text = TurnOrderManager.Instance.turnPlayer.name + " used " + skill.name + " On" ;
-        TurnOrderManager.Instance.turnPlayer.AP -= skill.cost;
+        if(!freeSkill)
+        {
+            TurnOrderManager.Instance.turnPlayer.AP -= skill.cost;
+        }
         for (int i = 0; i < targets.Count; i++)
         {
             dialogueText.text += " " + targets[i].name;
@@ -918,9 +921,9 @@ public class BattleManager : MonoBehaviour
         StartCoroutine(turn.EndTurnCo());
     }
 
-    public void EnemyAttack(Skill skill, List<UnitBody> targets)
+    public void EnemyAttack(Skill skill, List<UnitBody> targets, bool freeSkill = false)
     {
-        StartCoroutine(EnemyAttackCo(skill,targets));
+        StartCoroutine(EnemyAttackCo(skill,targets,freeSkill));
     }
 
     public void RunAway()

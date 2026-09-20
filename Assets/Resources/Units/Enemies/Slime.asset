@@ -14,6 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   unitName: Slime
   partyMember: 0
+  brain: {fileID: 11400000, guid: d6eede53c923a2d4aa2f58f7e775239e, type: 2}
   skills: 09000000050000000e000000
   resistance: 
   immunity: 
@@ -31,7 +32,12 @@ MonoBehaviour:
     Speed: 15
     APCap: 10
     APGain: 1
+  fatedTurns: []
+  fatedPoints: []
   equipmentStats: 000000000000000000000000000000000000000000000000
+  stateMachine:
+    currentState: {fileID: 0}
+    states: []
   expYield: 250
   money: 100
   lootTable:

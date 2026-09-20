@@ -28,9 +28,6 @@ public enum Rarity
 public class Enemy : Unit
 {
     
-    [Header("StateMachine")]
-    public EnemyStateMachine stateMachine;
-    
     public int expYield; 
 
     public int money;

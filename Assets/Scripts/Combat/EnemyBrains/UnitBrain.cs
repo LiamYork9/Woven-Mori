@@ -4,6 +4,7 @@ using Unity.VisualScripting;
 using UnityEngine;
 
 
+[System.Serializable]
 public enum TargetingStyle
 {
     LowestHealthEnemy,
@@ -18,19 +19,23 @@ public enum TargetingStyle
     self,
     All
 }
+[System.Serializable]
 public struct SkillUse
 {
     public Skill skill;
     public UnitBody user;
-    
+    public bool freeSkill;
     public List<UnitBody> targets;
 
 }
 
+
+[System.Serializable]
 public struct FateCode
 {
     public string code;
     public SkillId skillId;
+    public bool isFree;
 }
 [CreateAssetMenu(fileName = "UnitBrain", menuName = "Scriptable Objects/EnemyBrain")]
 public class UnitBrain : ScriptableObject
@@ -44,19 +49,23 @@ public class UnitBrain : ScriptableObject
         };
         if (TurnOrderManager.Instance.turnOrder[0].fated)
         {
-            SkillId? tempId = CheckFate()?.skillId;
-            if(tempId!=null)
+            FateCode? tempFate = CheckFate();
+            if(tempFate!=null && tempFate.Value.skillId!=SkillId.None)
             {
-                Skill tempSkill = SkillMaker.Instance.GetById(tempId.Value);
+                SkillId tempId = tempFate.Value.skillId;
+                Skill tempSkill = SkillMaker.Instance.GetById(tempId);
                 temp.skill = tempSkill;
+                temp.freeSkill = tempFate.Value.isFree;
             }
         }
+            
         if(temp.skill == null)
         {
             temp.skill = SelectSkill(unit);
+            temp.freeSkill=false;
         }
         temp.skill.CheckSkillModConditions(unit);
-        temp.targets=SkillTarget(temp.skill);
+        temp.targets=SkillTarget(temp.skill,unit);
         return temp;
     } 
     public FateCode? CheckFate()
@@ -94,58 +103,72 @@ public class UnitBrain : ScriptableObject
         }
     }
 
-    public List<UnitBody> SkillTarget(Skill skill)
+    public List<UnitBody> SkillTarget(Skill skill, UnitBody user)
     {
         List<UnitBody> targets = new List<UnitBody>();
-        switch (skill.target)
+        if(!user.partyMember)
         {
-            case Target.single:
-               targets.Add(BattleManager.Instance.playerSlots[Random.Range(0,BattleManager.Instance.playerSlots.Count)].GetComponent<UnitBody>());
-                break;
-             case Target.mutipleEnemy:
-               for( int i = 0; i < BattleManager.Instance.playerSlots.Count ; i++)
-                {
-                    targets.Add(BattleManager.Instance.playerSlots[i].GetComponent<UnitBody>());
-                }
-                break;
-             case Target.self:
-                targets.Add(TurnOrderManager.Instance.turnPlayer);
-                break;
-             case Target.party:
-                for( int i = 0; i < BattleManager.Instance.enemySlots.Count ; i++)
-                {
-                    targets.Add(BattleManager.Instance.enemySlots[i].GetComponent<UnitBody>());
-                }
-                break;
-             case Target.ally:
-                bool heals = false;
-                for( int i = 0; i<skill.attrs.Count; i++)
-                {
-                    if(skill.attrs[i] is HealAttr && !skill.attrs[i].targetSelf)
+            switch (skill.target)
+            {
+                case Target.single:
+                targets.Add(BattleManager.Instance.playerSlots[Random.Range(0,BattleManager.Instance.playerSlots.Count)].GetComponent<UnitBody>());
+                    break;
+                case Target.mutipleEnemy:
+                for( int i = 0; i < BattleManager.Instance.playerSlots.Count ; i++)
                     {
-                        heals = true;
+                        targets.Add(BattleManager.Instance.playerSlots[i].GetComponent<UnitBody>());
                     }
-                }
-                if(heals)
-                {
-                    int temptarget = 0;
-                    int missingHP = 0;
-                    for( int i = 0; i<BattleManager.Instance.enemySlots.Count; i++)
-                    {   
-                        UnitBody temp = BattleManager.Instance.enemySlots[i].GetComponent<UnitBody>();
-                        if(temp.activeStats.MaxHP-temp.activeStats.CurrentHP>missingHP)
+                    break;
+                case Target.self:
+                    targets.Add(TurnOrderManager.Instance.turnPlayer);
+                    break;
+                case Target.party:
+                    for( int i = 0; i < BattleManager.Instance.enemySlots.Count ; i++)
+                    {
+                        targets.Add(BattleManager.Instance.enemySlots[i].GetComponent<UnitBody>());
+                    }
+                    break;
+                case Target.ally:
+                    bool heals = false;
+                    for( int i = 0; i<skill.attrs.Count; i++)
+                    {
+                        if(skill.attrs[i] is HealAttr && !skill.attrs[i].targetSelf)
                         {
-                            missingHP=temp.activeStats.MaxHP-temp.activeStats.CurrentHP;
-                            temptarget = i;
+                            heals = true;
                         }
                     }
-                    targets.Add(BattleManager.Instance.enemySlots[temptarget].GetComponent<UnitBody>());
-                }
-                else
-                {
-                   targets.Add(BattleManager.Instance.enemySlots[Random.Range(0,BattleManager.Instance.enemySlots.Count)].GetComponent<UnitBody>()); 
-                }
-                break;
+                    if(heals)
+                    {
+                        int temptarget = 0;
+                        int missingHP = 0;
+                        for( int i = 0; i<BattleManager.Instance.enemySlots.Count; i++)
+                        {   
+                            UnitBody temp = BattleManager.Instance.enemySlots[i].GetComponent<UnitBody>();
+                            if(temp.activeStats.MaxHP-temp.activeStats.CurrentHP>missingHP)
+                            {
+                                missingHP=temp.activeStats.MaxHP-temp.activeStats.CurrentHP;
+                                temptarget = i;
+                            }
+                        }
+                        if (missingHP!=0)
+                        {
+                            targets.Add(BattleManager.Instance.enemySlots[temptarget].GetComponent<UnitBody>());
+                        }
+                        else
+                        {
+                        targets.Add(BattleManager.Instance.enemySlots[Random.Range(0,BattleManager.Instance.enemySlots.Count)].GetComponent<UnitBody>()); 
+                        }
+                    }
+                    else
+                    {
+                    targets.Add(BattleManager.Instance.enemySlots[Random.Range(0,BattleManager.Instance.enemySlots.Count)].GetComponent<UnitBody>()); 
+                    }
+                    break;
+                
+            }
+        }
+        else
+        {
             
         }
         return targets;
