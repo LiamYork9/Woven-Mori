@@ -19,7 +19,7 @@ public class HPTest : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if(unitBody.unit != null)
+        if(unitBody.unit != null && unitBody.downed == false)
         {
             
             hpText.text = unitBody.name + "  HP:" + CurrentHealth + "/" + MaxHealth;
@@ -35,7 +35,15 @@ public class HPTest : MonoBehaviour
         }
         else
         {
-             hpText.text = "";
+            hpText.text = "";
+        }
+       
+       
+
+        if(unitBody.downed == true && unitBody.unit != null)
+        {
+            hpText.color = Color.red;
+            hpText.text = unitBody.name + "  HP:" + CurrentHealth + "/" + MaxHealth;
         }
     }
 

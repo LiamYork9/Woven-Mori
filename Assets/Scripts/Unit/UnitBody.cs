@@ -8,6 +8,8 @@ using UnityEngine.Events;
 public class UnitBody : MonoBehaviour
 {
     public Unit unit;
+
+    public bool downed = false;
     public bool partyMember;
 
     public List<SkillId> skills;
@@ -92,6 +94,7 @@ public class UnitBody : MonoBehaviour
     {
         unit = newUnit;
         set = true;
+        downed = false;
         CopyStats(newUnit);
         //Debug.Log("Copied Stats" + newUnit.name);
     }
@@ -101,6 +104,7 @@ public class UnitBody : MonoBehaviour
         Debug.Log(name + " Body Death");
         if (activeStats.CurrentHP <= 0)
         {
+            downed = true;
             if (partyMember)
             {
                 BattleManager.Instance.playerSlots.Remove(this.gameObject);

@@ -30,7 +30,7 @@ public class PlayerCharacter : Unit
 
         if (body.activeStats.CurrentHP <= 0)
         {
-            body.gameObject.SetActive(false);
+            //body.gameObject.SetActive(false);
             for (int i = 0; i < TurnOrderManager.Instance.turnOrder.Count; i++)
             {
                 emergencybutton = 0;
