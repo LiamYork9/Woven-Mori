@@ -67,9 +67,11 @@ namespace MoriSkills
     public enum Category
     {
         Attack,
-        Buff,
-        Debuff,
-        Support
+        Heal,
+        Status
+        // Buff,
+        // Debuff,
+        // Support
     }
 
     [System.Serializable]
