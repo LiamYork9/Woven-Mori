@@ -129,6 +129,8 @@ public class Unit : ScriptableObject
     public string unitName;
     public bool partyMember;
 
+    public UnitBrain brain;
+
     public List<SkillId> skills;
 
     public List<Element> resistance;

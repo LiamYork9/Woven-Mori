@@ -1,11 +1,7 @@
 using UnityEngine;
 using System.Collections.Generic;
 using System.Collections;
-using TMPro;
-using UnityEngine.UI;
 using MoriSkills;
-using System.Reflection;
-using NUnit.Framework;
 
 [System.Serializable]
 public class Turn
@@ -104,12 +100,10 @@ public class Turn
 
     public IEnumerator EnemyActionCo()
     {
-        //Enemy AI Here !!!!!
         yield return new WaitForSeconds(0.5f);
-        Skill Temp = EnemySelectSkill();
-        Temp.CheckSkillModConditions(unit);
-        List<UnitBody> tempTargets = EnemySkillTarget(Temp);
-        BattleManager.Instance.EnemyAttack(Temp,tempTargets);
+        //Enemy AI Here !!!!!
+        SkillUse temp = unit.unit.brain.Think(unit);
+        BattleManager.Instance.EnemyAttack(temp.skill,temp.targets);
     }
 
     public virtual IEnumerator EndTurnCo()
@@ -136,83 +130,7 @@ public class Turn
      
     }
 
-    public Skill EnemySelectSkill()
-    {
-        int AP = TurnOrderManager.Instance.turnPlayer.AP;
-        List<Skill> enemySkills = new List<Skill>();
-        for(int i = 0; i < TurnOrderManager.Instance.turnPlayer.skills.Count; i++)
-        {
-            if(SkillMaker.Instance.GetById(TurnOrderManager.Instance.turnPlayer.skills[i]).cost <= AP)
-            {
-                enemySkills.Add(SkillMaker.Instance.GetById(TurnOrderManager.Instance.turnPlayer.skills[i]));
-            }
-        }
-       int temp = Random.Range(-1,enemySkills.Count);
-        if(temp == -1)
-        {
-            return SkillMaker.Instance.GetById(SkillId.Attack);
-        }
-        else
-        {
-            return enemySkills[temp];
-        }
-    }
     
-    public List<UnitBody> EnemySkillTarget(Skill skill)
-    {
-        List<UnitBody> targets = new List<UnitBody>();
-        switch (skill.target)
-        {
-            case Target.single:
-               targets.Add(BattleManager.Instance.playerSlots[Random.Range(0,BattleManager.Instance.playerSlots.Count)].GetComponent<UnitBody>());
-                break;
-             case Target.mutipleEnemy:
-               for( int i = 0; i < BattleManager.Instance.playerSlots.Count ; i++)
-                {
-                    targets.Add(BattleManager.Instance.playerSlots[i].GetComponent<UnitBody>());
-                }
-                break;
-             case Target.self:
-                targets.Add(TurnOrderManager.Instance.turnPlayer);
-                break;
-             case Target.party:
-                for( int i = 0; i < BattleManager.Instance.enemySlots.Count ; i++)
-                {
-                    targets.Add(BattleManager.Instance.enemySlots[i].GetComponent<UnitBody>());
-                }
-                break;
-             case Target.ally:
-                bool heals = false;
-                for( int i = 0; i<skill.attrs.Count; i++)
-                {
-                    if(skill.attrs[i] is HealAttr && !skill.attrs[i].targetSelf)
-                    {
-                        heals = true;
-                    }
-                }
-                if(heals)
-                {
-                    int temptarget = 0;
-                    int missingHP = 0;
-                    for( int i = 0; i<BattleManager.Instance.enemySlots.Count; i++)
-                    {   
-                        UnitBody temp = BattleManager.Instance.enemySlots[i].GetComponent<UnitBody>();
-                        if(temp.activeStats.MaxHP-temp.activeStats.CurrentHP>missingHP)
-                        {
-                            missingHP=temp.activeStats.MaxHP-temp.activeStats.CurrentHP;
-                            temptarget = i;
-                        }
-                    }
-                    targets.Add(BattleManager.Instance.enemySlots[temptarget].GetComponent<UnitBody>());
-                }
-                else
-                {
-                   targets.Add(BattleManager.Instance.enemySlots[Random.Range(0,BattleManager.Instance.enemySlots.Count)].GetComponent<UnitBody>()); 
-                }
-                 break;
-            
-        }
-        return targets;
-
-    }
+    
+    
 }
