@@ -34,7 +34,10 @@ public struct FateCode
 {
     public string code;
     public SkillId skillId;
+    public bool targetingOverride;
+    public Target newTargeting;
     public bool isFree;
+
 }
 [CreateAssetMenu(fileName = "UnitBrain", menuName = "Scriptable Objects/EnemyBrain/T1")]
 public class UnitBrain : ScriptableObject
