@@ -67,9 +67,11 @@ namespace MoriSkills
     public enum Category
     {
         Attack,
-        Buff,
-        Debuff,
-        Support
+        Heal,
+        Status
+        // Buff,
+        // Debuff,
+        // Support
     }
 
     [System.Serializable]
@@ -146,7 +148,7 @@ namespace MoriSkills
         }
 
 
-        public void CheckSkillModConditions(UnitBody user)
+        public Skill CheckSkillModConditions(UnitBody user)
         {
             foreach (SkillCondition condition in conditions)
             {
@@ -155,6 +157,7 @@ namespace MoriSkills
                     condition.CheckConditionSkillMod(this,user);
                 }
             }
+            return this;
         }
 
 

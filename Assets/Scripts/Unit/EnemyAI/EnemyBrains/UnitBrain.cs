@@ -1,6 +1,5 @@
 using System.Collections.Generic;
 using MoriSkills;
-using Unity.VisualScripting;
 using UnityEngine;
 
 
@@ -35,13 +34,16 @@ public struct FateCode
 {
     public string code;
     public SkillId skillId;
+    public bool targetingOverride;
+    public Target newTargeting;
     public bool isFree;
+
 }
-[CreateAssetMenu(fileName = "UnitBrain", menuName = "Scriptable Objects/EnemyBrain")]
+[CreateAssetMenu(fileName = "UnitBrain", menuName = "Scriptable Objects/EnemyBrain/T1")]
 public class UnitBrain : ScriptableObject
 {
     public List<FateCode> fates;
-    public SkillUse Think(UnitBody unit)
+    public virtual SkillUse Think(UnitBody unit)
     {
         SkillUse temp = new SkillUse
         {
@@ -82,7 +84,7 @@ public class UnitBrain : ScriptableObject
         return null;
     }
 
-    public Skill SelectSkill(UnitBody user)
+    public virtual Skill SelectSkill(UnitBody user)
     {
         List<Skill> tempSkills = new List<Skill>();
         for(int i = 0; i < user.skills.Count; i++)
@@ -103,7 +105,7 @@ public class UnitBrain : ScriptableObject
         }
     }
 
-    public List<UnitBody> SkillTarget(Skill skill, UnitBody user)
+    public virtual List<UnitBody> SkillTarget(Skill skill, UnitBody user)
     {
         List<UnitBody> targets = new List<UnitBody>();
         if(!user.partyMember)

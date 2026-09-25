@@ -79,15 +79,11 @@ public class TurnOrderManager : MonoBehaviour
                 }
             }
             
-            Debug.Log(nameCount+"");
             if(nameCount>1)
             {
-                Debug.Log("new name = "+nameCount+"/n i="+i);
                 BM.enemySlots[i].GetComponent<UnitBody>().name= BM.enemySlots[i].GetComponent<UnitBody>().name+" " + nameCount;
-                Debug.Log(BM.enemySlots[i].GetComponent<UnitBody>().name);
             }
             BM.enemySlots[i].name = BM.enemySlots[i].GetComponent<UnitBody>().name;
-            Debug.Log("Slot " + i + "name is " + BM.enemySlots[i].name);
             allFighters.Add(BM.enemySlots[i]);
             fatedPoints.AddRange(BM.enemySlots[i].GetComponent<UnitBody>().fatedPoints);
         }

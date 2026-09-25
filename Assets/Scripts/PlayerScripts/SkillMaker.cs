@@ -77,27 +77,27 @@ public class SkillMaker : MonoBehaviour
         madeSkills.Add(WindBlade);
         
         
-        Skill Flex = new Skill(SkillId.Flex, "Flex",0 , Element.None, Target.self, Category.Buff,  1, "Get Ripped",    1)
+        Skill Flex = new Skill(SkillId.Flex, "Flex",0 , Element.None, Target.self, Category.Status,  1, "Get Ripped",    1)
         .Attr(new StatBoostConAttr(Stats.Attack|Stats.Defense, standardBoost, 3, true));
         madeSkills.Add(Flex);
         
         
-        Skill Heal = new Skill(SkillId.Heal, "Heal",10, Element.None, Target.ally, Category.Support,  2, "Restore some HP to an Ally",  -1)
+        Skill Heal = new Skill(SkillId.Heal, "Heal",10, Element.None, Target.ally, Category.Heal,  2, "Restore some HP to an Ally",  -1)
         .Attr(new HealAttr(1, .5f, false));
         madeSkills.Add(Heal);
         
         
-        Skill MassHeal = new Skill(SkillId.MassHeal, "Mass Heal",10, Element.None, Target.party, Category.Support,  3, "Restore some HP to all Allies",  -2)
+        Skill MassHeal = new Skill(SkillId.MassHeal, "Mass Heal",10, Element.None, Target.party, Category.Heal,  3, "Restore some HP to all Allies",  -2)
         .Attr(new HealAttr(1, .5f, false));
         madeSkills.Add(MassHeal);
         
         
-        Skill Fortifiy = new Skill(SkillId.Fortifiy, "Fortifiy",0 , Element.None, Target.party, Category.Buff,  3,"Boosts the parties Defenses",1)
+        Skill Fortifiy = new Skill(SkillId.Fortifiy, "Fortifiy",0 , Element.None, Target.party, Category.Status,  3,"Boosts the parties Defenses",1)
         .Attr(new StatBoostConAttr(Stats.Defense|Stats.mDefense, standardBoost));
         madeSkills.Add(Fortifiy);
         
         
-        Skill PowerUp = new Skill(SkillId.PowerUp, "PowerUp",0 ,Element.None,Target.ally, Category.Buff,2,"Raise one allies Attack",2)
+        Skill PowerUp = new Skill(SkillId.PowerUp, "PowerUp",0 ,Element.None,Target.ally, Category.Status,2,"Raise one allies Attack",2)
         .Attr(new StatBoostConAttr(Stats.Attack, standardBoost));
         madeSkills.Add(PowerUp);
         
@@ -114,7 +114,7 @@ public class SkillMaker : MonoBehaviour
         madeSkills.Add(TriSlash);
         
         
-        Skill FiredUp = new Skill(SkillId.FiredUp, "Fired Up",0 , Element.Fire, Target.self, Category.Buff,3,"Targets: Self \nElement: Fire \nGreatly boost attack For 1 strike",0)
+        Skill FiredUp = new Skill(SkillId.FiredUp, "Fired Up",0 , Element.Fire, Target.self, Category.Status,3,"Targets: Self \nElement: Fire \nGreatly boost attack For 1 strike",0)
         .Attr(new StatBoostConAttr(Stats.Attack, standardBoost,2));
         madeSkills.Add(FiredUp);
         
@@ -137,7 +137,7 @@ public class SkillMaker : MonoBehaviour
         madeSkills.Add(Rampage);
         
         
-        Skill CutLine = new Skill(SkillId.CutLine, "Cut Line",0 , Element.Fate, Target.mutipleEnemy,Category.Debuff,3,"Targets: All Enemies \nElement: Fate \nLower all enimes Attack",-2)
+        Skill CutLine = new Skill(SkillId.CutLine, "Cut Line",0 , Element.Fate, Target.mutipleEnemy,Category.Status,3,"Targets: All Enemies \nElement: Fate \nLower all enimes Attack",-2)
         .Attr(new StatDropConAttr(Stats.Attack, standardBoost));
         madeSkills.Add(CutLine);
         
@@ -150,7 +150,7 @@ public class SkillMaker : MonoBehaviour
         Skill SwordShield = new Skill(SkillId.SwordShield, "Sword&Shield",10 , Element.None, Target.single, Category.Attack, 1, "On Even turns Heal and buff yourself, on Odd turns hit the enemy and debuff them", -2)
         .Condition(new EvenOddCondition(
             /*Even Stats*/ 
-                20 , Element.None, Target.self, Category.Buff, 1, 1, 
+                20 , Element.None, Target.self, Category.Heal, 1, 1, 
                 
             /*Odd Stats*/
                 10 , Element.None, Target.single, Category.Attack, 1, 1)
@@ -164,13 +164,13 @@ public class SkillMaker : MonoBehaviour
                 .Odd(new StatDropConAttr(Stats.Attack, standardBoost)));
         madeSkills.Add(SwordShield);
 
-        Skill HopeDespair = new Skill(SkillId.HopeDespair, "Hope&Despair",10 , Element.None, Target.single, Category.Buff, 1, "On Even turns lower all enemies Atk, Def, MDef for 3 turns, on Odd turns Raise all parties Atk, Def, MDef for 3 turns", -2)
+        Skill HopeDespair = new Skill(SkillId.HopeDespair, "Hope&Despair",10 , Element.None, Target.single, Category.Status, 1, "On Even turns lower all enemies Atk, Def, MDef for 3 turns, on Odd turns Raise all parties Atk, Def, MDef for 3 turns", -2)
         .Condition(new EvenOddCondition(
             /*Even Stats*/ 
-                20 , Element.None, Target.party, Category.Buff, 3, 2, 
+                20 , Element.None, Target.party, Category.Status, 3, 2, 
                 
             /*Odd Stats*/
-                10 , Element.None, Target.mutipleEnemy, Category.Buff, 3, -2)
+                10 , Element.None, Target.mutipleEnemy, Category.Status, 3, -2)
             
             /*Even Attrs*/
                 .Even(new StatDropConAttr(Stats.Attack, standardBoost,3))
@@ -182,7 +182,7 @@ public class SkillMaker : MonoBehaviour
                 .Odd(new StatBoostConAttr(Stats.mDefense, standardBoost,3)));
         madeSkills.Add(HopeDespair);
 
-        Skill FlameFlood = new Skill(SkillId.FlameFlood, "Flame&Flood",10 , Element.None, Target.single, Category.Buff, 1, "On Even turns Deal  Water Damage to all enemies, on Odd turns Deal Fire Damage to one enemy and burn them", -2)
+        Skill FlameFlood = new Skill(SkillId.FlameFlood, "Flame&Flood",10 , Element.None, Target.single, Category.Status, 1, "On Even turns Deal  Water Damage to all enemies, on Odd turns Deal Fire Damage to one enemy and burn them", -2)
         .Condition(new EvenOddCondition(
             /*Even Stats*/ 
                 10 , Element.Water, Target.mutipleEnemy, Category.Attack, 2, 2, 
@@ -199,7 +199,7 @@ public class SkillMaker : MonoBehaviour
                
         madeSkills.Add(FlameFlood);
 
-        Skill HighLow = new Skill(SkillId.HighLow, "HighLow",10,Element.None,Target.single,Category.Buff,1,"",2)
+        Skill HighLow = new Skill(SkillId.HighLow, "HighLow",10,Element.None,Target.single,Category.Status,1,"",2)
         .Condition(new HighLowCondition(
             /*High Stats */
             10 , Element.Air, Target.mutipleEnemy, Category.Attack, 1, 2, 
@@ -220,7 +220,7 @@ public class SkillMaker : MonoBehaviour
         madeSkills.Add(Focus);
         
         
-        Skill SpeedUp = new Skill(SkillId.SpeedUp,"Speed Up",0,Element.None,Target.self,Category.Buff,1,"Boost your Priority",1)
+        Skill SpeedUp = new Skill(SkillId.SpeedUp,"Speed Up",0,Element.None,Target.self,Category.Status,1,"Boost your Priority",1)
         .Attr(new PriorityAttr(2,3));
         madeSkills.Add(SpeedUp);
 
