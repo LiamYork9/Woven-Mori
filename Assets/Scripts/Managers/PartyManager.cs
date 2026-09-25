@@ -2,6 +2,7 @@ using UnityEngine;
 using System.Collections.Generic;
 using System.Collections;
 using UnityEngine.InputSystem;
+using Microsoft.Unity.VisualStudio.Editor;
 
 public class PartyManager : MonoBehaviour, IDataPersistence
 {
@@ -29,6 +30,8 @@ public class PartyManager : MonoBehaviour, IDataPersistence
     public Vector3 SpawnLocation;
 
     public Vector3 restLocation;
+
+    public Sprite battleBackground;
 
     public static PartyManager GetInstance()
     {

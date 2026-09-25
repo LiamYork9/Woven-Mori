@@ -3201,7 +3201,7 @@ Camera:
   far clip plane: 1000
   field of view: 60
   orthographic: 1
-  orthographic size: 4.21875
+  orthographic size: 3.75
   m_Depth: -1
   m_CullingMask:
     serializedVersion: 2
@@ -3962,6 +3962,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   activeZone: 0
+  background: {fileID: -4424639891517422229, guid: 7e09cb6f84cb3f94bbaf7f6f2fa30d77, type: 3}
 --- !u!60 &1094370469
 PolygonCollider2D:
   m_ObjectHideFlags: 0
@@ -5156,6 +5157,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   activeZone: 0
+  background: {fileID: 1797764137301760914, guid: 704836936a9159340a983e9a02d766a4, type: 3}
 --- !u!60 &1555291639
 PolygonCollider2D:
   m_ObjectHideFlags: 0
