@@ -47,6 +47,8 @@ public class Tier2Brain: UnitBrain
 
     public int basicAttackChance;
 
+    public TargetingStyle basicAttackStyle = TargetingStyle.Default;
+
     public override SkillUse Think(UnitBody unit)
     {
         SkillUse temp = new SkillUse
@@ -142,7 +144,9 @@ public class Tier2Brain: UnitBrain
         
         if(basicAttackChance > Random.Range(0,100)||tempSkills.Count == 0)
         {
-            return SkillMaker.Instance.GetById(SkillId.Attack);
+            Skill attack =SkillMaker.Instance.GetById(SkillId.Attack);
+            attack.style = basicAttackStyle;
+            return attack;
         }
 
         int temp = Random.Range(0,tempSkills.Count);
