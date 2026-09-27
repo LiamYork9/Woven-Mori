@@ -100,6 +100,8 @@ namespace MoriSkills
         [SerializeReference]
         public List<SkillCondition> conditions;
 
+        public TargetingStyle style;
+
 
         public Skill(SkillId SskillId, string SskillName, int Spower, Element Selement, Target defualtTarget, Category Scategory, int Scost, string StoolTip, int SturnShift, List<SkillAttr> Sattr = null, List<SkillCondition> Sconditions = null)
         {
@@ -112,6 +114,7 @@ namespace MoriSkills
             cost = Scost;
             toolTip = StoolTip;
             turnShift = SturnShift;
+            style = TargetingStyle.Basic;
             if (Sattr == null)
             {
                 attrs = new List<SkillAttr> { };

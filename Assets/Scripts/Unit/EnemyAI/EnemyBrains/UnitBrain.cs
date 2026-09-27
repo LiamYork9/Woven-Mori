@@ -15,7 +15,10 @@ public enum TargetingStyle
     EnemyTeam,
     AllyTeam,
 
-    self,
+    Self,
+    Default,
+    DefaultAlly,
+    Basic,
     All
 }
 [System.Serializable]
