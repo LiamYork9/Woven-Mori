@@ -1,3 +1,5 @@
+using System.Collections.Generic;
+using MoriSkills;
 using UnityEngine;
 
 [CreateAssetMenu(fileName = "unit", menuName = "ScriptableObjects/Unit/Player", order = 1)]
@@ -5,7 +7,7 @@ using UnityEngine;
 public class PlayerCharacter : Unit
 {
     [Header ("Player Specific")]
-    public Classes theirClass;
+    public Classes playerClass;
     public int exp;
     public Weapon weapon; 
 
@@ -16,7 +18,7 @@ public class PlayerCharacter : Unit
 
     void Start()
     {
-        APCap = 10;
+        stats.APCap = 10;
     }
 
    
@@ -26,9 +28,9 @@ public class PlayerCharacter : Unit
     public override void Death(UnitBody body)
     {
 
-        if (body.currentHP <= 0)
+        if (body.activeStats.CurrentHP <= 0)
         {
-            body.gameObject.SetActive(false);
+            //body.gameObject.SetActive(false);
             for (int i = 0; i < TurnOrderManager.Instance.turnOrder.Count; i++)
             {
                 emergencybutton = 0;
@@ -80,32 +82,77 @@ public class PlayerCharacter : Unit
         base.Death(body);
     }
 
-    public void EquipGear(Equipment equipment)
+    public bool EquipGear(Equipment equipment)
     {
-        if(equipment is Weapon)
+        if((equipment.classList & playerClass) != 0)
         {
-            weapon = equipment as Weapon;
+            if(equipment is Weapon)
+            {
+                if(weapon != null)
+                {
+                    weapon.availableNumber += 1;
+                }
+                weapon = equipment as Weapon;
+                weapon.availableNumber -= 1;
+            }
+            else if (equipment is Armor)
+            {
+                if(armor != null)
+                {
+                    armor.availableNumber += 1;
+                }
+                armor = equipment as Armor;
+                armor.availableNumber -= 1;
+            }
+            else if(equipment is Accessory)
+            {
+                if(accessory != null)
+                {
+                    accessory.availableNumber += 1;
+                }
+                accessory = equipment as Accessory;
+                accessory.availableNumber -= 1;
+            }
+            return true;
         }
-        else if (equipment is Armor)
+        else 
         {
-            armor = equipment as Armor;
+            return false;
         }
-        else if(equipment is Accessory)
+
+    }
+
+    public void UnEquip(int remove)
+    {
+        if(remove == 1)
         {
-            accessory = equipment as Accessory;
+            if(weapon!=null)
+            weapon.availableNumber += 1;
+            weapon = null;
         }
+        if(remove == 2)
+        {
+            armor.availableNumber += 1;
+            armor = null;
+        }
+        if(remove == 3)
+        {
+            accessory.availableNumber += 1;
+            accessory = null;
+        }
+       
     }
 
     public void LevelUp()
     {
         for(int i = 0; i<LevelUpManager.Instance.classGrowths.Count; i++)
         {
-            if(LevelUpManager.Instance.classGrowths[i].playerClass == theirClass)
+            if(LevelUpManager.Instance.classGrowths[i].playerClass == playerClass)
             {
                 int milestoneIndex = -1;
                 for(int j=0; j<LevelUpManager.Instance.classGrowths[i].milestones.Count;j++)
                 {
-                    if(LevelUpManager.Instance.classGrowths[i].milestones[j].Level > level)
+                    if(LevelUpManager.Instance.classGrowths[i].milestones[j].Level > stats.Level)
                     {
                         milestoneIndex = j;
                         break;
@@ -114,20 +161,20 @@ public class PlayerCharacter : Unit
 
                 if(milestoneIndex != -1)
                 {
-                    ClassGrowth.Milestones goal = LevelUpManager.Instance.classGrowths[i].milestones[milestoneIndex];
-                    int levelgap = goal.Level-level;
-                    level ++;
-                    currentHP += (goal.MaxHP-maxHP)/levelgap;
-                    maxHP += (goal.MaxHP-maxHP)/levelgap;
-                    attack += (goal.Attack-attack)/levelgap;
-                    defense += (goal.Defense-defense)/levelgap;
-                    mDefense += (goal.Mdefense-mDefense)/levelgap;
-                    speed += (goal.Speed-speed)/levelgap;
+                    Milestones goal = LevelUpManager.Instance.classGrowths[i].milestones[milestoneIndex];
+                    int levelgap = goal.Level-stats.Level;
+                    stats.Level ++;
+                    stats.CurrentHP += (goal.MaxHP-stats.MaxHP)/levelgap;
+                    stats.MaxHP += (goal.MaxHP-stats.MaxHP)/levelgap;
+                    stats.Attack += (goal.Attack-stats.Attack)/levelgap;
+                    stats.Defense += (goal.Defense-stats.Defense)/levelgap;
+                    stats.Mdefense += (goal.Mdefense-stats.Mdefense)/levelgap;
+                    stats.Speed += (goal.Speed-stats.Speed)/levelgap;
                 }
 
                 for(int j=0; j<LevelUpManager.Instance.classGrowths[i].skillUnlocks.Count;j++)
                 {
-                    if(LevelUpManager.Instance.classGrowths[i].skillUnlocks[j].Level == level)
+                    if(LevelUpManager.Instance.classGrowths[i].skillUnlocks[j].Level == stats.Level)
                     {
                         ClassGrowth.SkillUnlocks newSkills = LevelUpManager.Instance.classGrowths[i].skillUnlocks[j];
                         for(int k=0; k<newSkills.SkillIds.Count;k++)
@@ -147,12 +194,141 @@ public class PlayerCharacter : Unit
 
     public void ResetLevel()
     {
-        level = 0;
+        stats.Level = 0;
+        exp = 0;
         skills.Clear();
         LevelUp();
     }
 
-   
+
+    
+    public void ChangeGrowth(StatTarget targetStats, GrowthTarget growthTarget, int change, bool applyInstant = false)
+    {
+        List<Milestones> milestones = null;
+        for (int i=0; i<LevelUpManager.Instance.classGrowths.Count;i++)
+        {
+            if(LevelUpManager.Instance.classGrowths[i].playerClass == playerClass)
+            {
+                milestones = LevelUpManager.Instance.classGrowths[i].milestones;
+            }
+        }
+        if(applyInstant)
+        {
+            if(targetStats.HasFlag(StatTarget.MaxHP))
+            {
+                stats.MaxHP += change;
+                stats.CurrentHP += change;
+            }
+            if(targetStats.HasFlag(StatTarget.Attack))
+            {
+                
+                stats.Attack += change;
+            }
+            if(targetStats.HasFlag(StatTarget.Defense))
+            {
+                stats.Defense += change;
+            }
+            if(targetStats.HasFlag(StatTarget.MDefense))
+            {
+                stats.Mdefense += change;
+            }
+            if(targetStats.HasFlag(StatTarget.Speed))
+            {
+                stats.Speed += change;
+            }
+        }
+        if(growthTarget == GrowthTarget.All)
+        {
+            for (int i=0; i<milestones.Count;i++)
+            {
+                Milestones temp = milestones[i];
+                if(targetStats.HasFlag(StatTarget.MaxHP))
+                {
+                    temp.MaxHP += change;
+                }
+                if(targetStats.HasFlag(StatTarget.Attack))
+                {
+                    temp.Attack += change;
+                }
+                if(targetStats.HasFlag(StatTarget.Defense))
+                {
+                    temp.Defense += change;
+                }
+                if(targetStats.HasFlag(StatTarget.MDefense))
+                {
+                    temp.Mdefense+= change;
+                }
+                if(targetStats.HasFlag(StatTarget.Speed))
+                {
+                    temp.Speed += change;
+                }
+                milestones[i] = temp;
+            }
+        }
+        else if(growthTarget == GrowthTarget.Next)
+        {
+            int milestoneIndex = -1;
+            for(int i=0; i<milestones.Count;i++)
+            {
+                if(milestones[i].Level > stats.Level)
+                {
+                    milestoneIndex = i;
+                    break;
+                }
+            }
+
+            if(milestoneIndex != -1)
+            {
+                Milestones temp = milestones[milestoneIndex];
+                if(targetStats.HasFlag(StatTarget.MaxHP))
+                {
+                    temp.MaxHP += change;
+                }
+                if(targetStats.HasFlag(StatTarget.Attack))
+                {
+                    temp.Attack += change;
+                }
+                if(targetStats.HasFlag(StatTarget.Defense))
+                {
+                    temp.Defense += change;
+                }
+                if(targetStats.HasFlag(StatTarget.MDefense))
+                {
+                    temp.Mdefense+= change;
+                }
+                if(targetStats.HasFlag(StatTarget.Speed))
+                {
+                    temp.Speed += change;
+                }
+                milestones[milestoneIndex] = temp;
+            }
+        }
+        else if(growthTarget == GrowthTarget.Last)
+        {
+            Milestones temp = milestones[milestones.Count-1];
+            if(targetStats.HasFlag(StatTarget.MaxHP))
+            {
+                temp.MaxHP += change;
+            }
+            if(targetStats.HasFlag(StatTarget.Attack))
+            {
+                temp.Attack += change;
+            }
+            if(targetStats.HasFlag(StatTarget.Defense))
+            {
+                temp.Defense += change;
+            }
+            if(targetStats.HasFlag(StatTarget.MDefense))
+            {
+                temp.Mdefense+= change;
+            }
+            if(targetStats.HasFlag(StatTarget.Speed))
+            {
+                temp.Speed += change;
+            }
+            milestones[milestones.Count-1] = temp;
+        }
+    }
 }
 
 

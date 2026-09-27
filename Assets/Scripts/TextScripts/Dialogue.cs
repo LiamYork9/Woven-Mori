@@ -29,6 +29,8 @@ public class Dialogue : MonoBehaviour
 
      public string[] dialogText;
 
+     public bool inCombat;
+
 
     void Start()
     {
@@ -102,6 +104,30 @@ public class Dialogue : MonoBehaviour
         pc.inText = true;
         StartCoroutine(TypeLine());
     }
+    public void StartDiolagueCombat()
+    {
+        inCombat = true;
+        Debug.Log("Start Text");
+         foreach (DialogSegment node in lines.nodes)
+            {
+                if (!node.GetInputPort("input").IsConnected)
+                {
+                    UpdateDialog(node);
+                }
+            }
+        
+         TextBoxManager.Instance.nameText.text = activeSegment.speakerName;
+         TextBoxManager.Instance.portrait.sprite = activeSegment.portrait;
+        textActive = true;
+        //pc = GameObject.FindWithTag("Player").GetComponent<PlayerController>();
+        TextBoxManager.Instance.textBox.Play("TextBoxAnimation");
+         TextBoxManager.Instance.topBoxAnim.Play("TopBox");
+         TextBoxManager.Instance.textComponent.text = string.Empty;
+        index = 0;
+        //pc.inText = true;
+        StartCoroutine(TypeLine());
+    }
+
 
     IEnumerator TypeLine()
     {
@@ -163,7 +189,15 @@ public class Dialogue : MonoBehaviour
                 }
                 else
                 {
-                    EndDialogue();
+                    if (inCombat == true)
+                    {
+                        EndDialogueCombat();
+                    }
+                    else
+                    {
+                         EndDialogue();
+                    }
+                    
                 }
             }
            
@@ -201,7 +235,14 @@ public class Dialogue : MonoBehaviour
             }
             else
             {
-                EndDialogue();
+                if (inCombat == true)
+                    {
+                        EndDialogueCombat();
+                    }
+                    else
+                    {
+                         EndDialogue();
+                    }
             }
            
         }
@@ -222,7 +263,14 @@ public class Dialogue : MonoBehaviour
 
         else
         {
-            EndDialogue();
+           if (inCombat == true)
+                    {
+                        EndDialogueCombat();
+                    }
+                    else
+                    {
+                         EndDialogue();
+                    }
         }
             
     }
@@ -237,6 +285,28 @@ public class Dialogue : MonoBehaviour
         }
         textActive = false;
         pc.inText = false;
+        TextBoxManager.Instance.textBox.Play("CloseBox");
+        TextBoxManager.Instance.topBoxAnim.Play("CloseTopBox");
+        //gameObject.SetActive(false);
+        TextBoxManager.Instance.skip.SetActive(false);
+        TextBoxManager.Instance.nameTextObj.SetActive(false);
+        Time.timeScale = 1.0f;
+         TextBoxManager.Instance.textComponent.text = string.Empty;
+        //topBox.SetActive(false);
+        EndDialogueEvent.Invoke();
+        
+    }
+
+    public void EndDialogueCombat()
+    {
+        Debug.Log("End here");
+       
+         foreach (Transform child in  TextBoxManager.Instance.buttonParent)
+        {
+            Destroy(child.gameObject);
+        }
+        textActive = false;
+        //pc.inText = false;
         TextBoxManager.Instance.textBox.Play("CloseBox");
         TextBoxManager.Instance.topBoxAnim.Play("CloseTopBox");
         //gameObject.SetActive(false);

@@ -19,12 +19,37 @@ public class HPTest : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        hpText.text = "HP:" + CurrentHealth + "/" + MaxHealth;
+        if(unitBody.unit != null && unitBody.downed == false)
+        {
+            
+            hpText.text = unitBody.name + "  HP:" + CurrentHealth + "/" + MaxHealth;
+
+            if(TurnOrderManager.Instance.turnPlayer == unitBody)
+            {
+                hpText.color = Color.yellow;
+            }
+            else
+            {
+                hpText.color = Color.white;
+            }
+        }
+        else
+        {
+            hpText.text = "";
+        }
+       
+       
+
+        if(unitBody.downed == true && unitBody.unit != null)
+        {
+            hpText.color = Color.red;
+            hpText.text = unitBody.name + "  HP:" + CurrentHealth + "/" + MaxHealth;
+        }
     }
 
     public void SetHpBar()
     {
-        MaxHealth = unitBody.maxHP;
-        CurrentHealth = unitBody.currentHP;
+        MaxHealth = unitBody.activeStats.MaxHP;
+        CurrentHealth = unitBody.activeStats.CurrentHP;
     }
 }

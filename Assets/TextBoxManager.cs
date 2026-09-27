@@ -34,6 +34,8 @@ public class TextBoxManager : MonoBehaviour
     public GameObject nameTextObj;
 
      public GameObject DiologueBox;
+
+      public bool tutorial = false;
      
 
 
@@ -53,11 +55,13 @@ public class TextBoxManager : MonoBehaviour
   
     void Start()
     {
+         if( tutorial == false){
         
        Instance.DiologueBox.SetActive(false);
        Instance.topBox.SetActive(false);
        Instance.skip.SetActive(false);
        Instance.nameTextObj.SetActive(false);
+         }
     }
 
     // Update is called once per frame

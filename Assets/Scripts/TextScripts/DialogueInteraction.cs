@@ -24,6 +24,9 @@ public class DialogueInteraction : MonoBehaviour
 
     public bool canTalk = true;
 
+    public bool tutorial = false;
+
+
     
 
 
@@ -31,11 +34,14 @@ public class DialogueInteraction : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        if( tutorial == false){
         
         TextBoxManager.Instance.DiologueBox.SetActive(false);
         TextBoxManager.Instance.topBox.SetActive(false);
         TextBoxManager.Instance.skip.SetActive(false);
         TextBoxManager.Instance.nameTextObj.SetActive(false);
+
+        }
     }
  
 
@@ -74,12 +80,12 @@ public class DialogueInteraction : MonoBehaviour
 
 
 
-        if (other.gameObject.CompareTag("Player")&& text.textActive == false )
+        if (other.gameObject.CompareTag("InteractPoint")&& text.textActive == false )
         {
             InRange = true;
         }
         
-        if (other.gameObject.CompareTag("Player") && scriptedText == true)
+        if (other.gameObject.CompareTag("InteractPoint") && scriptedText == true)
         {
             TextBoxManager.Instance.DiologueBox.SetActive(true);
              TextBoxManager.Instance.topBox.SetActive(true);
@@ -89,7 +95,7 @@ public class DialogueInteraction : MonoBehaviour
         }
 
 
-        if (other.gameObject.CompareTag("Player")&& pauseGame == true && once == false){
+        if (other.gameObject.CompareTag("InteractPoint")&& pauseGame == true && once == false){
              TextBoxManager.Instance.DiologueBox.SetActive(true);
            
             text.StartDiolague();
@@ -100,7 +106,7 @@ public class DialogueInteraction : MonoBehaviour
 
         }
 
-        if(other.gameObject.CompareTag("Player")&& notAgain == true && once == false)
+        if(other.gameObject.CompareTag("InteractPoint")&& notAgain == true && once == false)
         {
             TextBoxManager.Instance.DiologueBox.SetActive(true);
             text.StartDiolague();
@@ -109,7 +115,7 @@ public class DialogueInteraction : MonoBehaviour
             once = true;
         }
 
-        if(other.gameObject.CompareTag("Player")&& notAgain == true && once == false &&  notAgain == false)
+        if(other.gameObject.CompareTag("InteractPoint")&& notAgain == true && once == false &&  notAgain == false)
         {
             TextBoxManager.Instance.DiologueBox.SetActive(true);
             text.StartDiolague();
@@ -123,7 +129,7 @@ public class DialogueInteraction : MonoBehaviour
 
     void OnTriggerExit2D(Collider2D other)
     {
-        if (other.gameObject.CompareTag("Player"))
+        if (other.gameObject.CompareTag("InteractPoint"))
         {
             InRange = false;
         }
@@ -136,6 +142,15 @@ public class DialogueInteraction : MonoBehaviour
         TextBoxManager.Instance.skip.SetActive(true);
         TextBoxManager.Instance.nameTextObj.SetActive(true);
         text.StartDiolague();
+    }
+
+     public void StartDialogueCombat()
+    {
+         TextBoxManager.Instance.DiologueBox.SetActive(true);
+        TextBoxManager.Instance.topBox.SetActive(true);
+        TextBoxManager.Instance.skip.SetActive(true);
+        TextBoxManager.Instance.nameTextObj.SetActive(true);
+        text.StartDiolagueCombat();
     }
 
 

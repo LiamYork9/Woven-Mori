@@ -1,0 +1,59 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 22ff192d681faf34ca12b61a7c65a93d, type: 3}
+  m_Name: Guy
+  m_EditorClassIdentifier: 
+  unitName: Guy
+  partyMember: 0
+  brain: {fileID: 11400000, guid: d6eede53c923a2d4aa2f58f7e775239e, type: 2}
+  skills: 03000000
+  resistance: 04000000
+  immunity: 
+  vulnerability: 
+  conditions: []
+  chSprite: {fileID: 21300000, guid: ee70c188ca1f70f46897f1d0ac7f3bbc, type: 3}
+  deathSprite: {fileID: 21300000, guid: ee70c188ca1f70f46897f1d0ac7f3bbc, type: 3}
+  stats:
+    Level: 10
+    MaxHP: 40
+    CurrentHP: 40
+    Attack: 25
+    Defense: 5
+    Mdefense: 5
+    Speed: 30
+    APCap: 10
+    APGain: 1
+  fatedTurns: []
+  fatedPoints: []
+  equipmentStats: 000000000000000000000000000000000000000000000000
+  stateMachine:
+    currentState: {fileID: 0}
+    states: []
+  expYield: 230
+  money: 100
+  lootTable:
+  - item: {fileID: 11400000, guid: 0a8f38adc6b060549aa1e4aabc6d27c8, type: 2}
+    amount: 1
+    chance: 100
+    rarity: 2
+  - item: {fileID: 11400000, guid: 689fc32010b9930459d133f1c2962c54, type: 2}
+    amount: 1
+    chance: 100
+    rarity: 1
+  - item: {fileID: 11400000, guid: af70385ba1faec5439cedd8e0da17cb1, type: 2}
+    amount: 1
+    chance: 100
+    rarity: 0
+  dropChance: 40
+  references:
+    version: 2
+    RefIds: []

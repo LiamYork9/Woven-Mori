@@ -24,6 +24,7 @@ public class EquipScript : MonoBehaviour
         for(int i = 0; i < PartyManager.Instance.party.Count; i++)
         {
             PartyManager.Instance.party[i].EquipGear(weapon);
+     
         }
     }
     public void PartyEquipArmor()

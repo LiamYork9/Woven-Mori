@@ -1,0 +1,25 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 13193e4b6e394ec4fa0a6f52edf13338, type: 3}
+  m_Name: basicDamage
+  m_EditorClassIdentifier: 
+  itemSprite: {fileID: 3083056432361977351, guid: d438fa7d32b443748ac553562935a065, type: 3}
+  itemName: Rock
+  itemDescription: 'Its a rock '
+  value: 10
+  sellValue: 0
+  stackable: 1
+  maxStack: 10
+  itemTarget: 0
+  itemAttrs:
+  - {fileID: 11400000, guid: 7a51e8e4714418f45b219c3f74beb735, type: 2}
+  usableOFB: 0

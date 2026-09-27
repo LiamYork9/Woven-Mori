@@ -1,8 +1,125 @@
 using System;
 using System.Collections.Generic;
+using System.Drawing;
+using JetBrains.Annotations;
 using MoriSkills;
 using UnityEngine;
 using UnityEngine.Events;
+
+[System.Serializable] 
+    public struct FatedTurn
+    {   
+        public int startTurn;
+        public bool repeating;
+        public int frequency;
+        public int endTurn;
+        public string fate;
+
+        public FatedTurn(int start, bool repeat, int rate, int end, string fateCode)
+        {
+            startTurn = start;
+            repeating = repeat;
+            frequency = rate;
+            endTurn = end;
+            fate = fateCode;
+        }
+
+        // public FatedTurn CopyFate()
+        // {
+        //     FatedTurn temp = new FatedTurn(startTurn, repeating, frequency, endTurn, fate);
+        //     return temp;
+        // }
+    }
+
+    [System.Serializable] 
+    public struct FatedPoint
+    {   
+        public int point;
+        public UnitBody unit;
+
+        public string fate;
+
+        public FatedPoint(int targetTurn, string fateCode, UnitBody fatedUnit = null)
+        {
+            point = targetTurn;
+            fate = fateCode;
+            unit = fatedUnit;
+        }
+
+        // public FatedPoint CopyFate()
+        // {
+        //     FatedPoint temp = new FatedPoint(point, fate);
+        //     return temp;
+        // }
+    }
+
+[System.Serializable]
+    public struct BaseStats
+    {
+        public int Level;
+        public int MaxHP;
+        public int CurrentHP;
+        public int Attack ;
+
+        public int Defense ;
+        public int Mdefense;
+        public int Speed; 
+        public int APCap;
+        public int APGain;
+        public BaseStats(int lvl, int att, int def, int mdef, int spd, int HPMax, int HP, int capAP, int gainAP)
+        {
+            Level = lvl;
+            Attack = att;
+            Defense = def;
+            Mdefense = mdef;
+            Speed = spd;
+            MaxHP = HPMax;
+            CurrentHP = HP;
+            APCap = capAP;
+            APGain = gainAP;
+        }
+
+        public void CopyStats(BaseStats target)
+        {
+            Level = target.Level;
+            MaxHP = target.MaxHP;
+            CurrentHP = target.CurrentHP;
+            Attack = target.Attack;
+            Defense = target.Defense;
+            Mdefense = target.Mdefense;
+            Speed = target.Speed;
+            APCap = target.APCap;
+            APGain = target.APGain;
+        }
+        public void CopyStats(BaseStats target, List<int> equipmentStats)
+        {
+            Level = target.Level;
+            MaxHP = target.MaxHP - equipmentStats[4];
+            CurrentHP = target.CurrentHP;
+            Attack = target.Attack - equipmentStats[0];
+            Defense = target.Defense - equipmentStats[1];
+            Mdefense = target.Mdefense - equipmentStats[2];
+            Speed = target.Speed - equipmentStats[3];
+            APCap = target.APCap;
+            APGain = target.APGain - equipmentStats[5];
+        }
+        public void CopyStatsWithEquipment(BaseStats target, List<int> equipmentStats)
+        {
+            Level = target.Level;
+            MaxHP = target.MaxHP + equipmentStats[4];
+            CurrentHP = target.CurrentHP;
+            Attack = target.Attack + equipmentStats[0];
+            Defense = target.Defense + equipmentStats[1];
+            Mdefense = target.Mdefense + equipmentStats[2];
+            Speed = target.Speed + equipmentStats[3];
+            APCap = target.APCap;
+            APGain = target.APGain + equipmentStats[5];
+            if(CurrentHP > MaxHP)
+            {
+                CurrentHP = MaxHP;
+            }
+        }
+    }
 
 [CreateAssetMenu(fileName = "unit", menuName = "ScriptableObjects/Unit/Generic", order = 1)]
 [Serializable]
@@ -11,6 +128,8 @@ public class Unit : ScriptableObject
 
     public string unitName;
     public bool partyMember;
+
+    public UnitBrain brain;
 
     public List<SkillId> skills;
 
@@ -28,29 +147,11 @@ public class Unit : ScriptableObject
 
     [Header("Stats")]
 
-    public int level = 1;
+    public BaseStats stats;
 
-    
-    public int maxHP;
-
-    public int currentHP;
-
-    public int attack;
-
-    public int defense = 1;
-
-    public int mDefense = 1;
-
-     public int speed = 1;
-
-
-
-    
-
-
-    public int APCap;
-
-    public int APGain = 1;
+    [Header("FatedActions")]
+    public List<FatedTurn> fatedTurns;
+    public List<FatedPoint> fatedPoints;
 
 
     public List<int> equipmentStats = new List<int> {0,0,0,0,0,0};
@@ -71,16 +172,7 @@ public class Unit : ScriptableObject
         partyMember = target.partyMember;
         chSprite = target.chSprite;
         deathSprite = target.deathSprite;
-        level = target.level;
-        maxHP = target.maxHP - target.equipmentStats[4];
-        currentHP = target.currentHP;
-        attack = target.attack - target.equipmentStats[0];
-        defense = target.defense - target.equipmentStats[1];
-        mDefense = target.mDefense - target.equipmentStats[2];
-        speed = target.speed - target.equipmentStats[3];
-        
-        APCap = target.APCap;
-        APGain = target.APGain - target.equipmentStats[5];
+        stats.CopyStats(target.baseStats, target.equipmentStats);
         // resistance = target.resistance;
         // immunity = target.immunity;
         // vulnerability = target.vulnerability;
@@ -117,7 +209,7 @@ public class Unit : ScriptableObject
             }
 
         }
-        currentHP = maxHP + equipmentBouns;
+        stats.CurrentHP = stats.MaxHP + equipmentBouns;
         conditions.Clear();
     }
 

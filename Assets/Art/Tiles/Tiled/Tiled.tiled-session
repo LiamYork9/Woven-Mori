@@ -16,15 +16,15 @@
             "selectedLayer": 4,
             "viewCenter": {
                 "x": 163.5,
-                "y": 243.5
+                "y": 345.5
             }
         },
         "TileMaps/Shlap.tmx": {
             "scale": 2,
-            "selectedLayer": 0,
+            "selectedLayer": 3,
             "viewCenter": {
-                "x": 251.75,
-                "y": 206.25
+                "x": 497.75,
+                "y": 201.25
             }
         },
         "TileSets/WovenMoriDecorations.tsx": {
@@ -36,11 +36,11 @@
         }
     },
     "last.imagePath": "C:/Users/Xander Adams/Desktop/Game Dev/Woven-Mori/Assets/Art/Tiles",
-    "map.height": 100,
+    "map.height": 30,
     "map.lastUsedFormat": "tmx",
     "map.tileHeight": 16,
     "map.tileWidth": 16,
-    "map.width": 100,
+    "map.width": 30,
     "openFiles": [
         "TileMaps/Shlap.tmx",
         "TileSets/WovenMoriGrassPath.tsx"

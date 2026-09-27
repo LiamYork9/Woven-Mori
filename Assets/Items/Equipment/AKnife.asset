@@ -19,7 +19,7 @@ MonoBehaviour:
   sellValue: 0
   stackable: 0
   maxStack: 1
-  classList: 0
+  classList: -1
   equipmentAttrs: []
-  equipped: 0
+  availableNumber: 2
   stats: 020000000000000000000000000000000000000000000000

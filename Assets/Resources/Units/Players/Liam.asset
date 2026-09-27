@@ -1,0 +1,45 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f0f3fbfbcd255794e9933f4b0c1cf923, type: 3}
+  m_Name: Liam
+  m_EditorClassIdentifier: 
+  unitName: Liam
+  partyMember: 1
+  brain: {fileID: 11400000, guid: d6eede53c923a2d4aa2f58f7e775239e, type: 2}
+  skills: 020000001500000013000000
+  resistance: 
+  immunity: 
+  vulnerability: 
+  conditions: []
+  chSprite: {fileID: -824916867, guid: 2ae8830c3f959ec409a3e5f9c0b93f79, type: 3}
+  deathSprite: {fileID: -4910113567136968945, guid: 59c81fd56476e6f418b4ca14d9e2d909, type: 3}
+  stats:
+    Level: 1
+    MaxHP: 11
+    CurrentHP: 11
+    Attack: 4
+    Defense: 3
+    Mdefense: 2
+    Speed: 4
+    APCap: 10
+    APGain: 1
+  fatedTurns: []
+  fatedPoints: []
+  equipmentStats: 020000000000000000000000000000000000000000000000
+  playerClass: 8
+  exp: 0
+  weapon: {fileID: 11400000, guid: 907f1ae82da87f04c8b8e905d27e4407, type: 2}
+  armor: {fileID: 0}
+  accessory: {fileID: 0}
+  references:
+    version: 2
+    RefIds: []

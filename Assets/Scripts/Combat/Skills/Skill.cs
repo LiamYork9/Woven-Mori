@@ -15,7 +15,9 @@ namespace MoriSkills
         Flex,
         Heal,
         Attack,
-        EvenOdd,
+        SwordShield,
+        HopeDespair,
+        FlameFlood,
         Fortifiy,
         PowerUp,
         BurnAway,
@@ -24,7 +26,8 @@ namespace MoriSkills
         Berserk,
         Rampage,
         CutLine,
-        HolyAbsorption
+        HolyAbsorption,
+        HighLow
 
 
 
@@ -34,7 +37,10 @@ namespace MoriSkills
         MassHeal,
         PoisonBlade,
         WindBlade,
-        Focus
+        Focus,
+        SpeedUp,
+        Quake,
+        Erosion
     }
 
     public enum Element
@@ -61,15 +67,11 @@ namespace MoriSkills
     public enum Category
     {
         Attack,
-        Buff,
-        Debuff,
-        Support
-    }
-
-
-    public class Condtion
-    {
-
+        Heal,
+        Status
+        // Buff,
+        // Debuff,
+        // Support
     }
 
     [System.Serializable]
@@ -86,23 +88,22 @@ namespace MoriSkills
 
         public int power;
 
-        public int accurcy;
-
         public int cost;
 
         public string toolTip;
-
-        public int chance;
 
         public int turnShift;
 
         [SerializeReference]
         public List<SkillAttr> attrs;
+        
+        [SerializeReference]
+        public List<SkillCondition> conditions;
 
-        public List<Condtion> condtions;
+        public TargetingStyle style;
 
 
-        public Skill(SkillId SskillId, string SskillName, int Spower, Element Selement, Target defualtTarget, Category Scategory, int Saccuracy, int Scost, string StoolTip, int Schance, int SturnShift, List<SkillAttr> Sattr = null, List<Condtion> Scondtions = null)
+        public Skill(SkillId SskillId, string SskillName, int Spower, Element Selement, Target defualtTarget, Category Scategory, int Scost, string StoolTip, int SturnShift, List<SkillAttr> Sattr = null, List<SkillCondition> Sconditions = null)
         {
             skillId = SskillId;
             name = SskillName;
@@ -110,11 +111,10 @@ namespace MoriSkills
             element = Selement;
             target = defualtTarget;
             category = Scategory;
-            accurcy = Saccuracy;
             cost = Scost;
             toolTip = StoolTip;
-            chance = Schance;
             turnShift = SturnShift;
+            style = TargetingStyle.Basic;
             if (Sattr == null)
             {
                 attrs = new List<SkillAttr> { };
@@ -126,14 +126,14 @@ namespace MoriSkills
                     Attr(Sattr[i].ShallowCopy());
                 }
             }
-            if (Scondtions == null)
+            if (Sconditions == null)
             {
-                condtions = new List<Condtion> { };
+                conditions = new List<SkillCondition> { };
             }
             else
             {
-                condtions = new List<Condtion> { };
-                condtions.AddRange(Scondtions);
+                conditions = new List<SkillCondition> { };
+                conditions.AddRange(Sconditions);
             }
         }
 
@@ -144,8 +144,24 @@ namespace MoriSkills
             return this;
         }
 
+        public Skill Condition(SkillCondition condition)
+        {
+            conditions.Add(condition);
+            return this;
+        }
 
 
+        public Skill CheckSkillModConditions(UnitBody user)
+        {
+            foreach (SkillCondition condition in conditions)
+            {
+                if (condition.conditionMod == ConditionModifiers.Skill)
+                {
+                    condition.CheckConditionSkillMod(this,user);
+                }
+            }
+            return this;
+        }
 
 
 
@@ -161,12 +177,12 @@ namespace MoriSkills
 
         }
 
-        public void ApplyEffects(UnitBody unitUser, UnitBody unitTarget)
+        public void ApplyEffects(UnitBody unitUser, List<UnitBody> unitTargets)
         {
             TurnOrderManager.Instance.turnOrder[0].turnShift = turnShift;
             for (int i = 0; i < attrs.Count; i++)
             {
-                attrs[i].ActivateAttr(unitUser,unitTarget,power,element);
+                attrs[i].ActivateAttr(unitUser,unitTargets,power,element);
             }
         }
 

@@ -1,16 +1,15 @@
-using System;
 using System.Collections.Generic;
-using System.Linq;
 using MoriSkills;
 using UnityEngine;
 using UnityEngine.Events;
-using UnityEngine.Rendering;
 using UnityEngine.UI;
+
 
 public class UnitBody : MonoBehaviour
 {
-
     public Unit unit;
+
+    public bool downed = false;
     public bool partyMember;
 
     public List<SkillId> skills;
@@ -30,21 +29,14 @@ public class UnitBody : MonoBehaviour
 
     public Sprite deathSprite;
 
-    public int level;
+    public BaseStats baseStats;
 
+    public BaseStats activeStats;
 
-    public int attack;
+    public List<FatedTurn> fatedTurns;
+    public List<FatedPoint> fatedPoints;
 
-    public int defense = 1;
-
-    public int mDefense = 1;
-
-    public int speed = 1;
-
-    public int maxHP;
-
-    public int currentHP;
-
+    public int turnsAdded = 0;
 
     public int initiative;
 
@@ -52,13 +44,7 @@ public class UnitBody : MonoBehaviour
 
     public int localTurnCount;
 
-    public int localTurnCountCurrentVal;
-
     public int AP;
-
-    public int APCap;
-
-    public int APGain = 1;
 
     public int emergencybutton;
 
@@ -70,23 +56,32 @@ public class UnitBody : MonoBehaviour
 
     public UnityEvent EndOfAction;
     public UnityEvent EndOfTurn;
+    public UnityEvent ConditionEndTurn;
 
-     public HPTest hPTest;
+    public UnityEvent updateConditions;
+
+    public HPTest hPTest;
 
     public List<int> equipmentStats = new List<int> {0,0,0,0,0,0};
+    private bool set = false;
 
    
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
-        if (unit != null && unit.partyMember == false)
+        if (unit != null && !set &&unit.partyMember == false)
         {
            SetUnit(unit);
+        }
+        else
+        {
+            Debug.Log(unit);
         }
         hPTest.SetHpBar();
         if(equipmentAttrs == null){
         equipmentAttrs = new List<EquipmentAttr>();
         }
+        EndOfTurn.AddListener(ConditionEndTurn.Invoke);
     }
 
     // Update is called once per frame
@@ -98,17 +93,24 @@ public class UnitBody : MonoBehaviour
     public void SetUnit(Unit newUnit)
     {
         unit = newUnit;
+        set = true;
+        downed = false;
+        
         CopyStats(newUnit);
         //Debug.Log("Copied Stats" + newUnit.name);
     }
 
     public void Death()
     {
+        gameObject.GetComponent<Image>().sprite = deathSprite;
         Debug.Log(name + " Body Death");
-        if (currentHP <= 0)
+        if (activeStats.CurrentHP <= 0)
         {
+           
+            downed = true;
             if (partyMember)
             {
+                
                 BattleManager.Instance.playerSlots.Remove(this.gameObject);
             }
             else
@@ -126,23 +128,23 @@ public class UnitBody : MonoBehaviour
             CheckEquipment(target as PlayerCharacter);
         }
         name = target.unitName;
+        Debug.Log("NameChange");
         skills = target.skills;
         partyMember = target.partyMember;
         chSprite = target.chSprite;
         deathSprite = target.deathSprite;
-        level = target.level;
-        attack = target.attack + equipmentStats[0];
-        defense = target.defense + equipmentStats[1];
-        mDefense = target.mDefense + equipmentStats[2];
-        speed = target.speed + equipmentStats[3];
-        maxHP = target.maxHP + equipmentStats[4];
-        currentHP = target.currentHP;
-        if(currentHP > maxHP)
+        baseStats.CopyStatsWithEquipment(target.stats, equipmentStats);
+        activeStats.CopyStats(baseStats);
+
+        fatedTurns.AddRange(target.fatedTurns);
+        fatedPoints.AddRange(target.fatedPoints);
+        for(int i = 0; i < fatedPoints.Count;i++)
         {
-            currentHP = maxHP;
+            FatedPoint temp = fatedPoints[i];
+            temp.unit = this;
+            fatedPoints[i]= temp;
         }
-        APCap = target.APCap;
-        APGain = target.APGain + equipmentStats[5];
+        
         resistance = new List<Element>();
         for(int i = 0; i < target.resistance.Count; i++)
         {
@@ -168,12 +170,12 @@ public class UnitBody : MonoBehaviour
         partyMember = false;
         chSprite = null;
         deathSprite = null;
-        attack = 0;
-        defense = 0;
-        mDefense = 0;
-        maxHP = 0;
-        currentHP = 0;
-        speed = 0;
+        activeStats.Attack = 0;
+        activeStats.Defense = 0;
+        activeStats.Mdefense = 0;
+        activeStats.MaxHP = 0;
+        activeStats.CurrentHP = 0;
+        activeStats.Speed = 0;
     }
 
     public void CheckEquipment(PlayerCharacter target)
@@ -198,18 +200,18 @@ public class UnitBody : MonoBehaviour
         }
     }
 
-    public void TakeDamage(int damageValue, DamageType damageType = DamageType.Physical, Element element = Element.None)
+    public int TakeDamage(int damageValue, DamageType damageType = DamageType.Physical, Element element = Element.None)
     {
         int damageMod = 0;
         if (damageType == DamageType.Physical)
         {
-            damageMod = damageValue / defense;
+            damageMod = damageValue / activeStats.Defense;
 
         }
 
         if (damageType == DamageType.Magic)
         {
-            damageMod = damageValue / mDefense;
+            damageMod = damageValue / activeStats.Mdefense;
         }
 
         if(damageType == DamageType.Destined)
@@ -236,23 +238,34 @@ public class UnitBody : MonoBehaviour
         {
             damageMod = 0;
         }
+        
+        int returnDamage = 0;
+        if(damageMod>activeStats.CurrentHP)
+        {
+            returnDamage = activeStats.CurrentHP;
+        }
+        else
+        {
+            returnDamage=damageMod;
+        }
 
-        currentHP -= damageMod;
+
+        activeStats.CurrentHP -= damageMod;
         PopUpManager.Instance.DamageDone(damageMod,this.transform.position,false);
 
         
 
-        if (currentHP <= 0)
+        if (activeStats.CurrentHP <= 0)
         {
             Death();
         }
-        
+
+        return returnDamage;
     }
     
     public UnitBody ApplyCondition(Condition addedCondition)
     {
-        conditions.Add(addedCondition);
-        addedCondition.OnApply(this);
+        addedCondition.ApplyCondition(this);
         return this;
     }
 
@@ -261,4 +274,36 @@ public class UnitBody : MonoBehaviour
         
     }
 
+
+    //Fated turn things
+    public bool CheckFate()
+    {
+        foreach(FatedTurn fate in fatedTurns)
+        {
+            if((turnsAdded==fate.startTurn||(fate.repeating&&(turnsAdded-fate.startTurn)%fate.frequency==0)) && (turnsAdded<=fate.endTurn||fate.endTurn==-1))
+            {
+                return true;
+            }
+        }
+
+
+
+        return false;
+    }
+
+    public string GetFate()
+    {
+        string temp = "";
+        foreach(FatedTurn fate in fatedTurns)
+        {
+            if((turnsAdded==fate.startTurn||(fate.repeating&&(turnsAdded-fate.startTurn)%fate.frequency==0))  && (turnsAdded<=fate.endTurn||fate.endTurn==-1))
+            {
+                temp = fate.fate;
+            }
+        }
+
+
+
+        return temp;
+    }
 }

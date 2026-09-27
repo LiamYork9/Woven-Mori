@@ -28,6 +28,8 @@ public class EncounterManager : MonoBehaviour
 
     public bool fightArea = false;
 
+    public UnityEvent startEncounter;
+
     public static EncounterManager GetInstance()
     {
         return Instance;
@@ -78,6 +80,7 @@ public class EncounterManager : MonoBehaviour
     {
 
         Debug.Log("FIGHT!");
+        startEncounter.Invoke();
         RollEncounter();
         if (fightText != null)
         {
@@ -107,6 +110,11 @@ public class EncounterManager : MonoBehaviour
     {
         SceneManager.LoadScene(sceneName);
     }
+
+    public void StartTutorial()
+    {
+        SceneManager.LoadScene("Tutorial");
+    }
     
     public void RollEncounter(int count = -1)
     {
@@ -126,6 +134,14 @@ public class EncounterManager : MonoBehaviour
     {
         return encounterPool[Random.Range(0, encounterPool.Count)];
 
+    }
+
+    public void Clear()
+    {
+        encounteredEnemies.Clear();
+        encounterPool.Clear();
+        fightArea = false;
+        
     }
     
     

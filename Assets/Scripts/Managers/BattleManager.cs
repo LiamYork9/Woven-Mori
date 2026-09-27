@@ -5,6 +5,11 @@ using TMPro;
 using UnityEngine.UI;
 using MoriSkills;
 using UnityEngine.SceneManagement;
+using NUnit.Framework.Constraints;
+using UnityEngine.Assertions.Must;
+
+
+
 
 public enum FightState
 {
@@ -63,9 +68,13 @@ public class BattleManager : MonoBehaviour
 
     public bool attacking;
 
+    public bool useItem;
+
     public TextMeshProUGUI dialogueText;
 
     public List<GameObject> buttons;
+
+    public List<GameObject> invButtons;
 
     public bool enemyTurn;
 
@@ -91,6 +100,23 @@ public class BattleManager : MonoBehaviour
     public bool noRunning = false;
 
     public int expEarned = 0;
+
+    public int cashEarned = 0;
+
+    public GameObject itemMenu;
+
+    public GameObject itemScreen;
+
+    public GameObject itemButton;
+
+    public ConsumableItem selectedItem;
+
+    public GameObject winScreen;
+
+    public TMP_Text itemToolTipText;
+
+    public List<Loot> loot;
+
 
 
 
@@ -145,7 +171,7 @@ public class BattleManager : MonoBehaviour
 
         if (selecting == true)
         {
-
+             targetArrow.SetActive(true);
             target = enemySlots[targetIndex];
             targetArrow.transform.position = target.transform.position;
             if (Input.GetKeyDown(KeyCode.S))
@@ -183,6 +209,12 @@ public class BattleManager : MonoBehaviour
                 {
                     selecting = false;
                     StartCoroutine(PlayerAttack());
+                }
+
+                if(useItem == true)
+                {
+                    selecting = false;
+                    StartCoroutine(UsingItem(selectedItem));
                 }
                
               
@@ -234,40 +266,53 @@ public class BattleManager : MonoBehaviour
 
             }
         }
-
-
-        //For testing will be reomved later
-        if (Input.GetKeyDown(KeyCode.R))
+        if (Input.GetKeyDown(KeyCode.Space))
         {
-            enemySlots.Clear();
-            playerSlots.Clear();
-            for (int i = 0; i < defaultSlots.Count; i++)
+            if(useItem == true && playerSelecting == true)
             {
-                enemySlots.Add(defaultSlots[i]);
+              StartCoroutine(UsingItem(selectedItem));
             }
-            for (int i = 0; i < defaultPlayerSlots.Count; i++)
-            {
-                playerSlots.Add(defaultPlayerSlots[i]);
-            }
-            BattleStart();
-            TOM.downedPlayers.Clear();
-
         }
+
+       
+        
+        if (Input.GetKeyDown(KeyCode.Space))
+        {
+            if(useItem == true && targetParty == true)
+            {
+                StartCoroutine(UsingItem(selectedItem));
+            }
+        }
+        
+
+        if (Input.GetKeyDown(KeyCode.Space))
+        {
+            if(useItem == true && multiTarget == true)
+            {
+                StartCoroutine(UsingItem(selectedItem));
+            }
+        }
+
+
+       
 
         
 
         if (Input.GetKeyDown(KeyCode.Escape))
         {
+            //itemMenu.SetActive(false);
             if (usingSkill == true)
             {
                 skillMenu.SetActive(false);
                 usingSkill = false;
                 multiTarget = false;
+                targetParty = false;
                 targetSelf = false;
                 playerSelecting = false;
                 actionMenu.SetActive(true);
                 ButtonsOn();
                 targetArrow.SetActive(false);
+                SBS.selectedSkill.skillId = SkillId.None;
             }
             if (selecting == true)
             {
@@ -284,6 +329,21 @@ public class BattleManager : MonoBehaviour
                 selecting = false;
                 attacking = false;
                 dialogueText.text = "";
+            }
+            if(useItem == true)
+            {
+               
+                itemMenu.SetActive(false);
+                 useItem = false;
+                usingSkill = false;
+                multiTarget = false;
+                targetSelf = false;
+                playerSelecting = false;
+                actionMenu.SetActive(true);
+                ButtonsOn();
+                targetArrow.SetActive(false);
+                dialogueText.text = "";
+
             }
         }
 
@@ -378,9 +438,9 @@ public class BattleManager : MonoBehaviour
             playerSlots.Add(defaultPlayerSlots[i]);
             playerSlots[i].SetActive(true);
             UnitBody temp = playerSlots[i].GetComponent<UnitBody>();
-            if(PartyManager.Instance.party[i].currentHP <= 0)
+            if(PartyManager.Instance.party[i].stats.CurrentHP <= 0)
             {
-                PartyManager.Instance.party[i].currentHP = 1;
+                PartyManager.Instance.party[i].stats.CurrentHP = 1;
             }
             temp.SetUnit(PartyManager.Instance.party[i]);
            if((temp.unit as PlayerCharacter).weapon != null){
@@ -449,6 +509,143 @@ public class BattleManager : MonoBehaviour
         SBS.dialogueText.text = " ";
 
     }
+     public void ItemMenu()
+    {
+        targetIndex = 0;
+        actionMenu.SetActive(false);
+        ButtonsOff();
+        itemMenu.SetActive(true);
+        ShowInventory();
+        useItem = true;
+        
+    }
+
+     public void ShowInventory()
+    {
+        invButtons.Clear();
+        foreach (Transform child in itemScreen.transform) 
+        {
+            GameObject.Destroy(child.gameObject);
+        }
+        foreach(KeyValuePair<Item, int> pair in InventoryManager.Instance.inventoryStandard)
+            {
+                if( pair.Value > 0)
+                {
+                    GameObject newButton = Instantiate(itemButton, itemScreen.transform);
+                    invButtons.Add(newButton);
+                    newButton.GetComponent<Button>().onClick.AddListener(()=> ItemTarget(newButton.GetComponent<ItemToolTipScript>().item as ConsumableItem));
+                    newButton.GetComponentInChildren<TextMeshProUGUI>().text = pair.Key.itemName +" X"+ pair.Value;
+                    newButton.GetComponentInChildren<Image>().sprite = pair.Key.itemSprite;
+                    newButton.GetComponent<ItemToolTipScript>().item = pair.Key ;
+                }
+            }
+              for (int i = 0; i < invButtons.Count; i++)
+        {
+            if (invButtons[i].GetComponent<ItemToolTipScript>() != null)
+            {
+               invButtons[i].GetComponent<ItemToolTipScript>().hoverEvent.AddListener(ToolTipAdder);
+               invButtons[i].GetComponent<ItemToolTipScript>().unHoverEvent.AddListener(ToolTipRemover);
+            }
+        }
+    }
+    public void ToolTipAdder(GameObject button)
+    {
+        Item temp = button.GetComponent<ItemToolTipScript>().item;
+        itemToolTipText.text = temp.itemDescription;
+        
+    }
+    public void ToolTipRemover()
+    {
+       itemToolTipText.text = " ";
+    }
+
+   
+    
+        public void ApplyItem( ConsumableItem item)
+    {
+        if(item.itemTarget == Target.ally || item.itemTarget == Target.single)
+        {
+             item.ApplyItemAttrWIB(target.GetComponent<UnitBody>());
+        }
+
+       
+        
+       if(item.itemTarget == Target.party)
+        {
+            List <UnitBody> temp = new List<UnitBody>();
+            for (int i = 0; i < playerSlots.Count; i++)
+            {
+               temp.Add(playerSlots[i].GetComponent<UnitBody>());
+            }
+             item.ApplyItemAttrWIB(temp);
+             
+        }
+
+        if(item.itemTarget == Target.mutipleEnemy)
+        {
+            List <UnitBody> temp = new List<UnitBody>();
+             for (int i = 0; i < enemySlots.Count; i++)
+            {
+                temp.Add(enemySlots[i].GetComponent<UnitBody>());
+               
+            }
+             item.ApplyItemAttrWIB(temp);
+        }
+       
+       
+       
+       
+    }
+    public void ItemTarget( ConsumableItem item)
+    {
+        selectedItem = item;
+         itemMenu.SetActive(false);
+        actionMenu.SetActive(true);
+        if(item.itemTarget == Target.ally)
+        {
+            playerSelecting = true;
+            dialogueText.text = "Who will you use the item on?";
+        }
+        if(item.itemTarget == Target.single)
+        {
+            selecting = true;
+            dialogueText.text = "Who will you use the item on?";
+        }
+        if(item.itemTarget == Target.party)
+        {
+            targetParty = true; 
+            dialogueText.text = "Item will be used on the whole party";
+        }
+         if(item.itemTarget == Target.mutipleEnemy)
+        {
+            multiTarget = true;
+            dialogueText.text = "Item will be used on the whole enemy group";
+        }
+    }
+
+    IEnumerator UsingItem(ConsumableItem item)
+    {
+        playerSelecting = false;
+        targetParty = false;
+        multiTarget = false;
+        targetArrow.SetActive(false);
+        dialogueText.text = TOM.turnPlayer.name + " Used " + item.itemName + " On ";
+        if(item.itemTarget == Target.ally || item.itemTarget == Target.single)
+        {
+            dialogueText.text += "" + target.GetComponent<UnitBody>().unit.unitName;
+        }
+        if(item.itemTarget == Target.party)
+        {
+             for (int i = 0; i < playerSlots.Count; i++)
+             dialogueText.text += "Party";
+        }
+        useItem = false;
+        ApplyItem(item);
+        yield return new WaitForSeconds(1f);
+         selectedItem = null;
+        TOM.EndTurn();
+    }
+    
 
 
 
@@ -463,7 +660,7 @@ public class BattleManager : MonoBehaviour
         {
             TurnOrderManager.Instance.turnPlayer.equipmentAttrs[i].ActivateOnSkill(temp);
         }
-        temp.ApplyEffects(TurnOrderManager.Instance.turnPlayer,target.GetComponent<UnitBody>());
+        temp.ApplyEffects(TurnOrderManager.Instance.turnPlayer,new List<UnitBody>{target.GetComponent<UnitBody>()});
         yield return new WaitForSeconds(2f);
         TOM.EndTurn();
 
@@ -471,19 +668,21 @@ public class BattleManager : MonoBehaviour
     }
     
 
-    IEnumerator EnemyAttackCo(Skill skill, List<UnitBody> targets)
+    IEnumerator EnemyAttackCo(Skill skill, List<UnitBody> targets,bool freeSkill=false)
     {
         action = true;
         yield return new WaitForSeconds(2f);
         dialogueText.text = TurnOrderManager.Instance.turnPlayer.name + " used " + skill.name + " On" ;
-        TurnOrderManager.Instance.turnPlayer.AP -= skill.cost;
+        if(!freeSkill)
+        {
+            TurnOrderManager.Instance.turnPlayer.AP -= skill.cost;
+        }
         for (int i = 0; i < targets.Count; i++)
         {
             dialogueText.text += " " + targets[i].name;
-           
-            // Remeber to cross this bridge (self buff multiple times)
-            skill.ApplyEffects(TurnOrderManager.Instance.turnPlayer,targets[i]);
         }
+        skill.ApplyEffects(TurnOrderManager.Instance.turnPlayer,targets);
+        
         yield return new WaitForSeconds(2f);
         dialogueText.text = " ";
         enemyTurn = false;
@@ -494,15 +693,15 @@ public class BattleManager : MonoBehaviour
     IEnumerator RunAwayCo()
     {
         ButtonsOff();
-         int fleeNum = Random.Range(-5,11)+TurnOrderManager.Instance.turnPlayer.speed+TurnOrderManager.Instance.turnPlayer.level;
+         int fleeNum = Random.Range(-5,11)+TurnOrderManager.Instance.turnPlayer.activeStats.Speed+TurnOrderManager.Instance.turnPlayer.activeStats.Level;
        int fastEnemy = 0;
         dialogueText.text = "You try to run away";
         yield return new WaitForSeconds(1f);
         for(int i = 0; i < enemySlots.Count; i++)
             {
-                if(enemySlots[i].GetComponent<UnitBody>().speed + enemySlots[i].GetComponent<UnitBody>().level > fastEnemy)
+                if(enemySlots[i].GetComponent<UnitBody>().activeStats.Speed + enemySlots[i].GetComponent<UnitBody>().activeStats.Level > fastEnemy)
                 {
-                    fastEnemy = enemySlots[i].GetComponent<UnitBody>().speed + enemySlots[i].GetComponent<UnitBody>().level;
+                    fastEnemy = enemySlots[i].GetComponent<UnitBody>().activeStats.Speed + enemySlots[i].GetComponent<UnitBody>().activeStats.Level;
                 }
             }
             if(fleeNum > fastEnemy)
@@ -515,12 +714,14 @@ public class BattleManager : MonoBehaviour
                 {
                     defaultPlayerSlots[i].GetComponent<UnitBody>().conditions[j].RemoveCondition();
                 }
+            defaultPlayerSlots[i].GetComponent<UnitBody>().baseStats.CurrentHP = defaultPlayerSlots[i].GetComponent<UnitBody>().activeStats.CurrentHP;
 
                 temp.CopyStats(defaultPlayerSlots[i].GetComponent<UnitBody>());
             }
                 dialogueText.text = "You Escape";
                 yield return new WaitForSeconds(1f);
-                BattleEnd();
+                SceneManager.LoadScene(PartyManager.Instance.sceneName);
+                
             }
             else
             {
@@ -546,69 +747,108 @@ public class BattleManager : MonoBehaviour
     public void WinCondtion()
     {
         fightState = FightState.Won;
-        
-        ButtonsOff();
-        for (int i = 0; i < PartyManager.Instance.party.Count; i++)
-        {
-            PlayerCharacter temp = PartyManager.Instance.party[i];
-
-            for (int j = 0; j < defaultPlayerSlots[i].GetComponent<UnitBody>().conditions.Count; j++)
-            {
-                defaultPlayerSlots[i].GetComponent<UnitBody>().conditions[j].RemoveCondition();
-            }
-
-            temp.CopyStats(defaultPlayerSlots[i].GetComponent<UnitBody>());
-            temp.exp += expEarned;
-            while (temp.exp >= 100*temp.level)
-            {
-                temp.exp -= temp.level*100;
-                temp.LevelUp();
-            }
-        }
-        dialogueText.text = "You Win!";
-
-        win = true;
-        BattleEnd();
     }
-
-    // What happens when you lose
-
+    
     public void LoseCondition()
     {
         fightState = FightState.Lost;
-        ButtonsOff();
-        for (int i = 0; i < PartyManager.Instance.party.Count; i++)
+    }
+    
+    
+    
+    
+    public void CheckFightCondition()
+    {
+        if (fightState ==  FightState.Won)
         {
-            PlayerCharacter temp = PartyManager.Instance.party[i];
-
-            for (int j = 0; j < defaultPlayerSlots[i].GetComponent<UnitBody>().conditions.Count; j++)
+            PartyManager.Instance.funds += cashEarned;
+            ButtonsOff();
+            for (int i = 0; i < PartyManager.Instance.party.Count; i++)
             {
-                defaultPlayerSlots[i].GetComponent<UnitBody>().conditions[j].RemoveCondition();
+                PlayerCharacter temp = PartyManager.Instance.party[i];
+
+                for (int j = 0; j < defaultPlayerSlots[i].GetComponent<UnitBody>().conditions.Count; j++)
+                {
+                    defaultPlayerSlots[i].GetComponent<UnitBody>().conditions[j].RemoveCondition();
+                }
+                defaultPlayerSlots[i].GetComponent<UnitBody>().baseStats.CurrentHP = defaultPlayerSlots[i].GetComponent<UnitBody>().activeStats.CurrentHP;
+
+                temp.CopyStats(defaultPlayerSlots[i].GetComponent<UnitBody>());
+                temp.exp += expEarned;
+                while (temp.exp >= 100*temp.stats.Level)
+                {
+                    temp.exp -= temp.stats.Level*100;
+                    temp.LevelUp();
+                }
             }
-          
-            temp.CopyStats(defaultPlayerSlots[i].GetComponent<UnitBody>());
-            temp.currentHP = temp.maxHP;
+            for (int i = 0; i < loot.Count; i++)
+            {
+                InventoryManager.Instance.PickUp(loot[i].item, loot[i].amount);
+            }
+            dialogueText.text = "You Win!";
+
+            win = true;
+            BattleEndWin();
         }
-        dialogueText.text = "You Lose";
-        PlayerPrefs.DeleteAll();
-        EncounterManager.Instance.fightArea = false;
-        BattleEnd();
+    
+
+    // What happens when you lose
+        if (fightState ==  FightState.Lost)
+        {    
+            ButtonsOff();
+            for (int i = 0; i < PartyManager.Instance.party.Count; i++)
+            {
+                PlayerCharacter temp = PartyManager.Instance.party[i];
+
+                for (int j = 0; j < defaultPlayerSlots[i].GetComponent<UnitBody>().conditions.Count; j++)
+                {
+                    defaultPlayerSlots[i].GetComponent<UnitBody>().conditions[j].RemoveCondition();
+                }
+                defaultPlayerSlots[i].GetComponent<UnitBody>().baseStats.CurrentHP = defaultPlayerSlots[i].GetComponent<UnitBody>().activeStats.CurrentHP;
+            
+                temp.CopyStats(defaultPlayerSlots[i].GetComponent<UnitBody>());
+                temp.stats.CurrentHP = temp.stats.MaxHP+defaultPlayerSlots[i].GetComponent<UnitBody>().equipmentStats[4];
+            }
+            dialogueText.text = "You Lose";
+            PlayerPrefs.DeleteAll();
+            EncounterManager.Instance.fightArea = false;
+            BattleEndLose();
+        }
     }
 
-    public void BattleEnd()
+    public void BattleEndLose()
     {
         Debug.Log("BattleEnd");
         expEarned = 0;
-        StartCoroutine(EndBattle());
+        cashEarned = 0;
+         PartyManager.Instance.staticEncounter = false;
+        StartCoroutine(EndBattleLose());
+    }
+
+     public void BattleEndWin()
+    {
+        Debug.Log("BattleEnd");
+        StartCoroutine(EndBattleWin());
     }
     
-     IEnumerator EndBattle()
+     IEnumerator EndBattleLose()
     {
         yield return new WaitForSeconds(1.5f);
         Debug.Log("EndBattle");
         dialogueText.text = "The Battle is Over";
         yield return new WaitForSeconds(1f);
-        SceneManager.LoadScene(sceneName);
+        PartyManager.Instance.rest = true;
+        SceneManager.LoadScene(PartyManager.Instance.bonfire);
+         
+    }
+
+    IEnumerator EndBattleWin()
+    {
+        yield return new WaitForSeconds(1.5f);
+        Debug.Log("EndBattle");
+        dialogueText.text = "The Battle is Over";
+        yield return new WaitForSeconds(1f);
+        winScreen.SetActive(true);
          
     }
 
@@ -648,15 +888,15 @@ public class BattleManager : MonoBehaviour
         
     }
 
-    public void DamagePlayer()
-    {
-        enemyTarget.GetComponent<UnitBody>().currentHP -= TOM.turnPlayer.attack;
+    // public void DamagePlayer()
+    // {
+    //     enemyTarget.GetComponent<UnitBody>().activeStats.CurrentHP -= TOM.turnPlayer.activeStats.Attack;
 
-        if (enemyTarget.GetComponent<UnitBody>().currentHP <= 0)
-        {
-            enemyTarget.GetComponent<UnitBody>().Death();
-        }
-    }
+    //     if (enemyTarget.GetComponent<UnitBody>().activeStats.CurrentHP <= 0)
+    //     {
+    //         enemyTarget.GetComponent<UnitBody>().Death();
+    //     }
+    // }
 
     public void StartStartTurnCo(Turn turn)
     {
@@ -681,9 +921,9 @@ public class BattleManager : MonoBehaviour
         StartCoroutine(turn.EndTurnCo());
     }
 
-    public void EnemyAttack(Skill skill, List<UnitBody> targets)
+    public void EnemyAttack(Skill skill, List<UnitBody> targets, bool freeSkill = false)
     {
-        StartCoroutine(EnemyAttackCo(skill,targets));
+        StartCoroutine(EnemyAttackCo(skill,targets,freeSkill));
     }
 
     public void RunAway()

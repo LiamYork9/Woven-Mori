@@ -1,6 +1,6 @@
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.Rendering;
+using System.Linq;
 
 public class TurnOrderManager : MonoBehaviour
 {
@@ -10,6 +10,7 @@ public class TurnOrderManager : MonoBehaviour
 
     public List<UnitBody> downedPlayers = new List<UnitBody> { };
 
+    [SerializeReference]
     public List<Turn> turnOrder = new List<Turn> { };
 
     public List<Turn> recentTurns = new List<Turn> { };
@@ -20,6 +21,8 @@ public class TurnOrderManager : MonoBehaviour
 
     public BattleManager BM;
 
+    public List<FatedPoint> fatedPoints = new List<FatedPoint>();
+    public List<PolyTurn> compressedPoints = new List<PolyTurn> ();
 
 
 
@@ -52,6 +55,7 @@ public class TurnOrderManager : MonoBehaviour
     // Creates a list of all the current fighters in a battle
     public void GatherFighters()
     {
+        List<string> usedNames = new List<string>();
         if (BM == null)
         {
             BM = BattleManager.Instance;
@@ -60,49 +64,96 @@ public class TurnOrderManager : MonoBehaviour
         {
             BM.playerSlots[i].name = BM.playerSlots[i].GetComponent<UnitBody>().name;
             allFighters.Add(BM.playerSlots[i]);
+            fatedPoints.AddRange(BM.playerSlots[i].GetComponent<UnitBody>().fatedPoints);
         }
 
         for (int i = 0; i < BM.enemySlots.Count; i++)
         {
+            usedNames.Add(BM.enemySlots[i].GetComponent<UnitBody>().name);
+            int nameCount =0;
+            foreach(string searchName in usedNames)
+            {
+                if(searchName == BM.enemySlots[i].GetComponent<UnitBody>().name)
+                {
+                    nameCount++;
+                }
+            }
+            
+            if(nameCount>1)
+            {
+                BM.enemySlots[i].GetComponent<UnitBody>().name= BM.enemySlots[i].GetComponent<UnitBody>().name+" " + nameCount;
+            }
             BM.enemySlots[i].name = BM.enemySlots[i].GetComponent<UnitBody>().name;
             allFighters.Add(BM.enemySlots[i]);
+            fatedPoints.AddRange(BM.enemySlots[i].GetComponent<UnitBody>().fatedPoints);
         }
         TurnCalulation();
+        fatedPoints  = fatedPoints.OrderBy(p => p.point).ToList<FatedPoint>();
+        PolyTurn temp = new PolyTurn();
+        bool addPoly = false;
 
-
+        foreach(FatedPoint fate in fatedPoints)
+        {
+            if(temp.point == fate.point)
+            {
+                temp.AddMiniTurn(fate);
+                addPoly = true;
+            }
+            else
+            {
+                if(addPoly)
+                {
+                    compressedPoints.Add(temp);
+                    temp = new PolyTurn();
+                } 
+                temp.point = fate.point;
+                temp.AddMiniTurn(fate);
+                addPoly = true;
+            }
+        }
+        if(addPoly)
+        {
+            compressedPoints.Add(temp);
+        }
+        
+        compressedPoints = compressedPoints.OrderBy(p => p.point).ToList<PolyTurn>();
+        foreach(PolyTurn turn in compressedPoints)
+        {
+            if(turnOrder.Count<turn.point)
+            {
+                TurnCalulation(turn.point-turnOrder.Count);
+            }
+            turnOrder.Insert(turn.point, turn.GetPolyturn());
+        }
 
     }
 
     // How turn order is calculated
-    public void TurnCalulation()
+    public void TurnCalulation(int minturns = 0)
     {
-        while (turnOrder.Count < 11 && emergencybutton < 100)
+        int added = 0;
+        emergencybutton = 0;
+        while ((turnOrder.Count < 11 || added<= minturns) && emergencybutton < 100)
         {
             emergencybutton++;
             for (int i = 0; i < allFighters.Count; i++)
             {
-                Turn tempTurn = new Turn();
+                
                 UnitBody tempUnit = allFighters[i].GetComponent<UnitBody>();
-                tempUnit.initiative += Mathf.Max(1,tempUnit.speed + Random.Range(-5, 6));
+                tempUnit.initiative += Mathf.Max(1,tempUnit.activeStats.Speed + Random.Range(-5, 6));
 
                 if (tempUnit.initiative >= 100)
                 {
+                    Turn tempTurn = new Turn();
                     tempUnit.initiative -= 100;
-                    tempTurn.PopulateTurn(tempUnit);
+                    tempTurn.PopulateTurn(tempUnit,tempUnit.CheckFate(),tempUnit.GetFate());
                     turnOrder.Add(tempTurn);
+                    tempUnit.turnsAdded++;
+                    added ++;
                 }
             }
             cycle++;
         }
-    }
-
-
-    public void SpeedUp()
-    {
-        //turnPlayer.speed += 10;
-        emergencybutton = 0;
-        turnOrder.Clear();
-        TurnCalulation();
     }
 
     public void TurnShift(int shift = 1)
@@ -122,6 +173,10 @@ public class TurnOrderManager : MonoBehaviour
                 }
                 turnOrder.Remove(turnOrder[0]);
                 BM.globalTurn += 1;
+                if (turnOrder[0].fated)
+                {
+                    break;
+                }
             }
             //BM.TurnTransiton();
         }
@@ -131,6 +186,10 @@ public class TurnOrderManager : MonoBehaviour
             {
                 for (int i = 0; i + shift < 0; i++)
                 {
+                    if(turnOrder[0].exhausted == true)
+                    {
+                        turnOrder.Remove(turnOrder[0]);
+                    }
 
                     turnOrder.Insert(0, recentTurns[0]);
                     recentTurns.Remove(recentTurns[0]);
@@ -152,8 +211,66 @@ public class TurnOrderManager : MonoBehaviour
         BM.gTurnText.text = "Turn: " + BM.globalTurn;
     }
 
+    public void Prioritize(UnitBody unit, int priority)
+    {
+        int buffer = 0;
+        if(priority > 0)
+        {
+            for(int i = 1; i < turnOrder.Count; i++)
+            {
+                if(turnOrder[i].unit == unit)
+                {
+                    Turn temp = turnOrder[i];
+                    for(int j = 1; j <= priority; j++)
+                    {
+                        if(i-j > buffer)
+                        {
+                            Debug.Log("i=" + i + "   j=" + j + "   " + (i-j) + "th Slot: Buffer " + buffer );
+                            turnOrder[i-(j-1)] = turnOrder[i-j];
+                            turnOrder[i-j] = temp;
+                        }
+                    }
+                    if(i-priority <= buffer)
+                    {
+                        buffer++;
+                    }
+                }
+            }
+        }
+        else if(priority < 0)
+        {
+            buffer = 1;
+            for(int i = turnOrder.Count-1; i > 0; i--)
+            {
+                if(turnOrder[i].unit==unit)
+                {
+                    Turn temp = turnOrder[i];
+                    for(int j = 1; j <= priority; j++)
+                    {
+                        if(i+j <= turnOrder.Count - buffer)
+                        {
+                            turnOrder[i+(j-1)] = turnOrder[i+j];
+                            turnOrder[i+j] = temp;
+                        }
+                    }
+                    if(i+priority >= turnOrder.Count-buffer)
+                    {
+                        buffer++;
+                    }
+                }
+            }
+        }
+    }
+
     public void EndTurn()
     {
-        turnOrder[0].EndTurn();
+        if(BM.fightState!=FightState.Active)
+        {
+            BM.CheckFightCondition();
+        }
+        else
+        {
+            turnOrder[0].EndTurn();
+        }
     }
 }

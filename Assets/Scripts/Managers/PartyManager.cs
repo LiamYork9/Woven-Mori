@@ -1,22 +1,43 @@
 using UnityEngine;
 using System.Collections.Generic;
 using System.Collections;
+using UnityEngine.InputSystem;
+using Microsoft.Unity.VisualStudio.Editor;
 
-public class PartyManager : MonoBehaviour
+public class PartyManager : MonoBehaviour, IDataPersistence
 {
 
     [SerializeReference]
     public List<PlayerCharacter> party;
     public static PartyManager Instance;
 
+    public  List<PlayerCharacter> starter;
+
     public List<GameObject> followers; 
 
+    public string sceneName;
+
+     public string bonfire;
+
     public bool PM1,PM2,PM3;
+
+    public bool staticEncounter;
+
+    public bool rest;
+
+    public int funds;
+
+    public Vector3 SpawnLocation;
+
+    public Vector3 restLocation;
+
+    public Sprite battleBackground;
 
     public static PartyManager GetInstance()
     {
         return Instance;
     }
+    
 
 
 
@@ -31,17 +52,50 @@ public class PartyManager : MonoBehaviour
             Destroy(this.gameObject);
         }
         DontDestroyOnLoad(this);
+         if(party.Count == 0)
+        {
+           party = starter;
+          
+        }
+
+       
 
     }
     void Start()
     {
+         if(party.Count == 0)
+        {
+           party = starter;
+          
+        }
+    }
 
+    public void LoadData(GameData data)
+    {
+        sceneName = data.sceneNameData;
+        this.party = data.party;
+    }
+
+     public void SaveData( GameData data)
+    {
+        data.sceneNameData = sceneName;
+        data.party = this.party;
     }
 
     // Update is called once per frame
     void Update()
     {
-
+        if(funds > 99999)
+        {
+            funds = 99999;
+        }
+        if(Input.GetKeyDown(KeyCode.T))
+        {
+            for (int i = 0; i < PartyManager.Instance.party.Count; i++)
+            {
+                PartyManager.Instance.party[i].ResetLevel();
+            }
+        }
     }
 
     public void AddPartyMemeber(PlayerCharacter playerCharacter)
@@ -50,6 +104,8 @@ public class PartyManager : MonoBehaviour
         {
             party.Add(playerCharacter);
         }
+
+       
         
 
         

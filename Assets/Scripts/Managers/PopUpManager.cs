@@ -62,6 +62,21 @@ public class PopUpManager : MonoBehaviour
             DamageNumbers damageLabel = _damageLabelPopupPool.Get();
             damageLabel.Display(damage, position, direction, isCrit);
         }
+
+        public void HealingDone(int healing, Vector3 position, bool isCrit)
+        {
+            Vector3 screenPosition = position;
+            screenPosition.z = 0;
+            bool direction = screenPosition.x < Screen.width * 0.5f;
+            
+            SpawnHealPopup(healing, screenPosition, direction, isCrit);
+        }
+        
+        private void SpawnHealPopup(int healing, Vector3 position, bool direction, bool isCrit)
+        {
+            DamageNumbers damageLabel = _damageLabelPopupPool.Get();
+            damageLabel.Display(healing, position, direction, isCrit, true);
+        }
         
         public void ReturnDamageLabelToPool(DamageNumbers damageLabel3d)
         {
