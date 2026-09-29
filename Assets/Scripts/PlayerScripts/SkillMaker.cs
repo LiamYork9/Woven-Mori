@@ -215,7 +215,7 @@ public class SkillMaker : MonoBehaviour
 
          madeSkills.Add(HighLow);
         
-        Skill Focus = new Skill(SkillId.Focus, "Focus",10 , Element.None, Target.self, Category.Attack, 0,  "Focus and gain an additional AP",  1)
+        Skill Focus = new Skill(SkillId.Focus, "Focus",10 , Element.None, Target.self, Category.Status, 0,  "Focus and gain an additional AP",  1)
         .Attr(new APGainAttr(1,true));
         madeSkills.Add(Focus);
         

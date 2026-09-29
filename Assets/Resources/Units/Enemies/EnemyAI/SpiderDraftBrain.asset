@@ -10,13 +10,13 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 3b245779f896312409327a1260ef34c5, type: 3}
-  m_Name: TestBrain
+  m_Name: SpiderDraftBrain
   m_EditorClassIdentifier: 
   fates:
-  - code: BiteParty
+  - code: BiteAll
     skillId: 20
     targetingOverride: 0
-    newTargeting: 4
+    newTargeting: 10
     isFree: 1
   categoryPref:
   - category: 0
@@ -24,50 +24,26 @@ MonoBehaviour:
   - category: 1
     weight: 5
   - category: 2
-    weight: 5
+    weight: 7
   chosenCategory:
+  - chosenCategory: 1
+    preferences:
+    - target: 3
+      weight: 10
+    - target: 5
+      weight: 5
   - chosenCategory: 0
     preferences:
     - target: 0
-      weight: 5
-    - target: 1
-      weight: 7
+      weight: 10
     - target: 4
-      weight: 6
-    - target: 7
-      weight: 1
-  - chosenCategory: 1
-    preferences:
-    - target: 2
-      weight: 10
-    - target: 3
-      weight: 7
-    - target: 5
-      weight: 10
-    - target: 6
-      weight: 3
-    - target: 8
-      weight: 1
+      weight: 2
   - chosenCategory: 2
     preferences:
-    - target: 0
-      weight: 10
-    - target: 1
-      weight: 10
-    - target: 2
-      weight: 5
-    - target: 3
-      weight: 5
-    - target: 5
-      weight: 15
-    - target: 4
-      weight: 20
     - target: 6
       weight: 5
-    - target: 7
-      weight: 1
-    - target: 8
-      weight: 1
-  useRandom: 1
-  basicAttackChance: 40
+    - target: 5
+      weight: 4
+  useRandom: 0
+  basicAttackChance: 0
   basicAttackStyle: 7

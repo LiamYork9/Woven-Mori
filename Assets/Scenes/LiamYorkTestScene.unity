@@ -3272,12 +3272,12 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3722604092719107477, guid: dff2bcc460642c3489f19957f6b24001, type: 3}
       propertyPath: encounterTable.Array.size
-      value: 3
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 3722604092719107477, guid: dff2bcc460642c3489f19957f6b24001, type: 3}
       propertyPath: 'encounterTable.Array.data[0]'
       value: 
-      objectReference: {fileID: 11400000, guid: 89e126f7d00c46a49a7c231e61fa92fd, type: 2}
+      objectReference: {fileID: 11400000, guid: 05071c4e09cd9f64182f3c2062dbcd2d, type: 2}
     - target: {fileID: 3722604092719107477, guid: dff2bcc460642c3489f19957f6b24001, type: 3}
       propertyPath: 'encounterTable.Array.data[1]'
       value: 
@@ -3285,7 +3285,7 @@ PrefabInstance:
     - target: {fileID: 3722604092719107477, guid: dff2bcc460642c3489f19957f6b24001, type: 3}
       propertyPath: 'encounterTable.Array.data[2]'
       value: 
-      objectReference: {fileID: 11400000, guid: 05071c4e09cd9f64182f3c2062dbcd2d, type: 2}
+      objectReference: {fileID: 11400000, guid: f6f4a97da73ac2a4385bd6643c4b2122, type: 2}
     - target: {fileID: 9037386977037729794, guid: dff2bcc460642c3489f19957f6b24001, type: 3}
       propertyPath: m_Name
       value: EnemyPool
@@ -3495,7 +3495,7 @@ PrefabInstance:
     - target: {fileID: 4757034985748211624, guid: 9be9c3a6200bc05409c5c20538f16e36, type: 3}
       propertyPath: battleBackground
       value: 
-      objectReference: {fileID: 1797764137301760914, guid: 704836936a9159340a983e9a02d766a4, type: 3}
+      objectReference: {fileID: -4424639891517422229, guid: 7e09cb6f84cb3f94bbaf7f6f2fa30d77, type: 3}
     - target: {fileID: 7458185388826930755, guid: 9be9c3a6200bc05409c5c20538f16e36, type: 3}
       propertyPath: m_Name
       value: PartyManager

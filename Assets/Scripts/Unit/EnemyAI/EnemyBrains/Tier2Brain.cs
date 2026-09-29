@@ -62,6 +62,7 @@ public class Tier2Brain: UnitBrain
             {
                 SkillId tempId = tempFate.Value.skillId;
                 Skill tempSkill = SkillMaker.Instance.GetById(tempId).CheckSkillModConditions(unit);
+                tempSkill.style = tempFate.Value.newTargeting;
                 temp.skill = tempSkill;
                 temp.freeSkill = tempFate.Value.isFree;
             }
@@ -115,6 +116,7 @@ public class Tier2Brain: UnitBrain
             tar = Target.ally;
             break;
             case TargetingStyle.Basic:
+            Debug.Log("Basic Targeting");
             Skill attack =SkillMaker.Instance.GetById(SkillId.Attack);
             attack.style = TargetingStyle.Default;
             return attack;
@@ -141,17 +143,24 @@ public class Tier2Brain: UnitBrain
                 tempSkills.Add(tempSkill);
             }
         }
-        
-        if(basicAttackChance > Random.Range(0,100)||tempSkills.Count == 0)
+        if(tempSkills.Count == 0)
         {
             Skill attack =SkillMaker.Instance.GetById(SkillId.Attack);
             attack.style = basicAttackStyle;
+            Debug.Log("No Valid Skill");
+            return attack;
+        }
+        else if(basicAttackChance > Random.Range(0,100))
+        {
+            Skill attack =SkillMaker.Instance.GetById(SkillId.Attack);
+            attack.style = basicAttackStyle;
+            Debug.Log("Rolled Basic Attack Chance");
             return attack;
         }
 
         int temp = Random.Range(0,tempSkills.Count);
         tempSkills[temp].style = style;
-        
+        Debug.Log("Using Skill: "+tempSkills[temp].name);
         return tempSkills[temp];
     }
 
@@ -175,9 +184,11 @@ public class Tier2Brain: UnitBrain
 
         if(tempList.Count > 0)
         {
+            Debug.Log( tempList[0].category);
             return tempList[0].category;
         }
 
+        Debug.Log("Random");
         return (Category)Random.Range(0,3);
 
         
@@ -199,6 +210,7 @@ public class Tier2Brain: UnitBrain
 
         if(tempCat == null)
         {
+            Debug.Log("No Category");
             return TargetingStyle.Basic;
         }
         ChosenCategory tempCat2 = tempCat.Value;
@@ -220,6 +232,7 @@ public class Tier2Brain: UnitBrain
 
         if(tempList.Count > 0)
         {
+            Debug.Log("Target Style: " + tempList[0].target);
             return tempList[0].target;
         }
         

@@ -38,7 +38,7 @@ public struct FateCode
     public string code;
     public SkillId skillId;
     public bool targetingOverride;
-    public Target newTargeting;
+    public TargetingStyle newTargeting;
     public bool isFree;
 
 }
