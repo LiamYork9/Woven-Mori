@@ -10,26 +10,26 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 22ff192d681faf34ca12b61a7c65a93d, type: 3}
-  m_Name: DemoSpider
+  m_Name: DemoSlime
   m_EditorClassIdentifier: 
-  unitName: Spider
+  unitName: Slime
   partyMember: 0
   brain: {fileID: 0}
-  skills: 14000000
-  resistance: 
+  skills: 050000000a0000000b000000
+  resistance: 00000000
   immunity: 
-  vulnerability: 01000000
+  vulnerability: 
   conditions: []
-  chSprite: {fileID: 21300000, guid: beab9b7c72a3261428d76581f1dff51c, type: 3}
+  chSprite: {fileID: 21300000, guid: 7ef42231652fcda41b73cf85791d6841, type: 3}
   deathSprite: {fileID: 0}
   stats:
     Level: 10
-    MaxHP: 65
-    CurrentHP: 65
-    Attack: 10
-    Defense: 11
+    MaxHP: 80
+    CurrentHP: 80
+    Attack: 7
+    Defense: 20
     Mdefense: 15
-    Speed: 19
+    Speed: 14
     APCap: 10
     APGain: 1
   fatedTurns: []

@@ -1605,6 +1605,18 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 4309056369536889324, guid: 9be9c3a6200bc05409c5c20538f16e36, type: 3}
+      propertyPath: classGrowths.Array.size
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 4309056369536889324, guid: 9be9c3a6200bc05409c5c20538f16e36, type: 3}
+      propertyPath: 'classGrowths.Array.data[0]'
+      value: 
+      objectReference: {fileID: 11400000, guid: 8d204e7e325ef214fa6bc53df3759e82, type: 2}
+    - target: {fileID: 4309056369536889324, guid: 9be9c3a6200bc05409c5c20538f16e36, type: 3}
+      propertyPath: 'classGrowths.Array.data[1]'
+      value: 
+      objectReference: {fileID: 11400000, guid: aa29e3a87e3581a45ad17fa391a4a4fe, type: 2}
     - target: {fileID: 4757034985748211624, guid: 9be9c3a6200bc05409c5c20538f16e36, type: 3}
       propertyPath: PM1
       value: 0
@@ -1639,12 +1651,20 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4757034985748211624, guid: 9be9c3a6200bc05409c5c20538f16e36, type: 3}
       propertyPath: party.Array.size
-      value: 1
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 4757034985748211624, guid: 9be9c3a6200bc05409c5c20538f16e36, type: 3}
       propertyPath: starter.Array.size
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 4757034985748211624, guid: 9be9c3a6200bc05409c5c20538f16e36, type: 3}
+      propertyPath: 'party.Array.data[0]'
+      value: 
+      objectReference: {fileID: 11400000, guid: 157fd6b32db3e6d4e8d578ae2ddd1c76, type: 2}
+    - target: {fileID: 4757034985748211624, guid: 9be9c3a6200bc05409c5c20538f16e36, type: 3}
+      propertyPath: 'party.Array.data[1]'
+      value: 
+      objectReference: {fileID: 11400000, guid: 98275b40d19287d4ba0b5300d4fa6878, type: 2}
     - target: {fileID: 4757034985748211624, guid: 9be9c3a6200bc05409c5c20538f16e36, type: 3}
       propertyPath: followers.Array.size
       value: 0
@@ -3201,7 +3221,7 @@ Camera:
   far clip plane: 1000
   field of view: 60
   orthographic: 1
-  orthographic size: 3.75
+  orthographic size: 4.21875
   m_Depth: -1
   m_CullingMask:
     serializedVersion: 2

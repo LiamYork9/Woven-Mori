@@ -188,6 +188,8 @@ public class Unit : ScriptableObject
         {
             BattleManager.Instance.LoseCondition();
         }
+        BattleManager.Instance.CheckFightCondition();
+        
     }
 
     public void Restore()

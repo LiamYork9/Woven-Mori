@@ -78,6 +78,10 @@ public class Enemy : Unit
                 {
                     if (TurnOrderManager.Instance.turnOrder[i].unit == body)
                     {
+                        if(i==0 && TurnOrderManager.Instance.turnOrder[i].turnShift>=1)
+                        {
+                            TurnOrderManager.Instance.turnOrder[i].turnShift-=1;
+                        }
                         TurnOrderManager.Instance.turnOrder.RemoveAt(i);
                     }
                     else

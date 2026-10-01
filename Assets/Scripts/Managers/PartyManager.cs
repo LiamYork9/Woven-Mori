@@ -96,6 +96,13 @@ public class PartyManager : MonoBehaviour, IDataPersistence
                 PartyManager.Instance.party[i].ResetLevel();
             }
         }
+         if(Input.GetKeyDown(KeyCode.Y))
+        {
+            for (int i = 0; i < PartyManager.Instance.party.Count; i++)
+            {
+                PartyManager.Instance.party[i].LevelUp();
+            }
+        }
     }
 
     public void AddPartyMemeber(PlayerCharacter playerCharacter)
