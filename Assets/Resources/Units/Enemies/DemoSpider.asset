@@ -1,0 +1,44 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 22ff192d681faf34ca12b61a7c65a93d, type: 3}
+  m_Name: DemoSpider
+  m_EditorClassIdentifier: 
+  unitName: 
+  partyMember: 0
+  brain: {fileID: 0}
+  skills: 
+  resistance: 
+  immunity: 
+  vulnerability: 
+  conditions: []
+  chSprite: {fileID: 0}
+  deathSprite: {fileID: 0}
+  stats:
+    Level: 10
+    MaxHP: 70
+    CurrentHP: 70
+    Attack: 0
+    Defense: 0
+    Mdefense: 0
+    Speed: 0
+    APCap: 0
+    APGain: 0
+  fatedTurns: []
+  fatedPoints: []
+  equipmentStats: 000000000000000000000000000000000000000000000000
+  expYield: 0
+  money: 0
+  lootTable: []
+  dropChance: 20
+  references:
+    version: 2
+    RefIds: []
