@@ -14,8 +14,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   unitName: Aiden
   partyMember: 0
-  brain: {fileID: 11400000, guid: 131b8ee5ed1e65a4fab50f380d07c3c2, type: 2}
-  skills: 140000000a00000011000000
+  brain: {fileID: 11400000, guid: c90181a61433edb4aa49f0f371939479, type: 2}
+  skills: 140000000a00000005000000190000000300000018000000
   resistance: 
   immunity: 
   vulnerability: 01000000
@@ -33,7 +33,10 @@ MonoBehaviour:
     APCap: 10
     APGain: 1
   fatedTurns: []
-  fatedPoints: []
+  fatedPoints:
+  - point: 3
+    unit: {fileID: 0}
+    fate: BiteAll
   equipmentStats: 000000000000000000000000000000000000000000000000
   expYield: 300
   money: 100
