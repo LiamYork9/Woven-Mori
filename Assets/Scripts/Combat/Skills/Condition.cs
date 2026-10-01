@@ -441,7 +441,7 @@ public class Burn: Condition
 
     public override void Activate()
     {
-        unit.TakeDamage(power*10, DamageType.Magic, Element.Fire);
+        unit.TakeDamage(power*5, DamageType.Magic, Element.Fire);
     }
 }
 

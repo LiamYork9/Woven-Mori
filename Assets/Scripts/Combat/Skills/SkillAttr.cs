@@ -119,7 +119,7 @@ namespace MoriSkills
 
     public class LevelScaleAttr : SkillAttr
     {
-        int scaleValue;
+        float scaleValue;
         [SerializeReference]
         public List<SkillAttr> scaledAttr = null;
 
@@ -134,7 +134,7 @@ namespace MoriSkills
         }
 
 
-        public LevelScaleAttr(int scaleRate, bool targetSelf = false) : base(targetSelf)
+        public LevelScaleAttr(float scaleRate, bool targetSelf = false) : base(targetSelf)
         {
             name = "LevelScaleAttr";
             scaleValue = scaleRate;
@@ -145,7 +145,7 @@ namespace MoriSkills
             for(int i = 0; i < scaledAttr.Count; i++)
             {
                 
-                scaledAttr[i].ActivateAttr(unitUser, unitTargets,power+scaleValue*unitUser.activeStats.Level, skillElement);
+                scaledAttr[i].ActivateAttr(unitUser, unitTargets,(int)(power+(scaleValue*unitUser.activeStats.Level)), skillElement);
             }
         }
 
@@ -563,7 +563,7 @@ namespace MoriSkills
             if (targetSelf == true)
             {
                 
-                unitUser.ApplyCondition(new Tremor(unitUser.activeStats.Attack,duration));
+                unitUser.ApplyCondition(new Burn(unitUser.activeStats.Attack,duration));
             }
             else
             {

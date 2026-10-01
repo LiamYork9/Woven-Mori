@@ -49,10 +49,10 @@ public class SkillMaker : MonoBehaviour
         
         Skill Attack = new Skill(
             /*Stats*/
-                SkillId.Attack, "Attack", 1, Element.None, Target.single, Category.Attack, 0, "Your basic attack", 1
+                SkillId.Attack, "Attack", 5, Element.None, Target.single, Category.Attack, 0, "Your basic attack", 1
             )
             /*Attrs*/
-                .Attr(new LevelScaleAttr(1)
+                .Attr(new LevelScaleAttr(0.5f)
                 .Attr(new DamageAttr(1,DamageType.Physical)));
         madeSkills.Add(Attack);
         
