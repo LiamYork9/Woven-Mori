@@ -37,9 +37,10 @@ MonoBehaviour:
   equipmentStats: 020000000000000000000000000000000000000000000000
   playerClass: 2
   exp: 0
-  weapon: {fileID: 11400000, guid: 907f1ae82da87f04c8b8e905d27e4407, type: 2}
+  weapon: {fileID: 0}
   armor: {fileID: 0}
   accessory: {fileID: 0}
+  animator: {fileID: 0}
   references:
     version: 2
     RefIds: []

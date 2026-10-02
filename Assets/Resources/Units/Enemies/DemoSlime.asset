@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   unitName: Slime
   partyMember: 0
-  brain: {fileID: 0}
+  brain: {fileID: 11400000, guid: 26fd1ffa9954c574380b37aa8ba70b74, type: 2}
   skills: 050000000a0000000b000000
   resistance: 00000000
   immunity: 

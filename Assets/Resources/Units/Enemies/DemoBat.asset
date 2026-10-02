@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   unitName: Bat Beast
   partyMember: 0
-  brain: {fileID: 0}
+  brain: {fileID: 11400000, guid: 4b11f55c9d589ee4cb5d3d46c73b0d1c, type: 2}
   skills: 190000000300000017000000
   resistance: 
   immunity: 

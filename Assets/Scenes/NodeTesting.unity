@@ -5400,12 +5400,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   encounterTable:
-  - {fileID: 11400000, guid: 05071c4e09cd9f64182f3c2062dbcd2d, type: 2}
-  - {fileID: 11400000, guid: f6f4a97da73ac2a4385bd6643c4b2122, type: 2}
-  - {fileID: 11400000, guid: 89e126f7d00c46a49a7c231e61fa92fd, type: 2}
-  - {fileID: 11400000, guid: 319564360a40d3945a4b4654397d85db, type: 2}
-  - {fileID: 11400000, guid: f3ad838d526acd4428cc7bc2249f2b66, type: 2}
-  - {fileID: 11400000, guid: dfe9c6ec2678f1d4fb4d21753df47e7f, type: 2}
+  - {fileID: 11400000, guid: ca3ec7244e719be44bcdb0123dff9c02, type: 2}
+  - {fileID: 11400000, guid: 401ffddb21c044649a643027ba9df6c0, type: 2}
+  - {fileID: 11400000, guid: 22910f32bac816948a019b4347d25d05, type: 2}
   maxEnemies: 3
   battleZone: 1
 --- !u!1001 &1647117089
@@ -7364,6 +7361,18 @@ PrefabInstance:
     m_TransformParent: {fileID: 0}
     m_Modifications:
     - target: {fileID: 1508847480912848295, guid: 815e0b53578d1074ca14fb5208e49a8c, type: 3}
+      propertyPath: m_LocalScale.x
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1508847480912848295, guid: 815e0b53578d1074ca14fb5208e49a8c, type: 3}
+      propertyPath: m_LocalScale.y
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1508847480912848295, guid: 815e0b53578d1074ca14fb5208e49a8c, type: 3}
+      propertyPath: m_LocalScale.z
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1508847480912848295, guid: 815e0b53578d1074ca14fb5208e49a8c, type: 3}
       propertyPath: m_LocalPosition.x
       value: 17.99
       objectReference: {fileID: 0}
@@ -7401,6 +7410,10 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1508847480912848295, guid: 815e0b53578d1074ca14fb5208e49a8c, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1508847480912848295, guid: 815e0b53578d1074ca14fb5208e49a8c, type: 3}
+      propertyPath: m_ConstrainProportionsScale
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6559450744839814322, guid: 815e0b53578d1074ca14fb5208e49a8c, type: 3}

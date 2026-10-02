@@ -40,6 +40,7 @@ MonoBehaviour:
   weapon: {fileID: 0}
   armor: {fileID: 0}
   accessory: {fileID: 0}
+  animator: {fileID: 9100000, guid: 067c20e341d94104199d0e8f73d19d01, type: 2}
   references:
     version: 2
     RefIds: []

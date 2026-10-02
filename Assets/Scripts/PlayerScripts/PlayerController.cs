@@ -23,10 +23,15 @@ public class PlayerController : MonoBehaviour
     public bool stepCheck;
     public UnityEvent Step;
 
+     public Animator animator;
+
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
+        animator = gameObject.GetComponent<Animator>();
+        animator.runtimeAnimatorController = PartyManager.Instance.party[0].animator;
+
         movePoint.parent = null;
         SpawnFollowers();
         if (Step == null)
@@ -59,16 +64,19 @@ public class PlayerController : MonoBehaviour
             transform.position = Vector3.MoveTowards(transform.position, movePoint.position, moveSpeed * Time.deltaTime);
             if (Vector3.Distance(transform.position, movePoint.position) < .05f)
             {
+                animator.SetBool("walking", false);
                 if (Mathf.Abs(Input.GetAxisRaw("Horizontal")) >= 0.9f)
                 {
                     tempDist = Input.GetAxisRaw("Horizontal");
                     tempDist /= Math.Abs(tempDist);
                     if(tempDist>0)
                     {
+                        animator.SetInteger("facing",3);
                         lookPoint.localPosition = new Vector3(1,0,0);
                     }
                     else
                     {
+                        animator.SetInteger("facing",1);
                         lookPoint.localPosition = new Vector3(-1,0,0);
                     }
                     if (!Physics2D.OverlapCircle(movePoint.position + new Vector3(tempDist, 0f, 0f), 0.2f, stopsMovement))
@@ -78,6 +86,7 @@ public class PlayerController : MonoBehaviour
                             follower.Move();
                         }
                         stepCheck = true;
+                         animator.SetBool("walking", true);
                         movePoint.position += new Vector3(tempDist, 0f, 0f);
                     }
                 }
@@ -88,10 +97,12 @@ public class PlayerController : MonoBehaviour
                     tempDist /= Math.Abs(tempDist);
                     if(tempDist>0)
                     {
+                        animator.SetInteger("facing",2);
                         lookPoint.localPosition = new Vector3(0,1,0);
                     }
                     else
                     {
+                        animator.SetInteger("facing",0);
                         lookPoint.localPosition = new Vector3(0,-1,0);
                     }
                     if (!Physics2D.OverlapCircle(movePoint.position + new Vector3(0f, tempDist, 0f), 0.2f, stopsMovement))
@@ -101,6 +112,7 @@ public class PlayerController : MonoBehaviour
                             follower.Move();
                         }
                         stepCheck = true;
+                         animator.SetBool("walking", true);
                         movePoint.position += new Vector3(0f, tempDist, 0f);
                     }
                 }
