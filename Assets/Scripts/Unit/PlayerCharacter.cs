@@ -1,6 +1,6 @@
 using System.Collections.Generic;
 using MoriSkills;
-using UnityEditor.Animations;
+
 using UnityEngine;
 
 [CreateAssetMenu(fileName = "unit", menuName = "ScriptableObjects/Unit/Player", order = 1)]
@@ -16,7 +16,7 @@ public class PlayerCharacter : Unit
 
     public Accessory accessory;
 
-    public AnimatorController animator;
+    public RuntimeAnimatorController animator;
 
 
     void Start()

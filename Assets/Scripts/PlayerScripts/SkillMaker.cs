@@ -145,6 +145,11 @@ public class SkillMaker : MonoBehaviour
         Skill HolyAbsorption = new Skill(SkillId.HolyAbsorption,"Holy Absorption",25 ,Element.Light,Target.single,Category.Attack,2,"Power: 25 \nTargets: One Enemie \nElement: Light \nAbsorb HP from the enemy",-1)
         .Attr(new DamageAttr(1,DamageType.Magic,Element.Light,false,DamageAfterEffect.Lifesteal,0.25f));
         madeSkills.Add(HolyAbsorption);
+
+        Skill AcidSpray = new Skill(SkillId.AcidSpray,"Acid Spray",20,Element.None,Target.single,Category.Attack,2,"mess up the foes armor",1)
+        .Attr(new DamageAttr(1,DamageType.Magic,Element.None,false))
+        .Attr(new StatDropConAttr(Stats.Defense, standardBoost,3,true));
+        madeSkills.Add(AcidSpray);
         
         
         Skill SwordShield = new Skill(SkillId.SwordShield, "Sword&Shield",10 , Element.None, Target.single, Category.Attack, 1, "On Even turns Heal and buff yourself, on Odd turns hit the enemy and debuff them", -2)

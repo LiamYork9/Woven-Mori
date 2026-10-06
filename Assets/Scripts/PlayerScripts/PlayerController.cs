@@ -124,6 +124,10 @@ public class PlayerController : MonoBehaviour
             }
             
         }
+        else
+        {
+             animator.SetBool("walking", false);
+        }
     }
 
     public void Follower(Follower newFollower)

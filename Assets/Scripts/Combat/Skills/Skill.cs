@@ -40,7 +40,8 @@ namespace MoriSkills
         Focus,
         SpeedUp,
         Quake,
-        Erosion
+        Erosion,
+        AcidSpray,
     }
 
     public enum Element

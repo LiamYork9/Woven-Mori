@@ -14,7 +14,7 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/LiamYorkTestScene.unity
     guid: ae1abddeda5e37f4da2969fa70f9b01a
-  - enabled: 0
+  - enabled: 1
     path: Assets/Scenes/EncounterTest.unity
     guid: bbc089ecab12b414c8a39a50455035de
   - enabled: 1
@@ -26,7 +26,7 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/Inside.unity
     guid: 3e9a093c9d475b840b61f0e6e8014e91
-  - enabled: 1
+  - enabled: 0
     path: Assets/Scenes/Tutorial.unity
     guid: a9f60c1614477c64189adf86fe12c897
   m_configObjects:
