@@ -161,6 +161,81 @@ namespace MoriSkills
         }
     }
 
+    public class TurnScaleAttr : SkillAttr
+    {
+        float scaleValue;
+        public bool local;
+        [SerializeReference]
+        public List<SkillAttr> scaledAttr = null;
+
+        public TurnScaleAttr Attr(SkillAttr addedAttr)
+        {
+            if(scaledAttr == null)
+            {
+                scaledAttr = new List<SkillAttr> { };
+            }
+            scaledAttr.Add(addedAttr);
+            return this;
+        }
+
+
+        public TurnScaleAttr(float scaleRate, bool useLocal, bool targetSelf = true) : base(targetSelf)
+        {
+            name = "LevelScaleAttr";
+            scaleValue = scaleRate;
+            local = useLocal;
+        }
+
+        public override void ActivateAttr(UnitBody unitUser, List<UnitBody> unitTargets, int power,Element skillElement)
+        {
+            int turn = 0;
+            if(local)
+            {
+                if(targetSelf)
+                {
+                    turn = unitUser.localTurnCount;
+                    for(int i = 0; i < scaledAttr.Count; i++)
+                    {
+                        
+                        scaledAttr[i].ActivateAttr(unitUser, unitTargets,(int)(power+(scaleValue*turn)), skillElement);
+                    }
+                }
+                else
+                {
+                    for(int i = 0; i < scaledAttr.Count; i++)
+                    {
+                        for(int j = 0; j < unitTargets.Count; j++)
+                        {
+                            scaledAttr[i].ActivateAttr(unitUser, new List<UnitBody>{unitTargets[j]},(int)(power+(scaleValue*unitTargets[j].localTurnCount)), skillElement);
+                        }
+                        
+                    }
+                }
+            }
+            else
+            {
+                turn = BattleManager.Instance.globalTurn;
+                for(int i = 0; i < scaledAttr.Count; i++)
+                {
+                    
+                    scaledAttr[i].ActivateAttr(unitUser, unitTargets,(int)(power+(scaleValue*turn)), skillElement);
+                }
+            }
+            
+        }
+
+        public override SkillAttr ShallowCopy()
+        {
+            TurnScaleAttr temp = (TurnScaleAttr)this.MemberwiseClone();
+            temp.scaledAttr = new List<SkillAttr>();
+            for(int i=0; i<scaledAttr.Count; i++)
+            {
+                temp.scaledAttr.Add(scaledAttr[i].ShallowCopy());
+            }
+            return temp;
+        }
+    }
+
     public class StatBoostConAttr : SkillAttr
     {
         public Stats stat;
