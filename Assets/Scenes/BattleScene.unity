@@ -1839,7 +1839,7 @@ PrefabInstance:
     - target: {fileID: 4757034985748211624, guid: 9be9c3a6200bc05409c5c20538f16e36, type: 3}
       propertyPath: battleBackground
       value: 
-      objectReference: {fileID: -4424639891517422229, guid: 7e09cb6f84cb3f94bbaf7f6f2fa30d77, type: 3}
+      objectReference: {fileID: -1114082367092079701, guid: ee10b07bcc488e44f9a36b3231ed7b52, type: 3}
     - target: {fileID: 7458185388826930755, guid: 9be9c3a6200bc05409c5c20538f16e36, type: 3}
       propertyPath: m_Name
       value: PartyManager
@@ -2058,6 +2058,14 @@ PrefabInstance:
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
       objectReference: {fileID: 645222400}
+    - target: {fileID: 9055358004259373459, guid: c14100d79b2ddbd4c97c369e306032c3, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: -672
+      objectReference: {fileID: 0}
+    - target: {fileID: 9055358004259373459, guid: c14100d79b2ddbd4c97c369e306032c3, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: -107
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []

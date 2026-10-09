@@ -20,7 +20,7 @@ MonoBehaviour:
   immunity: 
   vulnerability: 
   conditions: []
-  chSprite: {fileID: 4175320429086864182, guid: 2ae8830c3f959ec409a3e5f9c0b93f79, type: 3}
+  chSprite: {fileID: 8048390266147319314, guid: 660ca993978f33947be4a31baa8a7108, type: 3}
   deathSprite: {fileID: -4910113567136968945, guid: 59c81fd56476e6f418b4ca14d9e2d909, type: 3}
   stats:
     Level: 1
