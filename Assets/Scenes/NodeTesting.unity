@@ -5887,6 +5887,10 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 1606989935}
     - target: {fileID: 8862748451058312600, guid: 0a6ab318addeef344a614e4a33f3cfd8, type: 3}
+      propertyPath: sceneName
+      value: BattleScene
+      objectReference: {fileID: 0}
+    - target: {fileID: 8862748451058312600, guid: 0a6ab318addeef344a614e4a33f3cfd8, type: 3}
       propertyPath: maxEnemies
       value: 1
       objectReference: {fileID: 0}
