@@ -148,7 +148,7 @@ public class SkillMaker : MonoBehaviour
 
         Skill AcidSpray = new Skill(SkillId.AcidSpray,"Acid Spray",20,Element.None,Target.single,Category.Attack,2,"mess up the foes armor",1)
         .Attr(new DamageAttr(1,DamageType.Magic,Element.None,false))
-        .Attr(new StatDropConAttr(Stats.Defense, standardBoost,3,true));
+        .Attr(new StatDropConAttr(Stats.Defense, standardBoost,3,false));
         madeSkills.Add(AcidSpray);
         
         
@@ -235,9 +235,21 @@ public class SkillMaker : MonoBehaviour
         .Attr(new ApplyPoisonAttr(3,3,10));
         madeSkills.Add(PoisonBite);
 
-        Skill Quake = new Skill(SkillId.Quake,"Quake",10,Element.Earth,Target.single,Category.Attack,1, "An attack that locks the target in a tremor",1)
-        .Attr(new DamageAttr(1,DamageType.Physical,Element.Dark))
-        .Attr(new ApplyTremorLTC(false));
+        Skill Quake = new Skill(SkillId.Quake,"Quake",10,Element.Earth,Target.single,Category.Attack,1, "On Low number turns attack that locks the target in a tremor, on High number turns hit all enemies strength growing with turn count",1)
+        .Condition(new HighLowCondition(
+            /*High Stats */
+            10 , Element.Earth, Target.mutipleEnemy, Category.Attack, 1, 2, 
+            /*Low Stats */
+            10 , Element.Earth, Target.single, Category.Attack, 1, 1, 15)
+
+            .High(new TurnScaleAttr(1,false)
+                .Attr(new DamageAttr(1,DamageType.Physical,Element.Earth))
+                )
+
+
+            .Low(new DamageAttr(1,DamageType.Physical,Element.Earth))
+            .Low(new ApplyTremorLTC(false))
+        );
         madeSkills.Add(Quake);
 
         Skill Erosion = new Skill(SkillId.Erosion,"Erosion",10,Element.Earth,Target.single,Category.Attack,1, "A spell that accelerates time on the target triggering any end turn effects, counting down all conditions, and dropping their Defense",1)
