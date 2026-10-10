@@ -130,16 +130,17 @@ public class PlayerController : MonoBehaviour
         }
     }
 
-    public void Follower(Follower newFollower)
+    public virtual void AddFollower(Follower newFollower)
     {
         if (follower == null)
         {
             follower = newFollower;
             newFollower.following = gameObject;
+            newFollower.followNumber = 1;
         }
         else
         {
-            follower.Follower(newFollower);
+            follower.AddFollower(newFollower);
         }
         SetPosition();
     }

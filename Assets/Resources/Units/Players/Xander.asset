@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f0f3fbfbcd255794e9933f4b0c1cf923, type: 3}
   m_Name: Xander
   m_EditorClassIdentifier: 
-  unitName: Xander
+  unitName: Rive
   partyMember: 1
   brain: {fileID: 11400000, guid: d6eede53c923a2d4aa2f58f7e775239e, type: 2}
   skills: 180000001700000007000000
@@ -20,7 +20,7 @@ MonoBehaviour:
   immunity: 
   vulnerability: 
   conditions: []
-  chSprite: {fileID: -2316854331444592169, guid: 2ae8830c3f959ec409a3e5f9c0b93f79, type: 3}
+  chSprite: {fileID: -3303135884736197750, guid: 3e970fc356aeadc48b3ff226f1788305, type: 3}
   deathSprite: {fileID: -4910113567136968945, guid: 59c81fd56476e6f418b4ca14d9e2d909, type: 3}
   stats:
     Level: 1

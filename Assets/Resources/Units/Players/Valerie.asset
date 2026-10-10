@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f0f3fbfbcd255794e9933f4b0c1cf923, type: 3}
   m_Name: Valerie
   m_EditorClassIdentifier: 
-  unitName: Valerie
+  unitName: Shana
   partyMember: 1
   brain: {fileID: 11400000, guid: d6eede53c923a2d4aa2f58f7e775239e, type: 2}
   skills: 020000001500000004000000
@@ -40,7 +40,7 @@ MonoBehaviour:
   weapon: {fileID: 0}
   armor: {fileID: 0}
   accessory: {fileID: 0}
-  animator: {fileID: 0}
+  animator: {fileID: 9100000, guid: 2c7c7bbf191887d44884376a3da662ca, type: 2}
   references:
     version: 2
     RefIds: []
