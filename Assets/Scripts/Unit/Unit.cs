@@ -66,7 +66,9 @@ using UnityEngine.Events;
         public int Speed; 
         public int APCap;
         public int APGain;
-        public BaseStats(int lvl, int att, int def, int mdef, int spd, int HPMax, int HP, int capAP, int gainAP)
+
+        public int CritChance;
+        public BaseStats(int lvl, int att, int def, int mdef, int spd, int HPMax, int HP, int capAP, int gainAP, int crit)
         {
             Level = lvl;
             Attack = att;
@@ -77,6 +79,7 @@ using UnityEngine.Events;
             CurrentHP = HP;
             APCap = capAP;
             APGain = gainAP;
+            CritChance = crit;
         }
 
         public void CopyStats(BaseStats target)
@@ -90,6 +93,7 @@ using UnityEngine.Events;
             Speed = target.Speed;
             APCap = target.APCap;
             APGain = target.APGain;
+            CritChance = target.CritChance;
         }
         public void CopyStats(BaseStats target, List<int> equipmentStats)
         {
@@ -102,6 +106,7 @@ using UnityEngine.Events;
             Speed = target.Speed - equipmentStats[3];
             APCap = target.APCap;
             APGain = target.APGain - equipmentStats[5];
+            CritChance = target.CritChance;
         }
         public void CopyStatsWithEquipment(BaseStats target, List<int> equipmentStats)
         {
@@ -114,6 +119,7 @@ using UnityEngine.Events;
             Speed = target.Speed + equipmentStats[3];
             APCap = target.APCap;
             APGain = target.APGain + equipmentStats[5];
+            CritChance = target.CritChance;
             if(CurrentHP > MaxHP)
             {
                 CurrentHP = MaxHP;

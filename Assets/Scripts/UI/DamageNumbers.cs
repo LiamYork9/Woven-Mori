@@ -107,6 +107,10 @@ public class DamageNumbers : MonoBehaviour
             {
                 normalFontColor = Color.green;
             }
+            else if(isCrit)
+            {
+                normalFontColor = Color.yellow;
+            }
             else
             {
                 normalFontColor = Color.red;

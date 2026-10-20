@@ -42,6 +42,9 @@ namespace MoriSkills
         Quake,
         Erosion,
         AcidSpray,
+        CycloneSlash,
+        WhirlWindRift,
+        AColdWindBlows,
     }
 
     public enum Element

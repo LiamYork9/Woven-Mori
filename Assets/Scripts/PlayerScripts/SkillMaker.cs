@@ -73,7 +73,7 @@ public class SkillMaker : MonoBehaviour
         
         
         Skill WindBlade = new Skill(SkillId.WindBlade, "Wind Blade",20, Element.Air, Target.single, Category.Attack, 1, "Power: 20 \nTargets: One Enemy \nElement: Air" , 1)
-        .Attr(new DamageAttr(1,DamageType.Magic,Element.Air));
+        .Attr(new HighCritDamageAttr(1,DamageType.Magic,100,Element.Air));
         madeSkills.Add(WindBlade);
         
         
@@ -256,7 +256,24 @@ public class SkillMaker : MonoBehaviour
         .Attr(new PassageOfTimeAttr(3))
         .Attr(new StatDropConAttr(Stats.Defense, standardBoost, 3));
         madeSkills.Add(Erosion);
+
+         //Boss Skills
+        Skill CycloneSlash = new Skill(SkillId.CycloneSlash,"Cyclone Slash",20,Element.Air,Target.single,Category.Attack,1,"",2)
+        .Attr(new HighCritDamageAttr(1,DamageType.Physical,100,Element.Air,true))
+        .Attr(new HighCritDamageAttr(1,DamageType.Physical,100,Element.Air,true));
+        madeSkills.Add(CycloneSlash);
+
+        Skill WhirlWindRift = new Skill(SkillId.WhirlWindRift,"Whirlwind Rift",15,Element.Air,Target.mutipleEnemy,Category.Attack,2,"",1)
+        .Attr(new HighCritDamageAttr(1,DamageType.Physical,100,Element.Air,true));
+        madeSkills.Add(WhirlWindRift);
+
+        Skill AColdWindBlows = new Skill(SkillId.AColdWindBlows,"A Cold Wind Blows",0,Element.None,Target.mutipleEnemy,Category.Status,1,"Boost your Priority",1)
+        .Attr(new PriorityAttr(-2,3));
+        madeSkills.Add(AColdWindBlows);
+
     }
+
+    
 
     public Skill GetById(SkillId Id)
     {

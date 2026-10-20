@@ -176,6 +176,7 @@ public class UnitBody : MonoBehaviour
         activeStats.MaxHP = 0;
         activeStats.CurrentHP = 0;
         activeStats.Speed = 0;
+        activeStats.CritChance = 0;
     }
 
     public void CheckEquipment(PlayerCharacter target)
@@ -200,7 +201,7 @@ public class UnitBody : MonoBehaviour
         }
     }
 
-    public int TakeDamage(int damageValue, DamageType damageType = DamageType.Physical, Element element = Element.None)
+    public int TakeDamage(int damageValue, DamageType damageType = DamageType.Physical, Element element = Element.None, bool crit = false)
     {
         int damageMod = 0;
         if (damageType == DamageType.Physical)
@@ -238,6 +239,11 @@ public class UnitBody : MonoBehaviour
         {
             damageMod = 0;
         }
+
+        if(crit == true)
+        {
+            damageMod *= 2;
+        }
         
         int returnDamage = 0;
         if(damageMod>activeStats.CurrentHP)
@@ -251,7 +257,7 @@ public class UnitBody : MonoBehaviour
 
 
         activeStats.CurrentHP -= damageMod;
-        PopUpManager.Instance.DamageDone(damageMod,this.transform.position,false);
+        PopUpManager.Instance.DamageDone(damageMod,this.transform.position,crit);
 
         
 

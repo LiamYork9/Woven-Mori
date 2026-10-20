@@ -32,6 +32,7 @@ MonoBehaviour:
     Speed: 19
     APCap: 10
     APGain: 1
+    CritChance: 0
   fatedTurns: []
   fatedPoints: []
   equipmentStats: 000000000000000000000000000000000000000000000000

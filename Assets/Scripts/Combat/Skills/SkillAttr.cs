@@ -1,6 +1,5 @@
 using System;
 using System.Collections.Generic;
-using UnityEditor;
 using UnityEngine;
 
 namespace MoriSkills
@@ -64,7 +63,9 @@ namespace MoriSkills
         public DamageAfterEffect afterEff;
         public float afterEffMult;
 
-        public DamageAttr(float skillMult, DamageType damageType, Element damageElement = Element.None, bool elementOverride = false, DamageAfterEffect afterEffect = DamageAfterEffect.None, float afterEffectMultiplier = 0.5f, bool targetSelf = false, int effChance = 100) : base(targetSelf, effChance)
+        public bool CanCrit;
+
+        public DamageAttr(float skillMult, DamageType damageType, Element damageElement = Element.None, bool elementOverride = false, DamageAfterEffect afterEffect = DamageAfterEffect.None, float afterEffectMultiplier = 0.5f, bool targetSelf = false, int effChance = 100, bool critChance = true) : base(targetSelf, effChance)
         {
             name = "DamageAttr";
             mutiplier = skillMult;
@@ -73,25 +74,111 @@ namespace MoriSkills
             changeElement = elementOverride;
             afterEff = afterEffect;
             afterEffMult = afterEffectMultiplier;
+            CanCrit = critChance;
 
         }
 
         public override void ActivateAttr(UnitBody unitUser, List<UnitBody> unitTargets, int power,Element skillElement)
         {
             int damageDealt = 0;
+            bool crit = false;
             if(changeElement == false)
             {
                 element = skillElement;
             }
             if(targetSelf)
             {
-                damageDealt = unitUser.TakeDamage((int)(power * mutiplier * unitUser.activeStats.Attack), type, element);                
+                if( UnityEngine.Random.Range(0,100) < unitUser.activeStats.CritChance && CanCrit == true)
+                {
+                    crit = true;
+                }
+                else
+                {
+                    crit = false;
+                }
+               
+                damageDealt = unitUser.TakeDamage((int)(power * mutiplier * unitUser.activeStats.Attack), type, element, crit);                
             }
             else
             { 
                 for(int i=0; i<unitTargets.Count; i++)
                 {
-                    damageDealt+=unitTargets[i].TakeDamage((int)(power * mutiplier * unitUser.activeStats.Attack), type, element);
+                    if( UnityEngine.Random.Range(0,100) < unitUser.activeStats.CritChance && CanCrit == true)
+                    {
+                        crit = true;
+                    }
+                      else
+                    {
+                        crit = false;
+                    }
+                    damageDealt+=unitTargets[i].TakeDamage((int)(power * mutiplier * unitUser.activeStats.Attack), type, element, crit);
+                }
+            }
+
+            if(afterEff == DamageAfterEffect.Recoil)
+            {
+                unitUser.activeStats.CurrentHP -= (int)(damageDealt*afterEffMult);
+                PopUpManager.Instance.DamageDone((int)(damageDealt*afterEffMult),unitUser.transform.position,false);
+            }
+            else if(afterEff == DamageAfterEffect.Lifesteal)
+            {
+                unitUser.activeStats.CurrentHP += (int)(damageDealt*afterEffMult);
+                if(unitUser.activeStats.CurrentHP > unitUser.activeStats.MaxHP)
+                {
+                    unitUser.activeStats.CurrentHP = unitUser.activeStats.MaxHP;
+                }
+                PopUpManager.Instance.HealingDone((int)(damageDealt*afterEffMult),unitUser.transform.position,false);
+            }
+           
+        }
+
+    }
+
+    public class HighCritDamageAttr : DamageAttr
+    {
+        
+        public int critBoost;
+
+        public HighCritDamageAttr(float skillMult, DamageType damageType, int critRateBoost, Element damageElement = Element.None, bool elementOverride = false, DamageAfterEffect afterEffect = DamageAfterEffect.None, float afterEffectMultiplier = 0.5f, bool targetSelf = false, int effChance = 100, bool critChance = true) : base (skillMult,damageType,damageElement,elementOverride,afterEffect,afterEffectMultiplier,targetSelf,effChance,critChance)
+        {
+            name = "HighCritDamageAttr";
+            critBoost = critRateBoost;
+        }
+
+        public override void ActivateAttr(UnitBody unitUser, List<UnitBody> unitTargets, int power,Element skillElement)
+        {
+            int damageDealt = 0;
+            bool crit = false;
+            if(changeElement == false)
+            {
+                element = skillElement;
+            }
+            if(targetSelf)
+            {
+                if( UnityEngine.Random.Range(0,100) < unitUser.activeStats.CritChance+critBoost && CanCrit == true)
+                {
+                    crit = true;
+                }
+                else
+                {
+                    crit = false;
+                }
+               
+                damageDealt = unitUser.TakeDamage((int)(power * mutiplier * unitUser.activeStats.Attack), type, element, crit);                
+            }
+            else
+            { 
+                for(int i=0; i<unitTargets.Count; i++)
+                {
+                    if( UnityEngine.Random.Range(0,100) < unitUser.activeStats.CritChance+critBoost && CanCrit == true)
+                    {
+                        crit = true;
+                    }
+                      else
+                    {
+                        crit = false;
+                    }
+                    damageDealt+=unitTargets[i].TakeDamage((int)(power * mutiplier * unitUser.activeStats.Attack), type, element, crit);
                 }
             }
 
