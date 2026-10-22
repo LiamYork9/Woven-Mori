@@ -72,8 +72,8 @@ public class SkillMaker : MonoBehaviour
         madeSkills.Add(StaticShock);
         
         
-        Skill WindBlade = new Skill(SkillId.WindBlade, "Wind Blade",20, Element.Air, Target.single, Category.Attack, 1, "Power: 20 \nTargets: One Enemy \nElement: Air" , 1)
-        .Attr(new HighCritDamageAttr(1,DamageType.Magic,100,Element.Air));
+        Skill WindBlade = new Skill(SkillId.WindBlade, "Wind Blade",10, Element.Air, Target.single, Category.Attack, 1, "Power: 20 \nTargets: One Enemy \nElement: Air" , 1)
+        .Attr(new HighCritDamageAttr(1,DamageType.Magic,20,Element.Air));
         madeSkills.Add(WindBlade);
         
         
@@ -258,16 +258,16 @@ public class SkillMaker : MonoBehaviour
         madeSkills.Add(Erosion);
 
          //Boss Skills
-        Skill CycloneSlash = new Skill(SkillId.CycloneSlash,"Cyclone Slash",20,Element.Air,Target.single,Category.Attack,1,"",2)
-        .Attr(new HighCritDamageAttr(1,DamageType.Physical,100,Element.Air,true))
-        .Attr(new HighCritDamageAttr(1,DamageType.Physical,100,Element.Air,true));
+        Skill CycloneSlash = new Skill(SkillId.CycloneSlash,"Cyclone Slash",10,Element.Air,Target.single,Category.Attack,3,"",2)
+        .Attr(new HighCritDamageAttr(1,DamageType.Physical,20,Element.Air,true))
+        .Attr(new HighCritDamageAttr(1,DamageType.Physical,45,Element.Air,true));
         madeSkills.Add(CycloneSlash);
 
         Skill WhirlWindRift = new Skill(SkillId.WhirlWindRift,"Whirlwind Rift",15,Element.Air,Target.mutipleEnemy,Category.Attack,2,"",1)
-        .Attr(new HighCritDamageAttr(1,DamageType.Physical,100,Element.Air,true));
+        .Attr(new HighCritDamageAttr(1,DamageType.Magic,25,Element.Air,true));
         madeSkills.Add(WhirlWindRift);
 
-        Skill AColdWindBlows = new Skill(SkillId.AColdWindBlows,"A Cold Wind Blows",0,Element.None,Target.mutipleEnemy,Category.Status,1,"Boost your Priority",1)
+        Skill AColdWindBlows = new Skill(SkillId.AColdWindBlows,"A Cold Wind Blows",0,Element.None,Target.mutipleEnemy,Category.Status,1,"Boost your Priority",0)
         .Attr(new PriorityAttr(-2,3));
         madeSkills.Add(AColdWindBlows);
 

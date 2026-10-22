@@ -14,13 +14,13 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   unitName: Zeph
   partyMember: 0
-  brain: {fileID: 0}
+  brain: {fileID: 11400000, guid: 5e53775bc607dd24eb61e2eb13db46d8, type: 2}
   skills: 1d0000001e0000001f00000017000000
   resistance: 03000000
   immunity: 
   vulnerability: 01000000
   conditions: []
-  chSprite: {fileID: 0}
+  chSprite: {fileID: -6557996994419929621, guid: b1d1f2dcb78d50e43938512e8b3adbb8, type: 3}
   deathSprite: {fileID: 0}
   stats:
     Level: 20
@@ -32,8 +32,13 @@ MonoBehaviour:
     Speed: 32
     APCap: 10
     APGain: 1
-    CritChance: 0
-  fatedTurns: []
+    CritChance: 5
+  fatedTurns:
+  - startTurn: 3
+    repeating: 1
+    frequency: 3
+    endTurn: -1
+    fate: BlowBack
   fatedPoints: []
   equipmentStats: 000000000000000000000000000000000000000000000000
   expYield: 0

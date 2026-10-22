@@ -19,7 +19,7 @@ MonoBehaviour:
   sellValue: 5
   stackable: 1
   maxStack: 4
-  classList: 0
+  classList: 1
   equipmentAttrs: []
   availableNumber: 1
   stats: 050000000000000000000000000000000000000000000000

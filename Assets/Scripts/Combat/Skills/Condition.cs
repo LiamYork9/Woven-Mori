@@ -166,12 +166,12 @@ public class DefenseBoostCondition : Condition
     public override void OnApply(UnitBody appliedUnit)
     {
         unit = appliedUnit;
-        appliedUnit.activeStats.Mdefense += (int)(appliedUnit.baseStats.Mdefense*(multiplier/100));
+        appliedUnit.activeStats.Defense += (int)(appliedUnit.baseStats.Defense*(multiplier/100));
         unit.ConditionEndTurn.AddListener(CountDown);
     }
     public override void OnRemove()
     {
-        unit.activeStats.Mdefense -= (int)(unit.baseStats.Mdefense*(multiplier/100));
+        unit.activeStats.Defense -= (int)(unit.baseStats.Defense*(multiplier/100));
     }
 
 }

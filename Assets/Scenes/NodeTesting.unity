@@ -1816,7 +1816,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   staticEnemy:
-  - {fileID: 11400000, guid: dfe9c6ec2678f1d4fb4d21753df47e7f, type: 2}
+  - {fileID: 11400000, guid: f424c0bf22a99be40828f8dddecb7087, type: 2}
   currentlog: {fileID: 526821468}
   postBattle: {fileID: 526821472}
 --- !u!61 &526821467
@@ -1857,7 +1857,7 @@ BoxCollider2D:
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 1, y: 1}
+    oldSize: {x: 0.5, y: 0.984375}
     newSize: {x: 1, y: 1}
     adaptiveTilingThreshold: 0.5
     drawMode: 0
@@ -1981,7 +1981,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 3
-  m_Sprite: {fileID: 21300000, guid: beab9b7c72a3261428d76581f1dff51c, type: 3}
+  m_Sprite: {fileID: -6557996994419929621, guid: b1d1f2dcb78d50e43938512e8b3adbb8, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0

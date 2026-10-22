@@ -12,9 +12,24 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3b245779f896312409327a1260ef34c5, type: 3}
   m_Name: DemoBossBrain
   m_EditorClassIdentifier: 
-  fates: []
-  categoryPref: []
-  chosenCategory: []
+  fates:
+  - code: BlowBack
+    skillId: 31
+    targetingOverride: 1
+    newTargeting: 4
+    isFree: 1
+  categoryPref:
+  - category: 0
+    weight: 1
+  chosenCategory:
+  - chosenCategory: 0
+    preferences:
+    - target: 1
+      weight: 10
+    - target: 4
+      weight: 4
+    - target: 7
+      weight: 2
   useRandom: 0
-  basicAttackChance: 0
-  basicAttackStyle: 7
+  basicAttackChance: 5
+  basicAttackStyle: 4
