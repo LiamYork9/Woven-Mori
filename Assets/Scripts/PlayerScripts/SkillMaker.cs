@@ -193,7 +193,7 @@ public class SkillMaker : MonoBehaviour
                 10 , Element.Water, Target.mutipleEnemy, Category.Attack, 2, 2, 
                 
             /*Odd Stats*/
-                20 , Element.Fire, Target.single, Category.Attack, 2, 1)
+                15 , Element.Fire, Target.single, Category.Attack, 2, 1)
             
             /*Even Attrs*/
             .Even(new DamageAttr(1,DamageType.Magic))

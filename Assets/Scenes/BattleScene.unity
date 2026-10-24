@@ -179,7 +179,7 @@ RectTransform:
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: 338.59106, y: 5}
-  m_SizeDelta: {x: 100, y: 26.5359}
+  m_SizeDelta: {x: 300, y: 26.5359}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &89726373
 MonoBehaviour:
@@ -618,17 +618,6 @@ GameObject:
   m_CorrespondingSourceObject: {fileID: 6873723896140581915, guid: c14100d79b2ddbd4c97c369e306032c3, type: 3}
   m_PrefabInstance: {fileID: 8132812045290668313}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &480227351 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 7205776902212263577, guid: c14100d79b2ddbd4c97c369e306032c3, type: 3}
-  m_PrefabInstance: {fileID: 8132812045290668313}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 480227349}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e65cd28f89a046d43bed58c4a74e867e, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!114 &645222400 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 6150715196394293801, guid: 8089a5ef6f4ee464ea9324d77e01a3da, type: 3}
@@ -690,7 +679,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   grid: {fileID: 1565780756}
-  slot: {fileID: 480227351}
+  slot: {fileID: 8132812045290668314}
   iconPrefab: {fileID: 65959256970649119, guid: 9663289ec6785754c971ec16453d410e, type: 3}
   conText: {fileID: 1588578708}
 --- !u!1 &820537214 stripped
@@ -1038,7 +1027,7 @@ RectTransform:
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: 338.59106, y: 1}
-  m_SizeDelta: {x: 100, y: 26.5359}
+  m_SizeDelta: {x: 300, y: 26.5359}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1044792358
 MonoBehaviour:
@@ -1453,7 +1442,7 @@ RectTransform:
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: 338.59106, y: 9}
-  m_SizeDelta: {x: 100, y: 26.5359}
+  m_SizeDelta: {x: 300, y: 26.5359}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1565780758
 MonoBehaviour:
@@ -1753,7 +1742,7 @@ RectTransform:
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: 338.59106, y: 4}
-  m_SizeDelta: {x: 100, y: 26.5359}
+  m_SizeDelta: {x: 300, y: 26.5359}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &2018643521
 GameObject:
@@ -2503,6 +2492,14 @@ PrefabInstance:
       propertyPath: m_IsActive
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 4053034031858116248, guid: c14100d79b2ddbd4c97c369e306032c3, type: 3}
+      propertyPath: m_fontSize
+      value: 60
+      objectReference: {fileID: 0}
+    - target: {fileID: 4053034031858116248, guid: c14100d79b2ddbd4c97c369e306032c3, type: 3}
+      propertyPath: m_fontSizeBase
+      value: 60
+      objectReference: {fileID: 0}
     - target: {fileID: 4168101716149225496, guid: c14100d79b2ddbd4c97c369e306032c3, type: 3}
       propertyPath: m_AnchoredPosition.x
       value: -600
@@ -2615,6 +2612,10 @@ PrefabInstance:
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
       objectReference: {fileID: 645222400}
+    - target: {fileID: 9055358004259373459, guid: c14100d79b2ddbd4c97c369e306032c3, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 276
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects:
@@ -2644,6 +2645,17 @@ PrefabInstance:
       insertIndex: -1
       addedObject: {fileID: 1913163910}
   m_SourcePrefab: {fileID: 100100000, guid: c14100d79b2ddbd4c97c369e306032c3, type: 3}
+--- !u!114 &8132812045290668314 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 1893886830957652168, guid: c14100d79b2ddbd4c97c369e306032c3, type: 3}
+  m_PrefabInstance: {fileID: 8132812045290668313}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 804541480}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e65cd28f89a046d43bed58c4a74e867e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0

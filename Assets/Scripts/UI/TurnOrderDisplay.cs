@@ -56,6 +56,10 @@ public class TurnOrderDisplay : MonoBehaviour
         {
             animator.SetBool("TargetShift",true);
         }
+        else if(BattleManager.Instance.enemySkill?.skillId!=SkillId.None && (BattleManager.Instance.enemySkill?.turnShift==turnPostion|| (turnPostion==1&&BattleManager.Instance.enemySkill?.turnShift*-1>TurnOrderManager.Instance.recentTurns.Count)) )
+        {
+            animator.SetBool("TargetShift",true);
+        }
         else
         {
             animator.SetBool("TargetShift",false);

@@ -109,6 +109,7 @@ MonoBehaviour:
     Speed: 0
     APCap: 0
     APGain: 0
+    CritChance: 0
   activeStats:
     Level: 0
     MaxHP: 0
@@ -119,6 +120,7 @@ MonoBehaviour:
     Speed: 0
     APCap: 0
     APGain: 0
+    CritChance: 0
   fatedTurns: []
   fatedPoints: []
   turnsAdded: 0
@@ -814,6 +816,7 @@ MonoBehaviour:
     Speed: 0
     APCap: 0
     APGain: 0
+    CritChance: 0
   activeStats:
     Level: 0
     MaxHP: 0
@@ -824,6 +827,7 @@ MonoBehaviour:
     Speed: 0
     APCap: 0
     APGain: 0
+    CritChance: 0
   fatedTurns: []
   fatedPoints: []
   turnsAdded: 0
@@ -1898,16 +1902,16 @@ RectTransform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2760062136322492759}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 187867696717930434}
+  m_Father: {fileID: 7648609458876619987}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -672, y: -107}
+  m_AnchoredPosition: {x: 2.4089355, y: 132.81177}
   m_SizeDelta: {x: 200, y: 50}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &7996029429645504094
@@ -2118,6 +2122,7 @@ MonoBehaviour:
     Speed: 0
     APCap: 0
     APGain: 0
+    CritChance: 0
   activeStats:
     Level: 0
     MaxHP: 0
@@ -2128,6 +2133,7 @@ MonoBehaviour:
     Speed: 0
     APCap: 0
     APGain: 0
+    CritChance: 0
   fatedTurns: []
   fatedPoints: []
   turnsAdded: 0
@@ -2572,6 +2578,7 @@ MonoBehaviour:
     Speed: 0
     APCap: 0
     APGain: 0
+    CritChance: 0
   activeStats:
     Level: 0
     MaxHP: 0
@@ -2582,6 +2589,7 @@ MonoBehaviour:
     Speed: 0
     APCap: 0
     APGain: 0
+    CritChance: 0
   fatedTurns: []
   fatedPoints: []
   turnsAdded: 0
@@ -3466,6 +3474,7 @@ RectTransform:
   - {fileID: 2040451059813717895}
   - {fileID: 6758998417564482074}
   - {fileID: 1907637082855283474}
+  - {fileID: 9055358004259373459}
   - {fileID: 3516082799781497164}
   - {fileID: 2777290569924384096}
   - {fileID: 5799351244278000976}
@@ -4209,6 +4218,7 @@ MonoBehaviour:
     Speed: 0
     APCap: 0
     APGain: 0
+    CritChance: 0
   activeStats:
     Level: 0
     MaxHP: 0
@@ -4219,6 +4229,7 @@ MonoBehaviour:
     Speed: 0
     APCap: 0
     APGain: 0
+    CritChance: 0
   fatedTurns: []
   fatedPoints: []
   turnsAdded: 0
@@ -5287,7 +5298,6 @@ RectTransform:
   m_Children:
   - {fileID: 7426139158900148850}
   - {fileID: 8016595020839669765}
-  - {fileID: 9055358004259373459}
   m_Father: {fileID: 5799351244278000976}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
@@ -5366,6 +5376,7 @@ MonoBehaviour:
     Speed: 0
     APCap: 0
     APGain: 0
+    CritChance: 0
   activeStats:
     Level: 0
     MaxHP: 0
@@ -5376,6 +5387,7 @@ MonoBehaviour:
     Speed: 0
     APCap: 0
     APGain: 0
+    CritChance: 0
   fatedTurns: []
   fatedPoints: []
   turnsAdded: 0
@@ -7223,6 +7235,7 @@ MonoBehaviour:
     Speed: 0
     APCap: 0
     APGain: 0
+    CritChance: 0
   activeStats:
     Level: 0
     MaxHP: 0
@@ -7233,6 +7246,7 @@ MonoBehaviour:
     Speed: 0
     APCap: 0
     APGain: 0
+    CritChance: 0
   fatedTurns: []
   fatedPoints: []
   turnsAdded: 0

@@ -5,8 +5,7 @@ using TMPro;
 using UnityEngine.UI;
 using MoriSkills;
 using UnityEngine.SceneManagement;
-using NUnit.Framework.Constraints;
-using UnityEngine.Assertions.Must;
+
 
 
 
@@ -116,6 +115,8 @@ public class BattleManager : MonoBehaviour
     public TMP_Text itemToolTipText;
 
     public List<Loot> loot;
+
+    public Skill enemySkill;
 
 
 
@@ -303,6 +304,7 @@ public class BattleManager : MonoBehaviour
             //itemMenu.SetActive(false);
             if (usingSkill == true)
             {
+                SBS.selectedSkill.skillId = SkillId.None;
                 skillMenu.SetActive(false);
                 usingSkill = false;
                 multiTarget = false;
@@ -312,7 +314,7 @@ public class BattleManager : MonoBehaviour
                 actionMenu.SetActive(true);
                 ButtonsOn();
                 targetArrow.SetActive(false);
-                SBS.selectedSkill.skillId = SkillId.None;
+                
             }
             if (selecting == true)
             {
@@ -685,6 +687,7 @@ public class BattleManager : MonoBehaviour
         
         yield return new WaitForSeconds(2f);
         dialogueText.text = " ";
+        enemySkill = null;
         enemyTurn = false;
         action = false;
         TOM.EndTurn();

@@ -103,6 +103,7 @@ public class Turn
         yield return new WaitForSeconds(0.5f);
         //Enemy AI Here !!!!!
         SkillUse temp = unit.unit.brain.Think(unit);
+        BattleManager.Instance.enemySkill = temp.skill;
         BattleManager.Instance.EnemyAttack(temp.skill,temp.targets, temp.freeSkill);
     }
 
