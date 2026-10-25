@@ -786,7 +786,16 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   dialogueInteraction: {fileID: 707081883}
+  dialogue: {fileID: 707081884}
   battleUI: {fileID: 751220620}
+  dialogGraphs:
+  - {fileID: 11400000, guid: 4bda11d4d50b1c4459470cb176278b0b, type: 2}
+  - {fileID: 11400000, guid: 5de1f71560626534bba52f6f6f9f13e6, type: 2}
+  turnOff:
+  - {fileID: 1324872767}
+  - {fileID: 951574610}
+  - {fileID: 845932432}
+  - {fileID: 935130472}
 --- !u!114 &707081882
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -814,6 +823,8 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+  - m_PersistentCalls:
+      m_Calls:
       - m_Target: {fileID: 707081881}
         m_TargetAssemblyTypeName: TutorialCombat, Assembly-CSharp
         m_MethodName: BattleOn
@@ -826,9 +837,24 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+  - m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 707081881}
+        m_TargetAssemblyTypeName: TutorialCombat, Assembly-CSharp
+        m_MethodName: AttackTrue
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
   eventNames:
   - BattleOff
   - BattleOn
+  - TrueAttack
 --- !u!114 &707081883
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -872,10 +898,10 @@ MonoBehaviour:
   StartNodeEvent:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 707081881}
-        m_TargetAssemblyTypeName: TutorialCombat, Assembly-CSharp
-        m_MethodName: BattleOff
-        m_Mode: 1
+      - m_Target: {fileID: 707081882}
+        m_TargetAssemblyTypeName: NodeEventSplitter, Assembly-CSharp
+        m_MethodName: ListenEvent
+        m_Mode: 0
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
@@ -887,10 +913,10 @@ MonoBehaviour:
   EndNodeEvent:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 707081881}
-        m_TargetAssemblyTypeName: TutorialCombat, Assembly-CSharp
-        m_MethodName: BattleOn
-        m_Mode: 1
+      - m_Target: {fileID: 707081882}
+        m_TargetAssemblyTypeName: NodeEventSplitter, Assembly-CSharp
+        m_MethodName: ListenEvent
+        m_Mode: 0
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
@@ -2689,6 +2715,22 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 2816551269179666498, guid: 5e0042caf7be99045af642672ac8103c, type: 3}
+      propertyPath: turnOrder.Array.size
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2816551269179666498, guid: 5e0042caf7be99045af642672ac8103c, type: 3}
+      propertyPath: 'managedReferences[-2]'
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 2816551269179666498, guid: 5e0042caf7be99045af642672ac8103c, type: 3}
+      propertyPath: 'turnOrder.Array.data[0]'
+      value: -2
+      objectReference: {fileID: 0}
+    - target: {fileID: 2816551269179666498, guid: 5e0042caf7be99045af642672ac8103c, type: 3}
+      propertyPath: 'turnOrder.Array.data[1]'
+      value: -2
+      objectReference: {fileID: 0}
     - target: {fileID: 6764732052881803637, guid: 5e0042caf7be99045af642672ac8103c, type: 3}
       propertyPath: m_Name
       value: TurnOrderManager
@@ -2763,9 +2805,37 @@ PrefabInstance:
       value: -450
       objectReference: {fileID: 0}
     - target: {fileID: 2641244650224502858, guid: c14100d79b2ddbd4c97c369e306032c3, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.size
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 2641244650224502858, guid: c14100d79b2ddbd4c97c369e306032c3, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_Mode
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2641244650224502858, guid: c14100d79b2ddbd4c97c369e306032c3, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
       objectReference: {fileID: 645222400}
+    - target: {fileID: 2641244650224502858, guid: c14100d79b2ddbd4c97c369e306032c3, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_Target
+      value: 
+      objectReference: {fileID: 707081881}
+    - target: {fileID: 2641244650224502858, guid: c14100d79b2ddbd4c97c369e306032c3, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_CallState
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 2641244650224502858, guid: c14100d79b2ddbd4c97c369e306032c3, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_MethodName
+      value: buttonWork
+      objectReference: {fileID: 0}
+    - target: {fileID: 2641244650224502858, guid: c14100d79b2ddbd4c97c369e306032c3, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_TargetAssemblyTypeName
+      value: TutorialCombat, Assembly-CSharp
+      objectReference: {fileID: 0}
+    - target: {fileID: 2641244650224502858, guid: c14100d79b2ddbd4c97c369e306032c3, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_Arguments.m_ObjectArgumentAssemblyTypeName
+      value: UnityEngine.Object, UnityEngine
+      objectReference: {fileID: 0}
     - target: {fileID: 2828629844139304349, guid: c14100d79b2ddbd4c97c369e306032c3, type: 3}
       propertyPath: m_IsActive
       value: 0
