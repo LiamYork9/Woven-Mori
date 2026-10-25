@@ -271,19 +271,23 @@ public class SkillMaker : MonoBehaviour
         .Attr(new PriorityAttr(-2,3));
         madeSkills.Add(AColdWindBlows);
 
-        Skill FlipTheGlass = new Skill(SkillId.FlipTheGlass, "Flip The Glass",10,Element.None,Target.single,Category.Status,1,"On Low turns Add your Action Count to the turn count. On high turns do damage to all enemies based on the turn count and set the turn count to zero",2)
+        Skill FlipTheGlass = new Skill(SkillId.FlipTheGlass, "Flip The Glass",10,Element.None,Target.single,Category.Status,1,"On Low turns Add your Action Count to the turn count. On high turns do damage to all enemies based on the turn count and set the turn count to One",2)
         .Condition(new HighLowCondition(
             /*High Stats */
-            10 , Element.Fate, Target.multipleEnemy, Category.Attack, 3, -2, 
+            0 , Element.Fate, Target.single, Category.Attack, 3, -2, 
 
             /*Low Stats */
-            10 , Element.Earth, Target.single, Category.Attack, 2, 2, 20)
+            5 , Element.Fate, Target.party, Category.Attack, 2, 2, 20)
 
             /*High Attrs*/
-            .High(new DamageAttr(1,DamageType.Magic))
+            .High(new TurnScaleAttr(2,false)
+                .Attr(new DamageAttr(1,DamageType.Magic))
+                )
+            .High(new ResetTimeAttr())
 
             /*Low Attrs*/
             .Low(new HealAttr(1, .5f, false))
+            .Low(new LocalToGlobalTimeAttr())
             
             );
 
