@@ -772,4 +772,28 @@ namespace MoriSkills
             }
         }
     }
+
+    public class ResetTimeAttr : SkillAttr
+    {
+        public ResetTimeAttr() : base(false)
+        {
+            name = "ResetTime";
+        }
+        public override void ActivateAttr(UnitBody unitUser, List<UnitBody> unitTargets, int power,Element skillElement)
+        {
+            BattleManager.Instance.globalTurn=0;
+        }
+    }
+
+    public class LocalToGlobalTimeAttr : SkillAttr
+    {
+        public LocalToGlobalTimeAttr() : base(false)
+        {
+            name = "ResetTime";
+        }
+        public override void ActivateAttr(UnitBody unitUser, List<UnitBody> unitTargets, int power,Element skillElement)
+        {
+            BattleManager.Instance.globalTurn+=unitUser.localTurnCount;
+        }
+    }
 }

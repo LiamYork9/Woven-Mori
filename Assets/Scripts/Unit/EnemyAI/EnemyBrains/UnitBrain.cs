@@ -118,7 +118,7 @@ public class UnitBrain : ScriptableObject
                 case Target.single:
                 targets.Add(BattleManager.Instance.playerSlots[Random.Range(0,BattleManager.Instance.playerSlots.Count)].GetComponent<UnitBody>());
                     break;
-                case Target.mutipleEnemy:
+                case Target.multipleEnemy:
                 for( int i = 0; i < BattleManager.Instance.playerSlots.Count ; i++)
                     {
                         targets.Add(BattleManager.Instance.playerSlots[i].GetComponent<UnitBody>());

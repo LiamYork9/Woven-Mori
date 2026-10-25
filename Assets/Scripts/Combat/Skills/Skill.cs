@@ -45,6 +45,7 @@ namespace MoriSkills
         CycloneSlash,
         WhirlWindRift,
         AColdWindBlows,
+        FlipTheGlass
     }
 
     public enum Element
@@ -65,7 +66,7 @@ namespace MoriSkills
         self,
         party,
         ally,
-        mutipleEnemy
+        multipleEnemy
     }
 
     public enum Category
