@@ -781,7 +781,8 @@ namespace MoriSkills
         }
         public override void ActivateAttr(UnitBody unitUser, List<UnitBody> unitTargets, int power,Element skillElement)
         {
-            BattleManager.Instance.globalTurn=0;
+            BattleManager.Instance.globalTurn=3;
+            BattleManager.Instance.gTurnText.text = "Turn: " + BattleManager.Instance.globalTurn;
         }
     }
 
@@ -789,11 +790,12 @@ namespace MoriSkills
     {
         public LocalToGlobalTimeAttr() : base(false)
         {
-            name = "ResetTime";
+            name = "ProgressTime";
         }
         public override void ActivateAttr(UnitBody unitUser, List<UnitBody> unitTargets, int power,Element skillElement)
         {
             BattleManager.Instance.globalTurn+=unitUser.localTurnCount;
+            BattleManager.Instance.gTurnText.text = "Turn: " + BattleManager.Instance.globalTurn;
         }
     }
 }
