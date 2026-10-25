@@ -7,6 +7,8 @@ public class HPTest : MonoBehaviour
     public UnitBody unitBody;
     public TMP_Text hpText;
 
+    public TMP_Text actionCount;
+
     public int MaxHealth;
 
     public int CurrentHealth;
@@ -23,6 +25,11 @@ public class HPTest : MonoBehaviour
         {
             
             hpText.text = unitBody.name + "  HP:" + CurrentHealth + "/" + MaxHealth;
+            if(unitBody.partyMember == true)
+            {
+                 actionCount.text = "AC: " + unitBody.localTurnCount;
+            }
+           
 
             if(TurnOrderManager.Instance.turnPlayer == unitBody)
             {
