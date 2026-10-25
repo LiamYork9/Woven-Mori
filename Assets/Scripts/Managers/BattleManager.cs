@@ -583,7 +583,7 @@ public class BattleManager : MonoBehaviour
              
         }
 
-        if(item.itemTarget == Target.mutipleEnemy)
+        if(item.itemTarget == Target.multipleEnemy)
         {
             List <UnitBody> temp = new List<UnitBody>();
              for (int i = 0; i < enemySlots.Count; i++)
@@ -618,7 +618,7 @@ public class BattleManager : MonoBehaviour
             targetParty = true; 
             dialogueText.text = "Item will be used on the whole party";
         }
-         if(item.itemTarget == Target.mutipleEnemy)
+         if(item.itemTarget == Target.multipleEnemy)
         {
             multiTarget = true;
             dialogueText.text = "Item will be used on the whole enemy group";

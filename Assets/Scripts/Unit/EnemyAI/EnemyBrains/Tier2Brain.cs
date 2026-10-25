@@ -101,7 +101,7 @@ public class Tier2Brain: UnitBrain
             tar = Target.ally;
             break;
             case TargetingStyle.EnemyTeam:
-            tar = Target.mutipleEnemy;
+            tar = Target.multipleEnemy;
             break;
             case TargetingStyle.AllyTeam:
             tar = Target.party;
@@ -122,7 +122,7 @@ public class Tier2Brain: UnitBrain
             return attack;
 
             case TargetingStyle.All:
-            tar = Target.mutipleEnemy;
+            tar = Target.multipleEnemy;
             break;
 
             default:

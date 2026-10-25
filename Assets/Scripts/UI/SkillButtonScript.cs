@@ -373,7 +373,7 @@ public class SkillButtonScript : MonoBehaviour
                 BattleManager.Instance.targetArrow.SetActive(true);
             }
 
-            if (selectedSkill.target == Target.mutipleEnemy)
+            if (selectedSkill.target == Target.multipleEnemy)
             {
                 NullText();
                 ButtonsOff();

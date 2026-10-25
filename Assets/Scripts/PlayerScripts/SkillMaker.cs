@@ -67,7 +67,7 @@ public class SkillMaker : MonoBehaviour
         madeSkills.Add(SmallPunch);
        
        
-        Skill StaticShock = new Skill(SkillId.StaticShock, "Static Shock",20, Element.Air, Target.mutipleEnemy, Category.Attack, 2, "Power: 20 \nTargets: All Enemies \nElement: Air" , 1)
+        Skill StaticShock = new Skill(SkillId.StaticShock, "Static Shock",20, Element.Air, Target.multipleEnemy, Category.Attack, 2, "Power: 20 \nTargets: All Enemies \nElement: Air" , 1)
         .Attr(new DamageAttr(1,DamageType.Magic,Element.Air));
         madeSkills.Add(StaticShock);
         
@@ -132,12 +132,12 @@ public class SkillMaker : MonoBehaviour
         madeSkills.Add(Berserk);
         
         
-        Skill Rampage = new Skill(SkillId.Rampage, "Rampage",10 , Element.None, Target.mutipleEnemy,Category.Attack,2,"Strike Mutiple Foes",2)
+        Skill Rampage = new Skill(SkillId.Rampage, "Rampage",10 , Element.None, Target.multipleEnemy,Category.Attack,2,"Strike multiple Foes",2)
         .Attr(new DamageAttr(1,DamageType.Physical));
         madeSkills.Add(Rampage);
         
         
-        Skill CutLine = new Skill(SkillId.CutLine, "Cut Line",0 , Element.Fate, Target.mutipleEnemy,Category.Status,3,"Targets: All Enemies \nElement: Fate \nLower all enimes Attack",-2)
+        Skill CutLine = new Skill(SkillId.CutLine, "Cut Line",0 , Element.Fate, Target.multipleEnemy,Category.Status,3,"Targets: All Enemies \nElement: Fate \nLower all enimes Attack",-2)
         .Attr(new StatDropConAttr(Stats.Attack, standardBoost));
         madeSkills.Add(CutLine);
         
@@ -175,7 +175,7 @@ public class SkillMaker : MonoBehaviour
                 20 , Element.None, Target.party, Category.Status, 3, 2, 
                 
             /*Odd Stats*/
-                10 , Element.None, Target.mutipleEnemy, Category.Status, 3, -2)
+                10 , Element.None, Target.multipleEnemy, Category.Status, 3, -2)
             
             /*Even Attrs*/
                 .Even(new StatDropConAttr(Stats.Attack, standardBoost,3))
@@ -190,7 +190,7 @@ public class SkillMaker : MonoBehaviour
         Skill FlameFlood = new Skill(SkillId.FlameFlood, "Flame&Flood",10 , Element.None, Target.single, Category.Status, 1, "On Even turns Deal  Water Damage to all enemies, on Odd turns Deal Fire Damage to one enemy and burn them", -2)
         .Condition(new EvenOddCondition(
             /*Even Stats*/ 
-                10 , Element.Water, Target.mutipleEnemy, Category.Attack, 2, 2, 
+                10 , Element.Water, Target.multipleEnemy, Category.Attack, 2, 2, 
                 
             /*Odd Stats*/
                 15 , Element.Fire, Target.single, Category.Attack, 2, 1)
@@ -207,7 +207,7 @@ public class SkillMaker : MonoBehaviour
         Skill HighLow = new Skill(SkillId.HighLow, "HighLow",10,Element.None,Target.single,Category.Status,1,"",2)
         .Condition(new HighLowCondition(
             /*High Stats */
-            10 , Element.Air, Target.mutipleEnemy, Category.Attack, 1, 2, 
+            10 , Element.Air, Target.multipleEnemy, Category.Attack, 1, 2, 
 
             /*Low Stats */
             20 , Element.Earth, Target.single, Category.Attack, 1, 1, 5)
@@ -238,7 +238,7 @@ public class SkillMaker : MonoBehaviour
         Skill Quake = new Skill(SkillId.Quake,"Quake",10,Element.Earth,Target.single,Category.Attack,1, "On Low number turns attack that locks the target in a tremor, on High number turns hit all enemies strength growing with turn count",1)
         .Condition(new HighLowCondition(
             /*High Stats */
-            10 , Element.Earth, Target.mutipleEnemy, Category.Attack, 1, 2, 
+            10 , Element.Earth, Target.multipleEnemy, Category.Attack, 1, 2, 
             /*Low Stats */
             10 , Element.Earth, Target.single, Category.Attack, 1, 1, 15)
 
@@ -263,13 +263,33 @@ public class SkillMaker : MonoBehaviour
         .Attr(new HighCritDamageAttr(1,DamageType.Physical,45,Element.Air,true));
         madeSkills.Add(CycloneSlash);
 
-        Skill WhirlWindRift = new Skill(SkillId.WhirlWindRift,"Whirlwind Rift",15,Element.Air,Target.mutipleEnemy,Category.Attack,2,"",1)
+        Skill WhirlWindRift = new Skill(SkillId.WhirlWindRift,"Whirlwind Rift",15,Element.Air,Target.multipleEnemy,Category.Attack,2,"",1)
         .Attr(new HighCritDamageAttr(1,DamageType.Magic,25,Element.Air,true));
         madeSkills.Add(WhirlWindRift);
 
-        Skill AColdWindBlows = new Skill(SkillId.AColdWindBlows,"A Cold Wind Blows",0,Element.None,Target.mutipleEnemy,Category.Status,1,"Boost your Priority",0)
+        Skill AColdWindBlows = new Skill(SkillId.AColdWindBlows,"A Cold Wind Blows",0,Element.None,Target.multipleEnemy,Category.Status,1,"Boost your Priority",0)
         .Attr(new PriorityAttr(-2,3));
         madeSkills.Add(AColdWindBlows);
+
+        Skill FlipTheGlass = new Skill(SkillId.FlipTheGlass, "Flip The Glass",10,Element.None,Target.single,Category.Status,1,"On Low turns Add your Action Count to the turn count. On high turns do damage to all enemies based on the turn count and set the turn count to zero",2)
+        .Condition(new HighLowCondition(
+            /*High Stats */
+            10 , Element.Fate, Target.multipleEnemy, Category.Attack, 3, -2, 
+
+            /*Low Stats */
+            10 , Element.Earth, Target.single, Category.Attack, 2, 2, 20)
+
+            /*High Attrs*/
+            .High(new DamageAttr(1,DamageType.Magic))
+
+            /*Low Attrs*/
+            .Low(new HealAttr(1, .5f, false))
+            
+            );
+
+         madeSkills.Add(FlipTheGlass);
+
+         
 
     }
 
