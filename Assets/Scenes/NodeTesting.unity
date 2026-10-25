@@ -933,12 +933,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   item:
-  - {fileID: 11400000, guid: 05a4881bbeb364b49923a2507d5ce8b1, type: 2}
+  - {fileID: 11400000, guid: c64b8b6d38115cb4ea516a7fbc526da1, type: 2}
   - {fileID: 11400000, guid: 0a8f38adc6b060549aa1e4aabc6d27c8, type: 2}
   - {fileID: 11400000, guid: 0c1c3abb16813ca4687dd0e7a13cf06a, type: 2}
   - {fileID: 11400000, guid: 1b95e81dcc9df81438fb487a228aeac0, type: 2}
   - {fileID: 11400000, guid: 118036bcd72ce3d45a9a1f311e9a5b49, type: 2}
-  amount: 010000000a0000000a0000000a0000000a000000
+  amount: 020000000a0000000a0000000a0000000a000000
 --- !u!114 &254600547
 MonoBehaviour:
   m_ObjectHideFlags: 0

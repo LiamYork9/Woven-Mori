@@ -24,9 +24,9 @@ MonoBehaviour:
   deathSprite: {fileID: 0}
   stats:
     Level: 20
-    MaxHP: 160
-    CurrentHP: 160
-    Attack: 23
+    MaxHP: 250
+    CurrentHP: 250
+    Attack: 28
     Defense: 30
     Mdefense: 23
     Speed: 32

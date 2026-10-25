@@ -791,6 +791,12 @@ MonoBehaviour:
   dialogGraphs:
   - {fileID: 11400000, guid: 4bda11d4d50b1c4459470cb176278b0b, type: 2}
   - {fileID: 11400000, guid: 5de1f71560626534bba52f6f6f9f13e6, type: 2}
+  myGuys:
+  - {fileID: 8132812045290668314}
+  - {fileID: 8132812045290668314}
+  - {fileID: 8132812045290668314}
+  - {fileID: 8132812045290668314}
+  fuckYouTurnManger: []
   turnOff:
   - {fileID: 1324872767}
   - {fileID: 951574610}

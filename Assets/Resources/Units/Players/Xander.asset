@@ -15,7 +15,7 @@ MonoBehaviour:
   unitName: Rive
   partyMember: 1
   brain: {fileID: 0}
-  skills: 18000000170000000700000008000000
+  skills: 0700000009000000050000001800000008000000
   resistance: 
   immunity: 
   vulnerability: 
@@ -23,24 +23,24 @@ MonoBehaviour:
   chSprite: {fileID: -3303135884736197750, guid: 3e970fc356aeadc48b3ff226f1788305, type: 3}
   deathSprite: {fileID: -4910113567136968945, guid: 59c81fd56476e6f418b4ca14d9e2d909, type: 3}
   stats:
-    Level: 15
-    MaxHP: 49
-    CurrentHP: 20
-    Attack: 21
-    Defense: 18
-    Mdefense: 25
-    Speed: 28
+    Level: 16
+    MaxHP: 51
+    CurrentHP: 33
+    Attack: 22
+    Defense: 19
+    Mdefense: 26
+    Speed: 29
     APCap: 10
     APGain: 1
-    CritChance: 0
+    CritChance: 5
   fatedTurns: []
   fatedPoints: []
-  equipmentStats: 000000000000000000000000000000000000000000000000
+  equipmentStats: 050000000300000003000000000000000000000000000000
   playerClass: 1
-  exp: 535
-  weapon: {fileID: 0}
-  armor: {fileID: 0}
-  accessory: {fileID: 0}
+  exp: 0
+  weapon: {fileID: 11400000, guid: c64b8b6d38115cb4ea516a7fbc526da1, type: 2}
+  armor: {fileID: 11400000, guid: 0c1c3abb16813ca4687dd0e7a13cf06a, type: 2}
+  accessory: {fileID: 11400000, guid: 118036bcd72ce3d45a9a1f311e9a5b49, type: 2}
   animator: {fileID: 9100000, guid: 067c20e341d94104199d0e8f73d19d01, type: 2}
   references:
     version: 2

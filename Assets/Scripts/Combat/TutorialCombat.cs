@@ -11,11 +11,16 @@ public class TutorialCombat : MonoBehaviour
 
     public List<DialogGraph> dialogGraphs;
 
+    public List<UnitBody> myGuys;
+
+    public List<Turn> fuckYouTurnManger;
+
     public List<GameObject> turnOff;
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
         dialogueInteraction.StartDialogueCombat();
+        BodyToTurn(myGuys);
     }
 
 
@@ -32,6 +37,20 @@ public class TutorialCombat : MonoBehaviour
             OffAllBut(1,turnOff);
         }
          
+    }
+
+    public void BodyToTurn(List<UnitBody> units)
+    {
+        foreach(UnitBody tempUnit in units)
+        {
+            
+        
+            Turn tempTurn = new Turn();
+            tempTurn.PopulateTurn(tempUnit,tempUnit.CheckFate(),tempUnit.GetFate());
+            fuckYouTurnManger.Add(tempTurn);
+            tempUnit.turnsAdded++;
+        }
+        TurnOrderManager.Instance.turnOrder = fuckYouTurnManger;
     }
 
     public void BattleOff()
