@@ -39,7 +39,10 @@ MonoBehaviour:
     frequency: 3
     endTurn: -1
     fate: BlowBack
-  fatedPoints: []
+  fatedPoints:
+  - point: 0
+    unit: {fileID: 0}
+    fate: 
   equipmentStats: 000000000000000000000000000000000000000000000000
   expYield: 0
   money: 0
