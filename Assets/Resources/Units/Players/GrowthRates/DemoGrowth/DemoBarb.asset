@@ -42,6 +42,6 @@ MonoBehaviour:
   - Level: 1
     SkillIds: 1b0000001a0000000400000018000000
   - Level: 15
-    SkillIds: 
+    SkillIds: 20000000
   - Level: 20
     SkillIds: 10000000
