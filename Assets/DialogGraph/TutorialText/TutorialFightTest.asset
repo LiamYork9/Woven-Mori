@@ -55,6 +55,7 @@ MonoBehaviour:
   speakerName: Teacher
   DialogText:
   - Welcome to the the tutorial asshole
+  - Why dont you try pressing the attack button.
   textSpeed: 0
   endNodeEvent:
   - BattleOn
