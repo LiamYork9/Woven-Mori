@@ -32,10 +32,12 @@ public class TutorialCombat : MonoBehaviour
         {
             OffAllBut(0,turnOff);
         }
-         if(BattleManager.Instance.globalTurn == 2)
+         if(BattleManager.Instance.globalTurn == 2 || BattleManager.Instance.globalTurn == 4 )
         {
             OffAllBut(1,turnOff);
+           
         }
+         
          
     }
 
@@ -82,12 +84,35 @@ public class TutorialCombat : MonoBehaviour
             EndSegment();
             BattleManager.Instance.attacking = false;
         }
+        if(BattleManager.Instance.globalTurn == 2 && BattleManager.Instance.usingSkill == true)
+        {
+            dialogue.lines = dialogGraphs[2];
+            dialogueInteraction.StartDialogueCombat();
+            OffAllBut(1,BattleManager.Instance.SBS.skillButtons);
+            EndSegment();
+            
+        }
+        if(BattleManager.Instance.globalTurn == 4 && BattleManager.Instance.usingSkill == true)
+        {
+            
+             OffAllBut(0,BattleManager.Instance.SBS.skillButtons);
+        }
     }
     public void SkillTut()
     {
-        dialogue.lines = dialogGraphs[1];
-        dialogueInteraction.StartDialogueCombat();
-        TurnOrderManager.Instance.turnPlayer.StartOfTurn.RemoveListener(SkillTut);
+        if(BattleManager.Instance.globalTurn == 2)
+        {
+             dialogue.lines = dialogGraphs[1];
+            dialogueInteraction.StartDialogueCombat();
+            TurnOrderManager.Instance.turnPlayer.StartOfTurn.RemoveListener(SkillTut);
+        }
+       
+        if(BattleManager.Instance.globalTurn == 4)
+        {
+            dialogue.lines = dialogGraphs[3];
+            dialogueInteraction.StartDialogueCombat();
+            TurnOrderManager.Instance.turnPlayer.StartOfTurn.RemoveListener(SkillTut);
+        }
     }
     public void EndSegment()
     {
