@@ -55,7 +55,7 @@ MonoBehaviour:
   speakerName: Shana
   DialogText:
   - Welcome to the the tutorial asshole
-  - Why dont you try pressing the attack button.
+  - 'Why don''t you try pressing the attack button. Use the mouse to select it. '
   textSpeed: 0
   endNodeEvent:
   - BattleOn

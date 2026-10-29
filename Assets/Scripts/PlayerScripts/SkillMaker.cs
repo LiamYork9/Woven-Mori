@@ -267,7 +267,8 @@ public class SkillMaker : MonoBehaviour
         .Attr(new HighCritDamageAttr(1,DamageType.Magic,25,Element.Air,true));
         madeSkills.Add(WhirlWindRift);
 
-        Skill AColdWindBlows = new Skill(SkillId.AColdWindBlows,"A Cold Wind Blows",0,Element.None,Target.multipleEnemy,Category.Status,1,"Boost your Priority",0)
+        Skill AColdWindBlows = new Skill(SkillId.AColdWindBlows,"A Cold Wind Blows",5,Element.None,Target.multipleEnemy,Category.Status,1,"Boost your Priority",0)
+        .Attr(new HighCritDamageAttr(1,DamageType.Physical,10,Element.Air,true))
         .Attr(new PriorityAttr(-2,3));
         madeSkills.Add(AColdWindBlows);
 

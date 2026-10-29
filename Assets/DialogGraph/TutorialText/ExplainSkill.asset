@@ -54,12 +54,22 @@ MonoBehaviour:
   portrait: {fileID: 0}
   speakerName: Shana
   DialogText:
-  - Skills have many aspects to them.
-  - 'It costs AP to use skills. The cost of a skill is shown on the left and your
-    current AP is shown to the right of the cost. '
+  - 'Skills have many aspects to them. '
+  - 'Hover over a skill to see its information  '
+  - 'In the far right box you will see the skills description. This includes what
+    type of damage the skill deals,Physical, Magical or another, if that damage is
+    elemental, if it applies any kind of conditions, and who it targets. '
+  - 'In the middle box you will find a skills AP Cost in the top Left to the right
+    of that you will find your Current AP(action points), and in the bottom left
+    you will find the skills base power ( A damage multiplier to your attack stat). '
+  - 'It costs AP to use skills and you start the battle with 1 AP and gain an additional
+    1 at the start of your turn.  '
   - 'Skills also have something called Turn Shift.  The turn shift of a skill tells
     you how far forward or back a skill will take you in the turn order. '
-  - Try using the skill Flame&Flood to skip enimes turn
+  - 'To use a skill you will click it with the mouse and then select a target and
+    press space. If the skill targets a whole side of the field or yourself you just
+    have to press space.  '
+  - Try using the skill Flame&Flood to skip enemies turn.
   textSpeed: 0
   endNodeEvent: []
   startNodeEvent: []

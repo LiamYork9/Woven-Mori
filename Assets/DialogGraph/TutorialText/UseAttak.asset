@@ -54,8 +54,8 @@ MonoBehaviour:
   portrait: {fileID: 0}
   speakerName: Shana
   DialogText:
-  - Use the W and D keys to cycle through your targets
-  - 'When you have choosen one use Space '
+  - Use the W and D keys to cycle through your targets.
+  - When you have chosen one, use Space.
   textSpeed: 0
   endNodeEvent:
   - TrueAttack

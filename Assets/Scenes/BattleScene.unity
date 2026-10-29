@@ -167,7 +167,7 @@ AudioSource:
   m_PlayOnAwake: 1
   m_Volume: 1
   m_Pitch: 1
-  Loop: 0
+  Loop: 1
   Mute: 0
   Spatialize: 0
   SpatializePostEffects: 0
@@ -1054,11 +1054,27 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   holders:
   - key: Attack Down
-    value: {fileID: 5047037500493358118, guid: 196eab54e2c7eb5418064d1d5649ef1b, type: 3}
+    value: {fileID: 770413556, guid: bbc3359c85125624f81308325c4cab02, type: 3}
   - key: Defense Down
-    value: {fileID: 4291418806517862016, guid: 196eab54e2c7eb5418064d1d5649ef1b, type: 3}
+    value: {fileID: -512367576, guid: bbc3359c85125624f81308325c4cab02, type: 3}
   - key: Tremor
-    value: {fileID: 3083056432361977351, guid: d438fa7d32b443748ac553562935a065, type: 3}
+    value: {fileID: -1027742494, guid: bbc3359c85125624f81308325c4cab02, type: 3}
+  - key: Burn
+    value: {fileID: -1151924537, guid: bbc3359c85125624f81308325c4cab02, type: 3}
+  - key: Attack Up
+    value: {fileID: -1995215784, guid: bbc3359c85125624f81308325c4cab02, type: 3}
+  - key: Defense Up
+    value: {fileID: -1057366463, guid: bbc3359c85125624f81308325c4cab02, type: 3}
+  - key: Magic Defense Up
+    value: {fileID: 1934863713, guid: bbc3359c85125624f81308325c4cab02, type: 3}
+  - key: Magic Defense Down
+    value: {fileID: 1776300787, guid: bbc3359c85125624f81308325c4cab02, type: 3}
+  - key: Poison
+    value: {fileID: -444337054, guid: bbc3359c85125624f81308325c4cab02, type: 3}
+  - key: Priority Up
+    value: {fileID: -426394329, guid: bbc3359c85125624f81308325c4cab02, type: 3}
+  - key: Priority Down
+    value: {fileID: -2092134390, guid: bbc3359c85125624f81308325c4cab02, type: 3}
 --- !u!4 &1221741680
 Transform:
   m_ObjectHideFlags: 0

@@ -731,6 +731,17 @@ GameObject:
   m_CorrespondingSourceObject: {fileID: 6873723896140581915, guid: c14100d79b2ddbd4c97c369e306032c3, type: 3}
   m_PrefabInstance: {fileID: 8132812045290668313}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &480227351 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 7205776902212263577, guid: c14100d79b2ddbd4c97c369e306032c3, type: 3}
+  m_PrefabInstance: {fileID: 8132812045290668313}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 480227349}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e65cd28f89a046d43bed58c4a74e867e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &645222400 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 6150715196394293801, guid: 8089a5ef6f4ee464ea9324d77e01a3da, type: 3}
@@ -796,7 +807,7 @@ MonoBehaviour:
   myGuys:
   - {fileID: 8132812045290668314}
   - {fileID: 8132812045290668314}
-  - {fileID: 8132812045290668314}
+  - {fileID: 480227351}
   - {fileID: 8132812045290668314}
   fuckYouTurnManger: []
   turnOff:
@@ -1149,6 +1160,73 @@ RectTransform:
   m_AnchoredPosition: {x: -766, y: -88}
   m_SizeDelta: {x: 200, y: 50}
   m_Pivot: {x: 0.5, y: 0.5}
+--- !u!1 &919639596
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 919639598}
+  - component: {fileID: 919639597}
+  m_Layer: 0
+  m_Name: IconHolder
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &919639597
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 919639596}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a4fae78cb7ce1dc4ca2a20134d27049b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  holders:
+  - key: Attack Down
+    value: {fileID: 770413556, guid: bbc3359c85125624f81308325c4cab02, type: 3}
+  - key: Defense Down
+    value: {fileID: -512367576, guid: bbc3359c85125624f81308325c4cab02, type: 3}
+  - key: Tremor
+    value: {fileID: -1027742494, guid: bbc3359c85125624f81308325c4cab02, type: 3}
+  - key: Burn
+    value: {fileID: -1151924537, guid: bbc3359c85125624f81308325c4cab02, type: 3}
+  - key: Attack Up
+    value: {fileID: -1995215784, guid: bbc3359c85125624f81308325c4cab02, type: 3}
+  - key: Defense Up
+    value: {fileID: -1057366463, guid: bbc3359c85125624f81308325c4cab02, type: 3}
+  - key: Magic Defense Up
+    value: {fileID: 1934863713, guid: bbc3359c85125624f81308325c4cab02, type: 3}
+  - key: Magic Defense Down
+    value: {fileID: 1776300787, guid: bbc3359c85125624f81308325c4cab02, type: 3}
+  - key: Poison
+    value: {fileID: -444337054, guid: bbc3359c85125624f81308325c4cab02, type: 3}
+  - key: Priority Up
+    value: {fileID: -426394329, guid: bbc3359c85125624f81308325c4cab02, type: 3}
+  - key: Priority Down
+    value: {fileID: -2092134390, guid: bbc3359c85125624f81308325c4cab02, type: 3}
+--- !u!4 &919639598
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 919639596}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 1631.4996, y: 908.1559, z: -0.031819876}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &935130472 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 3815590849928553147, guid: c14100d79b2ddbd4c97c369e306032c3, type: 3}
@@ -1526,57 +1604,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1128867209}
   m_CullTransparentMesh: 1
---- !u!1 &1221741678
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 1221741680}
-  - component: {fileID: 1221741679}
-  m_Layer: 0
-  m_Name: IconHolder
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!114 &1221741679
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1221741678}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a4fae78cb7ce1dc4ca2a20134d27049b, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  holders:
-  - key: Attack Down
-    value: {fileID: 5047037500493358118, guid: 196eab54e2c7eb5418064d1d5649ef1b, type: 3}
-  - key: Defense Down
-    value: {fileID: 4291418806517862016, guid: 196eab54e2c7eb5418064d1d5649ef1b, type: 3}
-  - key: Tremor
-    value: {fileID: 3083056432361977351, guid: d438fa7d32b443748ac553562935a065, type: 3}
---- !u!4 &1221741680
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1221741678}
-  serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 1631.4996, y: 908.1559, z: -0.031819876}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 0}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1324872767 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 7358489673206332009, guid: c14100d79b2ddbd4c97c369e306032c3, type: 3}
@@ -3069,6 +3096,6 @@ SceneRoots:
   - {fileID: 2018643523}
   - {fileID: 6716891684721634969}
   - {fileID: 468642915158422168}
-  - {fileID: 1221741680}
   - {fileID: 92858281}
   - {fileID: 707081885}
+  - {fileID: 919639598}

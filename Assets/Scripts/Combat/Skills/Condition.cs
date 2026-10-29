@@ -112,8 +112,9 @@ public class AttackBoostCondition : Condition
 {
     public float multiplier; //Percent increase
 
-    public AttackBoostCondition(int conditionStrength, int effectDuration,int conditionPriority = 0): base(effectDuration, conditionPriority,"Attack Boost")
+    public AttackBoostCondition(int conditionStrength, int effectDuration,int conditionPriority = 0): base(effectDuration, conditionPriority,"Attack Up")
     {
+        description = " Raises Attack by 20%";
        
         multiplier = conditionStrength;
     }
@@ -158,9 +159,9 @@ public class DefenseBoostCondition : Condition
 {
     public float multiplier; //Percent increase
 
-    public DefenseBoostCondition(int conditionStrength, int effectDuration,int conditionPriority = 0): base(effectDuration, conditionPriority,"Defense Boost")
+    public DefenseBoostCondition(int conditionStrength, int effectDuration,int conditionPriority = 0): base(effectDuration, conditionPriority,"Defense Up")
     {
-        
+        description = "Raises Defense by 20% ";
         multiplier = conditionStrength;
     }
     public override void OnApply(UnitBody appliedUnit)
@@ -203,9 +204,9 @@ public class MagicDefenseBoostCondition : Condition
 {
     public float multiplier; //Percent increase
 
-    public MagicDefenseBoostCondition(int conditionStrength, int effectDuration,int conditionPriority = 0): base(effectDuration, conditionPriority,"Magic Defense Boost")
+    public MagicDefenseBoostCondition(int conditionStrength, int effectDuration,int conditionPriority = 0): base(effectDuration, conditionPriority,"Magic Defense Up")
     {
-        
+        description = "Raises Magic Defense by 20% ";
         multiplier = conditionStrength;
     }
     public override void OnApply(UnitBody appliedUnit)
@@ -227,7 +228,7 @@ public class MagicDefenseDropCondition : Condition
 
     public MagicDefenseDropCondition(int conditionStrength, int effectDuration,int conditionPriority = 0): base(effectDuration, conditionPriority,"Magic Defense Down")
     {
-       
+       description = "Lowers Magic Defense by 20% ";
         multiplier = conditionStrength;
     }
     public override void OnApply(UnitBody appliedUnit)
@@ -250,6 +251,7 @@ public class PriorityBoostCondition : Condition
 
     public PriorityBoostCondition(int conditionStrength, int effectDuration,int conditionPriority = 0): base(effectDuration, conditionPriority,"Priority Up")
     {
+        description = "Raise the targets Action Speed";
         priority = conditionStrength;
     }
     public override void OnApply(UnitBody appliedUnit)
@@ -272,7 +274,7 @@ public class PriorityDropCondition : Condition
 
     public PriorityDropCondition(int conditionStrength, int effectDuration,int conditionPriority = 0): base(effectDuration, conditionPriority,"Priority Down")
     {
-      
+        description = "Lower the targets Action Speed";
         priority = conditionStrength;
     }
     public override void OnApply(UnitBody appliedUnit)
@@ -295,8 +297,9 @@ public class DamageOverTimeCondition : Condition
     public int damageValue;
     public int attackMult = 1;
     
-    public DamageOverTimeCondition(int damageCat /*1 = set damage, 2 = attack power, 3 = fixed percent*/, int conditionStrength, int effectDuration,int conditionPriority = 0): base(effectDuration, conditionPriority,"Poison Condition")
+    public DamageOverTimeCondition(int damageCat /*1 = set damage, 2 = attack power, 3 = fixed percent*/, int conditionStrength, int effectDuration,int conditionPriority = 0): base(effectDuration, conditionPriority,"Poison")
     {
+        description = "The target is poisoned and will take damage at the end of their turn";
         category = damageCat;
         damageValue = conditionStrength;
         if(damageCat == 2)
@@ -351,7 +354,7 @@ public class Tremor: Condition
 
     public Tremor(int userPower, int addedStacks):base(-1,0,"Tremor")
     {
-        description = "the ground shifts dealing earth damage based on stacks. This does not weaken over time";
+        description = "the ground shifts dealing physical earth damage based on the number of stacks. Stacks do not disappear with time";
         power = userPower;
         stacks = addedStacks;
     }
@@ -402,7 +405,7 @@ public class Burn: Condition
 
     public Burn(int userPower, int duration):base(duration,0,"Burn")
     {
-        description = "fire rages around the target dealing damage at the end of their turn. Applying more triggers the damage and increases the duration";
+        description = "fire rages around the target dealing  magic fire damage at the end of their turn. Applying more triggers the damage and increases the duration";
         power = userPower;
     }
 
