@@ -172,10 +172,10 @@ public class SkillMaker : MonoBehaviour
         Skill HopeDespair = new Skill(SkillId.HopeDespair, "Hope&Despair",10 , Element.None, Target.single, Category.Status, 1, "On Even turns lower all enemies Atk, Def, MDef for 3 turns, on Odd turns Raise all parties Atk, Def, MDef for 3 turns", -2)
         .Condition(new EvenOddCondition(
             /*Even Stats*/ 
-                20 , Element.None, Target.party, Category.Status, 3, 2, 
+                20 , Element.None, Target.multipleEnemy, Category.Status, 3, -2, 
                 
             /*Odd Stats*/
-                10 , Element.None, Target.multipleEnemy, Category.Status, 3, -2)
+                10 , Element.None, Target.party, Category.Status, 3, 2)
             
             /*Even Attrs*/
                 .Even(new StatDropConAttr(Stats.Attack, standardBoost,3))

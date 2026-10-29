@@ -21,6 +21,7 @@ public class Condition
     public Sprite conditionSprite;
     public UnitBody unit;
     public int duration;
+    public int stacks;
 
     public string description;
 
@@ -350,7 +351,6 @@ public class DamageOverTimeCondition : Condition
 public class Tremor: Condition
 {
     public int power;
-    public int stacks;
 
     public Tremor(int userPower, int addedStacks):base(-1,0,"Tremor")
     {
@@ -401,7 +401,6 @@ public class Tremor: Condition
 public class Burn: Condition
 {
     public int power;
-    public int stacks;
 
     public Burn(int userPower, int duration):base(duration,0,"Burn")
     {

@@ -37,12 +37,20 @@ public class IconAdder : MonoBehaviour
             
             GameObject newButton = Instantiate(iconPrefab, grid.transform);
          
-             if (newButton.GetComponent<ToolTipCondition>() != null)
+            if (newButton.GetComponent<ToolTipCondition>() != null)
             {
-            newButton.GetComponent<ToolTipCondition>().condition = slot.conditions[i];
-            newButton.GetComponent<Image>().sprite = slot.conditions[i].conditionSprite;
-            newButton.GetComponent<ToolTipCondition>().hoverEvent.AddListener(ToolTipAdder);
-            newButton.GetComponent<ToolTipCondition>().unHoverEvent.AddListener(ToolTipRemover);
+                newButton.GetComponent<ToolTipCondition>().condition = slot.conditions[i];
+                newButton.GetComponent<Image>().sprite = slot.conditions[i].conditionSprite;
+                if (newButton.GetComponent<ToolTipCondition>().condition.duration > 0)
+                {
+                    newButton.GetComponent<ToolTipCondition>().text.text = ""+newButton.GetComponent<ToolTipCondition>().condition.duration;
+                }
+                else
+                {
+                    newButton.GetComponent<ToolTipCondition>().text.text = ""+newButton.GetComponent<ToolTipCondition>().condition.stacks;
+                }
+                newButton.GetComponent<ToolTipCondition>().hoverEvent.AddListener(ToolTipAdder);
+                newButton.GetComponent<ToolTipCondition>().unHoverEvent.AddListener(ToolTipRemover);
             }
             
             
