@@ -27,7 +27,7 @@ public class HPTest : MonoBehaviour
             hpText.text = unitBody.name + "  HP:" + CurrentHealth + "/" + MaxHealth;
             if(unitBody.partyMember == true)
             {
-                 actionCount.text = "AP: "+ unitBody.AP + "    AC: " + unitBody.localTurnCount;
+                 actionCount.text = "      AP: "+ unitBody.AP + "    AC: " + unitBody.localTurnCount;
             }
            
 

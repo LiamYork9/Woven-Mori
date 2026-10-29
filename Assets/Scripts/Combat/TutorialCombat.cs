@@ -16,9 +16,12 @@ public class TutorialCombat : MonoBehaviour
     public List<Turn> fuckYouTurnManger;
 
     public List<GameObject> turnOff;
+
+    public Item item;
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
+        InventoryManager.Instance.AddItem(item,1);
         dialogueInteraction.StartDialogueCombat();
         BodyToTurn(myGuys);
     }
@@ -32,7 +35,7 @@ public class TutorialCombat : MonoBehaviour
         {
             OffAllBut(0,turnOff);
         }
-         if(BattleManager.Instance.globalTurn == 2 || BattleManager.Instance.globalTurn == 4 )
+         if(BattleManager.Instance.globalTurn == 2 || BattleManager.Instance.globalTurn == 4 || BattleManager.Instance.globalTurn == 5 )
         {
             OffAllBut(1,turnOff);
            
@@ -92,10 +95,11 @@ public class TutorialCombat : MonoBehaviour
             EndSegment();
             
         }
-        if(BattleManager.Instance.globalTurn == 4 && BattleManager.Instance.usingSkill == true)
+        if(BattleManager.Instance.globalTurn == 4 && BattleManager.Instance.usingSkill == true || BattleManager.Instance.globalTurn == 5 && BattleManager.Instance.usingSkill == true)
         {
             
              OffAllBut(0,BattleManager.Instance.SBS.skillButtons);
+            EndSegment();
         }
     }
     public void SkillTut()
@@ -113,6 +117,13 @@ public class TutorialCombat : MonoBehaviour
             dialogueInteraction.StartDialogueCombat();
             TurnOrderManager.Instance.turnPlayer.StartOfTurn.RemoveListener(SkillTut);
         }
+         if(BattleManager.Instance.globalTurn == 5)
+        {
+            dialogue.lines = dialogGraphs[4];
+            dialogueInteraction.StartDialogueCombat();
+            TurnOrderManager.Instance.turnPlayer.StartOfTurn.RemoveListener(SkillTut);
+        }
+         
     }
     public void EndSegment()
     {

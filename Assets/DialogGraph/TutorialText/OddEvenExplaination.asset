@@ -54,6 +54,8 @@ MonoBehaviour:
   portrait: {fileID: 0}
   speakerName: Shana
   DialogText:
+  - As you can see that skill has applied a condtion to you. You can hover over it
+    to see what it does.
   - 'Some of your skills have a specil '
   - 'Here now use Sword and Shield again and it should now deal damage and debuff
     your enemy.  '
