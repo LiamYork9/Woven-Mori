@@ -351,6 +351,10 @@ namespace MoriSkills
 
             for(int i =0; i<temp.Count; i++)
             {
+                if(temp[i]==unitUser)
+                {
+                    duration+=1;
+                }
                 if((stat & Stats.Attack) == Stats.Attack)
                 {
                 temp[i].ApplyCondition(new AttackBoostCondition(boost, duration));
@@ -362,6 +366,11 @@ namespace MoriSkills
                 if((stat & Stats.mDefense) == Stats.mDefense)
                 {
                 temp[i].ApplyCondition(new MagicDefenseBoostCondition(boost, duration));
+                }
+                
+                if(temp[i]==unitUser)
+                {
+                    duration-=1;
                 }
             }
         }
