@@ -19,6 +19,7 @@ public class SkillButtonScript : MonoBehaviour
     public TMP_Text currentAP;
     
     public TMP_Text skillCost;
+    public TMP_Text skillPower;
     
     public TMP_Text turnShift;
 
@@ -155,12 +156,21 @@ public class SkillButtonScript : MonoBehaviour
         toolTip.text = temp.toolTip;
         turnShift.text = "TurnShift: " + temp.turnShift;
         skillCost.text = "Cost: " + temp.cost;
+        if(temp.power==0)
+        {
+            skillPower.text = " ";
+        }
+        else
+        {
+            skillPower.text = "Power: " + temp.power;
+        }
     }
     public void ToolTipRemover()
     {
         toolTip.text = " ";
         turnShift.text =  " ";
         skillCost.text = " ";
+        skillPower.text = " ";
     }
 
     public void SetSkillButtons()
@@ -174,7 +184,7 @@ public class SkillButtonScript : MonoBehaviour
                     skillButtons[i].GetComponent<ToolTipSkill>().skill = SkillMaker.Instance.GetById(TurnOrderManager.Instance.turnPlayer.skills[i + page]);
                     skillButtons[i].GetComponent<ToolTipSkill>().skill.CheckSkillModConditions(TurnOrderManager.Instance.turnPlayer);
                     skillButtons[i].GetComponent<ToolTipSkill>().skillId = skillButtons[i].GetComponent<ToolTipSkill>().skill.skillId;
-                    skillButtons[i].GetComponentInChildren<TextMeshProUGUI>().text = TurnOrderManager.Instance.turnPlayer.skills[i + page].ToString();
+                    skillButtons[i].GetComponentInChildren<TextMeshProUGUI>().text = skillButtons[i].GetComponent<ToolTipSkill>().skill.name;
                     for( int j = 0; j < TurnOrderManager.Instance.turnPlayer.equipmentAttrs.Count; j++)
                     {
                         TurnOrderManager.Instance.turnPlayer.equipmentAttrs[j].ActivateOnSkill(skillButtons[i].GetComponent<ToolTipSkill>().skill);
@@ -414,6 +424,7 @@ public class SkillButtonScript : MonoBehaviour
         toolTip.text = "";
         turnShift.text =  "";
         skillCost.text = "";
+        skillPower.text = " ";
     }
 }
 

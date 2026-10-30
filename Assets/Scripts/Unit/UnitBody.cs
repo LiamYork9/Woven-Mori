@@ -204,6 +204,7 @@ public class UnitBody : MonoBehaviour
     public int TakeDamage(int damageValue, DamageType damageType = DamageType.Physical, Element element = Element.None, bool crit = false)
     {
         int damageMod = 0;
+        int effective = 0;
         if (damageType == DamageType.Physical)
         {
             damageMod = damageValue / activeStats.Defense;
@@ -223,11 +224,13 @@ public class UnitBody : MonoBehaviour
         if (resistance.Contains(element))
         {
             damageMod /= 2;
+            effective=-1;
         }
 
         if (vulnerability.Contains(element))
         {
             damageMod *= 2;
+            effective = 1;
         }
 
         if (damageMod < 1)
@@ -238,6 +241,7 @@ public class UnitBody : MonoBehaviour
         if (immunity.Contains(element))
         {
             damageMod = 0;
+            effective=-2;
         }
 
         if(crit == true)
@@ -257,7 +261,7 @@ public class UnitBody : MonoBehaviour
 
 
         activeStats.CurrentHP -= damageMod;
-        PopUpManager.Instance.DamageDone(damageMod,this.transform.position,crit);
+        PopUpManager.Instance.DamageDone(damageMod,this.transform.position,crit,effective);
 
         
 
