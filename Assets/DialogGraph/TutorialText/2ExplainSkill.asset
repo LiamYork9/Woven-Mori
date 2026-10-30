@@ -40,8 +40,8 @@ MonoBehaviour:
   portrait: {fileID: 0}
   speakerName: Shana
   DialogText:
-  - 'Nice Work! As you can see by the top left the turn count chnaged by the total
-    of the turn shift amount. '
+  - 'Nice Work! As you can see by the top left the turn count changed by the total
+    of the turn shift amount.  '
   - Besides doing damage skills can also heal and give you buffs.
   - 'Now use the skill Sword and Shield. it will heal and buff you. '
   textSpeed: 0

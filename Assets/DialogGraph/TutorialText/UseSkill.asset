@@ -40,6 +40,12 @@ MonoBehaviour:
   portrait: {fileID: 0}
   speakerName: Shana
   DialogText:
+  - Good.
+  - 'Your base attack is a physical non-elemental attack. Skills may have elemental
+    properties that influence how much damage they do. '
+  - When an attack or skill is resisted it will pop up a gray damage number, when
+    neutral as red, effective as purple, immune as black, healing as green and Crit
+    as yellow.
   - Now lets try the skill button.
   textSpeed: 0
   endNodeEvent: []

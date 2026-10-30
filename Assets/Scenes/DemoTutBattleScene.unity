@@ -749,6 +749,7 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 1acd76f333d8721479fb93b3d2dcd374, type: 2}
   - {fileID: 11400000, guid: a80340ec8e88a63468fae97323c4ede7, type: 2}
   - {fileID: 11400000, guid: e625594f52a65fb43a35c33a8fe1a95c, type: 2}
+  - {fileID: 11400000, guid: a93f16765d5106f46bd9778bec6380db, type: 2}
   - {fileID: 11400000, guid: c33dac1b322593642b47cb5ce5e813ae, type: 2}
   myGuys:
   - {fileID: 8132812045290668314}
@@ -759,6 +760,9 @@ MonoBehaviour:
   - {fileID: 480227351}
   - {fileID: 1659237243}
   - {fileID: 73733655}
+  - {fileID: 8132812045290668314}
+  - {fileID: 8132812045290668314}
+  - {fileID: 480227351}
   - {fileID: 8132812045290668314}
   fuckYouTurnManger: []
   turnOff:
@@ -865,20 +869,6 @@ MonoBehaviour:
         m_CallState: 2
   - m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 645222400}
-        m_TargetAssemblyTypeName: BattleManager, Assembly-CSharp
-        m_MethodName: WinCondtion
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
-  - m_PersistentCalls:
-      m_Calls:
       - m_Target: {fileID: 707081881}
         m_TargetAssemblyTypeName: TutorialCombat, Assembly-CSharp
         m_MethodName: EndSegment
@@ -897,7 +887,6 @@ MonoBehaviour:
   - TrueAttack
   - SkillOff
   - ItemOn
-  - EndTut
   - EndSegment
 --- !u!114 &707081883
 MonoBehaviour:

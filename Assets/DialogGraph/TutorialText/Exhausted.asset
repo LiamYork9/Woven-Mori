@@ -44,8 +44,8 @@ MonoBehaviour:
     shift of -1. '
   - 'Because of that it will actually go backwards in the turn order and subtract
     from the Turn Count but not your Action Count. '
-  - 'A turn can only be returned to twice before being exhausted. Which means that
-    turn will be removed from the Turn Order. '
+  - 'A turn can only be visited twice before being exhausted. Which means that turn
+    will be removed from the Turn Order. '
   textSpeed: 0
   endNodeEvent:
   - SkillOff

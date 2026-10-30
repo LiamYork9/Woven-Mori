@@ -24,6 +24,10 @@ public class TutorialCombat : MonoBehaviour
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
+        for(int i = 0; i < PartyManager.Instance.party.Count; i++)
+        {
+            PartyManager.Instance.party[i].Restore();
+        }
         InventoryManager.Instance.AddItem(item,1);
         dialogueInteraction.StartDialogueCombat();
         BodyToTurn(myGuys);
@@ -38,7 +42,7 @@ public class TutorialCombat : MonoBehaviour
         {
             OffAllBut(0,turnOff);
         }
-         if(BattleManager.Instance.globalTurn == 2 || BattleManager.Instance.globalTurn == 4 || BattleManager.Instance.globalTurn == 5 || BattleManager.Instance.globalTurn == 7)
+         if(BattleManager.Instance.globalTurn == 2 || BattleManager.Instance.globalTurn == 4 || BattleManager.Instance.globalTurn == 5 || BattleManager.Instance.globalTurn == 7 || BattleManager.Instance.globalTurn == 10)
         {
             OffAllBut(1,turnOff);
            
@@ -52,6 +56,11 @@ public class TutorialCombat : MonoBehaviour
 
     public void BodyToTurn(List<UnitBody> units)
     {
+       
+       foreach(GameObject gameObject in TurnOrderManager.Instance.allFighters)
+        {
+            gameObject.GetComponent<UnitBody>().turnsAdded =0;
+        }
         foreach(UnitBody tempUnit in units)
         {
             
@@ -117,6 +126,11 @@ public class TutorialCombat : MonoBehaviour
              OffAllBut(2,BattleManager.Instance.SBS.skillButtons);
             EndSegment();
         }
+        if(BattleManager.Instance.globalTurn == 10 && BattleManager.Instance.usingSkill == true)
+        {
+             OffAllBut(1,BattleManager.Instance.SBS.skillButtons);
+              EndSegment();
+        }
        
         
          
@@ -165,6 +179,12 @@ public class TutorialCombat : MonoBehaviour
         if(BattleManager.Instance.globalTurn == 10)
         {
             dialogue.lines = dialogGraphs[8];
+            dialogueInteraction.StartDialogueCombat();
+            TurnOrderManager.Instance.turnPlayer.StartOfTurn.RemoveListener(SkillTut);
+        }
+        if(BattleManager.Instance.globalTurn == 12)
+        {
+            dialogue.lines = dialogGraphs[9];
             dialogueInteraction.StartDialogueCombat();
             TurnOrderManager.Instance.turnPlayer.StartOfTurn.RemoveListener(SkillTut);
         }

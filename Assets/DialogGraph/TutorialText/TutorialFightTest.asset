@@ -55,7 +55,14 @@ MonoBehaviour:
   speakerName: Shana
   DialogText:
   - Welcome to the the tutorial asshole
-  - 'Why don''t you try pressing the attack button. Use the mouse to select it. '
+  - 'Let''s go over the basics. In the top left of your screen is the Turn Count
+    which displays how many turns have passed. '
+  - 'To the right of that is your Thread of Fate ( Turn Order) which shows you whose
+    turn it currently is, represented by the middle icon under the red arrow, to
+    the right of that middle the next two turns, and to the left of it the last two
+    turns. Hover over the Thread of Fate to see more turns ahead.  '
+  - 'In the bottom left is your Action Commands, Attack, Skill, Item and Flee. '
+  - 'Why don''t you try pressing the attack button. Use the mouse to select it.  '
   textSpeed: 0
   endNodeEvent:
   - BattleOn
