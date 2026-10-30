@@ -642,6 +642,7 @@ public class BattleManager : MonoBehaviour
              dialogueText.text += "Party";
         }
         useItem = false;
+        TOM.turnOrder[0].turnShift = 1;
         ApplyItem(item);
         yield return new WaitForSeconds(1f);
          selectedItem = null;
