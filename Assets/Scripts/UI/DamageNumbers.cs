@@ -101,7 +101,7 @@ public class DamageNumbers : MonoBehaviour
             OrientCurveBasedOnDirection();
         }
 
-        public void Display(int damage, Vector3 objPosition, bool direction, bool isCrit, bool isHeal = false)
+        public void Display(int damage, Vector3 objPosition, bool direction, bool isCrit, bool isHeal = false, int effective = 0)
         {
             if(isHeal)
             {
@@ -110,6 +110,18 @@ public class DamageNumbers : MonoBehaviour
             else if(isCrit)
             {
                 normalFontColor = Color.yellow;
+            }
+            else if(effective == 1)
+            {
+                normalFontColor = new Color(.5f, 0, .5f, 1);
+            }
+            else if(effective == -1)
+            {
+                normalFontColor = Color.gray;
+            }
+            else if(effective == -2)
+            {
+                normalFontColor = Color.black;
             }
             else
             {

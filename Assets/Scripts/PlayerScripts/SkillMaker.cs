@@ -172,10 +172,10 @@ public class SkillMaker : MonoBehaviour
         Skill HopeDespair = new Skill(SkillId.HopeDespair, "Hope&Despair",10 , Element.None, Target.single, Category.Status, 1, "On Even turns lower all enemies Atk, Def, MDef for 3 turns, on Odd turns Raise all parties Atk, Def, MDef for 3 turns", -2)
         .Condition(new EvenOddCondition(
             /*Even Stats*/ 
-                20 , Element.None, Target.multipleEnemy, Category.Status, 3, -2, 
+                0 , Element.None, Target.multipleEnemy, Category.Status, 3, -2, 
                 
             /*Odd Stats*/
-                10 , Element.None, Target.party, Category.Status, 3, 2)
+                0 , Element.None, Target.party, Category.Status, 3, 2)
             
             /*Even Attrs*/
                 .Even(new StatDropConAttr(Stats.Attack, standardBoost,3))
@@ -220,7 +220,7 @@ public class SkillMaker : MonoBehaviour
 
          madeSkills.Add(HighLow);
         
-        Skill Focus = new Skill(SkillId.Focus, "Focus",10 , Element.None, Target.self, Category.Status, 0,  "Focus and gain an additional AP",  1)
+        Skill Focus = new Skill(SkillId.Focus, "Focus",0 , Element.None, Target.self, Category.Status, 0,  "Focus and gain an additional AP",  1)
         .Attr(new APGainAttr(1,true));
         madeSkills.Add(Focus);
         
@@ -238,11 +238,11 @@ public class SkillMaker : MonoBehaviour
         Skill Quake = new Skill(SkillId.Quake,"Quake",10,Element.Earth,Target.single,Category.Attack,1, "On Low number turns attack that locks the target in a tremor, on High number turns hit all enemies strength growing with turn count",1)
         .Condition(new HighLowCondition(
             /*High Stats */
-            10 , Element.Earth, Target.multipleEnemy, Category.Attack, 1, 2, 
+            10 , Element.Earth, Target.multipleEnemy, Category.Attack, 2, 2, 
             /*Low Stats */
             10 , Element.Earth, Target.single, Category.Attack, 1, 1, 15)
 
-            .High(new TurnScaleAttr(1,false)
+            .High(new TurnScaleAttr(.5f,false)
                 .Attr(new DamageAttr(1,DamageType.Physical,Element.Earth))
                 )
 
