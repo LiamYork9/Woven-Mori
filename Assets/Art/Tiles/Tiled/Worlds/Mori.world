@@ -1,0 +1,34 @@
+{
+    "maps": [
+        {
+            "fileName": "../TileMaps/Kitefall.tmx",
+            "height": 320,
+            "width": 480,
+            "x": 960,
+            "y": -320
+        },
+        {
+            "fileName": "../TileMaps/Chime.tmx",
+            "height": 320,
+            "width": 480,
+            "x": 0,
+            "y": 0
+        },
+        {
+            "fileName": "../TileMaps/Route1.tmx",
+            "height": 320,
+            "width": 480,
+            "x": 480,
+            "y": 0
+        },
+        {
+            "fileName": "../TileMaps/Route2.tmx",
+            "height": 320,
+            "width": 480,
+            "x": 960,
+            "y": 0
+        }
+    ],
+    "onlyShowAdjacentMaps": false,
+    "type": "world"
+}
