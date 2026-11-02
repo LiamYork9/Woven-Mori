@@ -54,9 +54,11 @@ MonoBehaviour:
   portrait: {fileID: 0}
   speakerName: Shana
   DialogText:
-  - As you can see that skill has applied a condtion to you. You can hover over it
-    to see what it does.
-  - 'Some of your skills have a specil '
+  - 'As you can see that skill has applied a condition to you. You can hover over
+    it to see what it does. The number underneath it indicates how many turns it
+    will last. '
+  - 'Some of your skills have special properties. On Even turns they have a certain
+    effect, often more defensive focus and on Odd turns becoming more offensive.  '
   - 'Here now use Sword and Shield again and it should now deal damage and debuff
     your enemy.  '
   textSpeed: 0

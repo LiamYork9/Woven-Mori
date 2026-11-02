@@ -57,10 +57,7 @@ MonoBehaviour:
       _node: {fileID: -654035320411683544}
       _typeQualifiedName: System.String, mscorlib, Version=4.0.0.0, Culture=neutral,
         PublicKeyToken=b77a5c561934e089
-      connections:
-      - fieldName: input
-        node: {fileID: 1462071524941890307}
-        reroutePoints: []
+      connections: []
       _direction: 1
       _connectionType: 0
       _typeConstraint: 0
@@ -69,7 +66,10 @@ MonoBehaviour:
       _node: {fileID: -654035320411683544}
       _typeQualifiedName: System.String, mscorlib, Version=4.0.0.0, Culture=neutral,
         PublicKeyToken=b77a5c561934e089
-      connections: []
+      connections:
+      - fieldName: input
+        node: {fileID: 1462071524941890307}
+        reroutePoints: []
       _direction: 1
       _connectionType: 0
       _typeConstraint: 0
@@ -82,8 +82,8 @@ MonoBehaviour:
   endNodeEvent: []
   startNodeEvent: []
   Answers:
-  - Yes
   - No
+  - Yes
 --- !u!114 &11400000
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -124,7 +124,7 @@ MonoBehaviour:
       _typeQualifiedName: Connection, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
         PublicKeyToken=null
       connections:
-      - fieldName: Answers 0
+      - fieldName: Answers 1
         node: {fileID: -654035320411683544}
         reroutePoints: []
       _direction: 0
@@ -147,6 +147,7 @@ MonoBehaviour:
   textSpeed: 0
   endNodeEvent:
   - OpenShop
+  - HasShopped
   startNodeEvent: []
 --- !u!114 &6514874111199070512
 MonoBehaviour:

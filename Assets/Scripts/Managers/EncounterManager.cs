@@ -30,6 +30,8 @@ public class EncounterManager : MonoBehaviour
 
     public UnityEvent startEncounter;
 
+    public bool noFlee;
+
     public static EncounterManager GetInstance()
     {
         return Instance;
@@ -113,7 +115,7 @@ public class EncounterManager : MonoBehaviour
 
     public void StartTutorial()
     {
-        SceneManager.LoadScene("Tutorial");
+        SceneManager.LoadScene("DemoTutBattleScene");
     }
     
     public void RollEncounter(int count = -1)
@@ -142,6 +144,12 @@ public class EncounterManager : MonoBehaviour
         encounterPool.Clear();
         fightArea = false;
         
+    }
+
+    public void NoFlee()
+    {
+        noFlee = true;
+        Debug.Log("NOFLEE");
     }
     
     

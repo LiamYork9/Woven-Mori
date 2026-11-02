@@ -46,6 +46,7 @@ public class BattleManager : MonoBehaviour
     private SpriteRenderer setSprite;
 
     public TMP_Text gTurnText;
+     public TMP_Text turnShiftText;
 
     public GameObject targetArrow;
 
@@ -221,6 +222,7 @@ public class BattleManager : MonoBehaviour
               
 
             }
+           
 
 
 
@@ -301,6 +303,7 @@ public class BattleManager : MonoBehaviour
 
         if (Input.GetKeyDown(KeyCode.Escape))
         {
+            
             //itemMenu.SetActive(false);
             if (usingSkill == true)
             {
@@ -314,6 +317,8 @@ public class BattleManager : MonoBehaviour
                 actionMenu.SetActive(true);
                 ButtonsOn();
                 targetArrow.SetActive(false);
+                 turnShiftText.text = "";
+               
                 
             }
             if (selecting == true)
@@ -348,6 +353,15 @@ public class BattleManager : MonoBehaviour
 
             }
         }
+
+        //  if(usingSkill == true)
+        //     {
+        //         turnShiftText.text = "" + SBS.selectedSkill.turnShift;
+        //     }
+        //     else
+        //     {
+        //         turnShiftText.text = "";
+        //     }
 
 
 
@@ -642,6 +656,7 @@ public class BattleManager : MonoBehaviour
              dialogueText.text += "Party";
         }
         useItem = false;
+        TOM.turnOrder[0].turnShift = 1;
         ApplyItem(item);
         yield return new WaitForSeconds(1f);
          selectedItem = null;
@@ -696,42 +711,54 @@ public class BattleManager : MonoBehaviour
     IEnumerator RunAwayCo()
     {
         ButtonsOff();
-         int fleeNum = Random.Range(-5,11)+TurnOrderManager.Instance.turnPlayer.activeStats.Speed+TurnOrderManager.Instance.turnPlayer.activeStats.Level;
-       int fastEnemy = 0;
-        dialogueText.text = "You try to run away";
-        yield return new WaitForSeconds(1f);
-        for(int i = 0; i < enemySlots.Count; i++)
-            {
-                if(enemySlots[i].GetComponent<UnitBody>().activeStats.Speed + enemySlots[i].GetComponent<UnitBody>().activeStats.Level > fastEnemy)
+        if(EncounterManager.Instance.noFlee == true)
+        {
+            dialogueText.text = "There is no escaping from this fate. Stand and fight.";
+            yield return new WaitForSeconds(2f);
+             dialogueText.text = "";
+            ButtonsOn();
+        }
+        else
+        {
+            
+        
+            int fleeNum = Random.Range(-5,11)+TurnOrderManager.Instance.turnPlayer.activeStats.Speed+TurnOrderManager.Instance.turnPlayer.activeStats.Level;
+            int fastEnemy = 0;
+            dialogueText.text = "You try to run away";
+            yield return new WaitForSeconds(1f);
+            for(int i = 0; i < enemySlots.Count; i++)
                 {
-                    fastEnemy = enemySlots[i].GetComponent<UnitBody>().activeStats.Speed + enemySlots[i].GetComponent<UnitBody>().activeStats.Level;
+                    if(enemySlots[i].GetComponent<UnitBody>().activeStats.Speed + enemySlots[i].GetComponent<UnitBody>().activeStats.Level > fastEnemy)
+                    {
+                        fastEnemy = enemySlots[i].GetComponent<UnitBody>().activeStats.Speed + enemySlots[i].GetComponent<UnitBody>().activeStats.Level;
+                    }
                 }
-            }
-            if(fleeNum > fastEnemy)
-            {
-                for (int i = 0; i < PartyManager.Instance.party.Count; i++)
-            {
-                PlayerCharacter temp = PartyManager.Instance.party[i];
-
-                for (int j = 0; j < defaultPlayerSlots[i].GetComponent<UnitBody>().conditions.Count; j++)
+                if(fleeNum > fastEnemy)
                 {
-                    defaultPlayerSlots[i].GetComponent<UnitBody>().conditions[j].RemoveCondition();
-                }
-            defaultPlayerSlots[i].GetComponent<UnitBody>().baseStats.CurrentHP = defaultPlayerSlots[i].GetComponent<UnitBody>().activeStats.CurrentHP;
+                    for (int i = 0; i < PartyManager.Instance.party.Count; i++)
+                {
+                    PlayerCharacter temp = PartyManager.Instance.party[i];
 
-                temp.CopyStats(defaultPlayerSlots[i].GetComponent<UnitBody>());
-            }
-                dialogueText.text = "You Escape";
-                yield return new WaitForSeconds(1f);
-                SceneManager.LoadScene(PartyManager.Instance.sceneName);
-                
-            }
-            else
-            {
-                dialogueText.text = "Escape Failed";
-                yield return new WaitForSeconds(1f);
-                TOM.EndTurn();
-            }
+                    for (int j = 0; j < defaultPlayerSlots[i].GetComponent<UnitBody>().conditions.Count; j++)
+                    {
+                        defaultPlayerSlots[i].GetComponent<UnitBody>().conditions[j].RemoveCondition();
+                    }
+                defaultPlayerSlots[i].GetComponent<UnitBody>().baseStats.CurrentHP = defaultPlayerSlots[i].GetComponent<UnitBody>().activeStats.CurrentHP;
+
+                    temp.CopyStats(defaultPlayerSlots[i].GetComponent<UnitBody>());
+                }
+                    dialogueText.text = "You Escape";
+                    yield return new WaitForSeconds(1f);
+                    SceneManager.LoadScene(PartyManager.Instance.sceneName);
+                    
+                }
+                else
+                {
+                    dialogueText.text = "Escape Failed";
+                    yield return new WaitForSeconds(1f);
+                    TOM.EndTurn();
+                }
+        }
 
 
 
@@ -750,11 +777,13 @@ public class BattleManager : MonoBehaviour
     public void WinCondtion()
     {
         fightState = FightState.Won;
+        EncounterManager.Instance.noFlee = false;
     }
     
     public void LoseCondition()
     {
         fightState = FightState.Lost;
+        EncounterManager.Instance.noFlee = false;
     }
     
     

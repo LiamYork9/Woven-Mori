@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+
 using UnityEngine;
 
 public class TutorialCombat : MonoBehaviour
@@ -17,10 +18,16 @@ public class TutorialCombat : MonoBehaviour
 
     public List<GameObject> turnOff;
 
+    public bool visited = false;
+
     public Item item;
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
+        for(int i = 0; i < PartyManager.Instance.party.Count; i++)
+        {
+            PartyManager.Instance.party[i].Restore();
+        }
         InventoryManager.Instance.AddItem(item,1);
         dialogueInteraction.StartDialogueCombat();
         BodyToTurn(myGuys);
@@ -35,17 +42,25 @@ public class TutorialCombat : MonoBehaviour
         {
             OffAllBut(0,turnOff);
         }
-         if(BattleManager.Instance.globalTurn == 2 || BattleManager.Instance.globalTurn == 4 || BattleManager.Instance.globalTurn == 5 )
+         if(BattleManager.Instance.globalTurn == 2 || BattleManager.Instance.globalTurn == 4 || BattleManager.Instance.globalTurn == 5 || BattleManager.Instance.globalTurn == 7 || BattleManager.Instance.globalTurn == 10)
         {
             OffAllBut(1,turnOff);
            
         }
+        
+       
+        
          
          
     }
 
     public void BodyToTurn(List<UnitBody> units)
     {
+       
+       foreach(GameObject gameObject in TurnOrderManager.Instance.allFighters)
+        {
+            gameObject.GetComponent<UnitBody>().turnsAdded =0;
+        }
         foreach(UnitBody tempUnit in units)
         {
             
@@ -101,6 +116,25 @@ public class TutorialCombat : MonoBehaviour
              OffAllBut(0,BattleManager.Instance.SBS.skillButtons);
             EndSegment();
         }
+        if(BattleManager.Instance.globalTurn == 7 && BattleManager.Instance.usingSkill == true)
+        {
+             OffAllBut(1,BattleManager.Instance.SBS.skillButtons);
+              EndSegment();
+        }
+         if(BattleManager.Instance.globalTurn == 9 && BattleManager.Instance.usingSkill == true)
+        {
+             OffAllBut(2,BattleManager.Instance.SBS.skillButtons);
+            EndSegment();
+        }
+        if(BattleManager.Instance.globalTurn == 10 && BattleManager.Instance.usingSkill == true)
+        {
+             OffAllBut(1,BattleManager.Instance.SBS.skillButtons);
+              EndSegment();
+        }
+       
+        
+         
+        
     }
     public void SkillTut()
     {
@@ -123,17 +157,72 @@ public class TutorialCombat : MonoBehaviour
             dialogueInteraction.StartDialogueCombat();
             TurnOrderManager.Instance.turnPlayer.StartOfTurn.RemoveListener(SkillTut);
         }
+        if(BattleManager.Instance.globalTurn == 7)
+        {
+            dialogue.lines = dialogGraphs[5];
+            dialogueInteraction.StartDialogueCombat();
+            TurnOrderManager.Instance.turnPlayer.StartOfTurn.RemoveListener(SkillTut);
+        }
+         if(BattleManager.Instance.globalTurn == 9 && visited == false)
+        {
+            
+            dialogue.lines = dialogGraphs[6];
+            dialogueInteraction.StartDialogueCombat();
+            TurnOrderManager.Instance.turnPlayer.StartOfTurn.RemoveListener(SkillTut);
+        }
+        if(BattleManager.Instance.globalTurn == 9 && visited == true)
+        {
+            dialogue.lines = dialogGraphs[7];
+            dialogueInteraction.StartDialogueCombat();
+            TurnOrderManager.Instance.turnPlayer.StartOfTurn.RemoveListener(SkillTut);
+        }
+        if(BattleManager.Instance.globalTurn == 10)
+        {
+            dialogue.lines = dialogGraphs[8];
+            dialogueInteraction.StartDialogueCombat();
+            TurnOrderManager.Instance.turnPlayer.StartOfTurn.RemoveListener(SkillTut);
+        }
+        if(BattleManager.Instance.globalTurn == 12)
+        {
+            dialogue.lines = dialogGraphs[9];
+            dialogueInteraction.StartDialogueCombat();
+            TurnOrderManager.Instance.turnPlayer.StartOfTurn.RemoveListener(SkillTut);
+        }
+        
          
     }
     public void EndSegment()
     {
-        TurnOrderManager.Instance.turnPlayer.StartOfTurn.RemoveListener(SkillTut);
-        TurnOrderManager.Instance.turnPlayer.StartOfTurn.AddListener(SkillTut);
+        foreach(GameObject player in BattleManager.Instance.playerSlots)
+        {
+            player.GetComponent<UnitBody>().StartOfTurn.RemoveListener(SkillTut);
+            player.GetComponent<UnitBody>().StartOfTurn.AddListener(SkillTut);
+        }
+       
     }
 
     public void AttackTrue()
     {
         BattleManager.Instance.attacking = true;
+        
+    }
+    public void VisitedTrue()
+    {
+       visited = true;
+    }
+
+    public void Turn9()
+    {
+        
+        
+             OffAllBut(1,turnOff);
+        
+    }
+    public void turn92()
+    {
+       
+        
+            OffAllBut(2,turnOff);
         
     }
 }

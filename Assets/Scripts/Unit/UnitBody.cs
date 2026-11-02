@@ -290,7 +290,7 @@ public class UnitBody : MonoBehaviour
     {
         foreach(FatedTurn fate in fatedTurns)
         {
-            if((turnsAdded==fate.startTurn||(fate.repeating&&(turnsAdded-fate.startTurn)%fate.frequency==0&&turnsAdded>fate.startTurn)) && (turnsAdded<=fate.endTurn||fate.endTurn==-1))
+            if((turnsAdded==fate.startTurn||(fate.repeating&&(turnsAdded-fate.startTurn)%fate.frequency==0&&turnsAdded>fate.startTurn)) && (turnsAdded<=fate.endTurn||fate.endTurn==-1 || fate.repeating == false))
             {
                 return true;
             }
@@ -306,7 +306,7 @@ public class UnitBody : MonoBehaviour
         string temp = "";
         foreach(FatedTurn fate in fatedTurns)
         {
-            if((turnsAdded==fate.startTurn||(fate.repeating&&(turnsAdded-fate.startTurn)%fate.frequency==0))  && (turnsAdded<=fate.endTurn||fate.endTurn==-1))
+            if((turnsAdded==fate.startTurn||(fate.repeating&&(turnsAdded-fate.startTurn)%fate.frequency==0))  && (turnsAdded<=fate.endTurn||fate.endTurn==-1 || fate.repeating == false))
             {
                 temp = fate.fate;
             }
