@@ -2252,6 +2252,10 @@ PrefabInstance:
       propertyPath: 'encounterPool.Array.data[0]'
       value: 
       objectReference: {fileID: 11400000, guid: 7f20ffa474d3bb84c88efb49f192ffed, type: 2}
+    - target: {fileID: 8862748451058312600, guid: 0a6ab318addeef344a614e4a33f3cfd8, type: 3}
+      propertyPath: 'encounterPool.Array.data[1]'
+      value: 
+      objectReference: {fileID: 11400000, guid: 7f20ffa474d3bb84c88efb49f192ffed, type: 2}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -2430,6 +2434,10 @@ PrefabInstance:
       propertyPath: dialogueText
       value: 
       objectReference: {fileID: 46069389}
+    - target: {fileID: 6150715196394293801, guid: 8089a5ef6f4ee464ea9324d77e01a3da, type: 3}
+      propertyPath: turnShiftText
+      value: 
+      objectReference: {fileID: 8132812045290668315}
     - target: {fileID: 6150715196394293801, guid: 8089a5ef6f4ee464ea9324d77e01a3da, type: 3}
       propertyPath: itemToolTipText
       value: 
@@ -2943,6 +2951,17 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: e65cd28f89a046d43bed58c4a74e867e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &8132812045290668315 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 4110458576291097697, guid: c14100d79b2ddbd4c97c369e306032c3, type: 3}
+  m_PrefabInstance: {fileID: 8132812045290668313}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!1660057539 &9223372036854775807

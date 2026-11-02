@@ -33,6 +33,9 @@ public class PartyManager : MonoBehaviour, IDataPersistence
 
     public Sprite battleBackground;
 
+    public bool hasShopped;
+    public bool hasTut;
+
     public static PartyManager GetInstance()
     {
         return Instance;
@@ -116,6 +119,15 @@ public class PartyManager : MonoBehaviour, IDataPersistence
         
 
         
+    }
+
+     public void Shopped()
+    {
+        hasShopped = true;
+    }
+    public void Battled()
+    {
+        hasTut = true;
     }
 
     

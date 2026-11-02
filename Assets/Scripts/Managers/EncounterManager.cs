@@ -115,7 +115,7 @@ public class EncounterManager : MonoBehaviour
 
     public void StartTutorial()
     {
-        SceneManager.LoadScene("Tutorial");
+        SceneManager.LoadScene("DemoTutBattleScene");
     }
     
     public void RollEncounter(int count = -1)
