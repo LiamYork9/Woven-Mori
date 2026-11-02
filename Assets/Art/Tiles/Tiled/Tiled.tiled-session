@@ -27,23 +27,23 @@
             "selectedLayer": 3,
             "viewCenter": {
                 "x": 266.3333333333333,
-                "y": 175
+                "y": 106.99999999999997
             }
         },
         "TileMaps/Kitefall.tmx": {
-            "scale": 2.1196875,
-            "selectedLayer": 4,
+            "scale": 2,
+            "selectedLayer": 3,
             "viewCenter": {
-                "x": 239.89385227775318,
-                "y": 160.16511867905058
+                "x": 196.75,
+                "y": 148.75
             }
         },
         "TileMaps/Shlap.tmx": {
             "scale": 1,
             "selectedLayer": 3,
             "viewCenter": {
-                "x": 239.5,
-                "y": 159.5
+                "x": 539.5,
+                "y": 247.5
             }
         },
         "TileSets/WovenMoriDecorations.tsx": {
