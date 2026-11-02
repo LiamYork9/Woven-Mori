@@ -59,4 +59,5 @@ MonoBehaviour:
   textSpeed: 0
   endNodeEvent:
   - BossEncounter
+  - Can'tRun
   startNodeEvent: []

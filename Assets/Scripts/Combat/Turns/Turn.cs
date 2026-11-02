@@ -104,6 +104,16 @@ public class Turn
         //Enemy AI Here !!!!!
         SkillUse temp = unit.unit.brain.Think(unit);
         BattleManager.Instance.enemySkill = temp.skill;
+         if(temp.skill.turnShift >= 0)
+        {
+            BattleManager.Instance.turnShiftText.color = Color.green;
+             BattleManager.Instance.turnShiftText.text = "+" +  temp.skill.turnShift;
+        }
+        else
+        {
+            BattleManager.Instance.turnShiftText.color = Color.red;
+            BattleManager.Instance.turnShiftText.text = "" +  temp.skill.turnShift;
+        }
         BattleManager.Instance.EnemyAttack(temp.skill,temp.targets, temp.freeSkill);
     }
 
@@ -121,6 +131,7 @@ public class Turn
         fated = false;
         // Removing Timed out Buff and Debuffs, end of turn effects 
         TurnOrderManager.Instance.TurnShift(turnShift);
+         BattleManager.Instance.turnShiftText.text = "";
         BattleManager.Instance.dialogueText.text = " ";
         BattleManager.Instance.attacking = false;
         BattleManager.Instance.useItem = false;

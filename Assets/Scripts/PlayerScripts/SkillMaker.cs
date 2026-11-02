@@ -77,7 +77,7 @@ public class SkillMaker : MonoBehaviour
         madeSkills.Add(WindBlade);
         
         
-        Skill Flex = new Skill(SkillId.Flex, "Flex",0 , Element.None, Target.self, Category.Status,  1, "Get Ripped",    1)
+        Skill Flex = new Skill(SkillId.Flex, "Flex",0 , Element.None, Target.self, Category.Status,  1, "Apply Defense Up and Attack Up to yourself.",    1)
         .Attr(new StatBoostConAttr(Stats.Attack|Stats.Defense, standardBoost, 3, true));
         madeSkills.Add(Flex);
         
@@ -152,7 +152,7 @@ public class SkillMaker : MonoBehaviour
         madeSkills.Add(AcidSpray);
         
         
-        Skill SwordShield = new Skill(SkillId.SwordShield, "Sword&Shield",10 , Element.None, Target.single, Category.Attack, 1, "On Even turns Heal and buff yourself, on Odd turns hit the enemy and debuff them", -2)
+        Skill SwordShield = new Skill(SkillId.SwordShield, "Sword&Shield",10 , Element.None, Target.single, Category.Attack, 1, "On Even turns Heal and apply Defense Up to yourself, on Odd turns hit the enemy and apply Defense and Attack Down", -2)
         .Condition(new EvenOddCondition(
             /*Even Stats*/ 
                 20 , Element.None, Target.self, Category.Heal, 1, 1, 
@@ -187,7 +187,7 @@ public class SkillMaker : MonoBehaviour
                 .Odd(new StatBoostConAttr(Stats.mDefense, standardBoost,3)));
         madeSkills.Add(HopeDespair);
 
-        Skill FlameFlood = new Skill(SkillId.FlameFlood, "Flame&Flood",10 , Element.None, Target.single, Category.Status, 1, "On Even turns Deal  Water Damage to all enemies, on Odd turns Deal Fire Damage to one enemy and burn them", -2)
+        Skill FlameFlood = new Skill(SkillId.FlameFlood, "Flame&Flood",10 , Element.None, Target.single, Category.Status, 1, "On Even turns deal Magic Water Damage to all enemies, on Odd turns deal Magic Fire Damage to one enemy and burn them", -2)
         .Condition(new EvenOddCondition(
             /*Even Stats*/ 
                 10 , Element.Water, Target.multipleEnemy, Category.Attack, 2, 2, 
@@ -235,7 +235,7 @@ public class SkillMaker : MonoBehaviour
         .Attr(new ApplyPoisonAttr(3,3,10));
         madeSkills.Add(PoisonBite);
 
-        Skill Quake = new Skill(SkillId.Quake,"Quake",10,Element.Earth,Target.single,Category.Attack,1, "On Low number turns attack that locks the target in a tremor, on High number turns hit all enemies strength growing with turn count",1)
+        Skill Quake = new Skill(SkillId.Quake,"Quake",10,Element.Earth,Target.single,Category.Attack,1, "On turns 1-14 attack that applies stacks of tremor equal to your AC, on turns 15 or more hit all enemies strength with a Physical Earth damage that scales with the Turn Count",1)
         .Condition(new HighLowCondition(
             /*High Stats */
             10 , Element.Earth, Target.multipleEnemy, Category.Attack, 2, 2, 
@@ -252,7 +252,7 @@ public class SkillMaker : MonoBehaviour
         );
         madeSkills.Add(Quake);
 
-        Skill Erosion = new Skill(SkillId.Erosion,"Erosion",10,Element.Earth,Target.single,Category.Attack,1, "A spell that accelerates time on the target triggering any end turn effects, counting down all conditions, and dropping their Defense",1)
+        Skill Erosion = new Skill(SkillId.Erosion,"Erosion",10,Element.Earth,Target.single,Category.Attack,1, "A skill that accelerates time on the target triggering any end turn effects, counting down all conditions, and applying Defense Down ",1)
         .Attr(new PassageOfTimeAttr(3))
         .Attr(new StatDropConAttr(Stats.Defense, standardBoost, 3));
         madeSkills.Add(Erosion);

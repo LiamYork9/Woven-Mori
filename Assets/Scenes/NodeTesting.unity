@@ -1791,6 +1791,22 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+  - m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 1606989938}
+        m_TargetAssemblyTypeName: EncounterManager, Assembly-CSharp
+        m_MethodName: NoFlee
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+  - m_PersistentCalls:
+      m_Calls:
       - m_Target: {fileID: 526821466}
         m_TargetAssemblyTypeName: StaticEncounter, Assembly-CSharp
         m_MethodName: BossDeath
@@ -1805,6 +1821,7 @@ MonoBehaviour:
         m_CallState: 2
   eventNames:
   - BossEncounter
+  - Can'tRun
   - BossDeath
 --- !u!114 &526821466
 MonoBehaviour:
@@ -5518,6 +5535,17 @@ MonoBehaviour:
       m_Calls: []
   dialogText: []
   inCombat: 0
+--- !u!114 &1606989938 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 8862748451058312600, guid: 0a6ab318addeef344a614e4a33f3cfd8, type: 3}
+  m_PrefabInstance: {fileID: 1770792804}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1606989932}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 405d12c58c1452a4fa6eed38ad66a738, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1613291888 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 3428821881555156060, guid: c1f518cba0be73b448f374cc686346f8, type: 3}

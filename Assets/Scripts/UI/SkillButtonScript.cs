@@ -7,6 +7,7 @@ using UnityEngine.EventSystems;
 using System.Collections;
 using MoriSkills;
 using UnityEngine.Rendering;
+using SuperTiled2Unity;
 
 
 
@@ -156,6 +157,17 @@ public class SkillButtonScript : MonoBehaviour
         toolTip.text = temp.toolTip;
         turnShift.text = "TurnShift: " + temp.turnShift;
         skillCost.text = "Cost: " + temp.cost;
+        if(temp.turnShift >= 0)
+        {
+            BattleManager.Instance.turnShiftText.color = Color.green;
+             BattleManager.Instance.turnShiftText.text = "+" +  temp.turnShift;
+        }
+        else
+        {
+            BattleManager.Instance.turnShiftText.color = Color.red;
+             BattleManager.Instance.turnShiftText.text = "" +  temp.turnShift;
+        }
+       
         if(temp.power==0)
         {
             skillPower.text = " ";
@@ -171,6 +183,7 @@ public class SkillButtonScript : MonoBehaviour
         turnShift.text =  " ";
         skillCost.text = " ";
         skillPower.text = " ";
+        BattleManager.Instance.turnShiftText.text = "";
     }
 
     public void SetSkillButtons()
