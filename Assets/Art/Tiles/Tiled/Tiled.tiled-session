@@ -23,26 +23,42 @@
             }
         },
         "TileMaps/Chime.tmx": {
-            "scale": 1.5,
+            "scale": 1,
             "selectedLayer": 3,
             "viewCenter": {
-                "x": 266.3333333333333,
-                "y": 106.99999999999997
+                "x": 653.5,
+                "y": 210.5
             }
         },
         "TileMaps/Kitefall.tmx": {
-            "scale": 2,
+            "scale": 1,
             "selectedLayer": 3,
             "viewCenter": {
-                "x": 196.75,
-                "y": 148.75
+                "x": -107.5,
+                "y": 187.5
+            }
+        },
+        "TileMaps/Route1.tmx": {
+            "scale": 1,
+            "selectedLayer": 3,
+            "viewCenter": {
+                "x": 173.5,
+                "y": 210.5
+            }
+        },
+        "TileMaps/Route2.tmx": {
+            "scale": 1,
+            "selectedLayer": 3,
+            "viewCenter": {
+                "x": -306.5,
+                "y": 210.5
             }
         },
         "TileMaps/Shlap.tmx": {
             "scale": 1,
             "selectedLayer": 3,
             "viewCenter": {
-                "x": 539.5,
+                "x": 373.5,
                 "y": 247.5
             }
         },
@@ -58,6 +74,10 @@
         }
     },
     "last.imagePath": "C:/Users/Xander Adams/Desktop/Game Dev/Woven-Mori/Assets/Art/Tiles",
+    "last.worldFilePath": "C:/Users/Xander Adams/Desktop/Game Dev/Woven-Mori/Assets/Art/Tiles/Tiled/Worlds",
+    "loadedWorlds": [
+        "C:/Users/Xander Adams/Desktop/Game Dev/Woven-Mori/Assets/Art/Tiles/Tiled/Worlds/Mori.world"
+    ],
     "map.height": 20,
     "map.lastUsedFormat": "tmx",
     "map.tileHeight": 16,
