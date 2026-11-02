@@ -3,28 +3,47 @@
         "height": 4300,
         "width": 2
     },
-    "activeFile": "TileMaps/Shlap.tmx",
+    "activeFile": "TileMaps/Kitefall.tmx",
     "expandedProjectPaths": [
-        "Rules",
         "TileMaps",
-        "TileSets"
+        "TileSets",
+        "Rules"
     ],
     "file.lastUsedOpenFilter": "All Files (*)",
     "fileStates": {
+        ":/automap-tiles.tsx": {
+            "scaleInDock": 1
+        },
         "Rules/GrassPathRules.tmx": {
-            "scale": 1,
+            "scale": 5.5,
+            "selectedLayer": 1,
+            "viewCenter": {
+                "x": 240.09090909090912,
+                "y": 320.0909090909091
+            }
+        },
+        "TileMaps/Chime.tmx": {
+            "scale": 1.5,
+            "selectedLayer": 3,
+            "viewCenter": {
+                "x": 266.3333333333333,
+                "y": 175
+            }
+        },
+        "TileMaps/Kitefall.tmx": {
+            "scale": 2.1196875,
             "selectedLayer": 4,
             "viewCenter": {
-                "x": 163.5,
-                "y": 345.5
+                "x": 239.89385227775318,
+                "y": 160.16511867905058
             }
         },
         "TileMaps/Shlap.tmx": {
-            "scale": 2,
+            "scale": 1,
             "selectedLayer": 3,
             "viewCenter": {
-                "x": 497.75,
-                "y": 201.25
+                "x": 239.5,
+                "y": 159.5
             }
         },
         "TileSets/WovenMoriDecorations.tsx": {
@@ -33,23 +52,32 @@
         "TileSets/WovenMoriGrassPath.tsx": {
             "scaleInDock": 1,
             "scaleInEditor": 5.5
+        },
+        "TileSets/WovenMoriWoodHouse.tsx": {
+            "scaleInDock": 1
         }
     },
     "last.imagePath": "C:/Users/Xander Adams/Desktop/Game Dev/Woven-Mori/Assets/Art/Tiles",
-    "map.height": 30,
+    "map.height": 20,
     "map.lastUsedFormat": "tmx",
     "map.tileHeight": 16,
     "map.tileWidth": 16,
     "map.width": 30,
     "openFiles": [
         "TileMaps/Shlap.tmx",
-        "TileSets/WovenMoriGrassPath.tsx"
+        "TileMaps/Chime.tmx",
+        "TileMaps/Kitefall.tmx",
+        "TileSets/WovenMoriGrassPath.tsx",
+        "Rules/GrassPathRules.tmx"
     ],
     "project": "Tiled.tiled-project",
     "property.type": "Encounters",
     "recentFiles": [
+        "TileMaps/Shlap.tmx",
+        "TileMaps/Chime.tmx",
+        "Rules/GrassPathRules.tmx",
         "TileSets/WovenMoriGrassPath.tsx",
-        "TileMaps/Shlap.tmx"
+        "TileMaps/Kitefall.tmx"
     ],
     "tileset.lastUsedFormat": "tsx",
     "tileset.tileSize": {
