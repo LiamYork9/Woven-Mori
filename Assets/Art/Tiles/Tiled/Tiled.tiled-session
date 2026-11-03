@@ -3,7 +3,7 @@
         "height": 4300,
         "width": 2
     },
-    "activeFile": "TileMaps/Kitefall.tmx",
+    "activeFile": "TileMaps/Chime.tmx",
     "expandedProjectPaths": [
         "TileMaps",
         "TileSets",
@@ -23,43 +23,43 @@
             }
         },
         "TileMaps/Chime.tmx": {
-            "scale": 1,
-            "selectedLayer": 3,
+            "scale": 0.75,
+            "selectedLayer": 0,
             "viewCenter": {
-                "x": 653.5,
-                "y": 210.5
+                "x": 239.33333333333326,
+                "y": 159.33333333333331
             }
         },
         "TileMaps/Kitefall.tmx": {
-            "scale": 1,
-            "selectedLayer": 3,
+            "scale": 3,
+            "selectedLayer": 6,
             "viewCenter": {
-                "x": -107.5,
-                "y": 187.5
+                "x": 240.16666666666669,
+                "y": 160.16666666666669
             }
         },
         "TileMaps/Route1.tmx": {
-            "scale": 1,
+            "scale": 0.75,
             "selectedLayer": 3,
             "viewCenter": {
-                "x": 173.5,
-                "y": 210.5
+                "x": 239.33333333333326,
+                "y": 159.33333333333331
             }
         },
         "TileMaps/Route2.tmx": {
-            "scale": 1,
+            "scale": 0.5,
             "selectedLayer": 3,
             "viewCenter": {
-                "x": -306.5,
-                "y": 210.5
+                "x": 239,
+                "y": 159
             }
         },
         "TileMaps/Shlap.tmx": {
             "scale": 1,
             "selectedLayer": 3,
             "viewCenter": {
-                "x": 373.5,
-                "y": 247.5
+                "x": 239.5,
+                "y": 159.5
             }
         },
         "TileSets/WovenMoriDecorations.tsx": {
@@ -70,7 +70,8 @@
             "scaleInEditor": 5.5
         },
         "TileSets/WovenMoriWoodHouse.tsx": {
-            "scaleInDock": 1
+            "scaleInDock": 1,
+            "scaleInEditor": 1
         }
     },
     "last.imagePath": "C:/Users/Xander Adams/Desktop/Game Dev/Woven-Mori/Assets/Art/Tiles",
@@ -86,18 +87,24 @@
     "openFiles": [
         "TileMaps/Shlap.tmx",
         "TileMaps/Chime.tmx",
+        "TileMaps/Route1.tmx",
+        "TileMaps/Route2.tmx",
         "TileMaps/Kitefall.tmx",
         "TileSets/WovenMoriGrassPath.tsx",
-        "Rules/GrassPathRules.tmx"
+        "Rules/GrassPathRules.tmx",
+        "TileSets/WovenMoriWoodHouse.tsx"
     ],
     "project": "Tiled.tiled-project",
     "property.type": "Encounters",
     "recentFiles": [
         "TileMaps/Shlap.tmx",
-        "TileMaps/Chime.tmx",
+        "TileSets/WovenMoriWoodHouse.tsx",
         "Rules/GrassPathRules.tmx",
         "TileSets/WovenMoriGrassPath.tsx",
-        "TileMaps/Kitefall.tmx"
+        "TileMaps/Kitefall.tmx",
+        "TileMaps/Route2.tmx",
+        "TileMaps/Route1.tmx",
+        "TileMaps/Chime.tmx"
     ],
     "tileset.lastUsedFormat": "tsx",
     "tileset.tileSize": {

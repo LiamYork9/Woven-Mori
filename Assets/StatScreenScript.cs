@@ -19,6 +19,7 @@ public class StatScreenScript : MonoBehaviour
 
     public TMP_Text equipText;
 
+    public GameObject menuScreen;
     public GameObject statScreen;
 
     public GameObject inventoryScreen;
@@ -93,19 +94,27 @@ public class StatScreenScript : MonoBehaviour
 
      
     
-       
-
     public void OpenMenu()
+    {
+        
+        screenOn = true;
+        menuScreen.SetActive(true);
+        statScreen.SetActive(false);
+        inventoryScreen.SetActive(false);
+    }
+
+    public void PartyMenu()
     {
        
         weaponButton.SetActive(false);
         armorButton.SetActive(false);
         accessoryButton.SetActive(false);
-         statScreen.SetActive(true);
-         statText.text = "";
+        statScreen.SetActive(true);
+        menuScreen.SetActive(false);
+        statText.text = "";
         screenOn = true;
         partyMemberButton.Clear();
-         foreach (Transform child in buttonParent.transform) 
+        foreach (Transform child in buttonParent.transform) 
         {
             GameObject.Destroy(child.gameObject);
         }
@@ -128,16 +137,17 @@ public class StatScreenScript : MonoBehaviour
 
     public void CloseMenu()
     {
-         equipText.text = "";
-         statScreen.SetActive(false);
-         inventoryScreen.SetActive(false);
+        equipText.text = "";
+        menuScreen.SetActive(false);
+        statScreen.SetActive(false);
+        inventoryScreen.SetActive(false);
         screenOn = false;
         weaponButton.SetActive(false);
         armorButton.SetActive(false);
         accessoryButton.SetActive(false);
         equipMenu.SetActive(false);
         unequipButton.SetActive(false);
-         yesButton.SetActive(false);
+        yesButton.SetActive(false);
         noButton.SetActive(false);
         itemInvButton.SetActive(false);
         equipInvButton.SetActive(false);
@@ -146,7 +156,7 @@ public class StatScreenScript : MonoBehaviour
     public void showStats(PlayerCharacter character)
     {
          
-         unequipButton.SetActive(false);
+        unequipButton.SetActive(false);
         for (int i = 0; i < PartyManager.Instance.party.Count; i++)
         {
            PlayerCharacter temp = PartyManager.Instance.party[i];
@@ -158,14 +168,17 @@ public class StatScreenScript : MonoBehaviour
             {
                 
             
-                if((PartyManager.Instance.party[i]).weapon != null){
-                 temp.equipmentStats[j] += temp.weapon.stats[j];
+                if((PartyManager.Instance.party[i]).weapon != null)
+                {
+                    temp.equipmentStats[j] += temp.weapon.stats[j];
                 }
-                if((PartyManager.Instance.party[i]).armor != null){
-                temp.equipmentStats[j] += temp.armor.stats[j];
+                if((PartyManager.Instance.party[i]).armor != null)
+                {
+                    temp.equipmentStats[j] += temp.armor.stats[j];
                 }
-                if((PartyManager.Instance.party[i] ).accessory != null){
-                temp.equipmentStats[j] += temp.accessory.stats[j];
+                if((PartyManager.Instance.party[i] ).accessory != null)
+                {
+                    temp.equipmentStats[j] += temp.accessory.stats[j];
                 }
 
             }
@@ -201,9 +214,9 @@ public class StatScreenScript : MonoBehaviour
             }
             else
             {
-                    statText.text +=  "\nWeapon: None";
-                    weaponButton.GetComponentInChildren<TextMeshProUGUI>().text =  "None";
-                    weaponButton.GetComponentInChildren<Image>().sprite = DefaultSprite;
+                statText.text +=  "\nWeapon: None";
+                weaponButton.GetComponentInChildren<TextMeshProUGUI>().text =  "None";
+                weaponButton.GetComponentInChildren<Image>().sprite = DefaultSprite;
             }
             if(selectedCharacter.armor != null)
             {
@@ -261,12 +274,13 @@ public class StatScreenScript : MonoBehaviour
         whichInv = 1;
         yesButton.SetActive(false);
         noButton.SetActive(false);
+        menuScreen.SetActive(false);
         statScreen.SetActive(false);
         inventoryScreen.SetActive(true);
 
         inventoryButtons.Clear();
-         partyMemberButton.Clear();
-            foreach (Transform child in invTabs.transform) 
+        partyMemberButton.Clear();
+        foreach (Transform child in invTabs.transform) 
         {
             GameObject.Destroy(child.gameObject);
         }
@@ -313,6 +327,7 @@ public class StatScreenScript : MonoBehaviour
     public void ShowInventoryI()
     {
         whichInv = 2;
+        menuScreen.SetActive(false);
         statScreen.SetActive(false);
         inventoryScreen.SetActive(true);
         inventoryButtons.Clear();
@@ -555,5 +570,10 @@ public class StatScreenScript : MonoBehaviour
     public void SetTargetSlot(int slot)
     {
         targetSlot = slot;
+    }
+
+    public void Quit()
+    {
+        Application.Quit();
     }
 }
