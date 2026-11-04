@@ -22,6 +22,8 @@ public class PartyManager : MonoBehaviour, IDataPersistence
     public bool PM1,PM2,PM3;
 
     public bool staticEncounter;
+    
+    public string encounterID;
 
     public bool rest;
 

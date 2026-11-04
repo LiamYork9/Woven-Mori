@@ -8,7 +8,8 @@ public class DemoChecks : MonoBehaviour
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
-        dialogue.StartDialogue();
+         Invoke("LateStart", 0.1f);
+        
     }
 
     // Update is called once per frame
@@ -18,6 +19,19 @@ public class DemoChecks : MonoBehaviour
         {
             wall.SetActive(false);
         }
+    }
+
+    public void LateStart()
+    {
+        if(PartyManager.Instance.hasTut == false)
+        {
+            dialogue.StartDialogue();
+        }
+    }
+
+    public void HasShopped()
+    {
+        PartyManager.Instance.hasShopped = true;
     }
     
    
