@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   unitName: GreatSlime
   partyMember: 0
-  brain: {fileID: 11400000, guid: 26fd1ffa9954c574380b37aa8ba70b74, type: 2}
+  brain: {fileID: 11400000, guid: 3e4267456e7372c4fae8de037c0e4544, type: 2}
   skills: 050000000a0000000b0000001c00000015000000
   resistance: 00000000
   immunity: 
