@@ -307,7 +307,7 @@ public class BattleManager : MonoBehaviour
             //itemMenu.SetActive(false);
             if (usingSkill == true)
             {
-                SBS.selectedSkill.skillId = SkillId.None;
+                SBS.selectedSkill = null;
                 skillMenu.SetActive(false);
                 usingSkill = false;
                 multiTarget = false;

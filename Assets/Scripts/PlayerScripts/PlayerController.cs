@@ -13,6 +13,8 @@ public class PlayerController : MonoBehaviour
     public LayerMask stopsMovement;
 
     public bool inText;
+
+    public bool dontMove;
     
     public Follower follower = null;
 
@@ -29,6 +31,10 @@ public class PlayerController : MonoBehaviour
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
+        if(PartyManager.Instance.pc == null)
+        {
+            PartyManager.Instance.pc = this;
+        }
         animator = gameObject.GetComponent<Animator>();
         animator.runtimeAnimatorController = PartyManager.Instance.party[0].animator;
 
@@ -59,7 +65,7 @@ public class PlayerController : MonoBehaviour
     void Update()
     {
       
-        if (inText == false)
+        if (inText == false && dontMove == false)
         {
             transform.position = Vector3.MoveTowards(transform.position, movePoint.position, moveSpeed * Time.deltaTime);
             if (Vector3.Distance(transform.position, movePoint.position) < .05f)

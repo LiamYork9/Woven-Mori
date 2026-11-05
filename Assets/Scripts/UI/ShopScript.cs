@@ -46,7 +46,8 @@ public class ShopScript : MonoBehaviour
 
     public void OpenShop()
     {
-        
+        PartyManager.Instance.pc.lookPoint.gameObject.SetActive(false);
+        PartyManager.Instance.pc.dontMove = true;
          foreach (Transform child in shopButtonParent.transform) 
         {
             GameObject.Destroy(child.gameObject);
@@ -65,6 +66,8 @@ public class ShopScript : MonoBehaviour
 
     public void CloseShop()
     {
+        PartyManager.Instance.pc.lookPoint.gameObject.SetActive(true);
+         PartyManager.Instance.pc.dontMove = false;
         Cancel();
          shopScreen.SetActive(false);
     }

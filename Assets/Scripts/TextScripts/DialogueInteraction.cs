@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using NUnit.Framework.Constraints;
 using UnityEngine;
 
 public class DialogueInteraction : MonoBehaviour
@@ -25,6 +26,7 @@ public class DialogueInteraction : MonoBehaviour
     public bool canTalk = true;
 
     public bool tutorial = false;
+
 
 
     
@@ -54,7 +56,7 @@ public class DialogueInteraction : MonoBehaviour
         }
          if(InRange == true && canTalk == true)
             {
-                if (Input.GetKeyDown(KeyCode.Space)&& text.textActive == false && scriptedText == false)
+                if (Input.GetKeyDown(KeyCode.Space)&& text.textActive == false && scriptedText == false && PartyManager.Instance.pc.inText == false)
                {
                     
                     TextBoxManager.Instance.DiologueBox.SetActive(true);

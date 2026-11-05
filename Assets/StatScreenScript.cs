@@ -96,7 +96,7 @@ public class StatScreenScript : MonoBehaviour
     
     public void OpenMenu()
     {
-        
+        PartyManager.Instance.pc.dontMove = true;
         screenOn = true;
         menuScreen.SetActive(true);
         statScreen.SetActive(false);
@@ -137,6 +137,7 @@ public class StatScreenScript : MonoBehaviour
 
     public void CloseMenu()
     {
+         PartyManager.Instance.pc.dontMove = false;
         equipText.text = "";
         menuScreen.SetActive(false);
         statScreen.SetActive(false);

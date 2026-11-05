@@ -27,7 +27,7 @@ MonoBehaviour:
   m_Name: Dialog Segment
   m_EditorClassIdentifier: 
   graph: {fileID: 11400000}
-  position: {x: -993.75366, y: 532.7755}
+  position: {x: 0, y: 0}
   ports:
     keys:
     - input
