@@ -294,14 +294,9 @@ public class Dialogue : MonoBehaviour
          TextBoxManager.Instance.textComponent.text = string.Empty;
         //topBox.SetActive(false);
         EndDialogueEvent.Invoke();
-        Invoke("PleaseShutUp",0.2f);
-        
+        TextBoxManager.Instance.Invoke("PleaseShutUp",0.2f);
     }
 
-    public void PleaseShutUp()
-    {
-        pc.inText = false;
-    }
 
     public void EndDialogueCombat()
     {

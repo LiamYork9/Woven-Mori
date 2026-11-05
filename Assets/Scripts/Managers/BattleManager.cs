@@ -809,6 +809,7 @@ public class BattleManager : MonoBehaviour
                 temp.exp += expEarned;
                 while (temp.exp >= 100*temp.stats.Level)
                 {
+                    winScreen.GetComponent<WinScreenUI>().levelUp=true;
                     temp.exp -= temp.stats.Level*100;
                     temp.LevelUp();
                 }

@@ -63,6 +63,10 @@ public class TextBoxManager : MonoBehaviour
        Instance.nameTextObj.SetActive(false);
          }
     }
+    public void PleaseShutUp()
+    {
+        PartyManager.Instance.pc.inText = false;
+    }
 
     // Update is called once per frame
     void Update()

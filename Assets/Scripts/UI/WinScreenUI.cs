@@ -15,6 +15,8 @@ public class WinScreenUI : MonoBehaviour
 
     public TMP_Text lootText;
 
+    public bool levelUp;
+
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
@@ -27,6 +29,11 @@ public class WinScreenUI : MonoBehaviour
         moneyText.text = "Money Earned: " + BattleManager.Instance.cashEarned;
 
         expText.text = "EXP Earned: " + BattleManager.Instance.expEarned;
+
+        if(levelUp==true)
+        {
+            expText.text += "\n Level Up!!!";
+        }
 
          lootText.text = "Loot Droped: ";
 
@@ -55,6 +62,7 @@ public class WinScreenUI : MonoBehaviour
     {
         BattleManager.Instance.cashEarned = 0;
         BattleManager.Instance.expEarned = 0;
+        levelUp = false;
          SceneManager.LoadScene(PartyManager.Instance.sceneName);
     }
 }
