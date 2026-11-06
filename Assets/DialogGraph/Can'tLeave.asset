@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Dialog Segment
   m_EditorClassIdentifier: 
   graph: {fileID: 11400000}
-  position: {x: 1464, y: 13672}
+  position: {x: 0, y: 0}
   ports:
     keys:
     - input
@@ -40,8 +40,8 @@ MonoBehaviour:
   portrait: {fileID: 9131633466533409437, guid: 70fb655a3fddfae4f84efdc8df292e7c, type: 3}
   speakerName: Rive
   DialogText:
-  - Can't leave yet.
-  - I still some stuff I gotta do.
+  - I can't leave yet.
+  - I still have some stuff I gotta do.
   textSpeed: 0
   endNodeEvent:
   - 

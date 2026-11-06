@@ -51,11 +51,14 @@ MonoBehaviour:
       _connectionType: 0
       _typeConstraint: 0
       _dynamic: 0
-  portrait: {fileID: 0}
+  portrait: {fileID: 21300000, guid: 7ef42231652fcda41b73cf85791d6841, type: 3}
   speakerName: Slime
   DialogText:
   - 'Now you are ready '
-  - Get out of here and go save KIteFalll
+  - "As you battle you\u2019ll gain exp and level up.  "
+  - "Be on the look out at level 15 you\u2019ll gain a new skill.  "
+  - "Zeph is strong and you\u2019ll face monsters on the way so be ready.  "
+  - 'Now get out of here and go save Kitefall. '
   textSpeed: 0
   endNodeEvent: []
   startNodeEvent: []

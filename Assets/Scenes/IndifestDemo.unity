@@ -4833,7 +4833,7 @@ MonoBehaviour:
   eventNames:
   - StartFight
   - NoFlee
-  - Escape
+  - Escaped
 --- !u!114 &1240209954
 MonoBehaviour:
   m_ObjectHideFlags: 0

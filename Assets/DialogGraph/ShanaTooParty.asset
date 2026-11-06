@@ -58,7 +58,8 @@ MonoBehaviour:
   portrait: {fileID: 9131633466533409437, guid: 70fb655a3fddfae4f84efdc8df292e7c, type: 3}
   speakerName: Rive
   DialogText:
-  - 'I think I''m ready '
+  - 'Shana we have to go help Kitefall!  '
+  - 'I think I''m ready. '
   textSpeed: 0
   endNodeEvent: []
   startNodeEvent: []
@@ -102,12 +103,14 @@ MonoBehaviour:
       _connectionType: 0
       _typeConstraint: 0
       _dynamic: 0
-  portrait: {fileID: 8048390266147319314, guid: 660ca993978f33947be4a31baa8a7108, type: 3}
+  portrait: {fileID: -241550066969217806, guid: 1acfa02fd4e21b34ab815885ff95ebf9, type: 3}
   speakerName: Shana
   DialogText:
-  - Good. Let's grab some gear from the shop next door.
-  - After will give quick refresher on how to fight.
-  - 'There should be a slime around here willing to give us a hand. '
+  - 'I know Rive. Zeph has gone mad attacking the town. '
+  - 'Good to see you take some initiative '
+  - 'Let''s grab some gear from the shop next door. '
+  - Afterwards I will give a quick refresher on how to fight.
+  - 'There should be a slime around here willing to give us a hand.  '
   textSpeed: 0
   endNodeEvent:
   - AddToParty

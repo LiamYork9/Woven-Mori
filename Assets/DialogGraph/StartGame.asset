@@ -51,11 +51,11 @@ MonoBehaviour:
       _connectionType: 0
       _typeConstraint: 0
       _dynamic: 0
-  portrait: {fileID: 0}
+  portrait: {fileID: 9131633466533409437, guid: 70fb655a3fddfae4f84efdc8df292e7c, type: 3}
   speakerName: Rive
   DialogText:
-  - Kite Fall to the east seems to be under attack.
-  - I should go get Master Shana and see what we should do.
+  - Kitefall to the east seems to be under attack.
+  - I should go get master Shana and see what we should do.
   - 'Her house is to the north of me. '
   textSpeed: 0
   endNodeEvent: []
