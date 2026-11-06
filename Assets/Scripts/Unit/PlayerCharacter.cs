@@ -198,6 +198,13 @@ public class PlayerCharacter : Unit
         }
         
     }
+    public void LevelUp(int level)
+    {
+        for(int i=0;i<level;i++)
+        {
+            LevelUp();
+        }   
+    }
 
     public void ResetLevel()
     {
@@ -205,6 +212,13 @@ public class PlayerCharacter : Unit
         exp = 0;
         skills.Clear();
         LevelUp();
+    }
+
+    public void ClearEquipment()
+    {
+        armor = null;
+        weapon = null;
+        accessory = null;
     }
 
 
