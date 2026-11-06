@@ -25,7 +25,7 @@ MonoBehaviour:
   stats:
     Level: 10
     MaxHP: 35
-    CurrentHP: 33
+    CurrentHP: 35
     Attack: 16
     Defense: 13
     Mdefense: 20
