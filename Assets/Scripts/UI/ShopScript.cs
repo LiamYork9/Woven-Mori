@@ -19,7 +19,7 @@ public class ShopScript : MonoBehaviour
 
     public GameObject itemButtonPrefab,upButton,downButton,canelButton,buyButton;
 
-    public TMP_Text shopText,buyAmountText;
+    public TMP_Text shopText,buyAmountText,yourgold;
 
     public GameObject selectedItemImage;
 
@@ -46,6 +46,7 @@ public class ShopScript : MonoBehaviour
 
     public void OpenShop()
     {
+        yourgold.text ="Your Gold:  " + PartyManager.Instance.funds;
         PartyManager.Instance.pc.lookPoint.gameObject.SetActive(false);
         PartyManager.Instance.pc.dontMove = true;
          foreach (Transform child in shopButtonParent.transform) 
@@ -91,6 +92,7 @@ public class ShopScript : MonoBehaviour
 
     public void AddAmount()
     {
+         yourgold.text ="Your Gold:  " + PartyManager.Instance.funds;
         Item temp =  selectedItemImage.GetComponent<ItemToolTipScript>().item;
         int max = FindMax(temp);
         buyAmount += 1;
@@ -179,6 +181,7 @@ public class ShopScript : MonoBehaviour
         
             InventoryManager.Instance.PickUp(selectedItemImage.GetComponent<ItemToolTipScript>().item,buyAmount);
         }
+         yourgold.text ="Your Gold:  " + PartyManager.Instance.funds;
         Cancel();
        
         

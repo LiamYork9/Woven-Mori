@@ -41,7 +41,7 @@ MonoBehaviour:
     fate: DemoFate
   fatedPoints: []
   equipmentStats: 000000000000000000000000000000000000000000000000
-  expYield: 130
+  expYield: 550
   money: 100
   lootTable: []
   dropChance: 20

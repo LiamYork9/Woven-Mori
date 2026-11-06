@@ -56,15 +56,15 @@ public class TutorialCombat : MonoBehaviour
 
     public void BodyToTurn(List<UnitBody> units)
     {
-       
-       foreach(GameObject gameObject in TurnOrderManager.Instance.allFighters)
+       List<GameObject> temp = new List<GameObject>();
+       temp.AddRange(BattleManager.Instance.playerSlots);
+       temp.AddRange(BattleManager.Instance.enemySlots);
+       foreach(GameObject gameObject in temp)
         {
             gameObject.GetComponent<UnitBody>().turnsAdded =0;
         }
         foreach(UnitBody tempUnit in units)
         {
-            
-        
             Turn tempTurn = new Turn();
             tempTurn.PopulateTurn(tempUnit,tempUnit.CheckFate(),tempUnit.GetFate());
             fuckYouTurnManger.Add(tempTurn);

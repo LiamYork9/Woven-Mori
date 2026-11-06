@@ -102,6 +102,7 @@ public class BattleManager : MonoBehaviour
     public int expEarned = 0;
 
     public int cashEarned = 0;
+    public bool lootGiven = false;
 
     public GameObject itemMenu;
 
@@ -793,30 +794,35 @@ public class BattleManager : MonoBehaviour
     {
         if (fightState ==  FightState.Won)
         {
-            PartyManager.Instance.funds += cashEarned;
             ButtonsOff();
-            for (int i = 0; i < PartyManager.Instance.party.Count; i++)
+            if(lootGiven == false)
             {
-                PlayerCharacter temp = PartyManager.Instance.party[i];
-
-                for (int j = 0; j < defaultPlayerSlots[i].GetComponent<UnitBody>().conditions.Count; j++)
+                lootGiven=true;
+                PartyManager.Instance.funds += cashEarned;
+                
+                for (int i = 0; i < PartyManager.Instance.party.Count; i++)
                 {
-                    defaultPlayerSlots[i].GetComponent<UnitBody>().conditions[j].RemoveCondition();
-                }
-                defaultPlayerSlots[i].GetComponent<UnitBody>().baseStats.CurrentHP = defaultPlayerSlots[i].GetComponent<UnitBody>().activeStats.CurrentHP;
+                    PlayerCharacter temp = PartyManager.Instance.party[i];
 
-                temp.CopyStats(defaultPlayerSlots[i].GetComponent<UnitBody>());
-                temp.exp += expEarned;
-                while (temp.exp >= 100*temp.stats.Level)
-                {
-                    winScreen.GetComponent<WinScreenUI>().levelUp=true;
-                    temp.exp -= temp.stats.Level*100;
-                    temp.LevelUp();
+                    for (int j = 0; j < defaultPlayerSlots[i].GetComponent<UnitBody>().conditions.Count; j++)
+                    {
+                        defaultPlayerSlots[i].GetComponent<UnitBody>().conditions[j].RemoveCondition();
+                    }
+                    defaultPlayerSlots[i].GetComponent<UnitBody>().baseStats.CurrentHP = defaultPlayerSlots[i].GetComponent<UnitBody>().activeStats.CurrentHP;
+
+                    temp.CopyStats(defaultPlayerSlots[i].GetComponent<UnitBody>());
+                    temp.exp += expEarned;
+                    while (temp.exp >= 100*temp.stats.Level)
+                    {
+                        winScreen.GetComponent<WinScreenUI>().levelUp=true;
+                        temp.exp -= temp.stats.Level*100;
+                        temp.LevelUp();
+                    }
                 }
-            }
-            for (int i = 0; i < loot.Count; i++)
-            {
-                InventoryManager.Instance.PickUp(loot[i].item, loot[i].amount);
+                for (int i = 0; i < loot.Count; i++)
+                {
+                    InventoryManager.Instance.PickUp(loot[i].item, loot[i].amount);
+                }
             }
             dialogueText.text = "You Win!";
 

@@ -27,7 +27,7 @@ MonoBehaviour:
   m_Name: Dialog Segment
   m_EditorClassIdentifier: 
   graph: {fileID: 11400000}
-  position: {x: -1099.7999, y: 490.99988}
+  position: {x: 0, y: 0}
   ports:
     keys:
     - input
@@ -51,7 +51,7 @@ MonoBehaviour:
       _connectionType: 0
       _typeConstraint: 0
       _dynamic: 0
-  portrait: {fileID: 0}
+  portrait: {fileID: 21300000, guid: 7ef42231652fcda41b73cf85791d6841, type: 3}
   speakerName: Slime
   DialogText:
   - Wonna test your stuff huh?
@@ -60,4 +60,5 @@ MonoBehaviour:
   endNodeEvent:
   - StartFight
   - FightTrue
+  - NoFlee
   startNodeEvent: []

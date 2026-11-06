@@ -54,13 +54,14 @@ MonoBehaviour:
   portrait: {fileID: -241550066969217806, guid: 1acfa02fd4e21b34ab815885ff95ebf9, type: 3}
   speakerName: Shana
   DialogText:
-  - To open the menu click esc.
-  - 'Then click inventory to see all the items you have. You can press escape again
-    to back out.   '
-  - 'It will show you what can be equipped in that slot. Click on the item to do
-    so. If you want to unequip it just click the slot and press unequip.  '
-  - 'Click on the labeled buttons at the top to switch party members you are looking
-    at.  '
+  - 'To open the menu press esc. '
+  - 'Then use the mouse to click party. '
+  - To equip your equipment click on one of the 3 slots below your stats.
+  - Click on the labeled buttons at the top to switch party members you are looking
+    at.
+  - Press esc to go back. Click inventory to see all the items you have.
+  - 'If you want to use an item outside of battle just click it then select who you
+    want to use it on.  '
   textSpeed: 0
   endNodeEvent:
   - LookPoint

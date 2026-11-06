@@ -51,7 +51,7 @@ MonoBehaviour:
       _connectionType: 0
       _typeConstraint: 0
       _dynamic: 0
-  portrait: {fileID: 0}
+  portrait: {fileID: -241550066969217806, guid: 1acfa02fd4e21b34ab815885ff95ebf9, type: 3}
   speakerName: Shana
   DialogText:
   - 'Gotta be careful when using Turn Shift cause at times depending how far you
