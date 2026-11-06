@@ -38,6 +38,8 @@ public class PartyManager : MonoBehaviour, IDataPersistence
     public bool hasShopped;
     public bool hasTut;
 
+    public PlayerController pc;
+
     public static PartyManager GetInstance()
     {
         return Instance;

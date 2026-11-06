@@ -83,7 +83,7 @@ public class StatScreenScript : MonoBehaviour
         CurrentParty.text = "Current Party: ";
         for(int i = 0; i<PartyManager.Instance.party.Count; i++)
         {
-            CurrentParty.text += PartyManager.Instance.party[i].name + ", ";
+            CurrentParty.text += PartyManager.Instance.party[i].unitName + ", ";
         }
 
         
@@ -96,7 +96,7 @@ public class StatScreenScript : MonoBehaviour
     
     public void OpenMenu()
     {
-        
+        PartyManager.Instance.pc.dontMove = true;
         screenOn = true;
         menuScreen.SetActive(true);
         statScreen.SetActive(false);
@@ -129,7 +129,7 @@ public class StatScreenScript : MonoBehaviour
         }
          for(int i = 0; i < partyMemberButton.Count; i++)
         {
-            partyMemberButton[i].GetComponentInChildren<TextMeshProUGUI>().text = PartyManager.Instance.party[i].name;
+            partyMemberButton[i].GetComponentInChildren<TextMeshProUGUI>().text = PartyManager.Instance.party[i].unitName;
         }
         showStats(partyMemberButton[0].GetComponent<InventoryCharacter>().character);
     
@@ -137,6 +137,7 @@ public class StatScreenScript : MonoBehaviour
 
     public void CloseMenu()
     {
+         PartyManager.Instance.pc.dontMove = false;
         equipText.text = "";
         menuScreen.SetActive(false);
         statScreen.SetActive(false);
@@ -198,7 +199,7 @@ public class StatScreenScript : MonoBehaviour
       for(int i = 0; i < partyMemberButton.Count; i++)
         {
             selectedCharacter = character;
-            statText.text = "" + selectedCharacter.name + " Lv:" + selectedCharacter.stats.Level + "\n" +
+            statText.text = "Gold: " + PartyManager.Instance.funds + "gp\n\n" + selectedCharacter.unitName + " Lv:" + selectedCharacter.stats.Level + "     Exp: " + selectedCharacter.exp + "\n" +
             "HP: " + selectedCharacter.stats.CurrentHP + "/" + (selectedCharacter.stats.MaxHP + selectedCharacter.equipmentStats[4] ) + " ("+selectedCharacter.stats.MaxHP+"+"+selectedCharacter.equipmentStats[4]+")" + "\n" +
             "Attack: " + selectedCharacter.stats.Attack + " + " + selectedCharacter.equipmentStats[0] +"\n" +
             "Defense: " + selectedCharacter.stats.Defense + " + " + selectedCharacter.equipmentStats[1] + "\n" +

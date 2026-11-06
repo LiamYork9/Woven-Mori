@@ -1,0 +1,33 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3b245779f896312409327a1260ef34c5, type: 3}
+  m_Name: MiniBossDemo
+  m_EditorClassIdentifier: 
+  fates:
+  - code: FiredUp
+    skillId: 14
+    targetingOverride: 1
+    newTargeting: 6
+    isFree: 1
+  categoryPref:
+  - category: 0
+    weight: 1
+  chosenCategory:
+  - chosenCategory: 0
+    preferences:
+    - target: 0
+      weight: 5
+    - target: 7
+      weight: 3
+  useRandom: 0
+  basicAttackChance: 30
+  basicAttackStyle: 7

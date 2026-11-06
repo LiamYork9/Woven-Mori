@@ -307,7 +307,7 @@ public class BattleManager : MonoBehaviour
             //itemMenu.SetActive(false);
             if (usingSkill == true)
             {
-                SBS.selectedSkill.skillId = SkillId.None;
+                SBS.selectedSkill = null;
                 skillMenu.SetActive(false);
                 usingSkill = false;
                 multiTarget = false;
@@ -809,6 +809,7 @@ public class BattleManager : MonoBehaviour
                 temp.exp += expEarned;
                 while (temp.exp >= 100*temp.stats.Level)
                 {
+                    winScreen.GetComponent<WinScreenUI>().levelUp=true;
                     temp.exp -= temp.stats.Level*100;
                     temp.LevelUp();
                 }

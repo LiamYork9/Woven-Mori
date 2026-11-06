@@ -284,7 +284,7 @@ public class Dialogue : MonoBehaviour
             Destroy(child.gameObject);
         }
         textActive = false;
-        pc.inText = false;
+        
         TextBoxManager.Instance.textBox.Play("CloseBox");
         TextBoxManager.Instance.topBoxAnim.Play("CloseTopBox");
         //gameObject.SetActive(false);
@@ -294,8 +294,9 @@ public class Dialogue : MonoBehaviour
          TextBoxManager.Instance.textComponent.text = string.Empty;
         //topBox.SetActive(false);
         EndDialogueEvent.Invoke();
-        
+        TextBoxManager.Instance.Invoke("PleaseShutUp",0.2f);
     }
+
 
     public void EndDialogueCombat()
     {
