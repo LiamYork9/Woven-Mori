@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 13193e4b6e394ec4fa0a6f52edf13338, type: 3}
   m_Name: basicHeal
   m_EditorClassIdentifier: 
-  itemSprite: {fileID: 1770515669, guid: 891589fc4e6a1ab419264f6b18766149, type: 3}
+  itemSprite: {fileID: -616921999633494374, guid: 7a71263f5c2351b4da241138c48714e6, type: 3}
   itemName: Potion
   itemDescription: It heals 100 HP
   value: 10

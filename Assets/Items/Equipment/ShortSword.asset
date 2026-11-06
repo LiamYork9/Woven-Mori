@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   itemSprite: {fileID: 5047037500493358118, guid: 196eab54e2c7eb5418064d1d5649ef1b, type: 3}
   itemName: Short Sword
-  itemDescription: '"I Found this on the ground."'
+  itemDescription: 'A simple sword that adds +5 to your attack. '
   value: 10
   sellValue: 5
   stackable: 1

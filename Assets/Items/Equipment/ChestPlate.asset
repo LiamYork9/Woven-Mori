@@ -14,12 +14,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   itemSprite: {fileID: 4291418806517862016, guid: 196eab54e2c7eb5418064d1d5649ef1b, type: 3}
   itemName: Chestplate
-  itemDescription: '"Nice and Sturdy"'
+  itemDescription: 'A simple chestplate that adds +3 to your defence. '
   value: 10
   sellValue: 5
   stackable: 1
   maxStack: 99
   classList: -1
   equipmentAttrs: []
-  availableNumber: 2
+  availableNumber: 1
   stats: 000000000300000000000000000000000000000000000000

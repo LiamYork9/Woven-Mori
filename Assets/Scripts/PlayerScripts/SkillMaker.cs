@@ -133,7 +133,7 @@ public class SkillMaker : MonoBehaviour
         madeSkills.Add(Berserk);
         
         
-        Skill Rampage = new Skill(SkillId.Rampage, "Rampage",10 , Element.None, Target.multipleEnemy,Category.Attack,2,"Strike multiple Foes",2)
+        Skill Rampage = new Skill(SkillId.Rampage, "Rampage",15 , Element.None, Target.multipleEnemy,Category.Attack,2,"Hit all enemies dealing Physical damage.",2)
         .Attr(new DamageAttr(1,DamageType.Physical));
         madeSkills.Add(Rampage);
         
@@ -236,7 +236,7 @@ public class SkillMaker : MonoBehaviour
         .Attr(new ApplyPoisonAttr(3,3,10));
         madeSkills.Add(PoisonBite);
 
-        Skill Quake = new Skill(SkillId.Quake,"Quake",10,Element.Earth,Target.single,Category.Attack,1, "On turns 1-14 attack that applies stacks of tremor equal to your AC, on turns 15 or more hit all enemies strength with a Physical Earth damage that scales with the Turn Count",1)
+        Skill Quake = new Skill(SkillId.Quake,"Quake",10,Element.Earth,Target.single,Category.Attack,1, "On turns 1-14 Physical Earth attack that applies stacks of tremor equal to your AC, on turn 15 or later hit all enemies with a Physical Earth attack that adds half the Turn Count to its power.",1)
         .Condition(new HighLowCondition(
             /*High Stats */
             10 , Element.Earth, Target.multipleEnemy, Category.Attack, 2, 2, 
@@ -273,7 +273,7 @@ public class SkillMaker : MonoBehaviour
         .Attr(new PriorityAttr(-2,3));
         madeSkills.Add(AColdWindBlows);
 
-        Skill FlipTheGlass = new Skill(SkillId.FlipTheGlass, "Flip The Glass",10,Element.None,Target.single,Category.Status,1,"On Low turns Add your Action Count to the turn count. On high turns do damage to all enemies based on the turn count and set the turn count to One",2)
+        Skill FlipTheGlass = new Skill(SkillId.FlipTheGlass, "Flip The Glass",10,Element.None,Target.single,Category.Status,1,"On turns 1-19 Add your Action Count to the turn count and heal all allies. On turn 20 or later deal  magic fate damage based on the turn count and set the turn count to one",2)
         .Condition(new HighLowCondition(
             /*High Stats */
             0 , Element.Fate, Target.single, Category.Attack, 3, -2, 

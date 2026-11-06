@@ -12,14 +12,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 31aa37704f81cfc45aaca42d462239a4, type: 3}
   m_Name: EnchantedBracelet
   m_EditorClassIdentifier: 
-  itemSprite: {fileID: 0}
+  itemSprite: {fileID: 4875399412855903191, guid: 7a71263f5c2351b4da241138c48714e6, type: 3}
   itemName: Enchanted Bracelet
-  itemDescription: 
+  itemDescription: 'A magic band that adds +3 to your magic defence. '
   value: 15
   sellValue: 5
   stackable: 1
   maxStack: 4
   classList: -1
   equipmentAttrs: []
-  availableNumber: 2
+  availableNumber: 1
   stats: 000000000000000003000000000000000000000000000000

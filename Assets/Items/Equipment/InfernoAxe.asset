@@ -12,9 +12,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a398312ae691eff42b022ce6c9f50145, type: 3}
   m_Name: InfernoAxe
   m_EditorClassIdentifier: 
-  itemSprite: {fileID: 0}
+  itemSprite: {fileID: 6338415885619198369, guid: 7a71263f5c2351b4da241138c48714e6, type: 3}
   itemName: Inferno Axe
-  itemDescription: A flameing axe
+  itemDescription: 'A flaming axe that adds +5 to your attack. Makes your attack
+    command deal fire damage. '
   value: 0
   sellValue: 100
   stackable: 0
